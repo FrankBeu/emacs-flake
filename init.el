@@ -17,7 +17,7 @@
 
 ;;;; load configs
 
-(fb/loadConfigFile "misc/misc.el")
 (fb/loadConfigFile "elisp/elisp.el")
+(fb/loadConfigFile "global/0-global.el")
 (fb/loadConfigFile "orgmode/0-orgmode.el")
 (fb/loadConfigFile "outline/0-outline.el")

@@ -1,5 +1,8 @@
 ;;; misc
 
+;;;; serverMode
+(server-start)
+
 ;;;; layout
 
 ;;;;; hide toolbar
