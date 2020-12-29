@@ -1,6 +1,18 @@
 ;;; emacs-init
 
-;;;; functions, global
+
+;;;; nixos-packages
+
+(require 'package)
+
+;; optional. makes unpure packages archives unavailable
+(setq package-archives nil)
+
+(setq package-enable-at-startup nil)
+(package-initialize)
+
+
+;;;; functions: loadConfig
 
 (defun fb/getPathToConfigFile (filename)
        "Returns concatenation of \"HOME\" , \".emacs.d/\" and the passed \"filename\"."
