@@ -11,8 +11,8 @@
 (toggle-scroll-bar -1)
 
 ;;;;; color-themes
-(load-theme 'deeper-blue)
-;; (load-theme 'wombat)
+;; (load-theme 'deeper-blue)
+(load-theme 'wombat)
 
 ;;;; font
 (set-face-attribute 'default nil :height 160)  ;;; height/10 =^= px
