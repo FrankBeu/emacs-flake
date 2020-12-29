@@ -1,0 +1,3 @@
+;;; magit
+
+(use-package magit)

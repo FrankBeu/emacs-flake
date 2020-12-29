@@ -13,9 +13,12 @@
 ;;;;; color-themes
 ;; (load-theme 'deeper-blue)
 ;; (load-theme 'wombat)
-(load-theme 'zerodark)
+(load-theme 'zerodark 'no-confirm)
 
 ;;;; font
+;; (set-frame-font "Roboto Mono 12" nil t)
+(set-frame-font "Noto Sans Mono 12" nil t)
+;; list all available fonts *scratch*: (font-family-list)
 (set-face-attribute 'default nil :height 160)  ;;; height/10 =^= px
 
 

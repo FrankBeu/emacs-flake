@@ -1,5 +1,8 @@
 ;;; orgmode
 
+;;;; filemodes
+  (fb/loadConfigFile "global/filemodes.el")
+
 ;;;; miscellaneous
   (fb/loadConfigFile "global/misc.el")
 
