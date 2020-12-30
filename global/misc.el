@@ -19,11 +19,13 @@
 ;;;; font
 ;; (set-frame-font "Roboto Mono 12" nil t)
 ;; (set-frame-font "Noto Sans Mono 12" nil t)
-;; list all available fonts *scratch*: (font-family-list)
+;; list all available fonts *scratch*: (font-family-list) C-j
 ;; (set-face-attribute 'default nil :height 160)  ;;; height/10 =^= px
-;; (set-face-attribute 'default nil :font "Roboto Mono" :height 160)  ;;; height/10 =^= px
-;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height 160)  ;;; height/10 =^= px
-(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 160)  ;;; height/10 =^= px
+;; (set-face-attribute 'default nil :font "Roboto Mono" :height 160)  ;;; height/10 ≙ px
+;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height 160)  ;;; height/10 ≙ px
+;; (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 160)  ;;; height/10 ≙ px
+;; (set-face-attribute 'default nil :font "Iosevka Term" :height 160)  ;;; height/10 ≙ px
+(set-face-attribute 'default nil :font "Hack" :height 160)  ;;; height/10 ≙ px
 
 
 ;;;; misc
