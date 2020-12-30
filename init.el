@@ -9,7 +9,8 @@
 (setq package-archives nil)
 
 (setq package-enable-at-startup nil)
-(package-initialize 'no-activate)
+;; (package-initialize 'no-activate)
+(package-initialize)
 (eval-when-compile
  (require 'use-package))
 
