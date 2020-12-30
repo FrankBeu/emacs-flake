@@ -3,10 +3,9 @@
 
 ;;;; nixos-packages
 
-(require 'package)
+(require 'package)  ;; package-loading
 
-;; optional. makes unpure packages archives unavailable
-(setq package-archives nil)
+(setq package-archives nil)  ;; optional. makes unpure packages archives unavailable
 
 (setq package-enable-at-startup nil)
 ;; (package-initialize 'no-activate)
@@ -32,8 +31,13 @@
 
 ;;;; load configs
 
+(fb/loadConfigFile "auctex/auctex.el")
+(fb/loadConfigFile "completion/0-completion.el")
 (fb/loadConfigFile "elisp/elisp.el")
+(fb/loadConfigFile "evil/0-evil.el")
 (fb/loadConfigFile "global/0-global.el")
 (fb/loadConfigFile "magit/magit.el")
+(fb/loadConfigFile "modeline/doom-modeline.el")
 (fb/loadConfigFile "orgmode/0-orgmode.el")
 (fb/loadConfigFile "outline/0-outline.el")
+(fb/loadConfigFile "themes/themes.el")

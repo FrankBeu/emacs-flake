@@ -5,16 +5,12 @@
 
 ;;;; layout
 
-;;;;; hide toolbar
-(tool-bar-mode -1)
+;;;;; minimal interface
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
-
-;;;;; color-themes
-;; (load-theme 'deeper-blue)
-;; (load-theme 'wombat)
-(load-theme 'zerodark 'no-confirm)
-(zerodark-setup-modeline-format)
+(set-fringe-mode 10)
+(tool-bar-mode -1)
+(tooltip-mode -1)
 
 ;;;; font
 ;; (set-frame-font "Roboto Mono 12" nil t)
@@ -30,8 +26,10 @@
 
 ;;;; misc
 ;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
+(setq inhibit-startup-message t )      ;;; inhibit startup message
 (setq initial-scratch-message "")      ;;; print a default message in the empty scratch buffer opened at startup
-(setq ring-bell-function 'ignore )     ;;; silent bell when you make a mistake
+;; (setq ring-bell-function 'ignore )     ;;; silent bell when you make a mistake
+;; (setq visible-bell t)                  ;;; visible bell when you make a mistake - doom-modeline takes care
 (setq coding-system-for-read 'utf-8 )  ;;; use utf-8 by default
 (setq coding-system-for-write 'utf-8 )
 (setq sentence-end-double-space nil)   ;;; sentence SHOULD end with only a point.
