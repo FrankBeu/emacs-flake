@@ -8,18 +8,22 @@
 ;;;;; hide toolbar
 (tool-bar-mode -1)
 (menu-bar-mode -1)
-(toggle-scroll-bar -1)
+(scroll-bar-mode -1)
 
 ;;;;; color-themes
 ;; (load-theme 'deeper-blue)
 ;; (load-theme 'wombat)
 (load-theme 'zerodark 'no-confirm)
+(zerodark-setup-modeline-format)
 
 ;;;; font
 ;; (set-frame-font "Roboto Mono 12" nil t)
-(set-frame-font "Noto Sans Mono 12" nil t)
+;; (set-frame-font "Noto Sans Mono 12" nil t)
 ;; list all available fonts *scratch*: (font-family-list)
-(set-face-attribute 'default nil :height 160)  ;;; height/10 =^= px
+;; (set-face-attribute 'default nil :height 160)  ;;; height/10 =^= px
+;; (set-face-attribute 'default nil :font "Roboto Mono" :height 160)  ;;; height/10 =^= px
+;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height 160)  ;;; height/10 =^= px
+(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 160)  ;;; height/10 =^= px
 
 
 ;;;; misc
