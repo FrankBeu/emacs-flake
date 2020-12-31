@@ -33,7 +33,7 @@
   ;; (load-theme 'doom-Iosvkem t)
   ;; (load-theme 'doom-laserwave t)
   ;; (load-theme 'doom-manegarm t)
-  (load-theme 'doom-material t)                     ;; +
+  ;; (load-theme 'doom-material t)                    ;; +
   ;; (load-theme 'doom-molokai t)
   ;; (load-theme 'doom-monokai-classic t)
   ;; (load-theme 'doom-monokai-pro t)
@@ -49,7 +49,7 @@
   ;; (load-theme 'doom-opera-light t)
   ;; (load-theme 'doom-opera t)
   ;; (load-theme 'doom-outrun-electric t)
-  ;; (load-theme 'doom-palenight t)
+  (load-theme 'doom-palenight t)
   ;; (load-theme 'doom-peacock t)
   ;; (load-theme 'doom-rouge t)
   ;; (load-theme 'doom-snazzy t)

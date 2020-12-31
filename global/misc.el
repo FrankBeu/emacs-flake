@@ -1,6 +1,7 @@
 ;;; misc
 
 ;;;; serverMode
+
 (server-start)
 
 ;;;; layout
@@ -12,19 +13,43 @@
 (tool-bar-mode -1)
 (tooltip-mode -1)
 
+
 ;;;; font
+
+(defvar fb/default-font-size 160)  ;; height/10 ≙ px
 ;; (set-frame-font "Roboto Mono 12" nil t)
 ;; (set-frame-font "Noto Sans Mono 12" nil t)
 ;; list all available fonts *scratch*: (font-family-list) C-j
-;; (set-face-attribute 'default nil :height 160)  ;;; height/10 =^= px
-;; (set-face-attribute 'default nil :font "Roboto Mono" :height 160)  ;;; height/10 ≙ px
-;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height 160)  ;;; height/10 ≙ px
-;; (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 160)  ;;; height/10 ≙ px
-;; (set-face-attribute 'default nil :font "Iosevka Term" :height 160)  ;;; height/10 ≙ px
-(set-face-attribute 'default nil :font "Hack" :height 160)  ;;; height/10 ≙ px
+;; (set-face-attribute 'default nil :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Roboto Mono" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Iosevka Term" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Hack" :height fb/default-font-size)
+(set-face-attribute 'default nil :font "Fira Code" :height fb/default-font-size)
 
+;;;;; fira-code-mode
+;; view ./modes.el:fira-code-mode
+
+
+;;;; line-numbers
+
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some modes
+(dolist (mode '(
+		eshell-mode-hook
+		org-mode-hook
+		shell-mode-hook
+		term-mode-hook
+		)
+	      )
+  (add-hook mode (lambda () (display-line-numbers-mode 0)))
+  )
 
 ;;;; misc
+
 ;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
 (setq inhibit-startup-message t )      ;;; inhibit startup message
 (setq initial-scratch-message "")      ;;; print a default message in the empty scratch buffer opened at startup

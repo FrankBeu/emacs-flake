@@ -24,6 +24,17 @@
 ;; (setq projectile-completion-system 'ivy)
 
 
+;;;; ivy-rich
+
+(use-package all-the-icons-ivy-rich
+  :init (all-the-icons-ivy-rich-mode 1)
+  )
+
+(use-package ivy-rich
+  :init (ivy-rich-mode 1)
+  )
+
+
 ;;;; counsel
 
 (use-package counsel
