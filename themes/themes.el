@@ -23,7 +23,7 @@
   ;; (load-theme 'doom-challenger-deep t)
   ;; (load-theme 'doom-city-lights t)
   ;; (load-theme 'doom-dark+ t)                       ;; +
-  ;; (load-theme 'doom-dracula t)                     ;; +
+  (load-theme 'doom-dracula t)                     ;; +
   ;; (load-theme 'doom-ephemeral t)
   ;; (load-theme 'doom-fairy-floss t)
   ;; (load-theme 'doom-gruvbox-light t)
@@ -49,7 +49,7 @@
   ;; (load-theme 'doom-opera-light t)
   ;; (load-theme 'doom-opera t)
   ;; (load-theme 'doom-outrun-electric t)
-  (load-theme 'doom-palenight t)
+  ;; (load-theme 'doom-palenight t)
   ;; (load-theme 'doom-peacock t)
   ;; (load-theme 'doom-rouge t)
   ;; (load-theme 'doom-snazzy t)

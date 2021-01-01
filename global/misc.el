@@ -53,8 +53,8 @@
 ;;;; window-splitting
 
 (setq
-   split-width-threshold 0
-   split-height-threshold nil)
+ split-width-threshold 0
+ split-height-threshold nil)
 
 
 ;;;; misc

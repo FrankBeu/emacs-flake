@@ -1,5 +1,5 @@
 ;;; completion
 
 ;;;; ivy
-  (fb/loadConfigFile "completion/ivy.el")
+(fb/loadConfigFile "completion/ivy.el")
 

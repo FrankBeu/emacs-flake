@@ -7,11 +7,11 @@
 ;; (global-set-key (kbd "C-c a") 'org-agenda)
 ;; (global-set-key (kbd "C-c c") 'org-capture)
 (general-define-key
-  :prefix "C-c"
-  "l" 'org-store-link
-  "a" 'org-agenda
-  "c" 'org-capture
-  )
+ :prefix "C-c"
+ "l" 'org-store-link
+ "a" 'org-agenda
+ "c" 'org-capture
+ )
 
 ;;;; ESC
 

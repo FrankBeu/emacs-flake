@@ -53,8 +53,8 @@
 ;; TEST: quit helpful buffer with q
 
 (use-package evil-collection
- :after evil
- :config
- (evil-collection-init)
- )
+  :after evil
+  :config
+  (evil-collection-init)
+  )
 
