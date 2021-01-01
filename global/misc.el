@@ -33,7 +33,7 @@
 ;; view ./modes.el:fira-code-mode
 
 
-;;;; line-numbers
+;;; line-numbers
 
 (column-number-mode)
 (global-display-line-numbers-mode t)
@@ -41,6 +41,7 @@
 ;; Disable line numbers for some modes
 (dolist (mode '(
 		eshell-mode-hook
+		neotree-mode-hook
 		org-mode-hook
 		shell-mode-hook
 		term-mode-hook
@@ -48,7 +49,6 @@
 	      )
   (add-hook mode (lambda () (display-line-numbers-mode 0)))
   )
-
 
 ;;;; window-splitting
 
@@ -83,3 +83,8 @@
   "reload ~/.emacs.d/init.el"
   (interactive)
   (load-file "~/.emacs.d/init.el"))
+
+
+;;;; yes-or-no
+
+(defalias 'yes-or-no-p 'y-or-n-p)

@@ -24,6 +24,12 @@
 ;; (setq projectile-completion-system 'ivy)
 
 
+;;;; ivy-avy
+;; use avy in ivy-buffers (C-')
+
+(use-package ivy-avy)
+
+
 ;;;; ivy-rich
 
 (use-package all-the-icons-ivy-rich
@@ -53,3 +59,7 @@
   :bind (("C-s" . swiper)
          ;; ("C-r" . swiper)
 	 ))
+
+;;;; INFO
+;;;;; manual
+;; https://oremacs.com/swiper/

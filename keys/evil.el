@@ -58,3 +58,39 @@
   (evil-collection-init)
   )
 
+
+;;;; evil-commentary
+
+;; (use-package evil-commentary
+;;   :config
+;;   (evil-commentary-mode)
+;;   )
+
+
+;;;; evil-escape
+;; use fast fd to escape everything
+
+(use-package evil-escape
+  :config
+  (evil-escape-mode)
+  )
+
+
+;;;; evil-nerd-commenter
+
+(use-package evil-nerd-commenter
+  ;; :config
+  ;; (evilnc-default-hotkeys)
+  )
+
+
+;;;; evil-numbers
+
+(use-package evil-numbers)
+
+;;;; evil-surround
+
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1)
+  )

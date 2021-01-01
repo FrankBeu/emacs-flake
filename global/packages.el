@@ -6,6 +6,11 @@
 (use-package all-the-icons)
 
 
+;;;; avy
+
+(use-package avy)
+
+
 ;;;; command-log
 
 (use-package command-log-mode)
@@ -33,10 +38,28 @@
   )
 
 
+;;;; imenu
+
+(use-package imenu-list
+  :config (imenu-list-minor-mode)
+  )
+
+
+;;;; neotree
+
+(use-package neotree
+  :config
+  (setq neo-smart-open t)
+  (setq neo-autorefresh t)
+  (setq neo-vc-integration '(face))
+  )
+
+
 ;;;; .nix
 
 (use-package nix-mode
-  :mode "\\.nix\\'")
+  :mode "\\.nix\\'"
+  )
 
 
 ;;;; rainbow-delimiters
@@ -44,6 +67,11 @@
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
   )
+
+
+;;;; ripgrep
+
+(use-package ripgrep)
 
 
 ;;;; which-key
@@ -54,6 +82,8 @@
   :config
   (setq
    which-key-idle-delay 0.5
+   which-key-max-description-length nil
+   which-key-allow-imprecise-window-fit t
    ;; which-key-sort-order 'which-key-key-order-alpha
    which-key-sort-order 'which-key-description-order
    )

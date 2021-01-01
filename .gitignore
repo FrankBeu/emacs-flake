@@ -1,3 +1,6 @@
-!/**/.gitkeep
 auto-save-list
 BAK
+.state/*
+
+
+!/**/.gitkeep
