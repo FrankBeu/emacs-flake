@@ -31,11 +31,11 @@
 
 ;;;; load configs
 
-(fb/loadConfigFile "auctex/auctex.el")
+;; (fb/loadConfigFile "auctex/auctex.el")
 (fb/loadConfigFile "completion/0-completion.el")
 (fb/loadConfigFile "elisp/elisp.el")
-(fb/loadConfigFile "evil/0-evil.el")
 (fb/loadConfigFile "global/0-global.el")
+(fb/loadConfigFile "keys/0-keys.el")
 (fb/loadConfigFile "magit/magit.el")
 (fb/loadConfigFile "modeline/doom-modeline.el")
 (fb/loadConfigFile "orgmode/0-orgmode.el")

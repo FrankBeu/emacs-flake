@@ -1,25 +1,14 @@
 ;;; packages
 
 
+;;;; all-the-icons
+
+(use-package all-the-icons)
+
+
 ;;;; command-log
 
 (use-package command-log-mode)
-
-
-;;;; rainbow-delimiters
-
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode)
-  )
-
-
-;;;; which-key
-
-(use-package which-key
-  :init (which-key-mode)
-  :diminish which-key-mode
-  :config (setq which-key-idle-delay 0.5)
-  )
 
 
 ;;;; fira-code-mode
@@ -28,11 +17,6 @@
   ;; :config (global-fira-code-mode) ;; will not work with orgmode headline-stars
   :hook prog-mode
   )
-
-
-;;;; all-the-icons
-
-(use-package all-the-icons)
 
 
 ;;;; helpful
@@ -53,3 +37,24 @@
 
 (use-package nix-mode
   :mode "\\.nix\\'")
+
+
+;;;; rainbow-delimiters
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode)
+  )
+
+
+;;;; which-key
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq
+   which-key-idle-delay 0.5
+   ;; which-key-sort-order 'which-key-key-order-alpha
+   which-key-sort-order 'which-key-description-order
+   )
+  )
