@@ -50,10 +50,45 @@
       "l" 'treemacs-next-line
       ";" 'treemacs-root-down
       )))
+
+
+;;;; magit
+
+(eval-after-load "evil-magit"
+  '(progn
+
+     (general-define-key
+      :keymaps '(magit-mode-map)
+      :states '(normal visual)
+      "j" 'nil
+      )
+
+     (general-define-key
+      :keymaps '(magit-status-mode-map)
+      "j" 'nil
+      )
+
+     (general-define-key
+      :keymaps '(magit-status-mode-map)
+      :states '(normal visual)
+      "h" 'magit-log
+      )
+
+     (general-define-key
+      :keymaps 'magit-mode-map
+      "h" 'magit-log
+      "H" 'magit-log
+      "j" 'evil-backward-char
+      "k" 'evil-previous-visual-line
+      "l" 'evil-next-visual-line
+      ;; ";" 'evil-forward-char
+      "J" 'magit-status-jump
+      )))
+
+
 ;;;; ESC
 ;;   on prompts: use ESC like C-g
 
-;;;;; on prompts: use ESC like C-g
 ;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; equivalent to the next expression
 (general-define-key
  "<escape>" 'keyboard-escape-quit
@@ -76,6 +111,7 @@
   "dw" '(delete-trailing-whitespace :which-key "trailing-wsp")
 
   "f"  '(:ignore t                  :which-key "fast")
+  "ff" '(counsel-find-file          :which-key "files")
   "fs" '(save-buffer                :which-key "save-buffer")
 
   "g"  '(:ignore t                  :which-key "git")
