@@ -10,7 +10,7 @@
 
 ;;;; orgmode
 
-;; SRC: https://orgmode.org/manual/Activation.html#Activation
+;; SRC: https://orgmode.org/manual/Activation.html#Activation ;; equivalent to the next expression
 ;; (global-set-key (kbd "C-c l") 'org-store-link)
 ;; (global-set-key (kbd "C-c a") 'org-agenda)
 ;; (global-set-key (kbd "C-c c") 'org-capture)
@@ -22,7 +22,36 @@
  )
 
 
+;;;; treemacs
+
+(eval-after-load "treemacs-evil"
+  '(progn
+     (general-define-key
+      :keymaps '(evil-treemacs-state-map treemacs-mode-map)
+      "h" 'evil-forward-char
+      "j" 'treemacs-root-up
+      "k" 'treemacs-previous-line
+      "l" 'treemacs-next-line
+      ";" 'treemacs-root-down
+      )
+
+     (general-define-key
+      :keymaps 'treemacs-mode-map
+      :states 'treemacs
+      "l" 'nil
+      )
+
+     (general-define-key
+      :keymaps 'treemacs-mode-map
+      :states 'treemacs
+      "h" 'evil-forward-char
+      "j" 'treemacs-root-up
+      "k" 'treemacs-previous-line
+      "l" 'treemacs-next-line
+      ";" 'treemacs-root-down
+      )))
 ;;;; ESC
+;;   on prompts: use ESC like C-g
 
 ;;;;; on prompts: use ESC like C-g
 ;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; equivalent to the next expression

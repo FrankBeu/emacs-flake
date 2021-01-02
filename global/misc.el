@@ -41,14 +41,16 @@
 ;; Disable line numbers for some modes
 (dolist (mode '(
 		eshell-mode-hook
-		neotree-mode-hook
+		;; neotree-mode-hook
 		org-mode-hook
 		shell-mode-hook
 		term-mode-hook
+		treemacs-mode-hook
 		)
 	      )
   (add-hook mode (lambda () (display-line-numbers-mode 0)))
   )
+
 
 ;;;; window-splitting
 
