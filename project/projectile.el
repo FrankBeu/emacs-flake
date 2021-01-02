@@ -7,7 +7,7 @@
   :init
   (when (file-directory-p "~/SRC/GITEA")
     (setq projectile-project-search-path '("~/SRC/GITEA")))
-  (setq projectile-known-projects-file (expand-file-name ".state/projectile-bookmarks.eld" user-emacs-directory))
+  ;; (setq projectile-known-projects-file (expand-file-name ".state/projectile-bookmarks.eld" user-emacs-directory))
   ;; (setq projectile-switch-project-action #'projectile-dired)
   (setq projectile-switch-project-action 'neotree-projectile-action)
   :diminish projectile-mode

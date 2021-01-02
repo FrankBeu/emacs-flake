@@ -62,6 +62,27 @@
   )
 
 
+;;;; no-littering
+
+(use-package no-littering
+  :init
+  (setq no-littering-etc-directory (expand-file-name ".state/config/" user-emacs-directory)
+        no-littering-var-directory (expand-file-name ".state/data/"   user-emacs-directory))
+  :config
+  (setq
+   auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
+   backup-by-copying t
+   delete-old-versions t          ;;; delete excess backup versions silently
+   kept-new-versions 128
+   kept-old-versions 0
+   make-backup-files t
+   vc-follow-symlinks t           ;;; don't ask for confirmation when opening symlinked file under vc
+   vc-make-backup-files t         ;;; make backups file even when in version controlled dir
+   version-control t              ;;; use version control
+   )
+  )
+
+
 ;;;; rainbow-delimiters
 
 (use-package rainbow-delimiters
@@ -104,7 +125,7 @@
           treemacs-no-png-images                 nil
           treemacs-no-delete-other-windows       t
           treemacs-project-follow-cleanup        nil
-          treemacs-persist-file                  (expand-file-name ".cache/treemacs-persist" user-emacs-directory)
+          treemacs-persist-file                  (expand-file-name ".state/data/treemacs/treemacs-persist" user-emacs-directory)
           treemacs-position                      'left
           treemacs-read-string-input             'from-child-frame
           treemacs-recenter-distance             0.1
