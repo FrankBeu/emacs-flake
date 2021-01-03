@@ -94,7 +94,8 @@
 ;; (global-set-key (kbd "C-c c") 'org-capture)
 (general-define-key
  :prefix "C-c"
- "l" 'org-store-link
+ "L" 'org-store-link
+ ;; "l" 'org-store-link
  "a" 'org-agenda
  "c" 'org-capture
  )
@@ -133,6 +134,10 @@
 
   "j"  '(dired-jump                      :which-key "dired")
 
+  "L"  '(lsp                             :which-key "start lsp")
+  ;; "l"  '(lsp-prefix-map                 :which-key "lsp")
+  ;; "l"  '(lsp-command-map                 :which-key "lsp")
+
   "n"  '(:ignore t                       :which-key "numbers")
   "n=" '(evil-numbers/inc-at-pt          :which-key "add")
   "n+" '(evil-numbers/inc-at-pt          :which-key "add")
@@ -152,6 +157,12 @@
   "tw" '(whitespace-mode                 :which-key "whitespace")
   "TW" '(fb/toggle-which-key-sort-order  :which-key "whickKey-sort-order")
   )
+
+;;;; working after manual reload
+;; (eval-after-load "lsp"
+;; (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
+;; )
+
 
 
 ;;;; INFO

@@ -120,13 +120,6 @@
 ;;   )
 
 
-;;;; .nix
-
-(use-package nix-mode
-  :mode "\\.nix\\'"
-  )
-
-
 ;;;; no-littering
 
 (use-package no-littering
