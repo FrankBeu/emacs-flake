@@ -84,3 +84,10 @@
   "reload ~/.emacs.d/init.el"
   (interactive)
   (load-file "~/.emacs.d/init.el"))
+
+;;;;; toggle-whichKey-sort-order
+(defun fb/toggle-which-key-sort-order ()
+  "Toggle whichKey-sort-order-alpha key - desc"
+  (interactive)
+  (setq which-key-sort-order
+	(if (eq which-key-sort-order 'which-key-key-order-alpha) 'which-key-description-order 'which-key-key-order-alpha)))

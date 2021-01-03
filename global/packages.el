@@ -16,6 +16,71 @@
 (use-package command-log-mode)
 
 
+;;;; dired
+
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  )
+
+
+;;;;; all-the-icons-dired
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+
+;;;;; dired-git-info
+;; TODO use after dired-k
+
+;; (use-package dired-git-info
+;;   :after dired
+;;   :hook (dired-after-readin . dired-git-info-auto-enable)
+;;   :config
+;;   (setq dgi-auto-hide-details-p nil)
+;;   )
+
+
+;;;;; dired-hide-dotfiles
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
+
+
+;;;;; dired-k
+;; TODO fix colorscheme and icons
+
+;; (use-package dired-k
+;;   :after dired
+;;   :hook ((dired-initial-position . dired-k)
+;; 	 ;; (dired-after-readin     . #'dired-k-no-revert)
+;; 	 )
+;;   :config
+;;   ;; (setq dired-k-style nil)
+;;   (setq dired-k-style 'git)
+;;   ;; (setq dired-k-human-readable nil)
+;;   (setq dired-k-human-readable t)
+;;   (setq dired-k-padding 1)
+;;   )
+
+
+;;;;; dired-rifle
+
+(use-package dired-rifle
+  :after dired
+  )
+
+
+;;;;; dired-single
+
+(use-package dired-single)
+
+
 ;;;; fira-code-mode
 
 (use-package fira-code-mode
@@ -116,7 +181,7 @@
           treemacs-follow-after-init             t
           treemacs-git-command-pipe              ""
           treemacs-goto-tag-strategy             'refetch-index
-          treemacs-indentation                   2
+          treemaca-indentation                   2
           treemacs-indentation-string            " "
           treemacs-is-never-other-window         nil
           treemacs-max-git-entries               5000

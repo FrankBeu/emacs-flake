@@ -52,14 +52,26 @@
 ;;;; evil-collection
 ;; TEST: quit helpful buffer with q
 
+;; WORKING??
+;; (defun fb/hjkl-rotation (_mode mode-keymaps &rest _rest)
+;;  (evil-collection-translate-key 'normal mode-keymaps
+;;    "j" "h"
+;;    "k" "j"
+;;    "l" "k"
+;;    ";" "l"
+;;    "h" ";"
+;;    ))
+
 (use-package evil-collection
   :after evil
   :config
+  ;; (add-hook 'evil-collection-setup-hook #'fb/hjkl-rotation)
   (evil-collection-init)
   )
 
 
 ;;;; evil-commentary
+;; deprecated cf. evil-nerd-commenter
 
 ;; (use-package evil-commentary
 ;;   :config
