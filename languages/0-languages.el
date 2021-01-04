@@ -8,7 +8,7 @@
 (fb/loadConfigFile "languages/lsp.el")
 
 ;;;; golang
-;; (fb/loadConfigFile "languages/golang.el")
+(fb/loadConfigFile "languages/golang.el")
 
 ;;;; k8s
 (fb/loadConfigFile "languages/k8s.el")
