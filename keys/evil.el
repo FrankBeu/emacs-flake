@@ -91,7 +91,8 @@
 ;;;; evil-nerd-commenter
 
 (use-package evil-nerd-commenter
-  ;; :config
+  :config
+  (setq evilnc-invert-comment-line-by-line t)
   ;; (evilnc-default-hotkeys)
   )
 
