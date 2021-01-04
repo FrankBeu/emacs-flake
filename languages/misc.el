@@ -1,7 +1,39 @@
 ;;; misc
 
 
-;;;; company
-;;;; yasnippet
-;;;;
+;; ;;;; company
+;;
+;; (use-package company
+;;   :config
+;;   ;; Optionally enable completion-as-you-type behavior.
+;;   (setq company-idle-delay 0)
+;;   (setq company-minimum-prefix-length 1)
 
+;;   (progn
+;;     (add-hook 'after-init-hook 'global-company-mode)))
+;;   )
+;;
+;;
+;; ;;;; yasnippet
+;;
+;; (use-package yasnippet
+;;   :commands yas-minor-mode
+;;   )
+
+
+;;;; flycheck
+
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode)
+  ;; :config
+  ;; (global-flycheck-mode)
+  )
+
+
+;;;; modes
+
+;;;;; vimrc-mode
+
+(use-package vimrc-mode
+  :mode "\\.vim\\(rc\\)?\\'"
+  )
