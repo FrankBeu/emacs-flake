@@ -86,6 +86,7 @@
 (use-package fira-code-mode
   ;; :config (global-fira-code-mode) ;; will not work with orgmode headline-stars
   :hook prog-mode
+  :disabled
   )
 
 

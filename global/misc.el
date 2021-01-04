@@ -23,14 +23,14 @@
 ;; (set-face-attribute 'default nil :height fb/default-font-size)
 ;; (set-face-attribute 'default nil :font "Roboto Mono" :height fb/default-font-size)
 ;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height fb/default-font-size)
-;; (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height fb/default-font-size)
+(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height fb/default-font-size)
 ;; (set-face-attribute 'default nil :font "Iosevka Term" :height fb/default-font-size)
 ;; (set-face-attribute 'default nil :font "Hack" :height fb/default-font-size)
-(set-face-attribute 'default nil :font "Fira Code" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Fira Code" :height fb/default-font-size)
 
 
 ;;;;; fira-code-mode
-;; view ./modes.el:fira-code-mode
+;; view ./packages.el :fira-code-mode
 
 
 ;;; line-numbers
