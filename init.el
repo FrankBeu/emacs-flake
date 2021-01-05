@@ -30,7 +30,6 @@
 
 ;;;; load configs
 
-;; (fb/loadConfigFile "auctex/auctex.el")
 (fb/loadConfigFile "completion/0-completion.el")
 (fb/loadConfigFile "elisp/elisp.el")
 (fb/loadConfigFile "global/0-global.el")
@@ -40,5 +39,6 @@
 (fb/loadConfigFile "orgmode/0-orgmode.el")
 (fb/loadConfigFile "outline/0-outline.el")
 (fb/loadConfigFile "project/0-project.el")
+(fb/loadConfigFile "tex/auctex.el")
 (fb/loadConfigFile "themes/themes.el")
 
