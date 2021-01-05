@@ -6,6 +6,18 @@
 (use-package all-the-icons)
 
 
+;;;; ansi-color
+
+(use-package ansi-color
+  :commands fb/display-ansi-colors
+  :config
+  (defun fb/display-ansi-colors ()
+    (interactive)
+    (let ((inhibit-read-only t))
+      (ansi-color-apply-on-region (point-min) (point-max))))
+  )
+
+
 ;;;; avy
 
 (use-package avy)
@@ -19,7 +31,6 @@
 ;;;; dired
 
 (use-package dired
-  :ensure nil
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
   :custom ((dired-listing-switches "-agho --group-directories-first"))
@@ -272,3 +283,4 @@
    which-key-sort-order 'which-key-description-order
    )
   )
+
