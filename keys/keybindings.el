@@ -1,5 +1,25 @@
 ;;; keybindings
 
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+  (define-key evil-normal-state-map (kbd "h") 'evil-repeat-find-char)
+
+
+  ;; jkl;
+  (define-key evil-motion-state-map "j" 'evil-backward-char)
+  (define-key evil-motion-state-map "k" 'evil-previous-visual-line)
+  (define-key evil-motion-state-map "l" 'evil-next-visual-line)
+  (define-key evil-motion-state-map ";" 'evil-forward-char)
+  ;; Also in visual mode
+  (define-key evil-visual-state-map "k" 'evil-previous-visual-line)
+  (define-key evil-visual-state-map "l" 'evil-next-visual-line)
+
+  ;; Use visual line motions even outside of visual-line-mode buffers
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  (evil-global-set-key 'motion "l" 'evil-next-visual-line)
+
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal)
 
 ;;;; avy
 
@@ -10,26 +30,45 @@
 
 ;;;; dired
 
-(eval-after-load "dired-rifle"
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "j"         'dired-single-up-directory
-    ";"         'dired-single-buffer
-    "r"         'dired-rifle
-    (kbd "h d") 'epa-dired-do-decrypt 
-    (kbd "h e") 'epa-dired-do-encrypt 
-    (kbd "h s") 'epa-dired-do-sign
-    (kbd "h v") 'epa-dired-do-verify
-    ))
+     (general-define-key
+      :keymaps '(dired-mode-map)
+      :states  '(normal visual)
+      ;; "j" 'nil
+      ";"      'nil
+      )
+
+     (general-define-key
+      :keymaps '(dired-mode-map)
+      :states  '(normal visual)
+      ;; "j" 'nil
+      "H"      'dired-hide-dotfiles-mode
+      ";"      'dired-find-file
+      "j"      'dired-single-up-directory
+      "r"      'dired-rifle
+      )
+
+     (general-define-key
+      :keymaps '(dired-mode-map)
+      :states  '(normal visual)
+      :prefix  "g"
+      "R"      'dired-do-redisplay
+      )
+     (general-define-key
+      :keymaps '(dired-mode-map)
+      :states  '(normal visual)
+      :prefix  "h"
+      "d"      'epa-dired-do-decrypt
+      "e"      'epa-dired-do-encrypt
+      "s"      'epa-dired-do-sign
+      "v"      'epa-dired-do-verify
+      )
 
 
 ;;;; magit
 
-(eval-after-load "evil-magit"
-  '(progn
-
      (general-define-key
       :keymaps '(magit-mode-map)
-      :states '(normal visual)
+      :states  '(normal visual)
       "j" 'nil
       )
 
@@ -40,7 +79,7 @@
 
      (general-define-key
       :keymaps '(magit-status-mode-map)
-      :states '(normal visual)
+      :states  '(normal visual)
       "h" 'magit-log
       )
 
@@ -49,11 +88,11 @@
       "h" 'magit-log
       "H" 'magit-log
       "j" 'evil-backward-char
-      "k" 'evil-previous-visual-line
+      ;; "k" 'evil-previous-visual-line
       "l" 'evil-next-visual-line
       ;; ";" 'evil-forward-char
       "J" 'magit-status-jump
-      )))
+      )
 
 
 ;;;; treemacs
@@ -88,10 +127,6 @@
 
 ;;;; orgmode
 
-;; SRC: https://orgmode.org/manual/Activation.html#Activation ;; equivalent to the next expression
-;; (global-set-key (kbd "C-c l") 'org-store-link)
-;; (global-set-key (kbd "C-c a") 'org-agenda)
-;; (global-set-key (kbd "C-c c") 'org-capture)
 (general-define-key
  :prefix "C-c"
  "L" 'org-store-link
@@ -103,11 +138,25 @@
 
 ;;;; ESC
 ;;   on prompts: use ESC like C-g
-
-;; (global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; equivalent to the next expression
 (general-define-key
  "<escape>" 'keyboard-escape-quit
  )
+
+
+;;;; UNDO-TREE
+
+(with-eval-after-load "undo-tree"
+
+  '(progn
+     (fb/here2)
+     (general-define-key
+      :keymaps 'undo-tree-visualizer-mode
+      "j" 'undo-tree-visualize-switch-branch-left
+      "k" 'undo-tree-visualize-undo
+      "l" 'undo-tree-visualize-redo
+      ";" 'undo-tree-visualize-switch-branch-right
+       )
+      ))
 
 
 ;;;; SPC
@@ -122,46 +171,39 @@
   "ct" '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "quick-cmmnt-or-uncmnt-to-the-line")
   "cy" '(evilnc-copy-and-comment-lines                 :which-key "cp-and-cmnt-lines")
 
-  "d"  '(:ignore t                       :which-key "delete")
-  "dw" '(delete-trailing-whitespace      :which-key "trailing-wsp")
+  "d"  '(:ignore t                                     :which-key "delete")
+  "dw" '(delete-trailing-whitespace                    :which-key "trailing-wsp")
 
-  "f"  '(:ignore t                       :which-key "fast")
-  "ff" '(counsel-find-file               :which-key "files")
-  "fs" '(save-buffer                     :which-key "save-buffer")
+  "f"  '(:ignore t                                     :which-key "fast")
+  "ff" '(counsel-find-file                             :which-key "files")
+  "fs" '(save-buffer                                   :which-key "save-buffer")
 
-  "g"  '(:ignore t                       :which-key "git")
-  "gs" '(magit-status                    :which-key "status")
+  "g"  '(:ignore t                                     :which-key "git")
+  "gs" '(magit-status                                  :which-key "status")
 
-  "j"  '(dired-jump                      :which-key "dired")
+  "j"  '(dired-jump                                    :which-key "dired")
 
-  "L"  '(lsp                             :which-key "start lsp")
-  ;; "l"  '(lsp-prefix-map                 :which-key "lsp")
-  ;; "l"  '(lsp-command-map                 :which-key "lsp")
+  "L"  '(lsp                                           :which-key "start lsp")
+  "l"  '(:keymap lsp-command-map :package lsp-mode     :which-key "lsp")
 
-  "n"  '(:ignore t                       :which-key "numbers")
-  "n=" '(evil-numbers/inc-at-pt          :which-key "add")
-  "n+" '(evil-numbers/inc-at-pt          :which-key "add")
-  "n-" '(evil-numbers/dec-at-pt          :which-key "sub")
+  "n"  '(:ignore t                                     :which-key "numbers")
+  "n=" '(evil-numbers/inc-at-pt                        :which-key "add")
+  "n+" '(evil-numbers/inc-at-pt                        :which-key "add")
+  "n-" '(evil-numbers/dec-at-pt                        :which-key "sub")
 
-  "p"  '(projectile-command-map          :which-key "projectile")
+  "p"  '(projectile-command-map                        :which-key "projectile")
 
-  "r"  '(fb/reload-config                :which-key "reload init.el")
+  "r"  '(fb/reload-config                              :which-key "reload init.el")
 
-  "t"  '(:ignore t                       :which-key "toggles")
-  "T"  '(:ignore t                       :which-key "toggles")
-  "ti" '(imenu-list-smart-toggle         :which-key "imenu")
-  "tl" '(toggle-truncate-lines           :which-key "truncate-lines")
-  ;; "tn" '(neotree-toggle                  :which-key "neotree-toggle")
-  "tn" '(display-line-numbers-mode       :which-key "line-numbers")
-  "tt" '(counsel-load-theme              :which-key "choose theme")
-  "tw" '(whitespace-mode                 :which-key "whitespace")
-  "TW" '(fb/toggle-which-key-sort-order  :which-key "whickKey-sort-order")
+  "t"  '(:ignore t                                     :which-key "toggles")
+  "T"  '(:ignore t                                     :which-key "toggles")
+  "ti" '(imenu-list-smart-toggle                       :which-key "imenu")
+  "tl" '(toggle-truncate-lines                         :which-key "truncate-lines")
+  "tn" '(display-line-numbers-mode                     :which-key "line-numbers")
+  "tt" '(counsel-load-theme                            :which-key "choose theme")
+  "tw" '(whitespace-mode                               :which-key "whitespace")
+  "TW" '(fb/toggle-which-key-sort-order                :which-key "whickKey-sort-order")
   )
-
-;;;; working after manual reload
-;; (eval-after-load "lsp"
-;; (evil-define-key 'normal lsp-mode-map (kbd "SPC l") lsp-command-map)
-;; )
 
 
 

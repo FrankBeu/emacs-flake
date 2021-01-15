@@ -1,8 +1,6 @@
 ;;; emacs-init
 
 
-;;;; nixos-packages
-
 (require 'package)  ;; package-loading
 
 (setq package-archives nil)  ;; optional. makes unpure packages archives unavailable
@@ -12,6 +10,11 @@
 (package-initialize)
 (eval-when-compile
   (require 'use-package))
+
+;;;; debugging
+;; (setq debug-on-error t)
+;; (setq debug-ignored-error t)
+;;;; nixos-packages
 
 
 ;;;; functions: loadConfig
@@ -31,7 +34,7 @@
 ;;;; load configs
 
 (fb/loadConfigFile "completion/0-completion.el")
-(fb/loadConfigFile "elisp/elisp.el")
+(fb/loadConfigFile "evil/evil.el")
 (fb/loadConfigFile "global/0-global.el")
 (fb/loadConfigFile "keys/0-keys.el")
 (fb/loadConfigFile "languages/0-languages.el")
@@ -42,3 +45,6 @@
 (fb/loadConfigFile "tex/auctex.el")
 (fb/loadConfigFile "themes/themes.el")
 
+
+
+(fb/loadConfigFile "keys/0-keys.el")

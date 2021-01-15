@@ -1,9 +1,6 @@
 ;;; keys
 
 
-;;;; evil
-(fb/loadConfigFile "keys/evil.el")
-
 ;;;; general.el
 (fb/loadConfigFile "keys/general.el")
 

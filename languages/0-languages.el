@@ -7,6 +7,9 @@
 ;;;; lsp-mode
 (fb/loadConfigFile "languages/lsp.el")
 
+;;;; elisp
+(fb/loadConfigFile "languages/elisp.el")
+
 ;;;; golang
 (fb/loadConfigFile "languages/golang.el")
 

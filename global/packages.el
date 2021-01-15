@@ -58,9 +58,7 @@
 
 (use-package dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
+  )
 
 
 ;;;;; dired-k
@@ -118,7 +116,9 @@
 ;;;; imenu
 
 (use-package imenu-list
-  :config (imenu-list-minor-mode)
+  ;; TODO enable in each language-mode cf. spacemacs
+  ;; :hook (prog-mode . imenu-list-minor-mode)
+  ;; :disabled
   )
 
 
@@ -157,6 +157,15 @@
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode)
+  )
+
+
+;;;; rainbow-mode
+
+(use-package rainbow-mode
+  :hook ((prog-mode . rainbow-mode)
+         (org-mode . rainbow-mode)
+	 )
   )
 
 
