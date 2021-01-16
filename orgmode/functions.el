@@ -12,7 +12,3 @@ an argument, unconditionally call `org-insert-SUBheading'."
 				((org-at-table-p) #'org-table-wrap-region)
 				((org-in-item-p) #'org-insert-item)
 				(t #'org-insert-subheading)))))
-
-
-(define-key org-mode-map (kbd "M-<return>") 'fb/org-meta-return)
-(define-key org-mode-map (kbd "M-S-<return>") 'org-insert-todo-subheading)

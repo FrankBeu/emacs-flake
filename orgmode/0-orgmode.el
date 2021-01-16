@@ -5,8 +5,8 @@
 ;;;; miscellaneous
   (fb/loadConfigFile "orgmode/misc.el")
 
-;;;; keybindings
-  (fb/loadConfigFile "orgmode/keybindings.el")
+;;;; functions
+  (fb/loadConfigFile "orgmode/functions.el")
 
 
-  )
+  );;with-eval

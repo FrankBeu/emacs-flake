@@ -9,3 +9,6 @@
 
 ;;;; keybindings
 (fb/loadConfigFile "keys/keybindings.el")
+
+;;;; orgmode
+(fb/loadConfigFile "keys/orgmode.el")

@@ -24,7 +24,8 @@
 ;;;; avy
 
 (general-define-key
- "C-'" 'avy-goto-word-0
+ "C-'"  'avy-goto-word-0
+ "C-\"" 'avy-goto-line
  )
 
 
