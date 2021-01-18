@@ -91,3 +91,11 @@
   (interactive)
   (setq which-key-sort-order
 	(if (eq which-key-sort-order 'which-key-key-order-alpha) 'which-key-description-order 'which-key-key-order-alpha)))
+;;;;; from doom-emacs
+;;;###autoload
+(defun fb/yank-buffer-filename ()
+  "Copy the current buffer's path to the kill ring."
+  (interactive)
+  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
+      (message (kill-new (abbreviate-file-name filename)))
+    (error "Couldn't find filename in current buffer")))

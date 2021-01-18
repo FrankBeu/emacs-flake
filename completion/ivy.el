@@ -17,7 +17,8 @@
          ("C-d" . ivy-switch-buffer-kill)
          :map ivy-reverse-i-search-map
          ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
+         ("C-d" . ivy-reverse-i-search-kill)
+	 )
   :config (ivy-mode 1)
   )
 
@@ -58,6 +59,10 @@
 (use-package swiper
   :bind (("C-s" . swiper)
          ;; ("C-r" . swiper)
+         :map swiper-map
+         ("C-l" . nil)
+         ("C-l" . ivy-next-line)
+         ("C-S-L" . swiper-recenter-top-bottom)
 	 ))
 
 ;;;; INFO

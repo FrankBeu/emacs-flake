@@ -10,6 +10,7 @@
 		  eshell-mode
 		  git-rebase-mode
 		  term-mode
+		  ;; undo-tree-visualizer-mode
 		  ))
     (add-to-list 'evil-emacs-state-modes mode)))
 
@@ -23,6 +24,7 @@
 	evil-want-Y-yank-to-eol t
 	evil-want-integration t
 	)
+  ;; (evil-set-initial-state 'undo-tree-visualizer-mode 'emacs)
   :config
   (add-hook 'evil-mode-hook 'fb/evil-hook)
   (evil-mode 1)
@@ -102,5 +104,4 @@
   :custom
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t) 
-  (fb/tetest ())
   )

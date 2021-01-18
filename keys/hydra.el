@@ -11,7 +11,7 @@
   ("l" text-scale-decrease "out")
   ("q" nil "quit" :exit t))
 
-(fb/leader-key-SPC
+(fb/leader-key
   "ts" '(hydra-text-scale/body :which-key "scale text"))
 
 
@@ -23,5 +23,5 @@
   ("l" evil-numbers/dec-at-pt "-")
   ("q" nil "quit" :exit t))
 
-(fb/leader-key-SPC
+(fb/leader-key
   "n." '(hydra-evil-numbers/body :which-key "transient"))
