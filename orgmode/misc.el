@@ -80,9 +80,11 @@
   (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
   (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+  (set-face-attribute 'org-link nil :weight 'normal)
   )
 
-;; M-x describe-face org-
+;; M-x describe-face RET org-
 
 ;;; agenda
 (setq org-agenda-files '("~/NOTES"))
