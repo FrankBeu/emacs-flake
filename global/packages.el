@@ -1,5 +1,7 @@
 ;;; packages
 
+;; search for the nix package:
+;; do not use unstable: emacs26Packages.
 
 ;;;; all-the-icons
 
@@ -293,3 +295,11 @@
    )
   )
 
+
+;;;; writeroom-mode
+
+(use-package writeroom-mode
+  :config
+  (setq writeroom-mode-line-toggle-position 'mode-line-format)
+  (setq writeroom-width 98)
+  )

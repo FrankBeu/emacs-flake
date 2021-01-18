@@ -21,9 +21,9 @@
 ;; (set-frame-font "Noto Sans Mono 12" nil t)
 ;; list all available fonts *scratch*: (font-family-list) C-j
 ;; (set-face-attribute 'default nil :height fb/default-font-size)
-;; (set-face-attribute 'default nil :font "Roboto Mono" :height fb/default-font-size)
+(set-face-attribute 'default nil :font "Roboto Mono" :height fb/default-font-size)
 ;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height fb/default-font-size)
-(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height fb/default-font-size)
 ;; (set-face-attribute 'default nil :font "Iosevka Term" :height fb/default-font-size)
 ;; (set-face-attribute 'default nil :font "Hack" :height fb/default-font-size)
 ;; (set-face-attribute 'default nil :font "Fira Code" :height fb/default-font-size)
@@ -51,6 +51,9 @@
   (add-hook mode (lambda () (display-line-numbers-mode 0)))
   )
 
+
+;;;; parenthesis
+(show-paren-mode 1)
 
 ;;;; window-splitting
 
