@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: abstractFunction
+# key: afu
+# --
+abstract ${1:$$(yas-choose-value '("public " "protected " "private "))}function $2();$0

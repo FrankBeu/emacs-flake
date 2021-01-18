@@ -20,8 +20,11 @@
 
 (fb/local-leader-key
   :keymaps 'org-mode-map
-  :states  '(normal visual)
-  "t"      '(                                             :which-key "todo" :ignore t)
+  :states  '(normal visual insert)
+  ;; "s"      '(                                             :which-key "structemp" :ignore t)
+  "s"      '(org-insert-structure-template 'elisp :which-key "structemp")
+
+  "t"      '(                                             :which-key "todo"      :ignore t)
   "tc"     '(org-todo                                     :which-key "cycle")
   "t SPC"  '(org-todo                                     :which-key "cycle")
   "tt"     '((lambda () (interactive)(org-todo 'todo))    :which-key "todo" )
@@ -29,7 +32,7 @@
   "tx"     '((lambda () (interactive)(org-todo 'none))    :which-key "none" )
 
   ;; cf.: rg org-emphasize ~/SRC/GITHUB/spacemacs
-  "x"      '(                                             :which-key "text" :ignore t)
+  "x"      '(                                             :which-key "text"      :ignore t)
   "xb"     '((lambda () (interactive)(org-emphasize ?\*)) :which-key "bold"          )
   "xc"     '((lambda () (interactive)(org-emphasize ?\~)) :which-key "code"          )
   "xi"     '((lambda () (interactive)(org-emphasize ?\/)) :which-key "italic"        )

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : source-code-block-go
+#key : bgo
+#contributor : fb
+# --
+#+begin_src go :results drawer :imports "${1:IMPORTS}" $2
+  $0
+#+end_src

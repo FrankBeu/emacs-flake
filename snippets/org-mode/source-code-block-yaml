@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : source-code-block-yaml
+#key : byml
+#contributor : fb
+# --
+#+begin_src yaml $1
+$0
+#+end_src

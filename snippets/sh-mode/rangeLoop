@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : rangeLoop
+#key : rl
+#contributor :fb 
+# --
+
+for I in $(seq ${1:FROM} ${2:TO});do
+    ${3:COMMAND} \${I} ${4:ARG};
+  done
+$0

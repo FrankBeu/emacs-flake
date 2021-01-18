@@ -62,7 +62,7 @@
                 (org-level-2 . 1.5)
                 (org-level-3 . 1.25)
                 (org-level-4 . 1.175)
-                (org-level-5 . 1.5)
+                (org-level-5 . 1.15)
                 (org-level-6 . 1.1)
                 (org-level-7 . 1.05)
                 (org-level-8 . 1.05)))
@@ -84,5 +84,21 @@
 
 ;; M-x describe-face org-
 
-
+;;; agenda
 (setq org-agenda-files '("~/NOTES"))
+(setq org-agenda-start-with-log-mode t)
+(setq org-log-done 'time)
+(setq org-log-into-drawer t)
+
+
+;;; structure-templates
+(add-to-list 'org-structure-template-alist '("sh"   . "src sh"))
+(add-to-list 'org-structure-template-alist '("el"   . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("sc"   . "src scheme"))
+(add-to-list 'org-structure-template-alist '("ts"   . "src typescript"))
+(add-to-list 'org-structure-template-alist '("py"   . "src python"))
+(add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+(add-to-list 'org-structure-template-alist '("json" . "src json"))
+(add-to-list 'org-structure-template-alist '("go"   . "src go"))
+(add-to-list 'org-structure-template-alist '("rt"   . "src rust"))
+(add-to-list 'org-structure-template-alist '("dt"   . "src dart"))

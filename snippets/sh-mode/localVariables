@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name : localVariables
+# key : lv
+# contributor : fb
+# --
+
+
+
+# local variables:
+# $0
+# end:

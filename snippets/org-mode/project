@@ -1,0 +1,28 @@
+# -*- mode: snippet -*-
+#name : project
+#key : pj
+#contributor : fb
+# --
+* AKTUELLES
+** $0
+* 〇
+** 1  UNSORTIERTES
+** 2  IDEEN
+** 3  FRAGEN
+** 4  RECHERCHE
+** 5  BIBLIO~
+** 6  I
+** 7  ToDO
+** 7a Anschaffungen
+** 8  INSTALLATIONEN
+** 9  ROUTINEN
+** 10 ERKENNTNISSE
+** 11 ERLEDIGTES
+*** KW `(format-time-string "%V")`
+* TimeTable
+#+BEGIN: clocktable :scope file :maxlevel 5
+#+CAPTION: Clock summary 
+| Headline     | Time   |
+|--------------+--------|
+| *Total time* | *0:00* |
+#+END:

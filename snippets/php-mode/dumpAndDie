@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: dd
+# key: dd
+# --
+
+$0
+dd($$1);
+
+
+

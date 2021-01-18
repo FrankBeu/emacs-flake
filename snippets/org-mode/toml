@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : toml
+#key : btml
+#contributor : fb
+# --
+#+begin_src toml $1
+$0
+#+end_src

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: Classfile
+# key: cf
+# --
+<?php
+
+namespace $1;
+
+
+class ${2:`(yas-php-get-class-name-by-file-name)`}
+{
+$0;
+}

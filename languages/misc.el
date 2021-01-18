@@ -12,22 +12,28 @@
 ;;   (progn
 ;;     (add-hook 'after-init-hook 'global-company-mode)))
 ;;   )
-;;
-;;
-;; ;;;; yasnippet
-;;
-;; (use-package yasnippet
-;;   :commands yas-minor-mode
-;;   )
 
+
+;; ;;;; yasnippets
+
+(use-package yasnippet
+  :init
+  (yas-global-mode 1)
+  :config
+  (setq yas-snippet-dirs
+	'(
+          "~/.emacs.d/snippets"
+	  ))
+  (yas-reload-all)
+  )
 
 ;;;; flycheck
 
-(use-package flycheck
-  :hook (prog-mode . flycheck-mode)
-  ;; :config
-  ;; (global-flycheck-mode)
-  )
+;; (use-package flycheck
+;;   :hook (prog-mode . flycheck-mode)
+;;   ;; :config
+;;   ;; (global-flycheck-mode)
+;;   )
 
 
 ;;;; modes

@@ -2,7 +2,7 @@
 
 
 ;;;; misc
-;; (fb/loadConfigFile "languages/misc.el")
+(fb/loadConfigFile "languages/misc.el")
 
 ;;;; lsp-mode
 (fb/loadConfigFile "languages/lsp.el")

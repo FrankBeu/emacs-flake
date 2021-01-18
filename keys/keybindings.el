@@ -270,7 +270,8 @@
   "T"  '(                                                   :which-key "toggles"                          :ignore t)
   "TW" '(fb/toggle-which-key-sort-order                     :which-key "whickKey-sort-order"              )
 
-  ;; "w"  '(:keymap writeroom-mode-map :package writeroom-mode :which-key "writeroom"                        )
+  "y"  '(yas-insert-snippet                                 :which-key "yasnippet"                        )
+
   "w" '(writeroom-mode                                     :which-key "writeroom-toggle"                  )
 
   )

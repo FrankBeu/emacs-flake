@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : reveal-speaker-notes
+#key : rsn
+#contributor : fb
+# --
+#+begin_notes
+$0
+#+end_notes
