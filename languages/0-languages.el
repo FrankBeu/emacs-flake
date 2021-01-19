@@ -2,22 +2,22 @@
 
 
 ;;;; misc
-(fb/loadConfigFile "languages/misc.el")
+(fb*loadConfigFile "languages/misc.el")
 
 ;;;; lsp-mode
-(fb/loadConfigFile "languages/lsp.el")
+(fb*loadConfigFile "languages/lsp.el")
 
 ;;;; elisp
-(fb/loadConfigFile "languages/elisp.el")
+(fb*loadConfigFile "languages/elisp.el")
 
 ;;;; golang
-(fb/loadConfigFile "languages/golang.el")
+(fb*loadConfigFile "languages/golang.el")
 
 ;;;; k8s
-(fb/loadConfigFile "languages/k8s.el")
+(fb*loadConfigFile "languages/k8s.el")
 
 ;;;; nix
-;; (fb/loadConfigFile "languages/nix.el")
+;; (fb*loadConfigFile "languages/nix.el")
 
 ;;;; typeScript
-;; (fb/loadConfigFile "languages/typeScript.el")
+;; (fb*loadConfigFile "languages/typeScript.el")

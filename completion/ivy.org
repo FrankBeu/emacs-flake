@@ -1,0 +1,82 @@
+* ivy
+a completion system
+started as an alternative backend (->helm) for swiper
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; completion-ivy
+  ;;;;
+  ;;
+#+end_src
+** PACKAGES
+*** ivy
+https://github.com/abo-abo/swiper
+#+begin_src elisp                               
+
+(use-package ivy
+  :diminish
+  :bind (
+         :map ivy-minibuffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-next-line)
+         ("C-;" . ivy-alt-done)
+         ("TAB" . ivy-alt-done)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-;" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill)
+	 )
+  :config (ivy-mode 1)
+  )
+
+;; (setq projectile-completion-system 'ivy)
+
+#+end_src                                            
+*** ivy-avy
+use avy in ivy-buffers with =(ivy-avy)=
+https://github.com/abo-abo/swiper/blob/master/ivy-avy.el
+#+begin_src elisp                               
+(use-package ivy-avy)
+#+end_src                                            
+*** ivy-rich
+a friendlier interface for ivy with all-the-icons
+https://github.com/Yevgnen/ivy-rich
+https://github.com/seagle0128/all-the-icons-ivy-rich
+#+begin_src elisp                               
+(use-package all-the-icons-ivy-rich
+  :init (all-the-icons-ivy-rich-mode 1)
+  )
+
+(use-package ivy-rich
+  :init (ivy-rich-mode 1)
+  )
+#+end_src                                            
+*** counsel
+https://github.com/abo-abo/swiper
+#+begin_src elisp                               
+(use-package counsel
+  :bind (("C-M-j" . 'counsel-switch-buffer)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history)
+	 )
+  :custom (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  :config (counsel-mode 1)
+  )
+#+end_src                                            
+*** swiper
+a interface for searching a buffer
+https://github.com/abo-abo/swiper
+#+begin_src elisp                               
+(use-package swiper
+  :bind (("C-s" . swiper)
+         ;; ("C-r" . swiper)
+         :map swiper-map
+         ("C-l" . nil)
+         ("C-l" . ivy-next-line)
+         ("C-S-L" . swiper-recenter-top-bottom)
+	 ))
+#+end_src                                            
+**** manual
+https://oremacs.com/swiper/

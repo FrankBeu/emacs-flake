@@ -270,10 +270,11 @@
   "T"  '(                                                   :which-key "toggles"                          :ignore t)
   "TW" '(fb/toggle-which-key-sort-order                     :which-key "whickKey-sort-order"              )
 
-  "y"  '(yas-insert-snippet                                 :which-key "yasnippet"                        )
+  "y"  '(                                                   :which-key "yasnippets"                       :ignore t)
+  "yy" '(yas-insert-snippet                                 :which-key "insert"                           )
+  "yr" '(yas-reload-all                                     :which-key "reload-all"                       )
 
   "w" '(writeroom-mode                                     :which-key "writeroom-toggle"                  )
-
   )
 
 ;;; prefix will stack

@@ -1,18 +1,22 @@
-;;; themes
-
-
-;;;; built-in
-
+* themes
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; themes
+  ;;;;
+  ;;
+#+end_src
+** built-in
+#+begin_src elisp
 ;; (load-theme 'deeper-blue)
 ;; (load-theme 'wombat)
-
-;;;; zerodark
-
+#+end_src
+** zerodark
+#+begin_src elisp
 ;; (load-theme 'zerodark 'no-confirm)
 ;; (zerodark-setup-modeline-format)
-
-
-;;;; doom-themes
+#+end_src
+** doom-themes
+#+begin_src elisp
 (use-package doom-themes
   :config
   ;; Global settings (defaults)
@@ -76,3 +80,4 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
   )
+#+end_src

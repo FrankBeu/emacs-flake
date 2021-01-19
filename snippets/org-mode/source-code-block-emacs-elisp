@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : source-code-block-emacs-elisp
+#key : bemli
+#contributor : fb
+# --
+#+begin_src emacs-lisp :results drawer $1
+$>$0
+#+end_src

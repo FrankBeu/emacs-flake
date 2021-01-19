@@ -41,6 +41,7 @@
 ;; Disable line numbers for some modes
 (dolist (mode '(
 		eshell-mode-hook
+		helpful-mode-hook
 		;; neotree-mode-hook
 		org-mode-hook
 		shell-mode-hook
@@ -80,13 +81,13 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 
-;;;; functions
+;;;; commands
 
 ;;;;; reload-config
 (defun fb/reload-config ()
-  "reload ~/.emacs.d/init.el"
+  "reload ~/.emacs.d/init.el interactively"
   (interactive)
-  (load-file "~/.emacs.d/init.el"))
+  (fb*reload-config))
 
 ;;;;; toggle-whichKey-sort-order
 (defun fb/toggle-which-key-sort-order ()

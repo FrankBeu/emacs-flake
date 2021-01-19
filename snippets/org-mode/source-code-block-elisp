@@ -3,6 +3,6 @@
 #key : bel
 #contributor : fb
 # --
-#+begin_src emacs-lisp :results drawer $1
+#+begin_src elisp
 $>$0
 #+end_src

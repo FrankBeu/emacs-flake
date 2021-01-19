@@ -15,6 +15,7 @@
 
 
 ;; ;;;; yasnippets
+;; https://joaotavora.github.io/yasnippet/snippet-expansion.html
 
 (use-package yasnippet
   :init

@@ -2,7 +2,7 @@
 
 
 ;;;; magit
-  (fb/loadConfigFile "project/magit.el")
+  (fb*loadConfigFile "project/magit.el")
 
 ;;;; projectil
-(fb/loadConfigFile "project/projectile.el")
+(fb*loadConfigFile "project/projectile.el")

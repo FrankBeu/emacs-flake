@@ -1,4 +1,6 @@
 IGNORE
+.local/*
+.local/cache/tangle
 .state/*
 
 

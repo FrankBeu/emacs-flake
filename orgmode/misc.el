@@ -15,6 +15,7 @@
 ;;;; *BOLD*
 (setq org-hide-emphasis-markers t)
 
+;;;; TODO fix: delete trailing whitespace will remove "  ▼", too
 (setq org-ellipsis
       ;; " ▾"
       ;; " ▽"
@@ -56,6 +57,9 @@
 
   )
 
+  (use-package org-make-toc
+    :hook (org-mode . org-make-toc-mode))
+
 ;; Increase the size of various headings
 (set-face-attribute 'org-document-title nil :font "Roboto" :weight 'bold :height 2)
 (dolist (face '((org-level-1 . 1.75)
@@ -65,7 +69,8 @@
                 (org-level-5 . 1.15)
                 (org-level-6 . 1.1)
                 (org-level-7 . 1.05)
-                (org-level-8 . 1.05)))
+                (org-level-8 . 1.05)
+		))
   (set-face-attribute (car face) nil :font "Roboto" :weight 'regular :height (cdr face)))
 
 
@@ -92,8 +97,14 @@
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
 
+;; TODO notifications - desktop
+;; https://github.com/akhramov/org-wild-notifier.el
+;; TODO query
+;; https://github.com/alphapapa/org-ql
 
 ;;; structure-templates
+;; https://orgmode.org/manual/Structure-Templates.html
+;; https://blog.aaronbieber.com/2016/11/23/creating-org-mode-structure-templates.html
 (add-to-list 'org-structure-template-alist '("sh"   . "src sh"))
 (add-to-list 'org-structure-template-alist '("el"   . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("sc"   . "src scheme"))
@@ -104,3 +115,7 @@
 (add-to-list 'org-structure-template-alist '("go"   . "src go"))
 (add-to-list 'org-structure-template-alist '("rt"   . "src rust"))
 (add-to-list 'org-structure-template-alist '("dt"   . "src dart"))
+
+;; TODO capture
+;; https://github.com/progfolio/doct
+

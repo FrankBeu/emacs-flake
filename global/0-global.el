@@ -2,7 +2,7 @@
 
 
 ;;;; miscellaneous
-(fb/loadConfigFile "global/misc.el")
+(fb*loadConfigFile "global/misc.el")
 
 ;;;; modes
-(fb/loadConfigFile "global/packages.el")
+(fb*loadConfigFile "global/packages.el")
