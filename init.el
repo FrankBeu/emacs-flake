@@ -999,6 +999,403 @@ byte-compiled from.")
   (doom-themes-org-config)
   )
 
-(fb*loadConfigFile "keys/0-keys.el")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys
+;;;;
+;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-general
+;;;;
+;;
+
+(use-package general
+  :config
+  (general-create-definer fb/leader-key
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC"
+    :global-prefix "C-SPC")
+  ;; homerow
+  (general-create-definer fb/local-leader-key
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC k"
+    :global-prefix "C-SPC k")
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-hydra
+;;;;
+;;
+
+(use-package hydra)
+
+(defhydra hydra-text-scale (:timeout 5)
+  "scale text"
+  ("k" text-scale-increase "in")
+  ("l" text-scale-decrease "out")
+  ("q" nil "quit" :exit t))
+
+(fb/leader-key
+  "ts" '(hydra-text-scale/body :which-key "scale text"))
+
+(defhydra hydra-evil-numbers (:timeout 5)
+  "evil-numbers"
+  ("k" evil-numbers/inc-at-pt "+")
+  ("l" evil-numbers/dec-at-pt "-")
+  ("q" nil "quit" :exit t))
+
+(fb/leader-key
+  "n." '(hydra-evil-numbers/body :which-key "transient"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-keybindings
+;;;;
+;;
+
+(general-define-key
+ :keymaps '(evil-normal-state-map)
+ ;; :states  '(normal visual)
+ "h"   'evil-repeat-find-char
+ )
+
+(general-define-key
+ :keymaps '(evil-motion-state-map)
+ ;; :states  '(normal visual)
+ "j" 'evil-backward-char
+ "k" 'evil-previous-visual-line
+ "l" 'evil-next-visual-line
+ ";" 'evil-forward-char
+ )
+
+(general-define-key
+ :keymaps '(evil-visual-state-map)
+ "k" 'evil-previous-visual-line
+ "l" 'evil-next-visual-line
+ )
+
+(general-def 'motion
+  "k" 'evil-previous-visual-line
+  "l" 'evil-next-visual-line
+  )
+
+(evil-set-initial-state 'messages-buffer-mode 'normal)
+(evil-set-initial-state 'dashboard-mode 'normal)
+
+(general-define-key
+ "<escape>" 'keyboard-escape-quit
+ )
+
+(general-define-key
+ "C-'"  'avy-goto-word-0
+ "C-\"" 'avy-goto-line
+ )
+
+(general-define-key
+ :keymaps '(dired-mode-map)
+ :states  '(normal visual)
+ ;; "j" 'nil
+ ";"      'nil
+ )
+
+(general-define-key
+ :keymaps '(dired-mode-map)
+ :states  '(normal visual)
+ ;; "j" 'nil
+ "H"      'dired-hide-dotfiles-mode
+ ";"      'dired-find-file
+ "j"      'dired-single-up-directory
+ "r"      'dired-rifle
+ )
+
+(general-define-key
+ :keymaps '(dired-mode-map)
+ :states  '(normal visual)
+ :prefix  "g"
+ "R"      'dired-do-redisplay
+ )
+
+(general-define-key
+ :keymaps '(dired-mode-map)
+ :states  '(normal visual)
+ :prefix  "h"
+ "d"      'epa-dired-do-decrypt
+ "e"      'epa-dired-do-encrypt
+ "s"      'epa-dired-do-sign
+ "v"      'epa-dired-do-verify
+ )
+
+(general-define-key
+ :keymaps '(imenu-list-major-mode-map)
+ "<C-return>" 'imenu-list-display-entry
+ "M-RET"      'imenu-list-display-entry
+ )
+
+(general-define-key
+ :keymaps '(counsel-ag-map
+            counsel-git-grep-map
+            counsel-grep-map
+            counsel-imenu-map
+            )
+ "C-l" 'nil
+ "C-l" 'ivy-next-line
+ "C-S-l" 'ivy-call-and-recenter
+ )
+
+(general-define-key
+ :keymaps '(magit-mode-map)
+ :states  '(normal visual)
+ "j" 'nil
+ )
+
+(general-define-key
+ :keymaps '(magit-status-mode-map)
+ "j" 'nil
+ )
+
+(general-define-key
+ :keymaps '(magit-status-mode-map)
+ :states  '(normal visual)
+ "h" 'magit-log
+ )
+
+(general-define-key
+ :keymaps 'magit-mode-map
+ "h" 'magit-log
+ "H" 'magit-log
+ "j" 'evil-backward-char
+ ;; "k" 'evil-previous-visual-line
+ "l" 'evil-next-visual-line
+ ;; ";" 'evil-forward-char
+ "J" 'magit-status-jump
+ )
+
+(general-define-key
+ :prefix "C-c"
+ "L" 'org-store-link
+ ;; "l" 'org-store-link
+ "a" 'org-agenda
+ "c" 'org-capture
+ )
+
+(eval-after-load "treemacs-evil"
+  '(progn
+     (general-define-key
+      :keymaps '(evil-treemacs-state-map treemacs-mode-map)
+      "h" 'evil-forward-char
+      "j" 'treemacs-root-up
+      "k" 'treemacs-previous-line
+      "l" 'treemacs-next-line
+      ";" 'treemacs-root-down
+      )
+
+     (general-define-key
+      :keymaps 'treemacs-mode-map
+      :states 'treemacs
+      "l" 'nil
+      )
+
+     (general-define-key
+      :keymaps 'treemacs-mode-map
+      :states 'treemacs
+      "h" 'evil-forward-char
+      "j" 'treemacs-root-up
+      "k" 'treemacs-previous-line
+      "l" 'treemacs-next-line
+      ";" 'treemacs-root-down
+      )))
+
+;; (evil-make-overriding-map undo-tree-visualizer-mode-map 'normal)
+;; asdfasdf asdfasdf qweqwer adsfasdf adsfasdf qeqwer
+
+;;(add-hook undo-tree-visualizer-mode-hook (define-key undo-tree-visualizer-mode-map "k" 'undo-tree-visualize-undo))
+;; (general-define-key
+;;  :keymaps '(undo-tree-visualizer-mode
+;; 	    ;; undo-tree
+;; 	    )
+
+;; ;; undo-tree-visualizer-mode-map <down>
+;; ;; undo-tree-visualizer-mode-map C-n
+;; ;; undo-tree-visualizer-mode-map n
+
+;; ;; undo-tree-visualizer-mode-map <up>
+;; ;; undo-tree-visualizer-mode-map C-p
+;; ;; undo-tree-visualizer-mode-map p
+
+;;  ;; "j" 'nil
+;;  "k" 'nil
+;;  ;; "l" 'nil
+;;  ;; ";" 'nil
+;;  ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
+;;  ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
+;;  "k" 'undo-tree-visualize-undo
+;;  ;; "l" 'undo-tree-visualize-redo
+;;  ;; ";" 'undo-tree-visualize-switch-branch-right       ;;; working
+;;  ;; Ctr-{p,n} working
+;;  )
+;; )
+;; https://emacs.stackexchange.com/questions/44431/how-to-suppress-a-minor-modes-key-binding-in-only-certain-major-modes
+;; (add-hook 'typo-mode-hook
+;;           (lambda ()
+;;             (when (and typo-mode (derived-mode-p 'markdown-mode))
+;;               (let ((map (make-sparse-keymap)))
+;;                 (set-keymap-parent map typo-mode-map)
+;;                 (define-key map (kbd "`") 'self-insert-command)
+;;                 (push `(typo-mode . ,map)
+;;                       minor-mode-overriding-map-alist)))))
+
+(general-define-key
+ :keymaps '(writeroom-mode-map)
+ "s-?"  'nil
+ "M-m"   '(writeroom-toggle-mode-line :which-key "toggle-modeline")
+ "C-M-<" 'writeroom-decrease-width
+ "C-M->" 'writeroom-increase-width
+ ;; "C-M-=" 'writeroom-adjust-width
+ "C-M-=" '(writeroom-adjust-width :which-key "wr-with-=")
+ )
+
+(fb/leader-key
+  "c"  '(                                                   :which-key "comment"                          :ignore t)
+  "cc" '(evilnc-comment-operator                            :which-key "cmnt-operator"                    )
+  "ci" '(evilnc-toggle-invert-comment-line-by-line          :which-key "toggle-invert-cmnt-line-by-line"  )
+  "cl" '(evilnc-comment-or-uncomment-lines                  :which-key "cmmnt-or-uncmnt-lines"            )
+  "cp" '(evilnc-comment-or-uncomment-paragraphs             :which-key "cmmnt-or-uncmnt-paragraphs"       )
+  "cr" '(comment-or-uncomment-region                        :which-key "cmmnt-or-uncmnt-region"           )
+  "ct" '(evilnc-quick-comment-or-uncomment-to-the-line      :which-key "quick-cmmnt-or-uncmnt-to-the-line")
+  "cy" '(evilnc-copy-and-comment-lines                      :which-key "cp-and-cmnt-lines"                )
+
+  "d"  '(                                                   :which-key "delete"                           :ignore t)
+  "dw" '(delete-trailing-whitespace                         :which-key "trailing-wsp"                     )
+
+  "f"  '(                                                   :which-key "fast/file"                        :ignore t)
+  "fy" '(fb/yank-buffer-filename                            :which-key "files"                            )
+  "ff" '(counsel-find-file                                  :which-key "files"                            )
+  "fs" '(save-buffer                                        :which-key "save-buffer"                      )
+  "fS" '(save-some-buffers                                  :which-key "save-some-buffer"                 )
+
+  "g"  '(                                                   :which-key "git"                              :ignore t)
+  "gs" '(magit-status                                       :which-key "status"                           )
+
+  "j"  '(dired-jump                                         :which-key "dired"                            )
+
+  "L"  '(lsp                                                :which-key "start lsp"                        )
+  "l"  '(:keymap lsp-command-map :package lsp-mode          :which-key "lsp"                              )
+
+
+  "n"  '(                                                   :which-key "numbers"                          :ignore t)
+  "n=" '(evil-numbers/inc-at-pt                             :which-key "add"                              )
+  "n+" '(evil-numbers/inc-at-pt                             :which-key "add"                              )
+  "n-" '(evil-numbers/dec-at-pt                             :which-key "sub"                              )
+
+  "p"  '(projectile-command-map                             :which-key "projectile"                       )
+
+  "r"  '(                                                   :which-key "re-~"                             :ignore t)
+  "rr" '(redraw-display                                     :which-key "redraw-display"                   )
+  "rl" '(fb/reload-config                                   :which-key "reload init.el"                   )
+
+  "t"  '(                                                   :which-key "toggles"                          :ignore t)
+  "ti" '(imenu-list-smart-toggle                            :which-key "imenu"                            )
+  "tl" '(toggle-truncate-lines                              :which-key "truncate-lines"                   )
+  "tn" '(display-line-numbers-mode                          :which-key "line-numbers"                     )
+  "tt" '(counsel-load-theme                                 :which-key "choose theme"                     )
+  "tw" '(whitespace-mode                                    :which-key "whitespace"                       )
+  "T"  '(                                                   :which-key "toggles"                          :ignore t)
+  "TW" '(fb/toggle-which-key-sort-order                     :which-key "whickKey-sort-order"              )
+
+  "y"  '(                                                   :which-key "yasnippets"                       :ignore t)
+  "yy" '(yas-insert-snippet                                 :which-key "insert"                           )
+  "yr" '(yas-reload-all                                     :which-key "reload-all"                       )
+
+  "w" '(writeroom-mode                                     :which-key "writeroom-toggle"                  )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-keybindings
+;;;;
+;;
+
+(general-define-key
+ :keymaps 'org-mode-map
+ "C-'" 'nil
+ )
+
+(general-define-key
+ :keymaps 'org-mode-map
+"M-<return>"   'fb/org-meta-return
+"M-S-<return>" 'org-insert-todo-subheading
+ )
+
+(fb/local-leader-key
+  :keymaps 'org-mode-map
+  :states  '(normal visual insert)
+
+  "s"      '(org-insert-structure-template 'elisp :which-key "struc-temp"            )
+
+  "t"      '(                                             :which-key "todo"      :ignore t)
+  "tc"     '(org-todo                                     :which-key "cycle"         )
+  "t SPC"  '(org-todo                                     :which-key "cycle"         )
+  "tt"     '((lambda () (interactive)(org-todo 'todo))    :which-key "todo"          )
+  "td"     '((lambda () (interactive)(org-todo 'done))    :which-key "done"          )
+  "tx"     '((lambda () (interactive)(org-todo 'none))    :which-key "none"          )
+
+  "x"      '(                                             :which-key "text"      :ignore t)
+  "xb"     '((lambda () (interactive)(org-emphasize ?\*)) :which-key "bold"          )
+  "xc"     '((lambda () (interactive)(org-emphasize ?\~)) :which-key "code"          )
+  "xi"     '((lambda () (interactive)(org-emphasize ?\/)) :which-key "italic"        )
+  "xr"     '((lambda () (interactive)(org-emphasize ?\ )) :which-key "clear"         )
+  "xR"     '((lambda () (interactive)(org-emphasize ?\s)) :which-key "clear"         )
+  "xs"     '((lambda () (interactive)(org-emphasize ?\+)) :which-key "strike-through")
+  "xu"     '((lambda () (interactive)(org-emphasize ?\_)) :which-key "underline"     )
+  "xv"     '((lambda () (interactive)(org-emphasize ?\=)) :which-key "verbatim"      )
+  )
+
+(general-define-key
+ :keymaps 'org-read-date-minibuffer-local-map
+
+ ;; "C-H"    'exit-minibuffer
+ "C-j"    'nil
+
+ "C-j"     '(lambda () (interactive) (org-eval-in-calendar '(calendar-backward-day              1)))
+ "C-k"     '(lambda () (interactive) (org-eval-in-calendar '(calendar-backward-week             1)))
+ "C-l"     '(lambda () (interactive) (org-eval-in-calendar '(calendar-forward-week              1)))
+ "C-;"     '(lambda () (interactive) (org-eval-in-calendar '(calendar-forward-day               1)))
+
+ ;; SHIFT or META is the same
+ "C-S-j"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-backward-month            1)))
+ "C-S-k"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-backward-year             1)))
+ "C-S-l"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-forward-year              1)))
+ "C-:"     '(lambda () (interactive) (org-eval-in-calendar '(calendar-forward-month             1)))
+ "C-M-j"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-backward-month            1)))
+ "C-M-k"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-backward-year             1)))
+ "C-M-l"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-forward-year              1)))
+ "C-M-;"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-forward-month             1)))
+
+ ;; scrolling with CTRL + SHIFT + META
+ "C-M-S-j" '(lambda () (interactive) (org-eval-in-calendar '(calendar-scroll-right              1)))
+ "C-M-S-k" '(lambda () (interactive) (org-eval-in-calendar '(calendar-scroll-right-three-months 1)))
+ "C-M-S-l" '(lambda () (interactive) (org-eval-in-calendar '(calendar-scroll-left-three-months  1)))
+ "C-M-:"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-scroll-left               1)))
+ )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keybindings-outline
+;;;;
+;;
+
+(define-prefix-command 'cm-map nil "Outline-")
+
+(define-key cm-map "\M-q" 'outline-hide-sublevels)            ;;; Hide everything but the top-level headings
+(define-key cm-map "\M-t" 'outline-hide-body)                 ;;; Hide everything but headings (all body lines)
+(define-key cm-map "\M-o" 'outline-hide-other)                ;;; Hide other branches
+(define-key cm-map "\M-c" 'outline-hide-entry)                ;;; Hide this entry's body
+(define-key cm-map "\M-l" 'outline-hide-leaves)               ;;; Hide body lines in this entry and sub-entries
+(define-key cm-map "\M-d" 'outline-hide-subtree)              ;;; Hide everything in this entry and sub-entries
+
+(define-key cm-map "\M-a" 'outline-show-all)                  ;;; Show (expand) everything
+(define-key cm-map "\M-e" 'outline-show-entry)                ;;; Show this heading's body
+(define-key cm-map "\M-i" 'outline-show-children)             ;;; Show this heading's immediate child sub-headings
+(define-key cm-map "\M-k" 'outline-show-branches)             ;;; Show all sub-headings under this heading
+(define-key cm-map "\M-s" 'outline-show-subtree)              ;;; Show (expand) everything in this heading & below
+
+(define-key cm-map "\M-u" 'outline-up-heading)                ;;; Up
+(define-key cm-map "\M-n" 'outline-next-visible-heading)      ;;; Next
+(define-key cm-map "\M-p" 'outline-previous-visible-heading)  ;;; Previous
+(define-key cm-map "\M-f" 'outline-forward-same-level)        ;;; Forward - same level
+(define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
+
+(global-set-key "\M-o" cm-map)
 
 bash -c "env RUST_LOG=trace rnix-lsp 2> /tmp/rnix-lsp.log"

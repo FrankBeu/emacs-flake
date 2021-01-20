@@ -1,14 +1,25 @@
 #+TITLE: emacs Configuration
 * emacsConfiguration
 ** styleGuide
-*** variable-naming
-- `doom/abc` A public, interactive command, designed to be used via `M-x` or a keybinding.
-- `doom:abc` A public evil operator, motion or command.
-- `doom|abc` A public, non-interactive function meant to be used as a hook.
-- `doom*abc` Functions designed to be used as advice for other functions.
-- `abc!` A public Doom "autodef" function or macro. An autodef should always be defined, even if its containing module is disabled (i.e. they will not throw a void-function error). The purpose of this is to avoid peppering module configs with conditionals or `after!` blocks before using their APIs. They should noop if their module is disabled, and should be zero-cost in the case their module is disabled. Autodefs usually serve to configure Doom or a module. [and are usually syntactic sugar]
-- Functions prefixed with `+abc...` belong to a module, e.g. `+emacs-lisp|init-hook` is a hook function in the `lang/emacs-lisp` module.
-- `=abc` An interactive command that invokes an app module.
+*** elisp
+**** variable-naming
+- ~doom/abc~ A public, interactive command, designed to be used via =M-x= or a keybinding.
+- ~doom:abc~ A public evil operator, motion or command.
+- ~doom|abc~ A public, non-interactive function meant to be used as a hook.
+- ~doom*abc~ Functions designed to be used as advice for other functions.
+- ~abc!~ A public Doom "autodef" function or macro.
+  An autodef should always be defined, even if its containing module is disabled
+  (i.e. they will not throw a void-function error).
+  The purpose of this is to avoid peppering module configs with conditionals or ~after!~ blocks before using their APIs.
+  They should noop if their module is disabled, and should be zero-cost in the case their module is disabled.
+  Autodefs usually serve to configure Doom or a module. [and are usually syntactic sugar]
+- Functions prefixed with ~+abc...~ belong to a module, e.g. ~+emacs-lisp|init-hook~ is a hook function in the ~lang/emacs-lisp~ module.
+- ~=abc~ An interactive command that invokes an app module.
+*** org-mode
+**** =verbatim=    ---   ~code~   ::    `=verbatim=' and `~code~'
+=●= == key-sequences and text, paths or file names - markup rather than code
+~●~ ~~ functions and variables commands
+***** TODO check project
 ** package-loading
 #+begin_src elisp
   (require 'package)
@@ -44,6 +55,7 @@
       (if (file-readable-p pathToConfigFile) (load pathToConfigFile) (message "WARNING: CONFIG-FILE NOT FOUND: %s" pathToConfigFile))
       ))
 #+end_src
+*** TODO remove
 ** INCLUDES
 ~order matters!~
 *** DONE completion
@@ -62,17 +74,17 @@
   (fb*loadConfigFile "orgmode/0-orgmode.el")
 #+end_src
 *** TODO project
+,#+INCLUDE: "./project/project.org"
 #+begin_src elisp
   (fb*loadConfigFile "project/0-project.el")
 #+end_src
 *** TODO tex
+,#+INCLUDE: "./tex/tex.org"
 #+begin_src elisp
   (fb*loadConfigFile "tex/auctex.el")
 #+end_src
 *** DONE themes
 #+INCLUDE: "./themes/themes.org"
-*** TODO keys
-#+begin_src elisp
-  (fb*loadConfigFile "keys/0-keys.el")
-#+end_src
+*** DONE keys
+#+INCLUDE: "./keys/keys.org"
 
