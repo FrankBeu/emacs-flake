@@ -58,34 +58,33 @@
 *** TODO remove
 ** INCLUDES
 ~order matters!~
-*** DONE completion
+*** completion
 #+INCLUDE: "./completion/completion.org"
-*** DONE evil
+*** evil
 #+INCLUDE: "./evil/evil.org"
-*** DONE global
+*** global
 #+INCLUDE: "./global/global.org"
-*** DONE languages
+*** languages
 #+INCLUDE: "./languages/languages.org"
-*** DONE modeline
+*** modeline
 #+INCLUDE: "./modeline/modeline.org"
-*** DONE orgmode
+*** orgmode
 #+INCLUDE: "./orgmode/orgmode.org"
-*** DONE project
+*** project
 #+INCLUDE: "./project/project.org"
-*** DONE tex
+*** tex
 #+INCLUDE: "./tex/tex.org"
-*** DONE themes
+*** themes
 #+INCLUDE: "./themes/themes.org"
-*** DONE keys
+*** keys
 #+INCLUDE: "./keys/keys.org"
-
 ** TODO TODOS
 *** TODO exclude {undo,motions} from dot-operator
 **** orgmode
 - =gj=
 *** orgmode
 **** structure-editing
-***** demote 
+***** demote
 **** motion
 ***** =gj=
 ***** =gk=
