@@ -37,10 +37,7 @@
 #+begin_src elisp
   (defun fb*getPathToConfigFile (filename)
     "Returns concatenation of \"HOME\" , \".emacs.d/\" and the passed \"filename\"."
-    (expand-file-name filename (expand-file-name ".emacs.d" (getenv "HOME")))
-
-)
-
+    (expand-file-name filename (expand-file-name ".emacs.d" (getenv "HOME"))))
   (defun fb*loadConfigFile (configFileName)
     "Load the config-file associated with the passed configFileName if it exists."
     (let ((pathToConfigFile (fb*getPathToConfigFile configFileName)))
