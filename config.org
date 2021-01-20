@@ -73,11 +73,8 @@
 #+begin_src elisp
   (fb*loadConfigFile "orgmode/0-orgmode.el")
 #+end_src
-*** TODO project
-,#+INCLUDE: "./project/project.org"
-#+begin_src elisp
-  (fb*loadConfigFile "project/0-project.el")
-#+end_src
+*** DONE project
+#+INCLUDE: "./project/project.org"
 *** DONE tex
 #+INCLUDE: "./tex/tex.org"
 *** DONE themes

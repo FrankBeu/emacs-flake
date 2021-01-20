@@ -1,0 +1,36 @@
+* project-magit
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project-magit
+  ;;;;
+  ;;
+#+end_src
+** magit
+#+begin_src elisp
+  (use-package magit
+    :custom
+    (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
+    )
+#+end_src
+** evil-magit
+*** TODO integrated into evil-collection
+remove after switch to 27.x
+#+begin_src elisp
+  (use-package evil-magit
+    :after magit
+    )
+#+end_src
+** orgit
+*** TODO implement
+#+begin_src elisp
+#+end_src
+** orgit-forge
+*** TODO implement
+#+begin_src elisp
+#+end_src
+** forge
+#+begin_src elisp
+  ;; (use-package forge)
+#+end_src
+***  TODO currently gitea is only partially supported
+  https://github.com/magit/forge/issues/254

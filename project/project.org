@@ -1,0 +1,11 @@
+* project
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project
+  ;;;;
+  ;;
+#+end_src
+** magit
+#+INCLUDE: "./magit.org"
+** projectil
+#+INCLUDE: "./projectile.org"
