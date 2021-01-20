@@ -908,7 +908,19 @@ byte-compiled from.")
   (setq typescript-indent-level 2)
   )
 
-(fb*loadConfigFile "modeline/doom-modeline.el")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; modeline
+;;;;
+;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; modeline-doom-modeline
+;;;;
+;;
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom (doom-modeline-height 50)
+  :config (setq doom-modeline-icon t)  ;; needed for emacs-server
+  )
 
 (fb*loadConfigFile "orgmode/0-orgmode.el")
 

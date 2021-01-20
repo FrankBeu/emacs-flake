@@ -57,10 +57,8 @@
 #+INCLUDE: "./global/global.org"
 *** DONE languages
 #+INCLUDE: "./languages/languages.org"
-*** TODO modeline
-#+begin_src elisp
-  (fb*loadConfigFile "modeline/doom-modeline.el")
-#+end_src
+*** DONE modeline
+#+INCLUDE: "./modeline/modeline.org"
 *** TODO orgmode
 #+begin_src elisp
   (fb*loadConfigFile "orgmode/0-orgmode.el")

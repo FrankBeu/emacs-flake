@@ -1,0 +1,16 @@
+* modeline-doom-modeline
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; modeline-doom-modeline
+  ;;;;
+  ;;
+#+end_src
+** modeline-doom-modeline
+#+begin_src elisp
+  (use-package doom-modeline
+    :init (doom-modeline-mode 1)
+    :custom (doom-modeline-height 50)
+    :config (setq doom-modeline-icon t)  ;; needed for emacs-server
+    )
+
+#+end_src

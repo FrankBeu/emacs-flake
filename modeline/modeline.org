@@ -1,0 +1,9 @@
+* modeline
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; modeline
+  ;;;;
+  ;;
+#+end_src
+** doom-modeline
+#+INCLUDE: "./doom-modeline.org"
