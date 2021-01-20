@@ -57,12 +57,9 @@
 *** DONE modeline
 #+INCLUDE: "./modeline/modeline.org"
 *** TODO orgmode
+,#+INCLUDE: "./orgmode/orgmode.org"
 #+begin_src elisp
   (fb*loadConfigFile "orgmode/0-orgmode.el")
-#+end_src
-*** TODO outline
-#+begin_src elisp
-  (fb*loadConfigFile "outline/0-outline.el")
 #+end_src
 *** TODO project
 #+begin_src elisp
@@ -78,3 +75,4 @@
 #+begin_src elisp
   (fb*loadConfigFile "keys/0-keys.el")
 #+end_src
+

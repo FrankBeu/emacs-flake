@@ -921,8 +921,6 @@ byte-compiled from.")
 
 (fb*loadConfigFile "orgmode/0-orgmode.el")
 
-(fb*loadConfigFile "outline/0-outline.el")
-
 (fb*loadConfigFile "project/0-project.el")
 
 (fb*loadConfigFile "tex/auctex.el")

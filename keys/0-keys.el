@@ -12,3 +12,6 @@
 
 ;;;; orgmode
 (fb*loadConfigFile "keys/orgmode.el")
+
+;;;; outline
+(fb*loadConfigFile "keys/outline.el")
