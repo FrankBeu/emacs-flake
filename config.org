@@ -78,13 +78,9 @@
 #+begin_src elisp
   (fb*loadConfigFile "project/0-project.el")
 #+end_src
-*** TODO tex
-,#+INCLUDE: "./tex/tex.org"
-#+begin_src elisp
-  (fb*loadConfigFile "tex/auctex.el")
-#+end_src
+*** DONE tex
+#+INCLUDE: "./tex/tex.org"
 *** DONE themes
 #+INCLUDE: "./themes/themes.org"
 *** DONE keys
 #+INCLUDE: "./keys/keys.org"
-
