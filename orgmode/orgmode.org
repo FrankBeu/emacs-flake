@@ -1,0 +1,21 @@
+* orgmode
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode
+  ;;;;
+  ;;
+#+end_src
+** INFO
+https://orgmode.org/
+** with-eval-begin
+#+begin_src elisp
+(with-eval-after-load 'org
+#+end_src
+** miscellaneous
+#+INCLUDE: "./misc.org"
+** functions
+#+INCLUDE: "./functions.org"
+** with-eval-end
+#+begin_src elisp
+  );;with-eval-end
+#+end_src

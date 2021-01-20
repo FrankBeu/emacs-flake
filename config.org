@@ -68,11 +68,8 @@
 #+INCLUDE: "./languages/languages.org"
 *** DONE modeline
 #+INCLUDE: "./modeline/modeline.org"
-*** TODO orgmode
-,#+INCLUDE: "./orgmode/orgmode.org"
-#+begin_src elisp
-  (fb*loadConfigFile "orgmode/0-orgmode.el")
-#+end_src
+*** DONE orgmode
+#+INCLUDE: "./orgmode/orgmode.org"
 *** DONE project
 #+INCLUDE: "./project/project.org"
 *** DONE tex
@@ -81,3 +78,16 @@
 #+INCLUDE: "./themes/themes.org"
 *** DONE keys
 #+INCLUDE: "./keys/keys.org"
+
+** TODO TODOS
+*** TODO exclude {undo,motions} from dot-operator
+**** orgmode
+- =gj=
+*** orgmode
+**** structure-editing
+***** demote 
+**** motion
+***** =gj=
+***** =gk=
+**** editing
+***** emphasize

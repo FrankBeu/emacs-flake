@@ -919,7 +919,131 @@ byte-compiled from.")
   :config (setq doom-modeline-icon t)  ;; needed for emacs-server
   )
 
-(fb*loadConfigFile "orgmode/0-orgmode.el")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode
+;;;;
+;;
+
+(with-eval-after-load 'org
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
+;;;;
+;;
+
+(setq org-hide-emphasis-markers t)
+
+(setq org-ellipsis
+      ;; " ▾"
+      ;; " ▽"
+      "  ▼"
+      ;; "  ◦◦◦"
+      )
+
+(use-package org-superstar
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list
+   ;; '("◉" "○" "●" "○" "●" "○" "●")
+   ;; '("●" "◉" "○" "●" "◉" "○" "●")
+   ;; '("●")
+   ;; '("◉")
+   '("○")
+   )
+  (org-superstar-item-bullet-alist
+   '(
+     (?- . ?•)
+     (?+ . ?➤)
+     ;; (?+ . ?▶)
+     ;; (?+ . ?▷)
+     ;; (?+ . ?▸)
+     ;; (?+ . ?▹)
+     ;; (?+ . ?►)
+     ;; (?+ . ?▻)
+     ;; (?+ . ?◉)
+     ;; (?+ . ?○)
+     ;; (?+ . ?◌)
+     ;; (?+ . ?◍)
+     ;; (?+ . ?◎)
+     ;; (?+ . ?●)
+     (?* . ?•)
+     )
+   )
+  )
+
+(setq org-startup-indented t)
+
+(use-package org-make-toc
+  :hook (org-mode . org-make-toc-mode))
+
+(with-eval-after-load 'org-indent
+  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+  (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
+  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+  (set-face-attribute 'org-link nil :weight 'normal)
+  )
+
+(set-face-attribute 'org-document-title nil :font "Roboto" :weight 'bold :height 2)
+(dolist (face '((org-level-1 . 1.75)
+                (org-level-2 . 1.5)
+                (org-level-3 . 1.25)
+                (org-level-4 . 1.175)
+                (org-level-5 . 1.15)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.05)
+                (org-level-8 . 1.05)
+                ))
+  (set-face-attribute (car face) nil :font "Roboto" :weight 'regular :height (cdr face)))
+
+;; (custom-set-faces
+;;  '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
+;;  '(org-level-2 ((t (:inherit outline-2 :height 1.25))))
+;;  '(org-level-3 ((t (:inherit outline-3 :height 1.175))))
+;;  '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
+;;  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
+;;  )
+
+(setq org-agenda-files '("~/NOTES"))
+(setq org-agenda-start-with-log-mode t)
+(setq org-log-done 'time)
+(setq org-log-into-drawer t)
+
+(add-to-list 'org-structure-template-alist '("sh"   . "src sh"))
+(add-to-list 'org-structure-template-alist '("el"   . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("sc"   . "src scheme"))
+(add-to-list 'org-structure-template-alist '("ts"   . "src typescript"))
+(add-to-list 'org-structure-template-alist '("py"   . "src python"))
+(add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+(add-to-list 'org-structure-template-alist '("json" . "src json"))
+(add-to-list 'org-structure-template-alist '("go"   . "src go"))
+(add-to-list 'org-structure-template-alist '("rt"   . "src rust"))
+(add-to-list 'org-structure-template-alist '("dt"   . "src dart"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-functions
+;;;;
+;;
+
+(defun fb/org-meta-return (&optional arg)
+  "Insert a new heading or wrap a region in a table.
+Calls `org-insert-SUBheading', `org-insert-item' or
+`org-table-wrap-region', depending on context.  When called with
+an argument, unconditionally call `org-insert-SUBheading'."
+  (interactive "P")
+  (org-check-before-invisible-edit 'insert)
+  (or (run-hook-with-args-until-success 'org-metareturn-hook)
+      (call-interactively (cond (arg #'org-insert-subheading)
+				((org-at-table-p) #'org-table-wrap-region)
+				((org-in-item-p) #'org-insert-item)
+				(t #'org-insert-subheading)))))
+
+);;with-eval-end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project
 ;;;;

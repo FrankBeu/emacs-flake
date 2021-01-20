@@ -1,5 +1,12 @@
-;;; orgmode-keybindings
-
+* orgmode-functions
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-functions
+  ;;;;
+  ;;
+#+end_src
+** headings
+#+begin_src elisp
 (defun fb/org-meta-return (&optional arg)
   "Insert a new heading or wrap a region in a table.
 Calls `org-insert-SUBheading', `org-insert-item' or
@@ -12,3 +19,4 @@ an argument, unconditionally call `org-insert-SUBheading'."
 				((org-at-table-p) #'org-table-wrap-region)
 				((org-in-item-p) #'org-insert-item)
 				(t #'org-insert-subheading)))))
+#+end_src
