@@ -82,11 +82,14 @@
 *** TODO exclude {undo,motions} from dot-operator
 **** orgmode
 - =gj=
-*** orgmode
-**** structure-editing
-***** demote
-**** motion
-***** =gj=
-***** =gk=
-**** editing
-***** emphasize
+*** TODO orgmode
+**** TODO structure-editing
+***** TODO demote
+**** TODO motion
+***** TODO =gj=
+***** TODO =gk=
+**** TODO editing
+***** TODO emphasize
+*** TODO magit
+**** TODO navigation
+***** TODO rebase buffer
