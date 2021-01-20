@@ -1,0 +1,28 @@
+* global-commands
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-commands
+  ;;;;
+  ;;
+#+end_src
+** reload-config
+#+begin_src elisp
+(defun fb/reload-config ()
+  "reload ~/.emacs.d/init.el interactively"
+  (interactive)
+  (fb*reload-config))
+#+end_src
+** toggle-whichKey-sort-order
+#+begin_src elisp
+  (defun fb/toggle-which-key-sort-order ()
+    "Toggle whichKey-sort-order-alpha key - desc"
+    (interactive)
+    (fb*toggle-which-key-sort-order))
+#+end_src
+** copy filename
+#+begin_src elisp
+  (defun fb/yank-buffer-filename ()
+    "Copy the current buffer's path to the kill ring."
+    (interactive)
+    (fb*yank-buffer-filename))
+#+end_src

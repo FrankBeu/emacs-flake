@@ -27,12 +27,6 @@
 #+end_src
 ** tangling
 #+INCLUDE: "./tangling/tangling.org"
-** reloadConfig
-#+begin_src elisp
-  (defun fb*reload-config ()
-    "reload ~/.emacs.d/init.el"
-    (load-file "~/.emacs.d/init.el"))
-#+end_src
 ** debugging
 #+begin_src elisp
   ;; (setq debug-on-error t)
@@ -59,30 +53,35 @@
 #+INCLUDE: "./completion/completion.org"
 *** DONE evil
 #+INCLUDE: "./evil/evil.org"
-*** TODO global
-,#+INCLUDE: "./global/global.org"
-*** TODO configLoads
+*** DONE global
+#+INCLUDE: "./global/global.org"
+*** TODO languages
 #+begin_src elisp
-  ;;(fb*loadConfigFile "evil/evil.el")
-
-  (fb*loadConfigFile "global/0-global.el")
-
   (fb*loadConfigFile "languages/0-languages.el")
-  (fb*loadConfigFile "modeline/doom-modeline.el")
-  (fb*loadConfigFile "orgmode/0-orgmode.el")
-  (fb*loadConfigFile "outline/0-outline.el")
-  (fb*loadConfigFile "project/0-project.el")
-  (fb*loadConfigFile "tex/auctex.el")
-  (fb*loadConfigFile "keys/0-keys.el")
 #+end_src
-*** keys
-*** languages
-*** modeline
-*** orgmode
-*** outline
-*** project
-*** tex
-*** themes
+*** TODO modeline
+#+begin_src elisp
+  (fb*loadConfigFile "modeline/doom-modeline.el")
+#+end_src
+*** TODO orgmode
+#+begin_src elisp
+  (fb*loadConfigFile "orgmode/0-orgmode.el")
+#+end_src
+*** TODO outline
+#+begin_src elisp
+  (fb*loadConfigFile "outline/0-outline.el")
+#+end_src
+*** TODO project
+#+begin_src elisp
+  (fb*loadConfigFile "project/0-project.el")
+#+end_src
+*** TODO tex
+#+begin_src elisp
+  (fb*loadConfigFile "tex/auctex.el")
+#+end_src
 *** DONE themes
 #+INCLUDE: "./themes/themes.org"
-*** keys
+*** TODO keys
+#+begin_src elisp
+  (fb*loadConfigFile "keys/0-keys.el")
+#+end_src

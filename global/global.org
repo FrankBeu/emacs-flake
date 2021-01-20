@@ -1,0 +1,15 @@
+* global
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global
+  ;;;;
+  ;;
+#+end_src
+** miscellaneous
+#+INCLUDE: "./misc.org"
+** packages
+#+INCLUDE: "./packages.org"
+** functions
+#+INCLUDE: "./functions.org"
+** commands
+#+INCLUDE: "./commands.org"

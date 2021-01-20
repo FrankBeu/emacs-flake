@@ -1,0 +1,32 @@
+* global-functions
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-functions
+  ;;;;
+  ;;
+#+end_src
+** reloadConfig
+#+begin_src elisp
+  (defun fb*reload-config ()
+    "reload ~/.emacs.d/init.el"
+    (load-file "~/.emacs.d/init.el"))
+#+end_src
+** toggle-whichKey-sort-order
+switch order (alphabetical)
+- by Key
+- by Descripion
+#+begin_src elisp
+(defun fb*toggle-which-key-sort-order ()
+  "Toggle whichKey-sort-order-alpha key - desc"
+  (setq which-key-sort-order
+	(if (eq which-key-sort-order 'which-key-key-order-alpha) 'which-key-description-order 'which-key-key-order-alpha)))
+#+end_src
+** copy filename
+src: doom-emacs
+#+begin_src elisp
+(defun fb*yank-buffer-filename ()
+  "Copy the current buffer's path to the kill ring."
+  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
+      (message (kill-new (abbreviate-file-name filename)))
+    (error "Couldn't find filename in current buffer")))
+#+end_src

@@ -280,10 +280,6 @@ byte-compiled from.")
   (fb*literate-tangle-h)
   )
 
-(defun fb*reload-config ()
-  "reload ~/.emacs.d/init.el"
-  (load-file "~/.emacs.d/init.el"))
-
 ;; (setq debug-on-error t)
 ;; (setq debug-ignored-error t)
 ;;;; nixos-packages
@@ -427,17 +423,352 @@ byte-compiled from.")
   (undo-tree-visualizer-timestamps t) 
   )
 
-;;(fb*loadConfigFile "evil/evil.el")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global
+;;;;
+;;
 
-(fb*loadConfigFile "global/0-global.el")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-misc
+;;;;
+;;
+
+(server-start)
+
+(defvar fb/default-font-size 160)  ;; height/10 ≙ px
+
+;; (set-frame-font "Roboto Mono 12" nil t)
+;; (set-frame-font "Noto Sans Mono 12" nil t)
+;; (set-face-attribute 'default nil :height fb/default-font-size)
+(set-face-attribute 'default nil :font "Roboto Mono" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Iosevka Term" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Hack" :height fb/default-font-size)
+;; (set-face-attribute 'default nil :font "Fira Code" :height fb/default-font-size)
+
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(set-fringe-mode 10)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+(dolist (mode '(
+		eshell-mode-hook
+		helpful-mode-hook
+		org-mode-hook
+		shell-mode-hook
+		term-mode-hook
+		treemacs-mode-hook
+		))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(show-paren-mode 1)
+
+(setq
+ split-width-threshold 0
+ split-height-threshold nil)
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
+(setq inhibit-startup-message t )      ;;; inhibit startup message
+(setq initial-scratch-message "")      ;;; print a default message in the empty scratch buffer opened at startup
+;; (setq ring-bell-function 'ignore )     ;;; silent bell when you make a mistake
+;; (setq visible-bell t)                  ;;; visible bell when you make a mistake - doom-modeline takes care
+(setq coding-system-for-read 'utf-8 )  ;;; use utf-8 by default
+(setq coding-system-for-write 'utf-8 )
+(setq sentence-end-double-space nil)   ;;; sentence SHOULD end with only a point.
+(setq fill-column 80)                  ;;; toggle wrapping text at the 80th character
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-packages
+;;;;
+;;
+
+(use-package all-the-icons)
+
+(use-package ansi-color
+  :commands fb/display-ansi-colors
+  :config
+  (defun fb/display-ansi-colors ()
+    (interactive)
+    (let ((inhibit-read-only t))
+      (ansi-color-apply-on-region (point-min) (point-max))))
+  )
+
+(use-package avy)
+
+(use-package command-log-mode)
+
+(use-package dired
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-agho --group-directories-first"))
+  )
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+;; (use-package dired-git-info
+;;   :after dired
+;;   :hook (dired-after-readin . dired-git-info-auto-enable)
+;;   :config
+;;   (setq dgi-auto-hide-details-p nil)
+;;   )
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  )
+
+;; (use-package dired-k
+;;   :after dired
+;;   :hook ((dired-initial-position . dired-k)
+;; 	 ;; (dired-after-readin     . #'dired-k-no-revert)
+;; 	 )
+;;   :config
+;;   ;; (setq dired-k-style nil)
+;;   (setq dired-k-style 'git)
+;;   ;; (setq dired-k-human-readable nil)
+;;   (setq dired-k-human-readable t)
+;;   (setq dired-k-padding 1)
+;;   )
+
+(use-package dired-rifle
+  :after dired
+  )
+
+(use-package dired-single)
+
+(use-package fira-code-mode
+  ;; :config (global-fira-code-mode) ;; will not work with orgmode headline-stars
+  :hook prog-mode
+  :disabled
+  )
+
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key)
+  )
+
+(use-package imenu-list
+  ;; TODO enable in each language-mode cf. spacemacs
+  ;; :hook (prog-mode . imenu-list-minor-mode)
+  ;; :disabled
+  )
+
+;; (use-package neotree
+;;   :config
+;;   (setq neo-smart-open t)
+;;   (setq neo-autorefresh t)
+;;   (setq neo-vc-integration '(face))
+;;   )
+
+(use-package no-littering
+  :init
+  (setq no-littering-etc-directory (expand-file-name ".state/config/" user-emacs-directory)
+        no-littering-var-directory (expand-file-name ".state/data/"   user-emacs-directory))
+  :config
+  (setq
+   auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))
+   backup-by-copying t
+   delete-old-versions t          ;;; delete excess backup versions silently
+   kept-new-versions 128
+   kept-old-versions 0
+   make-backup-files t
+   vc-follow-symlinks t           ;;; don't ask for confirmation when opening symlinked file under vc
+   vc-make-backup-files t         ;;; make backups file even when in version controlled dir
+   version-control t              ;;; use version control
+   )
+  )
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode)
+  )
+
+(use-package rainbow-mode
+  :hook ((prog-mode . rainbow-mode)
+         (org-mode . rainbow-mode)
+         )
+  )
+
+(use-package ripgrep)
+
+(use-package treemacs
+  :defer t
+  :init
+  (with-eval-after-load 'winum
+    (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
+  :config
+  (progn
+    (setq treemacs-collapse-dirs                 (if treemacs-python-executable 3 0)
+          treemacs-deferred-git-apply-delay      0.5
+          treemacs-directory-name-transformer    #'identity
+          treemacs-display-in-side-window        t
+          treemacs-eldoc-display                 t
+          treemacs-file-event-delay              5000
+          treemacs-file-extension-regex          treemacs-last-period-regex-value
+          treemacs-file-follow-delay             0.2
+          treemacs-file-name-transformer         #'identity
+          treemacs-follow-after-init             t
+          treemacs-git-command-pipe              ""
+          treemacs-goto-tag-strategy             'refetch-index
+          treemaca-indentation                   2
+          treemacs-indentation-string            " "
+          treemacs-is-never-other-window         nil
+          treemacs-max-git-entries               5000
+          treemacs-missing-project-action        'ask
+          treemacs-move-forward-on-expand        nil
+          treemacs-no-png-images                 nil
+          treemacs-no-delete-other-windows       t
+          treemacs-project-follow-cleanup        nil
+          treemacs-persist-file                  (expand-file-name ".state/data/treemacs/treemacs-persist" user-emacs-directory)
+          treemacs-position                      'left
+          treemacs-read-string-input             'from-child-frame
+          treemacs-recenter-distance             0.1
+          treemacs-recenter-after-file-follow    nil
+          treemacs-recenter-after-tag-follow     nil
+          treemacs-recenter-after-project-jump   'always
+          treemacs-recenter-after-project-expand 'on-distance
+          treemacs-show-cursor                   nil
+          treemacs-show-hidden-files             t
+          treemacs-silent-filewatch              nil
+          treemacs-silent-refresh                nil
+          treemacs-sorting                       'alphabetic-asc
+          treemacs-space-between-root-nodes      t
+          treemacs-tag-follow-cleanup            t
+          treemacs-tag-follow-delay              1.5
+          treemacs-user-mode-line-format         nil
+          treemacs-user-header-line-format       nil
+          treemacs-width                         35
+          treemacs-workspace-switch-cleanup      nil)
+
+    ;; The default width and height of the icons is 22 pixels. If you are
+    ;; using a Hi-DPI display, uncomment this to double the icon size.
+    ;;(treemacs-resize-icons 44)
+
+    (treemacs-follow-mode t)
+    ;; (treemacs-follow-mode nil)
+    (treemacs-filewatch-mode t)
+    (treemacs-fringe-indicator-mode 'always)
+    (pcase (cons (not (null (executable-find "git")))
+                 (not (null treemacs-python-executable)))
+      (`(t . t)
+       (treemacs-git-mode 'deferred))
+      (`(t . _)
+       (treemacs-git-mode 'simple))))
+  :bind
+  (:map global-map
+        ("M-0"       . treemacs-select-window)
+        ("C-x t 1"   . treemacs-delete-other-windows)
+        ("C-x t t"   . treemacs)
+        ("C-x t B"   . treemacs-bookmark)
+        ("C-x t C-t" . treemacs-find-file)
+        ("C-x t M-t" . treemacs-find-tag))
+  ;; :general
+  ;; (:keymaps 'treemacs-mode-map
+  ;; :states 'treemacs
+  ;; "l" 'nil)
+  ;; :after general
+  )
+
+(use-package treemacs-all-the-icons
+  :after treemacs all-the-icons
+  :config
+  (treemacs-load-theme "all-the-icons")
+  )
+
+(use-package treemacs-evil
+  :after treemacs evil)
+
+(use-package treemacs-icons-dired
+  :after treemacs dired
+  :config (treemacs-icons-dired-mode))
+
+(use-package treemacs-magit
+  :after treemacs magit)
+
+(use-package treemacs-persp ;;treemacs-persective if you use perspective.el vs. persp-mode
+  :after treemacs persp-mode ;;or perspective vs. persp-mode
+  :config (treemacs-set-scope-type 'Perspectives))
+
+(use-package treemacs-projectile
+  :after treemacs projectile)
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq
+   which-key-idle-delay 0.5
+   which-key-max-description-length nil
+   which-key-allow-imprecise-window-fit t
+   ;; which-key-sort-order 'which-key-key-order-alpha
+   which-key-sort-order 'which-key-description-order
+   )
+  )
+
+(use-package writeroom-mode
+  :config
+  (setq writeroom-mode-line-toggle-position 'mode-line-format)
+  (setq writeroom-width 98)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-functions
+;;;;
+;;
+
+(defun fb*reload-config ()
+  "reload ~/.emacs.d/init.el"
+  (load-file "~/.emacs.d/init.el"))
+
+(defun fb*toggle-which-key-sort-order ()
+  "Toggle whichKey-sort-order-alpha key - desc"
+  (setq which-key-sort-order
+	(if (eq which-key-sort-order 'which-key-key-order-alpha) 'which-key-description-order 'which-key-key-order-alpha)))
+
+(defun fb*yank-buffer-filename ()
+  "Copy the current buffer's path to the kill ring."
+  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
+      (message (kill-new (abbreviate-file-name filename)))
+    (error "Couldn't find filename in current buffer")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-commands
+;;;;
+;;
+
+(defun fb/reload-config ()
+  "reload ~/.emacs.d/init.el interactively"
+  (interactive)
+  (fb*reload-config))
+
+(defun fb/toggle-which-key-sort-order ()
+  "Toggle whichKey-sort-order-alpha key - desc"
+  (interactive)
+  (fb*toggle-which-key-sort-order))
+
+(defun fb/yank-buffer-filename ()
+  "Copy the current buffer's path to the kill ring."
+  (interactive)
+  (fb*yank-buffer-filename))
 
 (fb*loadConfigFile "languages/0-languages.el")
+
 (fb*loadConfigFile "modeline/doom-modeline.el")
+
 (fb*loadConfigFile "orgmode/0-orgmode.el")
+
 (fb*loadConfigFile "outline/0-outline.el")
+
 (fb*loadConfigFile "project/0-project.el")
+
 (fb*loadConfigFile "tex/auctex.el")
-(fb*loadConfigFile "keys/0-keys.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; themes
 ;;;;
@@ -512,3 +843,5 @@ byte-compiled from.")
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
   )
+
+(fb*loadConfigFile "keys/0-keys.el")
