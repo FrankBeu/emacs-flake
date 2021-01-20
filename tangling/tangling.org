@@ -326,3 +326,17 @@ transformative logic."
     (fb*literate-tangle-h)
     )
 #+end_src                                            
+** TODO TODOS
+*** fix:
+**** non *.org-files start recompiling the config
+***** even for non-org files .dir-locals are not working:
+#+begin_example elisp
+;; /home/frank/.emacs.d/snippets/.dir-locals.elOFF
+;; Directory Local Variables
+;; For more information see (info "(emacs) Directory Variables")
+
+(
+ (org-mode
+  (eval remove-hook 'after-save-hook 'fb*literate-recompile-h))
+ )
+#+end_example

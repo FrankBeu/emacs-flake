@@ -2,11 +2,15 @@
 
 (setq package-archives nil)
 
-(setq package-enable-at-startup nil)                 
-;; (package-initialize 'no-activate)                 
-(package-initialize)                                 
-(eval-when-compile                                   
+(setq package-enable-at-startup nil)
+;; (package-initialize 'no-activate)
+(package-initialize)
+(eval-when-compile
   (require 'use-package))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; tangling
+;;;;
+;;
 
 (defmacro letf! (bindings &rest body)
   "Temporarily rebind function and macros in BODY.
@@ -280,33 +284,29 @@ byte-compiled from.")
   "reload ~/.emacs.d/init.el"
   (load-file "~/.emacs.d/init.el"))
 
-;; (setq debug-on-error t)                           
-;; (setq debug-ignored-error t)                      
+;; (setq debug-on-error t)
+;; (setq debug-ignored-error t)
 ;;;; nixos-packages
 
-(defun fb*getPathToConfigFile (filename)             
+(defun fb*getPathToConfigFile (filename)
     "Returns concatenation of \"HOME\" , \".emacs.d/\" and the passed \"filename\"."
     (expand-file-name filename (expand-file-name ".emacs.d" (getenv "HOME")))
 
-)                                                  
+)
 
-  (defun fb*loadConfigFile (configFileName)            
+  (defun fb*loadConfigFile (configFileName)
     "Load the config-file associated with the passed configFileName if it exists."
     (let ((pathToConfigFile (fb*getPathToConfigFile configFileName)))
       (if (file-readable-p pathToConfigFile) (load pathToConfigFile) (message "WARNING: CONFIG-FILE NOT FOUND: %s" pathToConfigFile))
       ))
 
-(fb*loadConfigFile "evil/evil.el")                   
-(fb*loadConfigFile "global/0-global.el")             
-(fb*loadConfigFile "keys/0-keys.el")                 
-(fb*loadConfigFile "languages/0-languages.el")       
-(fb*loadConfigFile "modeline/doom-modeline.el")      
-(fb*loadConfigFile "orgmode/0-orgmode.el")           
-(fb*loadConfigFile "outline/0-outline.el")           
-(fb*loadConfigFile "project/0-project.el")           
-(fb*loadConfigFile "tex/auctex.el")                  
-;; (fb*loadConfigFile "themes/themes.el")            
-(fb*loadConfigFile "keys/0-keys.el")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; completion
+;;;;
+;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; completion-ivy
+;;;;
+;;
 
 (use-package ivy
   :diminish
@@ -356,6 +356,92 @@ byte-compiled from.")
          ("C-l" . ivy-next-line)
          ("C-S-L" . swiper-recenter-top-bottom)
 	 ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; evil
+;;;;
+;;
+
+(setq evil-want-keybinding nil)
+(defun fb/evil-hook ()
+  (dolist (mode '(
+                  custom-mode
+                  eshell-mode
+                  git-rebase-mode
+                  term-mode
+                  ;; undo-tree-visualizer-mode
+                  ))
+    (add-to-list 'evil-emacs-state-modes mode)))
+
+(use-package evil
+  :init
+  (setq evil-want-C-i-jump nil
+        ;; evil-want-C-u-scroll t     ;; TODO shadows C-u universal argument
+        evil-want-Y-yank-to-eol t
+        evil-want-integration t
+        )
+  ;; (evil-set-initial-state 'undo-tree-visualizer-mode 'emacs)
+  :config
+  (add-hook 'evil-mode-hook 'fb/evil-hook)
+  (evil-mode 1)
+  :custom
+  (evil-undo-system 'undo-tree)
+  )
+
+(use-package evil-collection
+  :after evil
+  :init
+  (setq evil-want-keybinding nil)
+  :config
+  ;; (add-hook 'evil-collection-setup-hook #'fb/hjkl-rotation)
+  (evil-collection-init)
+  )
+
+;; (use-package evil-commentary
+;;   :config
+;;   (evil-commentary-mode)
+;;   )
+
+(use-package evil-escape
+  :config
+  (evil-escape-mode)
+  )
+
+(use-package evil-nerd-commenter
+  :config
+  (setq evilnc-invert-comment-line-by-line t)
+  ;; (evilnc-default-hotkeys)
+  )
+
+(use-package evil-numbers)
+
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1)
+  )
+
+(use-package undo-tree
+  :config
+  (global-undo-tree-mode 1)
+  :custom
+  (undo-tree-visualizer-diff t)
+  (undo-tree-visualizer-timestamps t) 
+  )
+
+;;(fb*loadConfigFile "evil/evil.el")
+
+(fb*loadConfigFile "global/0-global.el")
+
+(fb*loadConfigFile "languages/0-languages.el")
+(fb*loadConfigFile "modeline/doom-modeline.el")
+(fb*loadConfigFile "orgmode/0-orgmode.el")
+(fb*loadConfigFile "outline/0-outline.el")
+(fb*loadConfigFile "project/0-project.el")
+(fb*loadConfigFile "tex/auctex.el")
+(fb*loadConfigFile "keys/0-keys.el")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; themes
+;;;;
+;;
 
 ;; (load-theme 'deeper-blue)
 ;; (load-theme 'wombat)

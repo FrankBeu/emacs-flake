@@ -1,0 +1,95 @@
+* evil
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; evil
+  ;;;;
+  ;;
+#+end_src
+** evil-hook
+#+begin_src elisp
+  (setq evil-want-keybinding nil)
+  (defun fb/evil-hook ()
+    (dolist (mode '(
+                    custom-mode
+                    eshell-mode
+                    git-rebase-mode
+                    term-mode
+                    ;; undo-tree-visualizer-mode
+                    ))
+      (add-to-list 'evil-emacs-state-modes mode)))
+#+end_src
+** evil
+#+begin_src elisp
+  (use-package evil
+    :init
+    (setq evil-want-C-i-jump nil
+          ;; evil-want-C-u-scroll t     ;; TODO shadows C-u universal argument
+          evil-want-Y-yank-to-eol t
+          evil-want-integration t
+          )
+    ;; (evil-set-initial-state 'undo-tree-visualizer-mode 'emacs)
+    :config
+    (add-hook 'evil-mode-hook 'fb/evil-hook)
+    (evil-mode 1)
+    :custom
+    (evil-undo-system 'undo-tree)
+    )
+#+end_src
+** evil-collection
+TEST: quit helpful buffer with q
+#+begin_src elisp
+
+  (use-package evil-collection
+    :after evil
+    :init
+    (setq evil-want-keybinding nil)
+    :config
+    ;; (add-hook 'evil-collection-setup-hook #'fb/hjkl-rotation)
+    (evil-collection-init)
+    )
+#+end_src
+** evil-commentary
+deprecated cf. evil-nerd-commenter
+#+begin_src elisp
+  ;; (use-package evil-commentary
+  ;;   :config
+  ;;   (evil-commentary-mode)
+  ;;   )
+#+end_src
+** evil-escape
+;; use fast fd to escape everything
+#+begin_src elisp
+  (use-package evil-escape
+    :config
+    (evil-escape-mode)
+    )
+#+end_src
+** evil-nerd-commenter
+#+begin_src elisp
+  (use-package evil-nerd-commenter
+    :config
+    (setq evilnc-invert-comment-line-by-line t)
+    ;; (evilnc-default-hotkeys)
+    )
+#+end_src
+** evil-numbers
+#+begin_src elisp
+  (use-package evil-numbers)
+#+end_src
+** evil-surround
+#+begin_src elisp
+  (use-package evil-surround
+    :config
+    (global-evil-surround-mode 1)
+    )
+#+end_src
+** undo-tree
+#+begin_src elisp
+  (use-package undo-tree
+    :config
+    (global-undo-tree-mode 1)
+    :custom
+    (undo-tree-visualizer-diff t)
+    (undo-tree-visualizer-timestamps t) 
+    )
+#+end_src
