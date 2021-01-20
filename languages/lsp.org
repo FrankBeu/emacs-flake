@@ -1,0 +1,50 @@
+* languages-lsp
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-lsp
+  ;;;;
+  ;;
+#+end_src
+** lsp-mode
+*** setup-hook
+#+begin_src elisp
+  (defun fb*lsp-mode-setup-h ()
+    (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+    (lsp-headerline-breadcrumb-mode))
+#+end_src
+*** lsp-mode
+#+begin_src elisp
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :hook (lsp-mode . fb*lsp-mode-setup-h)
+    :init
+    (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
+    :config
+    (lsp-enable-which-key-integration t)
+    )
+#+end_src
+** lsp-ui
+#+begin_src elisp
+  ;; (use-package lsp-ui :commands lsp-ui-mode)
+  ;; (use-package lsp-ui
+  ;;   :hook (lsp-mode . lsp-ui-mode)
+  ;;   :commands lsp-ui-mode
+  ;;   :custom
+  ;;   (lsp-ui-doc-position 'bottom))
+#+end_src
+** lsp-ivy
+#+begin_src elisp
+  ;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+#+end_src
+** lsp-treemacs
+#+begin_src elisp
+  (use-package lsp-treemacs
+    :commands lsp-treemacs-errors-list
+    :after lsp
+    )
+#+end_src
+** dap-mode
+#+begin_src elisp
+  ;; (use-package dap-mode)
+  ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+#+end_src

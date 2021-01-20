@@ -55,10 +55,8 @@
 #+INCLUDE: "./evil/evil.org"
 *** DONE global
 #+INCLUDE: "./global/global.org"
-*** TODO languages
-#+begin_src elisp
-  (fb*loadConfigFile "languages/0-languages.el")
-#+end_src
+*** DONE languages
+#+INCLUDE: "./languages/languages.org"
 *** TODO modeline
 #+begin_src elisp
   (fb*loadConfigFile "modeline/doom-modeline.el")

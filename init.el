@@ -758,7 +758,155 @@ byte-compiled from.")
   (interactive)
   (fb*yank-buffer-filename))
 
-(fb*loadConfigFile "languages/0-languages.el")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages
+;;;;
+;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-misc
+;;;;
+;;
+
+;;
+;; (use-package company
+;;   :config
+;;   ;; Optionally enable completion-as-you-type behavior.
+;;   (setq company-idle-delay 0)
+;;   (setq company-minimum-prefix-length 1)
+
+;;   (progn
+;;     (add-hook 'after-init-hook 'global-company-mode)))
+;;   )
+
+(use-package yasnippet
+  :init
+  (yas-global-mode 1)
+  :config
+  (setq yas-snippet-dirs
+        '(
+          "~/.emacs.d/snippets"
+          ))
+  (yas-reload-all)
+  )
+
+;; (use-package flycheck
+;;   :hook (prog-mode . flycheck-mode)
+;;   ;; :config
+;;   ;; (global-flycheck-mode)
+;;   )
+
+(use-package vimrc-mode
+  :mode "\\.vim\\(rc\\)?\\'"
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-lsp
+;;;;
+;;
+
+(defun fb*lsp-mode-setup-h ()
+  (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
+  (lsp-headerline-breadcrumb-mode))
+
+(use-package lsp-mode
+  :commands (lsp lsp-deferred)
+  :hook (lsp-mode . fb*lsp-mode-setup-h)
+  :init
+  (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
+  :config
+  (lsp-enable-which-key-integration t)
+  )
+
+;; (use-package lsp-ui :commands lsp-ui-mode)
+;; (use-package lsp-ui
+;;   :hook (lsp-mode . lsp-ui-mode)
+;;   :commands lsp-ui-mode
+;;   :custom
+;;   (lsp-ui-doc-position 'bottom))
+
+;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list
+  :after lsp
+  )
+
+;; (use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-elisp
+;;;;
+;;
+
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            ;; (make-local-variable 'outline-regexp)
+            ;; (setq outline-regexp "^;;; ")
+            ;; (make-local-variable 'outline-heading-end-regexp)
+            ;; (setq outline-heading-end-regexp ":\n")
+            (outline-minor-mode 1)
+            ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-golang
+;;;;
+;;
+
+(use-package go-mode
+  :hook ((go-mode . lsp-deferred)
+         ;; (go-mode . yas-minor-mode)
+         )
+  )
+
+(defun fb/lsp-go-install-save-hooks ()
+  (add-hook 'before-save-hook #'lsp-format-buffer t t)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+(add-hook 'go-mode-hook #'fb/lsp-go-install-save-hooks)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
+;;;;
+;;
+
+(use-package docker
+  :bind ("C-c d" . docker))
+
+(use-package kubernetes
+  :commands (kubernetes-overview))
+
+(use-package kubernetes-evil
+  :after kubernetes)
+
+(use-package kubernetes-helm
+  :after kubernetes)
+
+(use-package kubernetes-tramp
+  :after kubernetes)
+
+(use-package yaml-mode
+  :hook (yaml-mode . lsp-deferred)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-nix
+;;;;
+;;
+
+(use-package nix-mode
+  :mode "\\.nix\\'"
+  )
+
+;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+;; (lsp-register-client
+ ;; (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                  ;; :major-modes '(nix-mode)
+                  ;; :server-id 'nix))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-typeScript
+;;;;
+;;
+
+(use-package typescript-mode
+  :mode "\\.ts\\'"
+  :hook (typescript-mode . lsp-deferred)
+  :config
+  (setq typescript-indent-level 2)
+  )
 
 (fb*loadConfigFile "modeline/doom-modeline.el")
 
@@ -845,3 +993,5 @@ byte-compiled from.")
   )
 
 (fb*loadConfigFile "keys/0-keys.el")
+
+bash -c "env RUST_LOG=trace rnix-lsp 2> /tmp/rnix-lsp.log"

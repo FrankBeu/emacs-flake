@@ -1,0 +1,22 @@
+* languages
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages
+  ;;;;
+  ;;
+#+end_src
+** misc
+#+INCLUDE: "./misc.org"
+** lsp-mode
+#+INCLUDE: "./lsp.org"
+** elisp
+#+INCLUDE: "./elisp.org"
+** golang
+#+INCLUDE: "./golang.org"
+** k8s
+#+INCLUDE: "./k8s.org"
+** nix
+#+INCLUDE: "./nix.org"
+** typeScript
+#+INCLUDE: "./typeScript.org"
+

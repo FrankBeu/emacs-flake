@@ -1,0 +1,49 @@
+* languages-misc
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-misc
+  ;;;;
+  ;;
+#+end_src
+** company
+#+begin_src elisp
+;;
+;; (use-package company
+;;   :config
+;;   ;; Optionally enable completion-as-you-type behavior.
+;;   (setq company-idle-delay 0)
+;;   (setq company-minimum-prefix-length 1)
+
+;;   (progn
+;;     (add-hook 'after-init-hook 'global-company-mode)))
+;;   )
+#+end_src
+** yasnippets
+  https://joaotavora.github.io/yasnippet/snippet-expansion.html
+#+begin_src elisp
+  (use-package yasnippet
+    :init
+    (yas-global-mode 1)
+    :config
+    (setq yas-snippet-dirs
+          '(
+            "~/.emacs.d/snippets"
+            ))
+    (yas-reload-all)
+    )
+#+end_src
+** flycheck
+#+begin_src elisp
+;; (use-package flycheck
+;;   :hook (prog-mode . flycheck-mode)
+;;   ;; :config
+;;   ;; (global-flycheck-mode)
+;;   )
+#+end_src
+*** modes
+*** vimrc-mode
+#+begin_src elisp
+  (use-package vimrc-mode
+    :mode "\\.vim\\(rc\\)?\\'"
+    )
+#+end_src

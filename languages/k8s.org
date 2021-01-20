@@ -1,0 +1,38 @@
+* language-k8s
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
+  ;;;;
+  ;;
+#+end_src
+** docker
+#+begin_src elisp
+  (use-package docker
+    :bind ("C-c d" . docker))
+#+end_src
+** k8s
+#+begin_src elisp
+  (use-package kubernetes
+    :commands (kubernetes-overview))
+#+end_src
+** k8s-evil
+#+begin_src elisp
+  (use-package kubernetes-evil
+    :after kubernetes)
+#+end_src
+** k8s-helm
+#+begin_src elisp
+  (use-package kubernetes-helm
+    :after kubernetes)
+#+end_src
+** k8s-tramp
+#+begin_src elisp
+  (use-package kubernetes-tramp
+    :after kubernetes)
+#+end_src
+** yaml-mode
+#+begin_src elisp
+  (use-package yaml-mode
+    :hook (yaml-mode . lsp-deferred)
+    )
+#+end_src
