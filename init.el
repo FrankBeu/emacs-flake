@@ -433,39 +433,6 @@ byte-compiled from.")
 
 (server-start)
 
-(defvar fb/default-font-size 160)  ;; height/10 ≙ px
-
-;; (set-frame-font "Roboto Mono 12" nil t)
-;; (set-frame-font "Noto Sans Mono 12" nil t)
-;; (set-face-attribute 'default nil :height fb/default-font-size)
-(set-face-attribute 'default nil :font "Roboto Mono" :height fb/default-font-size)
-;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height fb/default-font-size)
-;; (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height fb/default-font-size)
-;; (set-face-attribute 'default nil :font "Iosevka Term" :height fb/default-font-size)
-;; (set-face-attribute 'default nil :font "Hack" :height fb/default-font-size)
-;; (set-face-attribute 'default nil :font "Fira Code" :height fb/default-font-size)
-
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(set-fringe-mode 10)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-
-(column-number-mode)
-(global-display-line-numbers-mode t)
-
-(dolist (mode '(
-		eshell-mode-hook
-		helpful-mode-hook
-		org-mode-hook
-		shell-mode-hook
-		term-mode-hook
-		treemacs-mode-hook
-		))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-(show-paren-mode 1)
-
 (setq
  split-width-threshold 0
  split-height-threshold nil)
@@ -979,40 +946,6 @@ byte-compiled from.")
 (use-package org-make-toc
   :hook (org-mode . org-make-toc-mode))
 
-(with-eval-after-load 'org-indent
-  (set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-table nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
-
-  (set-face-attribute 'org-link nil :weight 'normal)
-  )
-
-(set-face-attribute 'org-document-title nil :font "Roboto" :weight 'bold :height 2)
-(dolist (face '((org-level-1 . 1.75)
-                (org-level-2 . 1.5)
-                (org-level-3 . 1.25)
-                (org-level-4 . 1.175)
-                (org-level-5 . 1.15)
-                (org-level-6 . 1.1)
-                (org-level-7 . 1.05)
-                (org-level-8 . 1.05)
-                ))
-  (set-face-attribute (car face) nil :font "Roboto" :weight 'regular :height (cdr face)))
-
-;; (custom-set-faces
-;;  '(org-level-1 ((t (:inherit outline-1 :height 1.5))))
-;;  '(org-level-2 ((t (:inherit outline-2 :height 1.25))))
-;;  '(org-level-3 ((t (:inherit outline-3 :height 1.175))))
-;;  '(org-level-4 ((t (:inherit outline-4 :height 1.1))))
-;;  '(org-level-5 ((t (:inherit outline-5 :height 1.0))))
-;;  )
-
 (setq org-agenda-files '("~/NOTES"))
 (setq org-agenda-start-with-log-mode t)
 (setq org-log-done 'time)
@@ -1185,6 +1118,114 @@ an argument, unconditionally call `org-insert-SUBheading'."
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view
+;;;;
+;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view-font
+;;;;
+;;
+
+(defvar fb-default-font-size 160) ;; height/10 ≙ px
+
+(defvar fb-default-font-name-mono  "Roboto Mono")
+(defvar fb-default-font-name-sans  "Roboto"     )
+(defvar fb-default-font-name-serif "Noto Serif" )
+
+(defvar fb-default-typeface fb-default-font-name-mono )
+;; (defvar fb-default-typeface fb-default-font-name-sans )
+;; (defvar fb-default-typeface fb-default-font-name-serif)
+
+(defvar fb-default-typeface-fixed fb-default-font-name-mono )
+
+(defvar fb-default-typeface-variable fb-default-font-name-sans )
+;; (defvar fb-default-typeface-variable fb-default-font-name-serif)
+
+(with-eval-after-load 'org
+  (set-face-attribute 'default        nil :font fb-default-typeface          :height fb-default-font-size)
+  (set-face-attribute 'fixed-pitch    nil :font fb-default-typeface-fixed    :foreground nil             )
+  (set-face-attribute 'variable-pitch nil :font fb-default-typeface-variable :foreground nil             )
+  )
+
+(with-eval-after-load 'org
+  (dolist (face '((org-level-1 . 1.75 )
+                  (org-level-2 . 1.5  )
+                  (org-level-3 . 1.25 )
+                  (org-level-4 . 1.175)
+                  (org-level-5 . 1.15 )
+                  (org-level-6 . 1.1  )
+                  (org-level-7 . 1.05 )
+                  (org-level-8 . 1.05 )
+                  ))
+    (set-face-attribute (car face) nil :font fb-default-typeface-variable :weight 'regular :height (cdr face))))
+
+(defun fb*org-font-faces-mono ()
+  (set-face-attribute 'org-block            nil :inherit '(fixed-pitch         ) :foreground nil :height (- fb-default-font-size 10))
+  (set-face-attribute 'org-checkbox         nil :inherit '(fixed-pitch         )                )
+  (set-face-attribute 'org-code             nil :inherit '(fixed-pitch shadow  )                )
+  (set-face-attribute 'org-date             nil :inherit '(fixed-pitch         )                )
+  (set-face-attribute 'org-formula          nil :inherit '(fixed-pitch         )                )
+  (set-face-attribute 'org-indent           nil :inherit '(fixed-pitch org-hide)                )   ;;;; fixes indentation
+  (set-face-attribute 'org-link             nil :inherit '(fixed-pitch         ) :weight 'normal)
+  (set-face-attribute 'org-meta-line        nil :inherit '(fixed-pitch font-lock-comment-face)  )
+  (set-face-attribute 'org-special-keyword  nil :inherit '(fixed-pitch font-lock-comment-face)  )
+  (set-face-attribute 'org-table            nil :inherit '(fixed-pitch         )                )
+  (set-face-attribute 'org-verbatim         nil :inherit '(fixed-pitch shadow  )                )
+  )
+
+;; (set-face-attribute 'org-block           nil :inherit 'fixed-pitch :height (- fb-default-font-size 20))
+;; (set-face-attribute 'org-block           nil :inherit 'fixed-pitch :height    fb-default-font-size    )
+
+;; (set-face-attribute 'org-block            nil :inherit '(fixed-pitch         ) :foreground nil :height (- fb-default-font-size 20))
+;; (set-face-attribute 'org-block-begin-line nil :inherit '(fixed-pitch         )                )
+;; (set-face-attribute 'org-block-end-line   nil :inherit '(org-block-begin-line)                )
+
+;; (set-face-attribute 'org-block            nil :inherit '(fixed-pitch         ) :foreground nil)
+;; (set-face-attribute 'org-block-begin-line nil :inherit '(fixed-pitch         )                )
+;; (set-face-attribute 'org-block-end-line   nil :inherit '(org-block-begin-line)                )
+
+;; (set-face-attribute 'org-code            nil :inherit 'fixed-pitch                                    )
+
+;;;; NOT WORKING
+;; (set-face-attribute 'org-document-title  nil :font fb-default-font-name-serif :weight 'regular :height 1)
+
+(defun fb*org-buffer-variable-pitch-h ()
+  (variable-pitch-mode t)
+  (fb*org-font-faces-mono))
+
+(add-hook 'org-mode-hook 'fb*org-buffer-variable-pitch-h)
+
+(setq line-spacing 2)
+
+(setq org-fontify-quote-and-verse-blocks t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view-misc
+;;;;
+;;
+
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(set-fringe-mode 10)
+(tool-bar-mode -1)
+(tooltip-mode -1)
+
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+(dolist (mode '(
+                eshell-mode-hook
+                helpful-mode-hook
+                org-mode-hook
+                shell-mode-hook
+                term-mode-hook
+                treemacs-mode-hook
+                ))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+(show-paren-mode 1)
+
+(setq org-startup-indented t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys
 ;;;;
@@ -1587,3 +1628,5 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
 
 (global-set-key "\M-o" cm-map)
+
+fc-cache -fv

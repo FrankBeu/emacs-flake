@@ -20,6 +20,37 @@
 =●= == key-sequences and text, paths or file names - markup rather than code
 ~●~ ~~ functions and variables commands
 ***** TODO check project
+** TODO TODOS
+*** TODO global
+**** TODO check undo behaviour
+*** TODO exclude {undo,motions} from dot-operator
+**** orgmode
+- =gj=
+*** TODO create overview
+all TODO-items in =.emacs.d=
+**** ???
+***** org-projectile
+https://github.com/IvanMalison/org-projectile
+***** agenda
+via =.dir-locals.el=
+https://emacs.stackexchange.com/questions/10012/a-search-interface-for-org-mode-files#answer-10017
+***** advanced searching
+https://orgmode.org/worg/org-tutorials/advanced-searching.html
+***** todo-projectile
+https://github.com/WolfeCub/todo-projectile
+***** fixmee
+https://github.com/rolandwalker/fixmee
+*** TODO orgmode
+**** TODO structure-editing
+***** TODO demote
+**** TODO motion
+***** TODO =gj=
+***** TODO =gk=
+**** TODO editing
+***** TODO emphasize
+*** TODO magit
+**** TODO navigation
+***** TODO rebase buffer
 ** package-loading
 #+begin_src elisp
   (require 'package)
@@ -57,7 +88,7 @@
 #+end_src
 *** TODO remove
 ** INCLUDES
-~order matters!~
+order matters!
 *** completion
 #+INCLUDE: "./completion/completion.org"
 *** evil
@@ -76,34 +107,8 @@
 #+INCLUDE: "./tex/tex.org"
 *** themes
 #+INCLUDE: "./themes/themes.org"
+*** view
+#+INCLUDE: "./view/view.org"
 *** keys
 #+INCLUDE: "./keys/keys.org"
-** TODO TODOS
-*** TODO exclude {undo,motions} from dot-operator
-**** orgmode
-- =gj=
-*** TODO create overview
-all TODO-items in =.emacs.d=
-**** ???
-***** org-projectile
-https://github.com/IvanMalison/org-projectile
-***** agenda
-via =.dir-locals.el=
-https://emacs.stackexchange.com/questions/10012/a-search-interface-for-org-mode-files#answer-10017
-***** advanced searching
-https://orgmode.org/worg/org-tutorials/advanced-searching.html
-***** todo-projectile
-https://github.com/WolfeCub/todo-projectile
-***** fixmee
-https://github.com/rolandwalker/fixmee
-*** TODO orgmode
-**** TODO structure-editing
-***** TODO demote
-**** TODO motion
-***** TODO =gj=
-***** TODO =gk=
-**** TODO editing
-***** TODO emphasize
-*** TODO magit
-**** TODO navigation
-***** TODO rebase buffer
+

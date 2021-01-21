@@ -10,68 +10,6 @@ always start emacs in server-mode
 #+begin_src elisp
 (server-start)
 #+end_src
-** layout
-*** font
-**** define fontsize
-#+begin_src elisp
-  (defvar fb/default-font-size 160)  ;; height/10 ≙ px
-#+end_src
-**** font
-#+begin_src elisp
-  ;; (set-frame-font "Roboto Mono 12" nil t)
-  ;; (set-frame-font "Noto Sans Mono 12" nil t)
-  ;; (set-face-attribute 'default nil :height fb/default-font-size)
-  (set-face-attribute 'default nil :font "Roboto Mono" :height fb/default-font-size)
-  ;; (set-face-attribute 'default nil :font "Noto Sans Mono" :height fb/default-font-size)
-  ;; (set-face-attribute 'default nil :font "DejaVu Sans Mono" :height fb/default-font-size)
-  ;; (set-face-attribute 'default nil :font "Iosevka Term" :height fb/default-font-size)
-  ;; (set-face-attribute 'default nil :font "Hack" :height fb/default-font-size)
-  ;; (set-face-attribute 'default nil :font "Fira Code" :height fb/default-font-size)
-#+end_src
-***** TODO wrong font selected: dejaVu
-***** list all available fonts
-in *scratch-buffer* enter :
-~(font-family-list)~ =C-j=
-***** list font-face under cursor
-=C-u C-x ==
-***** show list of all defined faces
-=M-x= ~list-faces-display~
-**** fira-code-mode
-view ./packages.el : [[file:packages.org::*fira-code-mode][fira-code-mode]]
-*** minimal interface
-disable multiple bars 
-#+begin_src elisp
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(set-fringe-mode 10)
-(tool-bar-mode -1)
-(tooltip-mode -1)
-#+end_src
-*** line-numbers
-#+begin_src elisp
-(column-number-mode)
-(global-display-line-numbers-mode t)
-#+end_src
-**** Disable display of line numbers in some modes
-#+begin_src elisp
-(dolist (mode '(
-		eshell-mode-hook
-		helpful-mode-hook
-		org-mode-hook
-		shell-mode-hook
-		term-mode-hook
-		treemacs-mode-hook
-		))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-#+end_src
-*****  FUNDUS
-#+begin_example elisp
-neotree-mode-hook 
-#+end_example
-** parenthesis
-#+begin_src elisp
-(show-paren-mode 1)
-#+end_src
 ** window-splitting
 #+begin_src elisp
 (setq

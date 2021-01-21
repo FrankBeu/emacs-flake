@@ -1,0 +1,47 @@
+* view-misc
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view-misc
+  ;;;;
+  ;;
+#+end_src
+** minimal interface
+disable multiple bars
+#+begin_src elisp
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (set-fringe-mode 10)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+#+end_src
+** line-numbers
+#+begin_src elisp
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+#+end_src
+*** Disable display of line numbers in some modes
+#+begin_src elisp
+  (dolist (mode '(
+                  eshell-mode-hook
+                  helpful-mode-hook
+                  org-mode-hook
+                  shell-mode-hook
+                  term-mode-hook
+                  treemacs-mode-hook
+                  ))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+****  FUNDUS
+#+begin_example elisp
+neotree-mode-hook
+
+#+end_example
+** parenthesis
+#+begin_src elisp
+  (show-paren-mode 1)
+#+end_src
+** orgmode
+*** startup-indentation
+#+begin_src elisp
+  (setq org-startup-indented t)
+#+end_src
