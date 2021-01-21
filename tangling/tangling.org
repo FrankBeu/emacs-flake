@@ -229,13 +229,13 @@ transformative logic."
   "Steps in which to increment `doom-output-indent' for consecutive levels.")
 
 #+end_src
-*** print-group 
+*** print-group
 #+begin_src elisp
 (defmacro print-group! (&rest body)
   "Indents any `print!' or `format!' output within BODY."
   `(let ((doom-output-indent (+ doom-output-indent-increment doom-output-indent)))
      ,@body))
-#+end_src 
+#+end_src
 ** definitions
 #+begin_src elisp
     (defvar fb*literate-config-file
@@ -319,13 +319,18 @@ transformative logic."
             ))))
 #+end_src
 *** hook-function
-#+begin_src elisp                               
+#+begin_src elisp
   (defun fb*literate-recompile-h ()
     "Recompile literate config to `user-emacs-directory'"
     (display-message-or-buffer "recompiling emacs config")
     (fb*literate-tangle-h)
     )
-#+end_src                                            
+#+end_src
+**** make dir-var safe
+#+begin_src elisp
+  (add-to-list 'safe-local-variable-values
+             '(eval add-hook 'after-save-hook 'fb*literate-recompile-h))
+#+end_src
 ** TODO TODOS
 *** fix:
 **** non *.org-files start recompiling the config
@@ -340,3 +345,4 @@ transformative logic."
   (eval remove-hook 'after-save-hook 'fb*literate-recompile-h))
  )
 #+end_example
+**** TODO every file starts recompiling on save

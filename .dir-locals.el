@@ -3,6 +3,7 @@
 
 (
  (org-mode
-  (eval add-hook 'after-save-hook 'fb*literate-recompile-h))
+  (eval add-hook 'after-save-hook 'fb*literate-recompile-h)
+  )
 )
 

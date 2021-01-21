@@ -280,6 +280,9 @@ byte-compiled from.")
   (fb*literate-tangle-h)
   )
 
+(add-to-list 'safe-local-variable-values
+           '(eval add-hook 'after-save-hook 'fb*literate-recompile-h))
+
 ;; (setq debug-on-error t)
 ;; (setq debug-ignored-error t)
 ;;;; nixos-packages
