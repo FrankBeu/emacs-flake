@@ -82,6 +82,20 @@
 *** TODO exclude {undo,motions} from dot-operator
 **** orgmode
 - =gj=
+*** TODO create overview
+all TODO-items in =.emacs.d=
+**** ???
+***** org-projectile
+https://github.com/IvanMalison/org-projectile
+***** agenda
+via =.dir-locals.el=
+https://emacs.stackexchange.com/questions/10012/a-search-interface-for-org-mode-files#answer-10017
+***** advanced searching
+https://orgmode.org/worg/org-tutorials/advanced-searching.html
+***** todo-projectile
+https://github.com/WolfeCub/todo-projectile
+***** fixmee
+https://github.com/rolandwalker/fixmee
 *** TODO orgmode
 **** TODO structure-editing
 ***** TODO demote

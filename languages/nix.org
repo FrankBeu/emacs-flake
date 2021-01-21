@@ -23,6 +23,6 @@ Symbol's value as variable is void: lsp-language-id-configuration
 #+end_src
 ** INFO
 *** debug
-#+begin_src shell :results drawer 
+#+begin_example shell
   bash -c "env RUST_LOG=trace rnix-lsp 2> /tmp/rnix-lsp.log"
-#+end_src
+#+end_example

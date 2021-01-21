@@ -19,4 +19,11 @@
 #+INCLUDE: "./nix.org"
 ** typeScript
 #+INCLUDE: "./typeScript.org"
-
+** TODO TODOS
+*** XOR
+**** autocomplete
+https://cestlaz.github.io/posts/using-emacs-8-autocomplete/
+**** company
+*** hippieExpand
+**** necessary??
+https://www.emacswiki.org/emacs/HippieExpand

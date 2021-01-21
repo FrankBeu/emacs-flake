@@ -14,5 +14,3 @@
 https://github.com/raxod502/selectrum#selectrum-in-comparison-to-other-completion-systems
 ** ivy
 #+INCLUDE: "./ivy.org"
-
-

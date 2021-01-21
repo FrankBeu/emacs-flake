@@ -1510,7 +1510,10 @@ an argument, unconditionally call `org-insert-SUBheading'."
   :keymaps 'org-mode-map
   :states  '(normal visual insert)
 
-  "s"      '(org-insert-structure-template 'elisp :which-key "struc-temp"            )
+  "S"      '(org-insert-structure-template 'elisp :which-key "struc-temp"            )
+  "s"      '(                                             :which-key "subtree"   :ignore t)
+  "sn"     '(org-narrow-to-subtree                        :which-key "narrow"        )
+  "sw"     '(widen                                        :which-key "widen"         )
 
   "t"      '(                                             :which-key "todo"      :ignore t)
   "tc"     '(org-todo                                     :which-key "cycle"         )
@@ -1584,5 +1587,3 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
 
 (global-set-key "\M-o" cm-map)
-
-bash -c "env RUST_LOG=trace rnix-lsp 2> /tmp/rnix-lsp.log"

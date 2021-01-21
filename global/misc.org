@@ -28,9 +28,14 @@ always start emacs in server-mode
   ;; (set-face-attribute 'default nil :font "Hack" :height fb/default-font-size)
   ;; (set-face-attribute 'default nil :font "Fira Code" :height fb/default-font-size)
 #+end_src
+***** TODO wrong font selected: dejaVu
 ***** list all available fonts
 in *scratch-buffer* enter :
-(font-family-list) C-j
+~(font-family-list)~ =C-j=
+***** list font-face under cursor
+=C-u C-x ==
+***** show list of all defined faces
+=M-x= ~list-faces-display~
 **** fira-code-mode
 view ./packages.el : [[file:packages.org::*fira-code-mode][fira-code-mode]]
 *** minimal interface
