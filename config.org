@@ -23,6 +23,11 @@
 ** TODO TODOS
 *** TODO global
 **** TODO check undo behaviour
+**** TODO [#A] use gccEmacs
+https://github.com/nix-community/emacs-overlay
+https://www.emacswiki.org/emacs/GccEmacs#h5o-6
+https://gist.github.com/mjlbach/179cf58e1b6f5afcb9a99d4aaf54f549
+***** TODO needs emacsOverlay
 *** TODO exclude {undo,motions} from dot-operator
 **** orgmode
 - =gj=
@@ -88,7 +93,7 @@ https://github.com/rolandwalker/fixmee
 #+end_src
 *** TODO remove
 ** INCLUDES
-order matters!
+!! order matters !!
 *** completion
 #+INCLUDE: "./completion/completion.org"
 *** evil

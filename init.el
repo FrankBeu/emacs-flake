@@ -1174,22 +1174,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
   (set-face-attribute 'org-verbatim         nil :inherit '(fixed-pitch shadow  )                )
   )
 
-;; (set-face-attribute 'org-block           nil :inherit 'fixed-pitch :height (- fb-default-font-size 20))
-;; (set-face-attribute 'org-block           nil :inherit 'fixed-pitch :height    fb-default-font-size    )
-
-;; (set-face-attribute 'org-block            nil :inherit '(fixed-pitch         ) :foreground nil :height (- fb-default-font-size 20))
-;; (set-face-attribute 'org-block-begin-line nil :inherit '(fixed-pitch         )                )
-;; (set-face-attribute 'org-block-end-line   nil :inherit '(org-block-begin-line)                )
-
-;; (set-face-attribute 'org-block            nil :inherit '(fixed-pitch         ) :foreground nil)
-;; (set-face-attribute 'org-block-begin-line nil :inherit '(fixed-pitch         )                )
-;; (set-face-attribute 'org-block-end-line   nil :inherit '(org-block-begin-line)                )
-
-;; (set-face-attribute 'org-code            nil :inherit 'fixed-pitch                                    )
-
-;;;; NOT WORKING
-;; (set-face-attribute 'org-document-title  nil :font fb-default-font-name-serif :weight 'regular :height 1)
-
 (defun fb*org-buffer-variable-pitch-h ()
   (variable-pitch-mode t)
   (fb*org-font-faces-mono))

@@ -140,7 +140,7 @@ Increase the size of various headings
     )
 #+end_src
 ***** FUNDUS
-#+begin_src elisp
+#+begin_example elisp
   ;; (set-face-attribute 'org-block           nil :inherit 'fixed-pitch :height (- fb-default-font-size 20))
   ;; (set-face-attribute 'org-block           nil :inherit 'fixed-pitch :height    fb-default-font-size    )
 
@@ -154,9 +154,11 @@ Increase the size of various headings
 
   ;; (set-face-attribute 'org-code            nil :inherit 'fixed-pitch                                    )
 
+  ;; (set-face-attribute 'org-document-info-keyword nil :inherit 'fixed-pitch                                    )
+
   ;;;; NOT WORKING
   ;; (set-face-attribute 'org-document-title  nil :font fb-default-font-name-serif :weight 'regular :height 1)
-#+end_src
+#+end_example
 **** combine variable-pitch, all faces-fixed-pitch
 #+begin_src elisp
   (defun fb*org-buffer-variable-pitch-h ()
@@ -187,3 +189,35 @@ sdf
 asdfasdf
 adsfasdf
 #+end_quote
+** TODO markdown
+not working
+not tested
+**** set fixed-pitch-faces
+#+begin_src elisp :tangle no
+  ;; (defun fb*markdown-font-faces-mono ()
+    ;; (set-face-attribute 'markdown-code-face               nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-html-attr-name-face     nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-html-attr-value-face    nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-html-entity-face        nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-html-tag-delimiter-face nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-html-tag-name-face      nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-inline-code-face        nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-language-info-face      nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-language-keyword-face   nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-pre-face                nil :inherit '(fixed-pitch))
+    ;; (set-face-attribute 'markdown-table-face              nil :inherit '(fixed-pitch))
+    ;; )
+#+end_src
+***** FUNDUS
+#+begin_example elisp
+#+end_example
+**** combine variable-pitch, all faces-fixed-pitch
+#+begin_src elisp :tangle no
+  (defun fb*markdown-buffer-variable-pitch-h ()
+    (variable-pitch-mode t)
+    (fb*org-font-faces-mono))
+#+end_src
+**** markdown-mode- hook
+#+begin_src elisp :tangle no
+   (add-hook 'markdown-mode-hook 'fb*markdown-buffer-variable-pitch-h)
+#+end_src

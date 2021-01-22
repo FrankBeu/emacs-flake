@@ -7,6 +7,10 @@
 #+end_src
 ** INFO
 https://orgmode.org/
+** TODO TODOS
+*** wordprocessor-interface
+https://lepisma.xyz/2017/10/28/ricing-org-mode/
+https://protesilaos.com/codelog/2020-07-18-emacs-concept-org-tweaked-focus/
 ** with-eval-begin
 #+begin_src elisp
 (with-eval-after-load 'org
