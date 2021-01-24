@@ -314,6 +314,7 @@ qwer qwer  adsf jkl;     qwerqwer  qwerqwer asdf asdfasdqwerqweradasdfd      dff
     "p"  '(projectile-command-map                             :which-key "projectile"                       )
 
     "r"  '(                                                   :which-key "re-~"                             :ignore t)
+    "rc" '(fb/literate-recompile                              :which-key "recompile-emacs.d"                )
     "rr" '(redraw-display                                     :which-key "redraw-display"                   )
     "rl" '(fb/reload-config                                   :which-key "reload init.el"                   )
 

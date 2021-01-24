@@ -274,14 +274,12 @@ byte-compiled from.")
             ;; (throw 'exit "__NOTANGLE=1 $@"))
           ))))
 
-(defun fb*literate-recompile-h ()
+(defun fb/literate-recompile ()
   "Recompile literate config to `user-emacs-directory'"
+  (interactive)
   (display-message-or-buffer "recompiling emacs config")
   (fb*literate-tangle-h)
   )
-
-(add-to-list 'safe-local-variable-values
-           '(eval add-hook 'after-save-hook 'fb*literate-recompile-h))
 
 ;; (setq debug-on-error t)
 ;; (setq debug-ignored-error t)
@@ -1498,6 +1496,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "p"  '(projectile-command-map                             :which-key "projectile"                       )
 
   "r"  '(                                                   :which-key "re-~"                             :ignore t)
+  "rc" '(fb/literate-recompile                              :which-key "recompile-emacs.d"                )
   "rr" '(redraw-display                                     :which-key "redraw-display"                   )
   "rl" '(fb/reload-config                                   :which-key "reload init.el"                   )
 

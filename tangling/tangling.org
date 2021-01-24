@@ -318,21 +318,45 @@ transformative logic."
               ;; (throw 'exit "__NOTANGLE=1 $@"))
             ))))
 #+end_src
-*** hook-function
+*** UNUSED hook
+**** hook-function
+#+begin_src elisp :tangle no
+  ;; (defun fb*literate-recompile-h ()
+    ;; "Recompile literate config to `user-emacs-directory'"
+    ;; (display-message-or-buffer "recompiling emacs config")
+    ;; (fb*literate-tangle-h)
+    ;; )
+#+end_src
+**** hook in
+~/.emacs.d/.dir-locals.el
+#+begin_src elisp :tangle no
+;; ;;; Directory Local Variables
+;; ;;; For more information see (info "(emacs) Directory Variables")
+
+;; (
+;;  (org-mode
+;;   (eval add-hook 'after-save-hook 'fb*literate-recompile-h)
+;;   )
+;; )
+#+end_src
+**** make dir-var safe
+#+begin_src elisp :tangle no
+  ;; (add-to-list 'safe-local-variable-values
+             ;; '(eval add-hook 'after-save-hook 'fb*literate-recompile-h))
+#+end_src
+*** command
 #+begin_src elisp
-  (defun fb*literate-recompile-h ()
+  (defun fb/literate-recompile ()
     "Recompile literate config to `user-emacs-directory'"
+    (interactive)
     (display-message-or-buffer "recompiling emacs config")
     (fb*literate-tangle-h)
     )
 #+end_src
-**** make dir-var safe
-#+begin_src elisp
-  (add-to-list 'safe-local-variable-values
-             '(eval add-hook 'after-save-hook 'fb*literate-recompile-h))
-#+end_src
 ** TODO TODOS
-*** fix:
+** DONE Erledigtes
+*** DONE fix:
+**** DONE recompilation has to be started manually
 **** non *.org-files start recompiling the config
 ***** even for non-org files .dir-locals are not working:
 #+begin_example elisp
@@ -345,4 +369,4 @@ transformative logic."
   (eval remove-hook 'after-save-hook 'fb*literate-recompile-h))
  )
 #+end_example
-**** TODO every file starts recompiling on save
+**** every file starts recompiling on save
