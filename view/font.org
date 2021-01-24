@@ -9,7 +9,7 @@
 *** docs
 https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html#Fonts
 *** list all system-available fonts
-#+begin_src shell :results drawer
+#+begin_src shell :results drawer :tangle no
 fc-cache -fv
 #+end_src
 *** list all emacs-available fonts
@@ -96,12 +96,18 @@ set the variable-pitch-face-attribute
 #+end_src
 *** font-faces
 #+begin_src elisp
-  (with-eval-after-load 'org
+  (with-eval-after-load (or 'text-mode 'prog-mode)
     (set-face-attribute 'default        nil :font fb-default-typeface          :height fb-default-font-size)
     (set-face-attribute 'fixed-pitch    nil :font fb-default-typeface-fixed    :foreground nil             )
     (set-face-attribute 'variable-pitch nil :font fb-default-typeface-variable :foreground nil             )
     )
 #+end_src
+**** TODO org has to be loaded in order to set font
+cf =C-h v= ~load-history~
+***** working: Roboto Mono
+#+begin_example elisp
+  ;; (with-eval-after-load 'org
+#+end_example
 **** FUNDUS
 #+begin_example elisp
   ;; (copy-face 'default 'fixed-pitch)

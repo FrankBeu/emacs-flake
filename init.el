@@ -824,7 +824,8 @@ byte-compiled from.")
 
 (defun fb/lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t))
+  (add-hook 'before-save-hook #'lsp-organize-imports t t)
+  )
 (add-hook 'go-mode-hook #'fb/lsp-go-install-save-hooks)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
@@ -1142,7 +1143,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (defvar fb-default-typeface-variable fb-default-font-name-sans )
 ;; (defvar fb-default-typeface-variable fb-default-font-name-serif)
 
-(with-eval-after-load 'org
+(with-eval-after-load (or 'text-mode 'prog-mode)
   (set-face-attribute 'default        nil :font fb-default-typeface          :height fb-default-font-size)
   (set-face-attribute 'fixed-pitch    nil :font fb-default-typeface-fixed    :foreground nil             )
   (set-face-attribute 'variable-pitch nil :font fb-default-typeface-variable :foreground nil             )
@@ -1612,5 +1613,3 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
 
 (global-set-key "\M-o" cm-map)
-
-fc-cache -fv
