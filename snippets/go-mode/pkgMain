@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : pkgMain
+#key : pkgm
+#contributor : fb
+# --
+package main
+
+$0

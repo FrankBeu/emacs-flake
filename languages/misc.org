@@ -21,14 +21,22 @@
 ** yasnippets
   https://joaotavora.github.io/yasnippet/snippet-expansion.html
 #+begin_src elisp
-  (use-package yasnippet
-    :init
-    (yas-global-mode 1)
-    :config
-    (setq yas-snippet-dirs
-          '(
-            "~/.emacs.d/snippets"
+    (use-package yasnippet
+      :init
+      (yas-global-mode 1)
+      :config
+      (setq yas-snippet-dirs
+            '(
+              "~/.emacs.d/snippets"
+              )
             ))
+#+end_src
+*** yasnippets-snippets
+#+begin_src elisp
+  (use-package yasnippet-snippets
+  :after yasnippet
+  :config
+    (yasnippet-snippets-initialize)
     (yas-reload-all)
     )
 #+end_src

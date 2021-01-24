@@ -749,7 +749,13 @@ byte-compiled from.")
   (setq yas-snippet-dirs
         '(
           "~/.emacs.d/snippets"
-          ))
+          )
+        ))
+
+(use-package yasnippet-snippets
+:after yasnippet
+:config
+  (yasnippet-snippets-initialize)
   (yas-reload-all)
   )
 
@@ -1481,6 +1487,9 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
   "g"  '(                                                   :which-key "git"                              :ignore t)
   "gs" '(magit-status                                       :which-key "status"                           )
+
+  "i"  '(                                                   :which-key "imenu"                            :ignore t)
+  "ii" '(imenu-list                                         :which-key "imenulist"                        )
 
   "j"  '(dired-jump                                         :which-key "dired"                            )
 

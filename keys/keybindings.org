@@ -300,6 +300,9 @@ qwer qwer  adsf jkl;     qwerqwer  qwerqwer asdf asdfasdqwerqweradasdfd      dff
     "g"  '(                                                   :which-key "git"                              :ignore t)
     "gs" '(magit-status                                       :which-key "status"                           )
 
+    "i"  '(                                                   :which-key "imenu"                            :ignore t)
+    "ii" '(imenu-list                                         :which-key "imenulist"                        )
+
     "j"  '(dired-jump                                         :which-key "dired"                            )
 
     "L"  '(lsp                                                :which-key "start lsp"                        )
