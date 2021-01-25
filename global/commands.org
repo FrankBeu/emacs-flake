@@ -5,6 +5,48 @@
   ;;;;
   ;;
 #+end_src
+** copy filename
+#+begin_src elisp
+  (defun fb/yank-buffer-filename ()
+    "Copy the current buffer's path to the kill ring."
+    (interactive)
+    (fb*yank-buffer-filename))
+#+end_src
+** reformatting
+*** break-*
+**** break-here
+#+begin_src elisp
+    (defun fb/break-here ()
+      "break text at cursor"
+      (interactive)
+      (evil-backward-char)
+      (insert "\n")
+      (delete-char 1))
+#+end_src
+**** break-sentence
+#+begin_src elisp
+        (defun fb/break-sentence ()
+          "break text at end of sentence"
+          (interactive)
+          (evil-forward-sentence-begin)
+          (insert "\n"))
+#+end_src
+**** break-sub-sentence
+#+begin_src elisp
+          (defun fb/break-sub-sentence ()
+            "break text at end of sub-sentence"
+            (interactive)
+            (setq beforeBreakpoint
+                  (read-char "enter char before breakpoint: ,  ;  :  .  !  ?"))
+            (pcase beforeBreakpoint
+              (?,  (search-forward ",") (evil-forward-word-begin) (insert "\n"))
+              (?:  (search-forward ":") (evil-forward-word-begin) (insert "\n"))
+              (?\; (search-forward ";") (evil-forward-word-begin) (insert "\n"))
+              (?.  (search-forward ".") (evil-forward-word-begin) (insert "\n"))
+              (?!  (search-forward "!") (evil-forward-word-begin) (insert "\n"))
+              (??  (search-forward "?") (evil-forward-word-begin) (insert "\n"))
+              ))
+#+end_src
 ** reload-config
 #+begin_src elisp
 (defun fb/reload-config ()
@@ -18,11 +60,4 @@
     "Toggle whichKey-sort-order-alpha key - desc"
     (interactive)
     (fb*toggle-which-key-sort-order))
-#+end_src
-** copy filename
-#+begin_src elisp
-  (defun fb/yank-buffer-filename ()
-    "Copy the current buffer's path to the kill ring."
-    (interactive)
-    (fb*yank-buffer-filename))
 #+end_src

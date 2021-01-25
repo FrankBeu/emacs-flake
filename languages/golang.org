@@ -25,3 +25,8 @@ Make sure you don't have other gofmt/goimports hooks enabled.
 #+end_src
 ** INFO
 https://github.com/golang/tools/blob/master/gopls/doc/emacs.md
+** TODO TODOS
+*** codelenses
+#+begin_src emacs-lisp
+(setq lsp-gopls-codelens nil)
+#+end_src

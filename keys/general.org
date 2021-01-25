@@ -13,13 +13,16 @@
       :keymaps '(normal insert visual emacs)
       :prefix "SPC"
       :global-prefix "C-SPC")
-    ;; homerow
     (general-create-definer fb/local-leader-key
       :keymaps '(normal insert visual emacs)
       :prefix "SPC k"
       :global-prefix "C-SPC k")
     )
 #+end_src
-*** global-leader
-*** local-leader
+*** leader
+leader keys must be located at the home-row
+**** global-leader
+for global bindings
+**** local-leader
+for major mode bindings
 
