@@ -91,6 +91,57 @@ on prompts use:
    "C-\"" 'avy-goto-line
    )
 #+end_src
+** company
+  ;; (define-key company-search-map (kbd "C-t") 'company-search-toggle-filtering)
+#+begin_src elisp
+    (general-define-key
+     :keymaps '(company-active-map
+                company-search-map
+                )
+     "C-k" 'nil
+     "C-k" 'company-select-previous
+     "C-l" 'nil
+     "C-l" 'company-select-next
+     "C-;" 'nil
+     "C-;" 'company-complete
+     )
+#+end_src
+
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(
+              company-active-map
+              )
+   "C-j" 'nil
+   "C-j" 'company-complete-selection
+   )
+#+end_src
+#+begin_src elisp
+    (general-define-key
+     :keymaps '(
+                lsp-mode-map
+                )
+     "C-j" 'nil
+     "C-j" 'company-indent-or-complete-common
+     "C-k" 'nil
+     "C-k" 'company-select-previous
+     "C-l" 'nil
+     "C-l" 'company-select-next
+     "C-;" 'nil
+     "C-;" 'company-complete
+     "C-;" 'company-complete
+
+     "C-L" 'lsp-ui-doc-focus-frame
+     ;; "C-:" 'lsp-ui-doc-focus-frame
+     )
+
+    (general-define-key
+     :keymaps '(
+               lsp-ui-doc-frame-mode-map
+                )
+     "C-K" 'lsp-ui-doc-unfocus-frame
+     )
+#+end_src
 ** dired
 #+begin_src elisp
   (general-define-key
@@ -146,6 +197,18 @@ on prompts use:
    "C-l" 'nil
    "C-l" 'ivy-next-line
    "C-S-l" 'ivy-call-and-recenter
+   )
+#+end_src
+** lsp
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(lsp-command-map)
+   "i"  '(:which-key "ivy/imenu"    :ignore t)
+   "ii"  'lsp-ivy-workspace-symbol
+   "im"  'lsp-ui-imenu
+
+   "t"  '(:which-key "treemacs"     :ignore t)
+   "ts" 'lsp-treemacs-symbols
    )
 #+end_src
 ** magit
@@ -287,6 +350,11 @@ qwer qwer  adsf jkl;     qwerqwer  qwerqwer asdf asdfasdqwerqweradasdfd      dff
     "cr"  '(comment-or-uncomment-region                   :which-key "cmmnt-or-uncmnt-region"           )
     "ct"  '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "quick-cmmnt-or-uncmnt-to-the-line")
     "cy"  '(evilnc-copy-and-comment-lines                 :which-key "cp-and-cmnt-lines"                )
+
+    "C"   '(                                              :which-key "command-log-mode"                 :ignore t)
+    "CC"  '(command-log-mode                              :which-key "toggle-local"                     )
+    "CB"  '(clm/open-command-log-buffer                   :which-key "show-clm-buffer"                  )
+    "CG"  '(global-command-log-mode                       :which-key "toggle-global"                    )
 
     "d"   '(                                              :which-key "delete"                           :ignore t)
     "dw"  '(delete-trailing-whitespace                    :which-key "trailing-wsp"                     )

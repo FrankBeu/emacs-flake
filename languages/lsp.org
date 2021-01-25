@@ -25,16 +25,27 @@
 #+end_src
 ** lsp-ui
 #+begin_src elisp
-  ;; (use-package lsp-ui :commands lsp-ui-mode)
-  ;; (use-package lsp-ui
-  ;;   :hook (lsp-mode . lsp-ui-mode)
-  ;;   :commands lsp-ui-mode
-  ;;   :custom
-  ;;   (lsp-ui-doc-position 'bottom))
+    (use-package lsp-ui
+      :hook (lsp-mode . lsp-ui-mode)
+      ;; :commands lsp-ui-mode
+      :custom
+      ;; (lsp-ui-sideline-show-diagnostics t)
+      ;; (lsp-ui-sideline-show-hover t)
+      ;; (lsp-ui-sideline-show-code-actions t)
+      ;; (lsp-ui-sideline-update-mode t)
+      (lsp-ui-sideline-delay 0)
+      ;; (lsp-ui-doc-position 'bottom)
+      (lsp-ui-doc-position 'at-point)
+
+      )
+  ;; (use-package lsp-ui)
 #+end_src
 ** lsp-ivy
+search for  symbol in workspace
 #+begin_src elisp
-  ;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+  (use-package lsp-ivy
+    :commands lsp-ivy-workspace-symbol
+    )
 #+end_src
 ** lsp-treemacs
 #+begin_src elisp

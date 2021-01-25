@@ -7,29 +7,34 @@
 #+end_src
 ** company
 #+begin_src elisp
-;;
-;; (use-package company
-;;   :config
-;;   ;; Optionally enable completion-as-you-type behavior.
-;;   (setq company-idle-delay 0)
-;;   (setq company-minimum-prefix-length 1)
-
-;;   (progn
-;;     (add-hook 'after-init-hook 'global-company-mode)))
-;;   )
+    (use-package company
+      :after lsp-mode
+      :hook (
+             ;; (after-init-hook 'global-company-mode)
+             (lsp-mode . company-mode)
+           )
+      :custom
+      (company-minimum-prefix-length 1)
+      (company-idle-delay 0.0)
+    )
+#+end_src
+*** company-box
+#+begin_src elisp
+  (use-package company-box
+    :hook (company-mode . company-box-mode))
 #+end_src
 ** yasnippets
   https://joaotavora.github.io/yasnippet/snippet-expansion.html
 #+begin_src elisp
-    (use-package yasnippet
-      :init
-      (yas-global-mode 1)
-      :config
-      (setq yas-snippet-dirs
-            '(
-              "~/.emacs.d/snippets"
-              )
-            ))
+  (use-package yasnippet
+    :init
+    (yas-global-mode 1)
+    :config
+    (setq yas-snippet-dirs
+          '(
+            "~/.emacs.d/snippets"
+            )
+          ))
 #+end_src
 *** yasnippets-snippets
 #+begin_src elisp
@@ -49,7 +54,7 @@
 ;;   )
 #+end_src
 *** modes
-*** vimrc-mode
+**** vimrc-mode
 #+begin_src elisp
   (use-package vimrc-mode
     :mode "\\.vim\\(rc\\)?\\'"

@@ -758,16 +758,19 @@ byte-compiled from.")
 ;;;;
 ;;
 
-;;
-;; (use-package company
-;;   :config
-;;   ;; Optionally enable completion-as-you-type behavior.
-;;   (setq company-idle-delay 0)
-;;   (setq company-minimum-prefix-length 1)
+(use-package company
+  :after lsp-mode
+  :hook (
+         ;; (after-init-hook 'global-company-mode)
+         (lsp-mode . company-mode)
+       )
+  :custom
+  (company-minimum-prefix-length 1)
+  (company-idle-delay 0.0)
+)
 
-;;   (progn
-;;     (add-hook 'after-init-hook 'global-company-mode)))
-;;   )
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 (use-package yasnippet
   :init
@@ -814,13 +817,24 @@ byte-compiled from.")
   )
 
 ;; (use-package lsp-ui :commands lsp-ui-mode)
-;; (use-package lsp-ui
-;;   :hook (lsp-mode . lsp-ui-mode)
-;;   :commands lsp-ui-mode
-;;   :custom
-;;   (lsp-ui-doc-position 'bottom))
+  (use-package lsp-ui
+    :hook (lsp-mode . lsp-ui-mode)
+    ;; :commands lsp-ui-mode
+    :custom
+    ;; (lsp-ui-sideline-show-diagnostics t)
+    ;; (lsp-ui-sideline-show-hover t)
+    ;; (lsp-ui-sideline-show-code-actions t)
+    ;; (lsp-ui-sideline-update-mode t)
+    (lsp-ui-sideline-delay 0)
+    ;; (lsp-ui-doc-position 'bottom)
+    (lsp-ui-doc-position 'at-point)
 
-;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
+    )
+;; (use-package lsp-ui)
+
+(use-package lsp-ivy
+  :commands lsp-ivy-workspace-symbol
+  )
 
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list
@@ -1174,7 +1188,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (defvar fb-default-typeface-variable fb-default-font-name-sans )
 ;; (defvar fb-default-typeface-variable fb-default-font-name-serif)
 
-(with-eval-after-load (or 'text-mode 'prog-mode)
+;; (with-eval-after-load (or 'text-mode 'prog-mode)
+(with-eval-after-load 'org
   (set-face-attribute 'default        nil :font fb-default-typeface          :height fb-default-font-size)
   (set-face-attribute 'fixed-pitch    nil :font fb-default-typeface-fixed    :foreground nil             )
   (set-face-attribute 'variable-pitch nil :font fb-default-typeface-variable :foreground nil             )
@@ -1330,6 +1345,51 @@ an argument, unconditionally call `org-insert-SUBheading'."
  )
 
 (general-define-key
+ :keymaps '(company-active-map
+            company-search-map
+            )
+ "C-k" 'nil
+ "C-k" 'company-select-previous
+ "C-l" 'nil
+ "C-l" 'company-select-next
+ "C-;" 'nil
+ "C-;" 'company-complete
+ )
+
+(general-define-key
+ :keymaps '(
+            company-active-map
+            )
+ "C-j" 'nil
+ "C-j" 'company-complete-selection
+ )
+
+(general-define-key
+ :keymaps '(
+            lsp-mode-map
+            )
+ "C-j" 'nil
+ "C-j" 'company-indent-or-complete-common
+ "C-k" 'nil
+ "C-k" 'company-select-previous
+ "C-l" 'nil
+ "C-l" 'company-select-next
+ "C-;" 'nil
+ "C-;" 'company-complete
+ "C-;" 'company-complete
+
+ "C-L" 'lsp-ui-doc-focus-frame
+ ;; "C-:" 'lsp-ui-doc-focus-frame
+ )
+
+(general-define-key
+ :keymaps '(
+           lsp-ui-doc-frame-mode-map
+            )
+ "C-K" 'lsp-ui-doc-unfocus-frame
+ )
+
+(general-define-key
  :keymaps '(dired-mode-map)
  :states  '(normal visual)
  ;; "j" 'nil
@@ -1378,6 +1438,16 @@ an argument, unconditionally call `org-insert-SUBheading'."
  "C-l" 'nil
  "C-l" 'ivy-next-line
  "C-S-l" 'ivy-call-and-recenter
+ )
+
+(general-define-key
+ :keymaps '(lsp-command-map)
+ "i"  '(:which-key "ivy/imenu"    :ignore t)
+ "ii"  'lsp-ivy-workspace-symbol
+ "im"  'lsp-ui-imenu
+
+ "t"  '(:which-key "treemacs"     :ignore t)
+ "ts" 'lsp-treemacs-symbols
  )
 
 (general-define-key
@@ -1501,6 +1571,11 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "cr"  '(comment-or-uncomment-region                   :which-key "cmmnt-or-uncmnt-region"           )
   "ct"  '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "quick-cmmnt-or-uncmnt-to-the-line")
   "cy"  '(evilnc-copy-and-comment-lines                 :which-key "cp-and-cmnt-lines"                )
+
+  "C"   '(                                              :which-key "command-log-mode"                 :ignore t)
+  "CC"  '(command-log-mode                              :which-key "toggle-local"                     )
+  "CB"  '(clm/open-command-log-buffer                   :which-key "show-clm-buffer"                  )
+  "CG"  '(global-command-log-mode                       :which-key "toggle-global"                    )
 
   "d"   '(                                              :which-key "delete"                           :ignore t)
   "dw"  '(delete-trailing-whitespace                    :which-key "trailing-wsp"                     )
