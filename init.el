@@ -816,8 +816,7 @@ byte-compiled from.")
   (lsp-enable-which-key-integration t)
   )
 
-;; (use-package lsp-ui :commands lsp-ui-mode)
-  (use-package lsp-ui
+(use-package lsp-ui
     :hook (lsp-mode . lsp-ui-mode)
     ;; :commands lsp-ui-mode
     :custom
@@ -1513,44 +1512,14 @@ an argument, unconditionally call `org-insert-SUBheading'."
       ";" 'treemacs-root-down
       )))
 
-;; (evil-make-overriding-map undo-tree-visualizer-mode-map 'normal)
-;; asdfasdf asdfasdf qweqwer adsfasdf adsfasdf qeqwer
-
-;;(add-hook undo-tree-visualizer-mode-hook (define-key undo-tree-visualizer-mode-map "k" 'undo-tree-visualize-undo))
-;; (general-define-key
-;;  :keymaps '(undo-tree-visualizer-mode
-;; 	    ;; undo-tree
-;; 	    )
-
-;; ;; undo-tree-visualizer-mode-map <down>
-;; ;; undo-tree-visualizer-mode-map C-n
-;; ;; undo-tree-visualizer-mode-map n
-
-;; ;; undo-tree-visualizer-mode-map <up>
-;; ;; undo-tree-visualizer-mode-map C-p
-;; ;; undo-tree-visualizer-mode-map p
-
-;;  ;; "j" 'nil
-;;  "k" 'nil
-;;  ;; "l" 'nil
-;;  ;; ";" 'nil
-;;  ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
-;;  ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
-;;  "k" 'undo-tree-visualize-undo
-;;  ;; "l" 'undo-tree-visualize-redo
-;;  ;; ";" 'undo-tree-visualize-switch-branch-right       ;;; working
-;;  ;; Ctr-{p,n} working
-;;  )
-;; )
-;; https://emacs.stackexchange.com/questions/44431/how-to-suppress-a-minor-modes-key-binding-in-only-certain-major-modes
-;; (add-hook 'typo-mode-hook
-;;           (lambda ()
-;;             (when (and typo-mode (derived-mode-p 'markdown-mode))
-;;               (let ((map (make-sparse-keymap)))
-;;                 (set-keymap-parent map typo-mode-map)
-;;                 (define-key map (kbd "`") 'self-insert-command)
-;;                 (push `(typo-mode . ,map)
-;;                       minor-mode-overriding-map-alist)))))
+(general-define-key
+ :keymaps '(undo-tree-visualizer-mode-map)
+ :states  'motion
+ ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
+ "k" 'undo-tree-visualize-undo
+ "l" 'undo-tree-visualize-redo
+ ;; ";" 'undo-tree-visualize-switch-branch-right       ;;; working
+ )
 
 (general-define-key
  :keymaps '(writeroom-mode-map)

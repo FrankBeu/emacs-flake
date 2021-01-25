@@ -17,14 +17,17 @@ do not define a prefix in this keymap
 ** general-relations
 *** ~evil-global-set-key~   ---   ~general-def~
 #+begin_example elisp
+  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+#+end_example
+#+begin_example elisp
   (general-def 'motion
     "k" 'evil-previous-visual-line
     )
 #+end_example
-#+begin_example elisp
-  (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
-#+end_example
 *** ~define-key~   ---   ~general-define-key~
+#+begin_example elisp
+  (define-key evil-normal-state-map (kbd "h") 'evil-repeat-find-char)
+#+end_example
 #+begin_example elisp
   (general-define-key
    :keymaps '(evil-normal-state-map)
@@ -32,8 +35,18 @@ do not define a prefix in this keymap
    "h"   'evil-repeat-find-char
    )
 #+end_example
+*** ~evil-define-key 'motion~   ---   ~general-define-key :states 'motion~
 #+begin_example elisp
-  (define-key evil-normal-state-map (kbd "h") 'evil-repeat-find-char)
+  (evil-define-key 'motion undo-tree-visualizer-mode-map (kbd "k") 'undo-tree-visualize-undo)
+  (evil-define-key 'motion undo-tree-visualizer-mode-map (kbd "l") 'undo-tree-visualize-redo)
+#+end_example
+#+begin_example elisp
+  (general-define-key
+     :keymaps '(undo-tree-visualizer-mode-map)
+     :states  'motion
+     "k" 'undo-tree-visualize-undo
+     "l" 'undo-tree-visualize-redo
+     )
 #+end_example
 ** evil
 *** jkl;
@@ -280,52 +293,17 @@ on prompts use:
         ";" 'treemacs-root-down
         )))
 #+end_src
-** TODO undo-tree
+** undo-tree
 #+begin_src elisp
-
-  ;; (evil-make-overriding-map undo-tree-visualizer-mode-map 'normal)
-  ;; asdfasdf asdfasdf qweqwer adsfasdf adsfasdf qeqwer
-
-  ;;(add-hook undo-tree-visualizer-mode-hook (define-key undo-tree-visualizer-mode-map "k" 'undo-tree-visualize-undo))
-  ;; (general-define-key
-  ;;  :keymaps '(undo-tree-visualizer-mode
-  ;; 	    ;; undo-tree
-  ;; 	    )
-
-  ;; ;; undo-tree-visualizer-mode-map <down>
-  ;; ;; undo-tree-visualizer-mode-map C-n
-  ;; ;; undo-tree-visualizer-mode-map n
-
-  ;; ;; undo-tree-visualizer-mode-map <up>
-  ;; ;; undo-tree-visualizer-mode-map C-p
-  ;; ;; undo-tree-visualizer-mode-map p
-
-  ;;  ;; "j" 'nil
-  ;;  "k" 'nil
-  ;;  ;; "l" 'nil
-  ;;  ;; ";" 'nil
-  ;;  ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
-  ;;  ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
-  ;;  "k" 'undo-tree-visualize-undo
-  ;;  ;; "l" 'undo-tree-visualize-redo
-  ;;  ;; ";" 'undo-tree-visualize-switch-branch-right       ;;; working
-  ;;  ;; Ctr-{p,n} working
-  ;;  )
-  ;; )
-  ;; https://emacs.stackexchange.com/questions/44431/how-to-suppress-a-minor-modes-key-binding-in-only-certain-major-modes
-  ;; (add-hook 'typo-mode-hook
-  ;;           (lambda ()
-  ;;             (when (and typo-mode (derived-mode-p 'markdown-mode))
-  ;;               (let ((map (make-sparse-keymap)))
-  ;;                 (set-keymap-parent map typo-mode-map)
-  ;;                 (define-key map (kbd "`") 'self-insert-command)
-  ;;                 (push `(typo-mode . ,map)
-  ;;                       minor-mode-overriding-map-alist)))))
+    (general-define-key
+     :keymaps '(undo-tree-visualizer-mode-map)
+     :states  'motion
+     ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
+     "k" 'undo-tree-visualize-undo
+     "l" 'undo-tree-visualize-redo
+     ;; ";" 'undo-tree-visualize-switch-branch-right       ;;; working
+     )
 #+end_src
-*** PROBLEM
-~evil-previous-visual-line~
-*** TEST
-qwer qwer  adsf jkl;     qwerqwer  qwerqwer asdf asdfasdqwerqweradasdfd      dfffsadasd qewrqwer
 ** writeroom
 #+begin_src elisp
   (general-define-key

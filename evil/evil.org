@@ -5,6 +5,9 @@
   ;;;;
   ;;
 #+end_src
+** INFO
+*** guide
+https://github.com/noctuid/evil-guide
 ** evil-hook
 #+begin_src elisp
   (setq evil-want-keybinding nil)
