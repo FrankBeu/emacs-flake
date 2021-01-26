@@ -5,6 +5,11 @@
   ;;;;
   ;;
 #+end_src
+** INFO
+*** protocol
+https://microsoft.github.io/language-server-protocol/
+*** TODO performance
+https://emacs-lsp.github.io/lsp-mode/page/performance/
 ** lsp-mode
 *** setup-hook
 #+begin_src elisp
@@ -53,12 +58,16 @@ https://emacs-lsp.github.io/lsp-ui/
 #+end_src
 ** lsp-ivy
 search for  symbol in workspace
+https://github.com/emacs-lsp/lsp-ivy
 #+begin_src elisp
   (use-package lsp-ivy
     :commands lsp-ivy-workspace-symbol
     )
 #+end_src
+** TODO lsp-origami
+https://github.com/emacs-lsp/lsp-origami
 ** lsp-treemacs
+https://github.com/emacs-lsp/lsp-treemacs
 #+begin_src elisp
   (use-package lsp-treemacs
     :commands lsp-treemacs-errors-list

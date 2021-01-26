@@ -1581,6 +1581,16 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "li"  '(                                              :which-key "ivy/imenu"                        :ignore t)
   "lt"  '(                                              :which-key "treemacs"                         :ignore t)
 
+  "l="  '(                                              :which-key "formatting"                       :ignore t)
+  "la"  '(                                              :which-key "code actions"                     :ignore t)
+  "lF"  '(                                              :which-key "folders"                          :ignore t)
+  "lG"  '(                                              :which-key "peek"                             :ignore t)
+  "lg"  '(                                              :which-key "goto"                             :ignore t)
+  "lh"  '(                                              :which-key "help"                             :ignore t)
+  "lr"  '(                                              :which-key "refactor"                         :ignore t)
+  "ls"  '(                                              :which-key "sessions"                         :ignore t)
+  "lT"  '(                                              :which-key "toggle"                           :ignore t)
+
   "n"   '(                                              :which-key "numbers"                          :ignore t)
   "n="  '(evil-numbers/inc-at-pt                        :which-key "add"                              )
   "n+"  '(evil-numbers/inc-at-pt                        :which-key "add"                              )
