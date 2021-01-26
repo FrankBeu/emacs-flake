@@ -1,3 +1,4 @@
+#+STARTUP: content
 * keys-keybindings
 ** marker
 #+begin_src elisp
@@ -105,34 +106,11 @@ on prompts use:
    )
 #+end_src
 ** company
-  ;; (define-key company-search-map (kbd "C-t") 'company-search-toggle-filtering)
-#+begin_src elisp
-    (general-define-key
-     :keymaps '(company-active-map
-                company-search-map
-                )
-     "C-k" 'nil
-     "C-k" 'company-select-previous
-     "C-l" 'nil
-     "C-l" 'company-select-next
-     "C-;" 'nil
-     "C-;" 'company-complete
-     )
-#+end_src
-
-#+begin_src elisp
-  (general-define-key
-   :keymaps '(
-              company-active-map
-              )
-   "C-j" 'nil
-   "C-j" 'company-complete-selection
-   )
-#+end_src
+*** company-mode-map
 #+begin_src elisp
     (general-define-key
      :keymaps '(
-                lsp-mode-map
+                company-mode-map
                 )
      "C-j" 'nil
      "C-j" 'company-indent-or-complete-common
@@ -142,19 +120,29 @@ on prompts use:
      "C-l" 'company-select-next
      "C-;" 'nil
      "C-;" 'company-complete
-     "C-;" 'company-complete
-
-     "C-L" 'lsp-ui-doc-focus-frame
-     ;; "C-:" 'lsp-ui-doc-focus-frame
-     )
-
-    (general-define-key
-     :keymaps '(
-               lsp-ui-doc-frame-mode-map
-                )
-     "C-K" 'lsp-ui-doc-unfocus-frame
      )
 #+end_src
+*** company-active
+#+begin_src elisp
+    (general-define-key
+     :keymaps '(
+                company-active-map
+                ;; company-search-map
+                )
+     ;; "C-j" 'nil
+     ;; "C-j" 'company-complete-selection
+     "C-k" 'nil
+     "C-k" 'company-select-previous
+     "C-l" 'nil
+     "C-l" 'company-select-next
+     "C-;" 'nil
+     "C-;" 'company-complete
+     )
+#+end_src
+*** FUNDUS
+  #+begin_src elisp :tangle no
+  (define-key company-search-map (kbd "C-t") 'company-search-toggle-filtering)
+  #+end_src
 ** dired
 #+begin_src elisp
   (general-define-key
@@ -213,16 +201,35 @@ on prompts use:
    )
 #+end_src
 ** lsp
+*** lsp-command-map
 #+begin_src elisp
   (general-define-key
    :keymaps '(lsp-command-map)
-   "i"  '(:which-key "ivy/imenu"    :ignore t)
+   ;; "i"  '(:ignore t :which-key "ivy/imenu") ;;; defined in fb/leader-key
    "ii"  'lsp-ivy-workspace-symbol
    "im"  'lsp-ui-imenu
-
-   "t"  '(:which-key "treemacs"     :ignore t)
+   ;; "t"  '(:ignore t  :which-key "treemacs") ;;; defined in fb/leader-key
    "ts" 'lsp-treemacs-symbols
    )
+#+end_src
+*** doc-frame-focus
+**** focus
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(
+             lsp-mode-map
+             )
+   "C-:" 'lsp-ui-doc-focus-frame
+    )
+#+end_src
+**** unfocus
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(
+             lsp-ui-doc-frame-mode-map
+              )
+   "C-J" 'lsp-ui-doc-unfocus-frame
+    )
 #+end_src
 ** magit
 #+begin_src elisp
@@ -353,6 +360,8 @@ on prompts use:
 
     "L"   '(lsp                                           :which-key "start lsp"                        )
     "l"   '(:keymap lsp-command-map :package lsp-mode     :which-key "lsp"                              )
+    "li"  '(                                              :which-key "ivy/imenu"                        :ignore t)
+    "lt"  '(                                              :which-key "treemacs"                         :ignore t)
 
     "n"   '(                                              :which-key "numbers"                          :ignore t)
     "n="  '(evil-numbers/inc-at-pt                        :which-key "add"                              )
@@ -383,6 +392,8 @@ on prompts use:
     "y"   '(                                              :which-key "yasnippets"                       :ignore t)
     "yy"  '(yas-insert-snippet                            :which-key "insert"                           )
     "yr"  '(yas-reload-all                                :which-key "reload-all"                       )
+
+    "u"  '(undo-tree-visualize                            :which-key "undotree"                         )
 
     "w"   '(writeroom-mode                                :which-key "writeroom-toggle"                 )
     )

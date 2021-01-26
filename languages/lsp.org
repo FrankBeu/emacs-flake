@@ -16,29 +16,40 @@
 #+begin_src elisp
   (use-package lsp-mode
     :commands (lsp lsp-deferred)
-    :hook (lsp-mode . fb*lsp-mode-setup-h)
-    :init
-    (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
+    :hook ((lsp-mode . fb*lsp-mode-setup-h)
+           (lsp-mode . lsp-enable-which-key-integration)
+           )
+    ;; :init
+    ;; (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
+    ;; (setq lsp-keymap-prefix "SPC l")  ;; shows named-prefixes; prevent usage of "SPC"
     :config
-    (lsp-enable-which-key-integration t)
+    (setq lsp-enable-snippet t)
+    ;; (setq lsp-enable-snippet nil)
+    (setq lsp-completion-provider :none)
     )
 #+end_src
+**** IMPORTANT
+#+begin_example elisp :tangle no
+  (setq lsp-completion-provider :none)
+#+end_example
+will prevent lsp from pushing a single ~company-capf~ into ~company-backends~
+and thus prevent grouping of backends
+use language-hook instead c.f. [[file:golang.org::*go-mode][./golang.org::go-mode]]
 ** lsp-ui
+https://emacs-lsp.github.io/lsp-ui/
 #+begin_src elisp
-    (use-package lsp-ui
-      :hook (lsp-mode . lsp-ui-mode)
-      ;; :commands lsp-ui-mode
-      :custom
-      ;; (lsp-ui-sideline-show-diagnostics t)
-      ;; (lsp-ui-sideline-show-hover t)
-      ;; (lsp-ui-sideline-show-code-actions t)
-      ;; (lsp-ui-sideline-update-mode t)
-      (lsp-ui-sideline-delay 0)
-      ;; (lsp-ui-doc-position 'bottom)
-      (lsp-ui-doc-position 'at-point)
-
-      )
-  ;; (use-package lsp-ui)
+  (use-package lsp-ui
+    :hook (lsp-mode . lsp-ui-mode)
+    ;; :commands lsp-ui-mode
+    :custom
+    ;; (lsp-ui-sideline-show-diagnostics t)
+    ;; (lsp-ui-sideline-show-hover t)
+    ;; (lsp-ui-sideline-show-code-actions t)
+    ;; (lsp-ui-sideline-update-mode t)
+    (lsp-ui-sideline-delay 0)
+    ;; (lsp-ui-doc-position 'bottom)
+    (lsp-ui-doc-position 'at-point)
+    )
 #+end_src
 ** lsp-ivy
 search for  symbol in workspace

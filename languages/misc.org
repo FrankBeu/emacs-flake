@@ -5,13 +5,40 @@
   ;;;;
   ;;
 #+end_src
+** INFO
+*** completion
+first search for lsp-server
+then for alternative company-backend
+*** TODO compAnies
+**** elasticsearch
+(spacemacs|add-company-backends :backends es-company-backend :modes es-mode)
+**** html
+:backends (company-web-html company-css)
+:backends company-web-jade
+:backends company-web-slim
+**** json
+'company-json` is the default backend unless `lsp' layer is used")
+**** markdown
+:backends company-capf
+:backends company-emoji
+**** nginx
+emacs-company-nginx
+**** nixos
+[[com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
+use-package company-nixos-options
+emacs-company-nixos-options
+**** restclient
+use-package company-restclient
+**** sql
+'company-sql` is the default backend unless `lsp' layer is used")
+**** web-mode
+  '((company-tern company-css company-web-html company-files))))
 ** company
 #+begin_src elisp
     (use-package company
       :after lsp-mode
       :hook (
-             ;; (after-init-hook 'global-company-mode)
-             (lsp-mode . company-mode)
+             (after-init . global-company-mode)
            )
       :custom
       (company-minimum-prefix-length 1)
@@ -21,7 +48,31 @@
 *** company-box
 #+begin_src elisp
   (use-package company-box
-    :hook (company-mode . company-box-mode))
+    :init
+    (setq company-box-icons-alist 'company-box-icons-all-the-icons)
+    :hook (company-mode . company-box-mode)
+    :config (setq company-box-doc-enable t)
+     )
+#+end_src
+**** FUNDUS
+***** icons
+#+begin_src elisp :tangle no
+  ;; (setq company-box-icons-all-the-icons ....)
+  ;; (setq company-box-icons-yasnippet     ....)
+#+end_src
+***** bindings
+#+begin_src elisp
+  (kbd "M-h") #'company-box-doc-manually
+#+end_src
+*** DEPRECATED company-lsp
+Comapny-lsp is no longer supported. Delete that package and lsp-mode will pick company-capf.
+https://github.com/tigersoldier/company-lsp
+#+begin_src elisp :tangle no
+  ;; (use-package company-lsp
+  ;;   :config
+  ;;    ;; (push 'company-lsp company-backends)
+  ;;    ;; (push '(company-lsp :with company-yasnippet) company-backends)
+  ;;    )
 #+end_src
 ** yasnippets
   https://joaotavora.github.io/yasnippet/snippet-expansion.html

@@ -761,8 +761,7 @@ byte-compiled from.")
 (use-package company
   :after lsp-mode
   :hook (
-         ;; (after-init-hook 'global-company-mode)
-         (lsp-mode . company-mode)
+         (after-init . global-company-mode)
        )
   :custom
   (company-minimum-prefix-length 1)
@@ -770,7 +769,13 @@ byte-compiled from.")
 )
 
 (use-package company-box
-  :hook (company-mode . company-box-mode))
+  :init
+  (setq company-box-icons-alist 'company-box-icons-all-the-icons)
+  :hook (company-mode . company-box-mode)
+  :config (setq company-box-doc-enable t)
+   )
+
+(kbd "M-h") #'company-box-doc-manually
 
 (use-package yasnippet
   :init
@@ -809,27 +814,30 @@ byte-compiled from.")
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook (lsp-mode . fb*lsp-mode-setup-h)
-  :init
-  (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
+  :hook ((lsp-mode . fb*lsp-mode-setup-h)
+         (lsp-mode . lsp-enable-which-key-integration)
+         )
+  ;; :init
+  ;; (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
+  ;; (setq lsp-keymap-prefix "SPC l")  ;; shows named-prefixes; prevent usage of "SPC"
   :config
-  (lsp-enable-which-key-integration t)
+  (setq lsp-enable-snippet t)
+  ;; (setq lsp-enable-snippet nil)
+  (setq lsp-completion-provider :none)
   )
 
 (use-package lsp-ui
-    :hook (lsp-mode . lsp-ui-mode)
-    ;; :commands lsp-ui-mode
-    :custom
-    ;; (lsp-ui-sideline-show-diagnostics t)
-    ;; (lsp-ui-sideline-show-hover t)
-    ;; (lsp-ui-sideline-show-code-actions t)
-    ;; (lsp-ui-sideline-update-mode t)
-    (lsp-ui-sideline-delay 0)
-    ;; (lsp-ui-doc-position 'bottom)
-    (lsp-ui-doc-position 'at-point)
-
-    )
-;; (use-package lsp-ui)
+  :hook (lsp-mode . lsp-ui-mode)
+  ;; :commands lsp-ui-mode
+  :custom
+  ;; (lsp-ui-sideline-show-diagnostics t)
+  ;; (lsp-ui-sideline-show-hover t)
+  ;; (lsp-ui-sideline-show-code-actions t)
+  ;; (lsp-ui-sideline-update-mode t)
+  (lsp-ui-sideline-delay 0)
+  ;; (lsp-ui-doc-position 'bottom)
+  (lsp-ui-doc-position 'at-point)
+  )
 
 (use-package lsp-ivy
   :commands lsp-ivy-workspace-symbol
@@ -861,16 +869,24 @@ byte-compiled from.")
 ;;
 
 (use-package go-mode
-  :hook ((go-mode . lsp-deferred)
-         ;; (go-mode . yas-minor-mode)
-         )
-  )
+  :hook (
+         (go-mode . company-mode)
+         (go-mode . lsp-deferred)
+         (go-mode . fb*go-mode-company-backends-h)
+         (go-mode . fb/lsp-go-install-save-hooks)
+         ))
+
+(defun fb*go-mode-company-backends-h ()
+  "set company-backends for `go-mode'"
+  (set (make-local-variable 'company-backends)
+       '((company-files company-capf company-yasnippet)
+         (company-dabbrev-code company-keywords)
+          company-dabbrev
+          )))
 
 (defun fb/lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
-  (add-hook 'before-save-hook #'lsp-organize-imports t t)
-  )
-(add-hook 'go-mode-hook #'fb/lsp-go-install-save-hooks)
+  (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
 ;;;;
@@ -1344,9 +1360,11 @@ an argument, unconditionally call `org-insert-SUBheading'."
  )
 
 (general-define-key
- :keymaps '(company-active-map
-            company-search-map
+ :keymaps '(
+            company-mode-map
             )
+ "C-j" 'nil
+ "C-j" 'company-indent-or-complete-common
  "C-k" 'nil
  "C-k" 'company-select-previous
  "C-l" 'nil
@@ -1358,34 +1376,16 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (general-define-key
  :keymaps '(
             company-active-map
+            ;; company-search-map
             )
- "C-j" 'nil
- "C-j" 'company-complete-selection
- )
-
-(general-define-key
- :keymaps '(
-            lsp-mode-map
-            )
- "C-j" 'nil
- "C-j" 'company-indent-or-complete-common
+ ;; "C-j" 'nil
+ ;; "C-j" 'company-complete-selection
  "C-k" 'nil
  "C-k" 'company-select-previous
  "C-l" 'nil
  "C-l" 'company-select-next
  "C-;" 'nil
  "C-;" 'company-complete
- "C-;" 'company-complete
-
- "C-L" 'lsp-ui-doc-focus-frame
- ;; "C-:" 'lsp-ui-doc-focus-frame
- )
-
-(general-define-key
- :keymaps '(
-           lsp-ui-doc-frame-mode-map
-            )
- "C-K" 'lsp-ui-doc-unfocus-frame
  )
 
 (general-define-key
@@ -1441,13 +1441,26 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (general-define-key
  :keymaps '(lsp-command-map)
- "i"  '(:which-key "ivy/imenu"    :ignore t)
+ ;; "i"  '(:ignore t :which-key "ivy/imenu") ;;; defined in fb/leader-key
  "ii"  'lsp-ivy-workspace-symbol
  "im"  'lsp-ui-imenu
-
- "t"  '(:which-key "treemacs"     :ignore t)
+ ;; "t"  '(:ignore t  :which-key "treemacs") ;;; defined in fb/leader-key
  "ts" 'lsp-treemacs-symbols
  )
+
+(general-define-key
+ :keymaps '(
+           lsp-mode-map
+           )
+ "C-:" 'lsp-ui-doc-focus-frame
+  )
+
+(general-define-key
+ :keymaps '(
+           lsp-ui-doc-frame-mode-map
+            )
+ "C-J" 'lsp-ui-doc-unfocus-frame
+  )
 
 (general-define-key
  :keymaps '(magit-mode-map)
@@ -1565,6 +1578,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
   "L"   '(lsp                                           :which-key "start lsp"                        )
   "l"   '(:keymap lsp-command-map :package lsp-mode     :which-key "lsp"                              )
+  "li"  '(                                              :which-key "ivy/imenu"                        :ignore t)
+  "lt"  '(                                              :which-key "treemacs"                         :ignore t)
 
   "n"   '(                                              :which-key "numbers"                          :ignore t)
   "n="  '(evil-numbers/inc-at-pt                        :which-key "add"                              )
@@ -1595,6 +1610,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "y"   '(                                              :which-key "yasnippets"                       :ignore t)
   "yy"  '(yas-insert-snippet                            :which-key "insert"                           )
   "yr"  '(yas-reload-all                                :which-key "reload-all"                       )
+
+  "u"  '(undo-tree-visualize                            :which-key "undotree"                         )
 
   "w"   '(writeroom-mode                                :which-key "writeroom-toggle"                 )
   )
