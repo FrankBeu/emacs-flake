@@ -141,8 +141,16 @@ on prompts use:
 #+end_src
 *** FUNDUS
   #+begin_src elisp :tangle no
-  (define-key company-search-map (kbd "C-t") 'company-search-toggle-filtering)
+  ;; (define-key company-search-map (kbd "C-t") 'company-search-toggle-filtering)
   #+end_src
+** counsel
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(minibuffer-local-map)
+   ;; :states  '(normal visual)
+   "C-r"    'counsel-minibuffer-history
+   )
+#+end_src
 ** dired
 #+begin_src elisp
   (general-define-key
@@ -198,6 +206,27 @@ on prompts use:
    "C-l" 'nil
    "C-l" 'ivy-next-line
    "C-S-l" 'ivy-call-and-recenter
+   )
+
+  (general-define-key
+   :keymaps '(ivy-minibuffer-map)
+   "C-k" 'ivy-previous-line
+   "C-l" 'ivy-next-line
+   "C-;" 'ivy-alt-done
+   "TAB" 'ivy-alt-done
+   )
+
+  (general-define-key
+   :keymaps '(ivy-switch-buffer-map)
+   "C-k" 'ivy-previous-line
+   "C-;" 'ivy-done
+   "C-d" 'ivy-switch-buffer-kill
+   )
+
+  (general-define-key
+   :keymaps '(ivy-reverse-i-search-map)
+   "C-k" 'ivy-previous-line
+   "C-d" 'ivy-reverse-i-search-kill
    )
 #+end_src
 ** lsp
@@ -269,6 +298,23 @@ on prompts use:
    ;; "l" 'org-store-link
    "a" 'org-agenda
    "c" 'org-capture
+   )
+#+end_src
+** swiper
+#+begin_src elisp
+  (general-define-key
+   "C-s" 'swiper
+   )
+#+end_src
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(swiper-map)
+   "C-l"   'nil
+   )
+  (general-define-key
+   :keymaps '(swiper-map)
+   "C-l"   'ivy-next-line
+   "C-S-L" 'swiper-recenter-top-bottom
    )
 #+end_src
 ** treemacs
@@ -409,5 +455,7 @@ on prompts use:
     "u"  '(undo-tree-visualize                            :which-key "undotree"                         )
 
     "w"   '(writeroom-mode                                :which-key "writeroom-toggle"                 )
+
+    ";"   '(counsel-switch-buffer                         :which-key "switch-buffer"                    )
     )
 #+end_src

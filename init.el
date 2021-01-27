@@ -304,20 +304,6 @@ byte-compiled from.")
 
 (use-package ivy
   :diminish
-  :bind (
-         :map ivy-minibuffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-next-line)
-         ("C-;" . ivy-alt-done)
-         ("TAB" . ivy-alt-done)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-;" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill)
-	 )
   :config (ivy-mode 1)
   )
 
@@ -334,22 +320,11 @@ byte-compiled from.")
   )
 
 (use-package counsel
-  :bind (("C-M-j" . 'counsel-switch-buffer)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history)
-	 )
   :custom (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config (counsel-mode 1)
   )
 
-(use-package swiper
-  :bind (("C-s" . swiper)
-         ;; ("C-r" . swiper)
-         :map swiper-map
-         ("C-l" . nil)
-         ("C-l" . ivy-next-line)
-         ("C-S-L" . swiper-recenter-top-bottom)
-	 ))
+(use-package swiper)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; evil
 ;;;;
@@ -759,7 +734,7 @@ byte-compiled from.")
   (fb*toggle-which-key-sort-order))
 
 (defun fb/reload-dir-locals-all-directory-buffer ()
-  "For every buffer with the same `default-directory` as the 
+  "For every buffer with the same `default-directory` as the
 current buffer's, reload dir-locals."
   (interactive)
   (let ((dir default-directory))
@@ -1407,6 +1382,12 @@ an argument, unconditionally call `org-insert-SUBheading'."
  )
 
 (general-define-key
+ :keymaps '(minibuffer-local-map)
+ ;; :states  '(normal visual)
+ "C-r"    'counsel-minibuffer-history
+ )
+
+(general-define-key
  :keymaps '(dired-mode-map)
  :states  '(normal visual)
  ;; "j" 'nil
@@ -1455,6 +1436,27 @@ an argument, unconditionally call `org-insert-SUBheading'."
  "C-l" 'nil
  "C-l" 'ivy-next-line
  "C-S-l" 'ivy-call-and-recenter
+ )
+
+(general-define-key
+ :keymaps '(ivy-minibuffer-map)
+ "C-k" 'ivy-previous-line
+ "C-l" 'ivy-next-line
+ "C-;" 'ivy-alt-done
+ "TAB" 'ivy-alt-done
+ )
+
+(general-define-key
+ :keymaps '(ivy-switch-buffer-map)
+ "C-k" 'ivy-previous-line
+ "C-;" 'ivy-done
+ "C-d" 'ivy-switch-buffer-kill
+ )
+
+(general-define-key
+ :keymaps '(ivy-reverse-i-search-map)
+ "C-k" 'ivy-previous-line
+ "C-d" 'ivy-reverse-i-search-kill
  )
 
 (general-define-key
@@ -1514,6 +1516,20 @@ an argument, unconditionally call `org-insert-SUBheading'."
  ;; "l" 'org-store-link
  "a" 'org-agenda
  "c" 'org-capture
+ )
+
+(general-define-key
+ "C-s" 'swiper
+ )
+
+(general-define-key
+ :keymaps '(swiper-map)
+ "C-l"   'nil
+ )
+(general-define-key
+ :keymaps '(swiper-map)
+ "C-l"   'ivy-next-line
+ "C-S-L" 'swiper-recenter-top-bottom
  )
 
 (eval-after-load "treemacs-evil"
@@ -1645,6 +1661,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "u"  '(undo-tree-visualize                            :which-key "undotree"                         )
 
   "w"   '(writeroom-mode                                :which-key "writeroom-toggle"                 )
+
+  ";"   '(counsel-switch-buffer                         :which-key "switch-buffer"                    )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-keybindings
@@ -1665,20 +1683,21 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (fb/local-leader-key
   :keymaps 'org-mode-map
   :states  '(normal visual insert)
+  "c"      '(org-comment-dwim                             :which-key "comment"       )
 
-  "S"      '(org-insert-structure-template 'elisp :which-key "struc-temp"            )
-  "s"      '(                                             :which-key "subtree"   :ignore t)
+  "S"      '(org-insert-structure-template 'elisp         :which-key "struc-temp"    )
+  "s"      '(                                             :which-key "subtree"       :ignore t)
   "sn"     '(org-narrow-to-subtree                        :which-key "narrow"        )
   "sw"     '(widen                                        :which-key "widen"         )
 
-  "t"      '(                                             :which-key "todo"      :ignore t)
+  "t"      '(                                             :which-key "todo"          :ignore t)
   "tc"     '(org-todo                                     :which-key "cycle"         )
   "t SPC"  '(org-todo                                     :which-key "cycle"         )
   "tt"     '((lambda () (interactive)(org-todo 'todo))    :which-key "todo"          )
   "td"     '((lambda () (interactive)(org-todo 'done))    :which-key "done"          )
   "tx"     '((lambda () (interactive)(org-todo 'none))    :which-key "none"          )
 
-  "x"      '(                                             :which-key "text"      :ignore t)
+  "x"      '(                                             :which-key "text"          :ignore t)
   "xb"     '((lambda () (interactive)(org-emphasize ?\*)) :which-key "bold"          )
   "xc"     '((lambda () (interactive)(org-emphasize ?\~)) :which-key "code"          )
   "xi"     '((lambda () (interactive)(org-emphasize ?\/)) :which-key "italic"        )
@@ -1725,82 +1744,52 @@ an argument, unconditionally call `org-insert-SUBheading'."
  )
 
 (general-define-key
-  :keymaps '(org-mode-map)
-  ;; :states  '(normal motion)
+ :keymaps  'org-mode-map
+ "C-M-S-j" 'org-shiftmetaleft
+ "C-M-S-k" 'org-shiftmetaup
+ "C-M-S-l" 'org-shiftmetadown
+ "C-M-:"   'org-shiftmetaright
+ )
 
-  "S-j"   'nil
-  "S-k"   'nil
-  "S-l"   'nil
-  "S-;"   'nil
+(general-define-key
+ :keymaps 'org-mode-map
+ :states  '(normal motion)
+ "C-J"    'org-shiftcontrolleft
+ "C-K"    'org-shiftcontrolup
+ "C-L"    'org-shiftcontroldown
+ "C-:"    'org-shiftcontrolright
+ )
 
-  "M-j"   'nil
-  "M-k"   'nil
-  "M-l"   'nil
-  "M-;"   'nil
+(general-define-key
+ :keymaps 'org-mode-map
+ "C-M-j"  'org-shiftleft
+ "C-M-k"  'org-shiftup
+ "C-M-l"  'org-shiftdown
+ "C-M-;"  'org-shiftright
+ )
 
-  "M-S-h" 'nil
-  "M-S-j" 'nil
-  "M-S-k" 'nil
-  "M-S-l" 'nil
-  "M-S-;" 'nil
+(general-define-key
+ :keymaps 'org-mode-map
+ "M-j"    'org-metaleft
+ "M-k"    'org-metaup
+ "M-l"    'org-metadown
+ "M-;"    'org-metaright
+ )
+(defun fb*org-mode-meta-bindings ()
+  (general-define-key
+   :keymaps 'outline-mode-map
+   :states  'normal
+   "M-j"    'nil
+   "M-k"    'nil
+   "M-l"    'nil
+   "M-;"    'nil
+   ))
 
-  "C-J" 'nil
-  "C-K" 'nil
-  "C-L" 'nil
-  "C-:" 'nil
-
-  ;; "M-h"   'org-promote-subtree
-  ;; "M-j"   'outline-move-subtree-down
-  ;; "M-k"   'outline-move-subtree-up
-  ;; "M-l"   'org-demote-subtree
-  ;; "M-;"   'org-comment-dwim
-
-  ;; "M-S-h" 'org-promote-subtree
-  ;; "M-S-j" 'outline-move-subtree-down
-  ;; "M-S-k" 'outline-move-subtree-up
-  ;; "M-S-l" 'outline-move-subtree-up
-  ;; "M-S-;" 'eval-expression
-
-
-  "S-j"   'org-shiftleft
-  "S-k"   'org-shiftup
-  "S-l"   'org-shiftdown
-  "S-;"   'org-shiftright
-
-;;;; working
-  "M-j"   'org-metaleft
-  "M-k"   'org-metaup
-  "M-l"   'org-metadown
-  "M-;"   'org-metaright
-
-  "M-S-h" 'eval-expression
-  "M-S-j" 'org-shiftmetaleft
-  "M-S-k" 'org-shiftmetaup
-  "M-S-l" 'org-shiftmetadown
-  "M-S-;" 'org-shiftmetaright
-
-  "C-J" 'org-shiftcontrolleft
-  "C-K" 'org-shiftcontrolup
-  "C-L" 'org-shiftcontroldown
-  "C-:" 'org-shiftcontrolright
-  )
-
-(defun fb/org-mode-meta-bindings ()
-    (general-define-key
-     :keymaps '(outline-mode-map)
-     :states  '(normal)
-     "M-j"   'nil
-     "M-k"   'nil
-     "M-l"   'nil
-     "M-;"   'nil
-     )
+(defun fb*org-mode-keybindings-h ()
+  (fb*org-mode-meta-bindings)
 )
 
-(defun fb/org-mode-keybindings-h ()
-  (fb/org-mode-meta-bindings)
-)
-
-(add-hook 'org-mode-hook 'fb/org-mode-keybindings-h)
+(add-hook 'org-mode-hook 'fb*org-mode-keybindings-h)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keybindings-outline
 ;;;;

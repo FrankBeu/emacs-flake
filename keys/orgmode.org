@@ -26,20 +26,21 @@
   (fb/local-leader-key
     :keymaps 'org-mode-map
     :states  '(normal visual insert)
+    "c"      '(org-comment-dwim                             :which-key "comment"       )
 
-    "S"      '(org-insert-structure-template 'elisp :which-key "struc-temp"            )
-    "s"      '(                                             :which-key "subtree"   :ignore t)
+    "S"      '(org-insert-structure-template 'elisp         :which-key "struc-temp"    )
+    "s"      '(                                             :which-key "subtree"       :ignore t)
     "sn"     '(org-narrow-to-subtree                        :which-key "narrow"        )
     "sw"     '(widen                                        :which-key "widen"         )
 
-    "t"      '(                                             :which-key "todo"      :ignore t)
+    "t"      '(                                             :which-key "todo"          :ignore t)
     "tc"     '(org-todo                                     :which-key "cycle"         )
     "t SPC"  '(org-todo                                     :which-key "cycle"         )
     "tt"     '((lambda () (interactive)(org-todo 'todo))    :which-key "todo"          )
     "td"     '((lambda () (interactive)(org-todo 'done))    :which-key "done"          )
     "tx"     '((lambda () (interactive)(org-todo 'none))    :which-key "none"          )
 
-    "x"      '(                                             :which-key "text"      :ignore t)
+    "x"      '(                                             :which-key "text"          :ignore t)
     "xb"     '((lambda () (interactive)(org-emphasize ?\*)) :which-key "bold"          )
     "xc"     '((lambda () (interactive)(org-emphasize ?\~)) :which-key "code"          )
     "xi"     '((lambda () (interactive)(org-emphasize ?\/)) :which-key "italic"        )
@@ -96,172 +97,64 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
    "gl"     'org-forward-heading-same-level
    )
 #+end_src
-#+begin_example elisp
-#+end_example
-** movement
-*** comment
-#+begin_src elisp :tangle no
+** structureMoving
+*** meta-shift-jkl;
+#+begin_src elisp
   (general-define-key
-   :keymaps '(org-mode-map)
-   :states  '(normal)
-   ""     '
-   ""     '
+   :keymaps  'org-mode-map
+   "C-M-S-j" 'org-shiftmetaleft
+   "C-M-S-k" 'org-shiftmetaup
+   "C-M-S-l" 'org-shiftmetadown
+   "C-M-:"   'org-shiftmetaright
    )
 #+end_src
-org-comment-dwim
-*** heading
-#+begin_src elisp :tangle no
-  (general-define-key
-   :keymaps '(org-mode-map)
-   :states  '(normal)
-   ""     '
-   ""     '
-   )
-#+end_src
-**** subtrees
-#+begin_src elisp :tangle no
-  (general-define-key
-   :keymaps '(org-mode-map)
-   :states  '(normal)
-   ""     '
-   ""     '
-   )
-#+end_src
-** current
-#+begin_src elisp :tangle no
-  (general-define-key
-   :keymaps '(org-mode-map)
-   :states  '(normal)
-   "M-h"   'org-promote-subtree
-   "M-j"   'outline-move-subtree-down
-   "M-k"   'outline-move-subtree-up
-   "M-l"   'org-demote-subtree
-   "M-;"   'org-comment-dwim
-
-   "M-S-h" 'org-promote-subtree
-   "M-S-j" 'outline-move-subtree-down
-   "M-S-k" 'outline-move-subtree-up
-   "M-S-l" 'outline-move-subtree-up
-   "M-S-;" 'eval-expression
-
-   "S-left"    'org-shiftleft
-   "S-up"      'org-shiftup
-   "S-down"    'org-shiftdown
-   "S-right"   'org-shiftright
-
-   "M-left"    'org-metaleft
-   "M-up"      'org-metaup
-   "M-down"    'org-metadown
-   "M-right"   'org-metaright
-
-   "M-S-left"  'org-shiftmetaleft
-   "M-S-up"    'org-shiftmetaup
-   "M-S-down"  'org-shiftmetadown
-   "M-S-right" 'org-shiftmetaright
-
-   "C-S-left"  'org-shiftcontrolleft
-   "C-S-up"    'org-shiftcontrolup
-   "C-S-down"  'org-shiftcontroldown
-   "C-S-right" 'org-shiftcontrolright
-   )
-#+end_src
-** target
+*** shift-control-jkl;
  #+begin_src elisp
-     (general-define-key
-      :keymaps '(org-mode-map)
-      ;; :states  '(normal motion)
-
-      "S-j"   'nil
-      "S-k"   'nil
-      "S-l"   'nil
-      "S-;"   'nil
-
-      "M-j"   'nil
-      "M-k"   'nil
-      "M-l"   'nil
-      "M-;"   'nil
-
-      "M-S-h" 'nil
-      "M-S-j" 'nil
-      "M-S-k" 'nil
-      "M-S-l" 'nil
-      "M-S-;" 'nil
-
-      "C-J" 'nil
-      "C-K" 'nil
-      "C-L" 'nil
-      "C-:" 'nil
-
-      ;; "M-h"   'org-promote-subtree
-      ;; "M-j"   'outline-move-subtree-down
-      ;; "M-k"   'outline-move-subtree-up
-      ;; "M-l"   'org-demote-subtree
-      ;; "M-;"   'org-comment-dwim
-
-      ;; "M-S-h" 'org-promote-subtree
-      ;; "M-S-j" 'outline-move-subtree-down
-      ;; "M-S-k" 'outline-move-subtree-up
-      ;; "M-S-l" 'outline-move-subtree-up
-      ;; "M-S-;" 'eval-expression
-
-
-      "S-j"   'org-shiftleft
-      "S-k"   'org-shiftup
-      "S-l"   'org-shiftdown
-      "S-;"   'org-shiftright
-
-    ;;;; working
-      "M-j"   'org-metaleft
-      "M-k"   'org-metaup
-      "M-l"   'org-metadown
-      "M-;"   'org-metaright
-
-      "M-S-h" 'eval-expression
-      "M-S-j" 'org-shiftmetaleft
-      "M-S-k" 'org-shiftmetaup
-      "M-S-l" 'org-shiftmetadown
-      "M-S-;" 'org-shiftmetaright
-
-      "C-J" 'org-shiftcontrolleft
-      "C-K" 'org-shiftcontrolup
-      "C-L" 'org-shiftcontroldown
-      "C-:" 'org-shiftcontrolright
-      )
+   (general-define-key
+    :keymaps 'org-mode-map
+    :states  '(normal motion)
+    "C-J"    'org-shiftcontrolleft
+    "C-K"    'org-shiftcontrolup
+    "C-L"    'org-shiftcontroldown
+    "C-:"    'org-shiftcontrolright
+    )
 #+end_src
-** meta-jkl;
+*** shift-jkl;
+ #+begin_src elisp
+  (general-define-key
+   :keymaps 'org-mode-map
+   "C-M-j"  'org-shiftleft
+   "C-M-k"  'org-shiftup
+   "C-M-l"  'org-shiftdown
+   "C-M-;"  'org-shiftright
+   )
+#+end_src
+*** meta-jkl;
 #+begin_src elisp
-  (defun fb/org-mode-meta-bindings ()
-      (general-define-key
-       :keymaps '(outline-mode-map)
-       :states  '(normal)
-       "M-j"   'nil
-       "M-k"   'nil
-       "M-l"   'nil
-       "M-;"   'nil
-       )
-  )
+  (general-define-key
+   :keymaps 'org-mode-map
+   "M-j"    'org-metaleft
+   "M-k"    'org-metaup
+   "M-l"    'org-metadown
+   "M-;"    'org-metaright
+   )
+  (defun fb*org-mode-meta-bindings ()
+    (general-define-key
+     :keymaps 'outline-mode-map
+     :states  'normal
+     "M-j"    'nil
+     "M-k"    'nil
+     "M-l"    'nil
+     "M-;"    'nil
+     ))
 #+end_src
-** hook-function
+*** hook-function
 #+begin_src elisp
-  (defun fb/org-mode-keybindings-h ()
-    (fb/org-mode-meta-bindings)
-  )
+    (defun fb*org-mode-keybindings-h ()
+      (fb*org-mode-meta-bindings)
+    )
 #+end_src
-** hook
+*** hook
 #+begin_src elisp
-  (add-hook 'org-mode-hook 'fb/org-mode-keybindings-h)
+  (add-hook 'org-mode-hook 'fb*org-mode-keybindings-h)
 #+end_src
-** test
-*** test1
-**** test
-***** test
-***** test1
-***** TODO test
-*** test2
-*** test3
-**** test1
-***** test
-***** test1
-******* test
-******* test
-***** test2

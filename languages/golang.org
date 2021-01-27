@@ -30,12 +30,12 @@ https://github.com/golang/tools/blob/master/gopls/doc/emacs.md
 **** FUNDUS
 ***** different sort
 #+begin_src elisp :tangle no
-  (set (make-local-variable 'company-backends)
-      '((company-capf
-          :with
-          company-yasnippet
-          company-files
-          company-dabbrev-code)))
+  ;; (set (make-local-variable 'company-backends)
+      ;; '((company-capf
+          ;; :with
+          ;; company-yasnippet
+          ;; company-files
+          ;; company-dabbrev-code)))
 #+end_src
 *** {format,import}-on-save
 Set up before-save hooks to format buffer and add/delete imports.

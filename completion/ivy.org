@@ -11,23 +11,8 @@ started as an alternative backend (->helm) for swiper
 *** ivy
 https://github.com/abo-abo/swiper
 #+begin_src elisp                               
-
 (use-package ivy
   :diminish
-  :bind (
-         :map ivy-minibuffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-l" . ivy-next-line)
-         ("C-;" . ivy-alt-done)
-         ("TAB" . ivy-alt-done)
-         :map ivy-switch-buffer-map
-         ("C-k" . ivy-previous-line)
-         ("C-;" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill)
-	 )
   :config (ivy-mode 1)
   )
 
@@ -57,10 +42,6 @@ https://github.com/seagle0128/all-the-icons-ivy-rich
 https://github.com/abo-abo/swiper
 #+begin_src elisp                               
 (use-package counsel
-  :bind (("C-M-j" . 'counsel-switch-buffer)
-         :map minibuffer-local-map
-         ("C-r" . 'counsel-minibuffer-history)
-	 )
   :custom (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
   :config (counsel-mode 1)
   )
@@ -69,14 +50,7 @@ https://github.com/abo-abo/swiper
 a interface for searching a buffer
 https://github.com/abo-abo/swiper
 #+begin_src elisp                               
-(use-package swiper
-  :bind (("C-s" . swiper)
-         ;; ("C-r" . swiper)
-         :map swiper-map
-         ("C-l" . nil)
-         ("C-l" . ivy-next-line)
-         ("C-S-L" . swiper-recenter-top-bottom)
-	 ))
+  (use-package swiper)
 #+end_src                                            
 **** manual
 https://oremacs.com/swiper/
