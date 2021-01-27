@@ -5,6 +5,18 @@
   ;;;;
   ;;
 #+end_src
+** safe local-vars
+#+begin_src elisp
+  (add-to-list 'safe-local-variable-values
+             '(eval org-content 2)
+             )
+#+end_src
+
+#+begin_src elisp
+  (add-to-list 'safe-local-eval-forms
+               '(org-content 3)
+               )
+#+end_src
 ** serverMode
 always start emacs in server-mode
 #+begin_src elisp

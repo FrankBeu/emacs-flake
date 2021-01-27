@@ -327,8 +327,7 @@ transformative logic."
     ;; (fb*literate-tangle-h)
     ;; )
 #+end_src
-**** hook in
-~/.emacs.d/.dir-locals.el
+**** hook in =~/.emacs.d/.dir-locals.el=
 #+begin_src elisp :tangle no
 ;; ;;; Directory Local Variables
 ;; ;;; For more information see (info "(emacs) Directory Variables")

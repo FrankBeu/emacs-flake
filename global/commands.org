@@ -61,3 +61,22 @@
     (interactive)
     (fb*toggle-which-key-sort-order))
 #+end_src
+** dir-local-variables
+#+begin_src emacs-lisp
+  (defun fb/reload-dir-locals-current-buffer ()
+    "reload dir-locals for the current buffer"
+    (interactive)
+    (let ((enable-local-variables :all))
+      (hack-dir-local-variables-non-file-buffer)))
+#+end_src
+#+begin_src elisp
+  (defun fb/reload-dir-locals-all-directory-buffer ()
+    "For every buffer with the same `default-directory` as the
+  current buffer's, reload dir-locals."
+    (interactive)
+    (let ((dir default-directory))
+      (dolist (buffer (buffer-list))
+        (with-current-buffer buffer
+          (when (equal default-directory dir))
+          (my-reload-dir-locals-for-current-buffer)))))
+#+end_src

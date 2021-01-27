@@ -11,6 +11,8 @@ https://orgmode.org/
 *** wordprocessor-interface
 https://lepisma.xyz/2017/10/28/ricing-org-mode/
 https://protesilaos.com/codelog/2020-07-18-emacs-concept-org-tweaked-focus/
+*** pomodoro
+https://github.com/marcinkoziej/org-pomodoro
 ** with-eval-begin
 #+begin_src elisp
 (with-eval-after-load 'org

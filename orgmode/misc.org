@@ -99,4 +99,9 @@ https://github.com/alphapapa/org-ql
 https://github.com/progfolio/doct
 ** TODO babel
 https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/org/config.el
+** TODO =v i e=
+not defined
 
+** TODO packages
+  toc-org
+  valign

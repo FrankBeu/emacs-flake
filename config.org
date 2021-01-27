@@ -1,8 +1,9 @@
 #+TITLE: emacs Configuration
 * emacsConfiguration
 ** styleGuide
+org-startup
 *** elisp
-**** variable-naming
+*** variable-naming
 - ~doom/abc~ A public, interactive command, designed to be used via =M-x= or a keybinding.
 - ~doom:abc~ A public evil operator, motion or command.
 - ~doom|abc~ A public, non-interactive function meant to be used as a hook.

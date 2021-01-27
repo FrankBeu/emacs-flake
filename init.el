@@ -429,6 +429,14 @@ byte-compiled from.")
 ;;;;
 ;;
 
+(add-to-list 'safe-local-variable-values
+           '(eval org-content 2)
+           )
+
+(add-to-list 'safe-local-eval-forms
+             '(org-content 3)
+             )
+
 (server-start)
 
 (setq
@@ -749,6 +757,16 @@ byte-compiled from.")
   "Toggle whichKey-sort-order-alpha key - desc"
   (interactive)
   (fb*toggle-which-key-sort-order))
+
+(defun fb/reload-dir-locals-all-directory-buffer ()
+  "For every buffer with the same `default-directory` as the 
+current buffer's, reload dir-locals."
+  (interactive)
+  (let ((dir default-directory))
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (equal default-directory dir))
+        (my-reload-dir-locals-for-current-buffer)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages
 ;;;;
@@ -1600,6 +1618,9 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
   "r"   '(                                              :which-key "re-~"                             :ignore t)
   "rc"  '(fb/literate-recompile                         :which-key "recompile-emacs.d"                )
+  "rd"   '(                                             :which-key "reloadDirLocals"                  :ignore t)
+  "rdb" '(fb/reload-dir-locals-current-buffer           :which-key "reloadDirLocalsCurrentBuffer"     )
+  "rda" '(fb/reload-dir-locals-all-directory-buffer     :which-key "reloadDirLocalsDirBuffer"         )
   "rf"  '(                                              :which-key "reformat"                         :ignore t)
   "rfh" '(fb/break-here                                 :which-key "break-here"                       )
   "rfc" '(fb/break-sub-sentence                         :which-key "break-sub"                        )
@@ -1696,6 +1717,91 @@ an argument, unconditionally call `org-insert-SUBheading'."
  "C-M-:"   '(lambda () (interactive) (org-eval-in-calendar '(calendar-scroll-left               1)))
  )
 
+(general-define-key
+ :keymaps '(org-mode-map)
+ :states  '(normal)
+ "gj"     'outline-up-heading
+ "gl"     'org-forward-heading-same-level
+ )
+
+(general-define-key
+  :keymaps '(org-mode-map)
+  ;; :states  '(normal motion)
+
+  "S-j"   'nil
+  "S-k"   'nil
+  "S-l"   'nil
+  "S-;"   'nil
+
+  "M-j"   'nil
+  "M-k"   'nil
+  "M-l"   'nil
+  "M-;"   'nil
+
+  "M-S-h" 'nil
+  "M-S-j" 'nil
+  "M-S-k" 'nil
+  "M-S-l" 'nil
+  "M-S-;" 'nil
+
+  "C-J" 'nil
+  "C-K" 'nil
+  "C-L" 'nil
+  "C-:" 'nil
+
+  ;; "M-h"   'org-promote-subtree
+  ;; "M-j"   'outline-move-subtree-down
+  ;; "M-k"   'outline-move-subtree-up
+  ;; "M-l"   'org-demote-subtree
+  ;; "M-;"   'org-comment-dwim
+
+  ;; "M-S-h" 'org-promote-subtree
+  ;; "M-S-j" 'outline-move-subtree-down
+  ;; "M-S-k" 'outline-move-subtree-up
+  ;; "M-S-l" 'outline-move-subtree-up
+  ;; "M-S-;" 'eval-expression
+
+
+  "S-j"   'org-shiftleft
+  "S-k"   'org-shiftup
+  "S-l"   'org-shiftdown
+  "S-;"   'org-shiftright
+
+;;;; working
+  "M-j"   'org-metaleft
+  "M-k"   'org-metaup
+  "M-l"   'org-metadown
+  "M-;"   'org-metaright
+
+  "M-S-h" 'eval-expression
+  "M-S-j" 'org-shiftmetaleft
+  "M-S-k" 'org-shiftmetaup
+  "M-S-l" 'org-shiftmetadown
+  "M-S-;" 'org-shiftmetaright
+
+  "C-J" 'org-shiftcontrolleft
+  "C-K" 'org-shiftcontrolup
+  "C-L" 'org-shiftcontroldown
+  "C-:" 'org-shiftcontrolright
+  )
+
+(defun fb/org-mode-meta-bindings ()
+    (general-define-key
+     :keymaps '(outline-mode-map)
+     :states  '(normal)
+     "M-j"   'nil
+     "M-k"   'nil
+     "M-l"   'nil
+     "M-;"   'nil
+     )
+)
+
+(defun fb/org-mode-keybindings-h ()
+  (fb/org-mode-meta-bindings)
+)
+
+(add-hook 'org-mode-hook 'fb/org-mode-keybindings-h)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keybindings-outline
 ;;;;
 ;;
@@ -1722,5 +1828,11 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
 
 (global-set-key "\M-o" cm-map)
+
+(defun fb/reload-dir-locals-current-buffer ()
+  "reload dir-locals for the current buffer"
+  (interactive)
+  (let ((enable-local-variables :all))
+    (hack-dir-local-variables-non-file-buffer)))
 
 (setq lsp-gopls-codelens nil)

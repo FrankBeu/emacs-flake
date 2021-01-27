@@ -382,6 +382,9 @@ on prompts use:
 
     "r"   '(                                              :which-key "re-~"                             :ignore t)
     "rc"  '(fb/literate-recompile                         :which-key "recompile-emacs.d"                )
+    "rd"   '(                                             :which-key "reloadDirLocals"                  :ignore t)
+    "rdb" '(fb/reload-dir-locals-current-buffer           :which-key "reloadDirLocalsCurrentBuffer"     )
+    "rda" '(fb/reload-dir-locals-all-directory-buffer     :which-key "reloadDirLocalsDirBuffer"         )
     "rf"  '(                                              :which-key "reformat"                         :ignore t)
     "rfh" '(fb/break-here                                 :which-key "break-here"                       )
     "rfc" '(fb/break-sub-sentence                         :which-key "break-sub"                        )
