@@ -5,6 +5,17 @@
   ;;;;
   ;;
 #+end_src
+** agenda
+*** navigation
+#+begin_src elisp
+  (general-define-key
+   :keymaps 'org-agenda-mode-map
+   "p" 'org-agenda-capture
+   "n" 'org-agenda-log-mode
+   "k" 'org-agenda-previous-line
+   "l" 'org-agenda-next-line
+   )
+#+end_src
 ** avy in orgmode
 ~:prefix~ not working
 #+begin_src elisp

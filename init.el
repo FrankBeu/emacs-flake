@@ -964,9 +964,27 @@ an argument, unconditionally call `org-insert-SUBheading'."
 				((org-in-item-p) #'org-insert-item)
 				(t #'org-insert-subheading)))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-agenda
+;;;;
+;;
+
+(setq org-agenda-files '("~/NOTES"))
+
+(setq org-agenda-start-with-log-mode t)
+
+(setq org-log-into-drawer t)
+
+(setq org-log-done 'note)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
 ;;;;
 ;;
+
+(use-package org
+  ;; :hook
+  ;; :config
+  ;; :custom
+  )
 
 (setq org-hide-emphasis-markers t)
 
@@ -1014,11 +1032,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (use-package org-make-toc
   :hook (org-mode . org-make-toc-mode))
-
-(setq org-agenda-files '("~/NOTES"))
-(setq org-agenda-start-with-log-mode t)
-(setq org-log-done 'time)
-(setq org-log-into-drawer t)
 
 (add-to-list 'org-structure-template-alist '("sh"   . "src sh"))
 (add-to-list 'org-structure-template-alist '("el"   . "src emacs-lisp"))
@@ -1673,6 +1686,14 @@ an argument, unconditionally call `org-insert-SUBheading'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-keybindings
 ;;;;
 ;;
+
+(general-define-key
+ :keymaps 'org-agenda-mode-map
+ "p" 'org-agenda-capture
+ "n" 'org-agenda-log-mode
+ "k" 'org-agenda-previous-line
+ "l" 'org-agenda-next-line
+ )
 
 (general-define-key
  :keymaps 'org-mode-map

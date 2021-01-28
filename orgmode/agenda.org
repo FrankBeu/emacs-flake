@@ -1,0 +1,27 @@
+* orgmode-agenda
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-agenda
+  ;;;;
+  ;;
+#+end_src
+** agenda
+*** files
+#+begin_src elisp
+  (setq org-agenda-files '("~/NOTES"))
+#+end_src
+*** show log on start
+#+begin_src elisp
+  (setq org-agenda-start-with-log-mode t)
+#+end_src
+*** log
+**** log-into-drawer
+#+begin_src elisp
+  (setq org-log-into-drawer t)
+#+end_src
+**** files
+#+begin_src elisp
+  (setq org-log-done 'note)
+#+end_src
+** TODO org-ql
+https://github.com/alphapapa/org-ql

@@ -17,10 +17,12 @@ https://github.com/marcinkoziej/org-pomodoro
 #+begin_src elisp
 (with-eval-after-load 'org
 #+end_src
-** miscellaneous
-#+INCLUDE: "./misc.org"
 ** functions
 #+INCLUDE: "./functions.org"
+** agenda
+#+INCLUDE: "./agenda.org"
+** miscellaneous
+#+INCLUDE: "./misc.org"
 ** with-eval-end
 #+begin_src elisp
   );;with-eval-end
