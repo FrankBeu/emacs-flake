@@ -1745,10 +1745,10 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (general-define-key
  :keymaps  'org-mode-map
- "C-M-S-j" 'org-shiftmetaleft
- "C-M-S-k" 'org-shiftmetaup
- "C-M-S-l" 'org-shiftmetadown
- "C-M-:"   'org-shiftmetaright
+ "C-M-S-j" 'org-shiftleft
+ "C-M-S-k" 'org-shiftup
+ "C-M-S-l" 'org-shiftdown
+ "C-M-:"   'org-shiftright
  )
 
 (general-define-key
@@ -1762,17 +1762,17 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (general-define-key
  :keymaps 'org-mode-map
- "C-M-j"  'org-shiftleft
- "C-M-k"  'org-shiftup
- "C-M-l"  'org-shiftdown
- "C-M-;"  'org-shiftright
+ "C-M-j"  'org-shiftmetaleft
+ "C-M-k"  'org-metaup
+ "C-M-l"  'org-metadown
+ "C-M-;"  'org-shiftmetaright
  )
 
 (general-define-key
  :keymaps 'org-mode-map
  "M-j"    'org-metaleft
- "M-k"    'org-metaup
- "M-l"    'org-metadown
+ "M-k"    'org-shiftmetaup
+ "M-l"    'org-shiftmetadown
  "M-;"    'org-metaright
  )
 (defun fb*org-mode-meta-bindings ()
