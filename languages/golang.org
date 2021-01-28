@@ -13,29 +13,9 @@ https://github.com/golang/tools/blob/master/gopls/doc/emacs.md
     :hook (
            (go-mode . company-mode)
            (go-mode . lsp-deferred)
-           (go-mode . fb*go-mode-company-backends-h)
+           (go-mode . fb*default-company-backends-h)
            (go-mode . fb/lsp-go-install-save-hooks)
            ))
-#+end_src
-*** company-backends
-#+begin_src elisp
-  (defun fb*go-mode-company-backends-h ()
-    "set company-backends for `go-mode'"
-    (set (make-local-variable 'company-backends)
-         '((company-files company-capf company-yasnippet)
-           (company-dabbrev-code company-keywords)
-            company-dabbrev
-            )))
-#+end_src
-**** FUNDUS
-***** different sort
-#+begin_src elisp :tangle no
-  ;; (set (make-local-variable 'company-backends)
-      ;; '((company-capf
-          ;; :with
-          ;; company-yasnippet
-          ;; company-files
-          ;; company-dabbrev-code)))
 #+end_src
 *** {format,import}-on-save
 Set up before-save hooks to format buffer and add/delete imports.

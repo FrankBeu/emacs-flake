@@ -67,7 +67,7 @@
   (use-package org-make-toc
     :hook (org-mode . org-make-toc-mode))
 #+end_src
-*** TODO keybindings
+** TODO keybindings
 ** TODO agenda
 #+begin_src elisp
   (setq org-agenda-files '("~/NOTES"))
@@ -105,3 +105,16 @@ not defined
 ** TODO packages
   toc-org
   valign
+
+** hook
+*** hook-function
+#+begin_src elisp
+  (defun fb*org-mode-h ()
+    (fb*default-company-backends-h)
+    (company-mode)
+    )
+#+end_src
+*** hook
+#+begin_src elisp
+  (add-hook 'org-mode-hook 'fb*org-mode-h)
+#+end_src

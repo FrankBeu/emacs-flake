@@ -761,6 +761,14 @@ current buffer's, reload dir-locals."
   (company-idle-delay 0.0)
 )
 
+(defun fb*default-company-backends-h ()
+  "set default company-backends"
+  (set (make-local-variable 'company-backends)
+       '((company-files company-capf company-yasnippet)
+         (company-dabbrev-code company-keywords)
+          company-dabbrev
+          )))
+
 (use-package company-box
   :init
   (setq company-box-icons-alist 'company-box-icons-all-the-icons)
@@ -848,14 +856,12 @@ current buffer's, reload dir-locals."
 ;;;;
 ;;
 
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            ;; (make-local-variable 'outline-regexp)
-            ;; (setq outline-regexp "^;;; ")
-            ;; (make-local-variable 'outline-heading-end-regexp)
-            ;; (setq outline-heading-end-regexp ":\n")
-            (outline-minor-mode 1)
-            ))
+(dolist (fn '(
+              outline-minor-mode
+              fb*default-company-backends-h
+	          company-mode
+              ))
+  (add-hook 'emacs-lisp-mode-hook fn))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-golang
 ;;;;
@@ -865,17 +871,9 @@ current buffer's, reload dir-locals."
   :hook (
          (go-mode . company-mode)
          (go-mode . lsp-deferred)
-         (go-mode . fb*go-mode-company-backends-h)
+         (go-mode . fb*default-company-backends-h)
          (go-mode . fb/lsp-go-install-save-hooks)
          ))
-
-(defun fb*go-mode-company-backends-h ()
-  "set company-backends for `go-mode'"
-  (set (make-local-variable 'company-backends)
-       '((company-files company-capf company-yasnippet)
-         (company-dabbrev-code company-keywords)
-          company-dabbrev
-          )))
 
 (defun fb/lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
@@ -949,6 +947,23 @@ current buffer's, reload dir-locals."
 
 (with-eval-after-load 'org
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-functions
+;;;;
+;;
+
+(defun fb/org-meta-return (&optional arg)
+  "Insert a new heading or wrap a region in a table.
+Calls `org-insert-SUBheading', `org-insert-item' or
+`org-table-wrap-region', depending on context.  When called with
+an argument, unconditionally call `org-insert-SUBheading'."
+  (interactive "P")
+  (org-check-before-invisible-edit 'insert)
+  (or (run-hook-with-args-until-success 'org-metareturn-hook)
+      (call-interactively (cond (arg #'org-insert-subheading)
+				((org-at-table-p) #'org-table-wrap-region)
+				((org-in-item-p) #'org-insert-item)
+				(t #'org-insert-subheading)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
 ;;;;
 ;;
@@ -1016,22 +1031,12 @@ current buffer's, reload dir-locals."
 (add-to-list 'org-structure-template-alist '("rt"   . "src rust"))
 (add-to-list 'org-structure-template-alist '("dt"   . "src dart"))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-functions
-;;;;
-;;
+(defun fb*org-mode-h ()
+  (fb*default-company-backends-h)
+  (company-mode)
+  )
 
-(defun fb/org-meta-return (&optional arg)
-  "Insert a new heading or wrap a region in a table.
-Calls `org-insert-SUBheading', `org-insert-item' or
-`org-table-wrap-region', depending on context.  When called with
-an argument, unconditionally call `org-insert-SUBheading'."
-  (interactive "P")
-  (org-check-before-invisible-edit 'insert)
-  (or (run-hook-with-args-until-success 'org-metareturn-hook)
-      (call-interactively (cond (arg #'org-insert-subheading)
-				((org-at-table-p) #'org-table-wrap-region)
-				((org-in-item-p) #'org-insert-item)
-				(t #'org-insert-subheading)))))
+(add-hook 'org-mode-hook 'fb*org-mode-h)
 
 );;with-eval-end
 
