@@ -1257,6 +1257,56 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (setq org-fontify-quote-and-verse-blocks t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view-layout
+;;;;
+;;
+
+(use-package ace-window
+  :config
+  (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?;))
+  (set-face-attribute 'aw-leading-char-face nil  :weight 'bold  :height 3.0     :foreground "deep sky blue")
+  (set-face-attribute 'aw-mode-line-face    nil  :inherit 'mode-line-buffer-id  :foreground "lawn green")
+  (ace-window-display-mode t)
+  ;; (setq aw-dispatch-always t)
+  (setq winner-mode 1)
+  (setq aw-dispatch-alist
+    '((?x aw-delete-window "delete")
+      (?c aw-swap-window "swap")
+      (?n aw-flip-window "flip")
+      (?v aw-split-window-vert "split -")
+      (?h aw-split-window-horz "split |")
+      (?m delete-other-windows "maximize")
+      (?g delete-other-windows)
+      (?b balance-windows "=")
+      ))
+)
+
+(defun fb/aw-split-window-horz ()
+  "interactive aw-split-window-horz"
+(interactive)
+(aw-select "split |" 'aw-split-window-horz))
+  ;; "av" '((lambda () (interactive) (ace-window ?h))      :which-key "split vert"                       )
+
+(defun fb/aw-split-window-vert ()
+  "interactive aw-split-window-vert"
+  (interactive)
+  (aw-select "split -" 'aw-split-window-vert))
+
+(defun fb/winner-redo ()
+  "interactive winner-redo"
+  (interactive)
+  (winner-redo))
+
+(defun fb/winner-undo ()
+  "interactive winner-undo"
+  (interactive)
+  (progn
+    (winner-undo)
+    (setq this-command 'winner-undo)))
+
+(use-package persp-mode
+ )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view-misc
 ;;;;
 ;;
@@ -1327,6 +1377,29 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (fb/leader-key
   "n." '(hydra-evil-numbers/body :which-key "transient"))
+
+(defhydra hydra-window-frame (:color red)
+  "Frame"
+  ("k" make-frame "new frame")
+  ("l" delete-frame "delete frame"))
+
+(defhydra hydra-window-size (:color red)
+  "Windows size"
+  ("j" shrink-window-horizontally "horizontal -")
+  ("k" shrink-window "vertical -")
+  ("l" enlarge-window "vertical +")
+  (";" enlarge-window-horizontally "horizontal +"))
+
+(defun fb*scroll-other-window()
+  (interactive)
+  (scroll-other-window 1))
+(defun fb*scroll-other-window-down ()
+  (interactive)
+  (scroll-other-window-down 1))
+(defhydra hydra-window-scroll (:color red)
+  "Scroll other window"
+  ("k" fb*scroll-other-window "scroll")
+  ("l" fb*scroll-other-window-down "scroll down"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-keybindings
 ;;;;
@@ -1597,6 +1670,25 @@ an argument, unconditionally call `org-insert-SUBheading'."
  )
 
 (fb/leader-key
+
+  "a"  '(                                               :which-key "ace"                              :ignore t)
+  "aa" '(aw-show-dispatch-help                          :which-key "ace-window"                       )
+  "ab" '(balance-windows                                :which-key "balance"                          )
+  "ad" '(ace-delete-window                              :which-key "ace-delete"                       )
+  "af" '(aw-flip-window                                 :which-key "flip"                             )
+  "ag" '(hydra-window-frame/body                        :which-key "resize"                           )
+  "ah" '(fb/aw-split-window-horz                        :which-key "split |"                          )
+  "ai" '(winner-mode                                    :which-key "winner-mode"                      )
+  "am" '(delete-other-windows                           :which-key "maximize"                         )
+  "ao" '(hydra-window-scroll/body                       :which-key "scroll"                           )
+  "ap" '(ace-swap-window                                :which-key "ace-swap"                         )
+  "ar" '(fb/winner-redo                                 :which-key "winner-redo"                      )
+  "as" '(ace-select-window                              :which-key "ace-select"                       )
+  "au" '(fb/winner-undo                                 :which-key "winner-undo"                      )
+  "av" '(fb/aw-split-window-vert                        :which-key "split -"                          )
+  "aw" '(hydra-window-size/body                         :which-key "resize"                           )
+  "ax" '(ace-delete-other-windows                       :which-key "ace-delete-other"                 )
+
   "c"   '(                                              :which-key "comment"                          :ignore t)
   "cc"  '(evilnc-comment-operator                       :which-key "cmnt-operator"                    )
   "ci"  '(evilnc-toggle-invert-comment-line-by-line     :which-key "toggle-invert-cmnt-line-by-line"  )
@@ -1676,7 +1768,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "yy"  '(yas-insert-snippet                            :which-key "insert"                           )
   "yr"  '(yas-reload-all                                :which-key "reload-all"                       )
 
-  "u"  '(undo-tree-visualize                            :which-key "undotree"                         )
+  "u"   '(undo-tree-visualize                           :which-key "undotree"                         )
 
   "w"   '(writeroom-mode                                :which-key "writeroom-toggle"                 )
 

@@ -37,3 +37,33 @@
   (fb/leader-key
     "n." '(hydra-evil-numbers/body :which-key "transient"))
 #+end_src
+** window
+*** frame
+#+begin_src elisp
+  (defhydra hydra-window-frame (:color red)
+    "Frame"
+    ("k" make-frame "new frame")
+    ("l" delete-frame "delete frame"))
+#+end_src
+*** size
+#+begin_src elisp
+  (defhydra hydra-window-size (:color red)
+    "Windows size"
+    ("j" shrink-window-horizontally "horizontal -")
+    ("k" shrink-window "vertical -")
+    ("l" enlarge-window "vertical +")
+    (";" enlarge-window-horizontally "horizontal +"))
+#+end_src
+*** scroll
+#+begin_src elisp
+  (defun fb*scroll-other-window()
+    (interactive)
+    (scroll-other-window 1))
+  (defun fb*scroll-other-window-down ()
+    (interactive)
+    (scroll-other-window-down 1))
+  (defhydra hydra-window-scroll (:color red)
+    "Scroll other window"
+    ("k" fb*scroll-other-window "scroll")
+    ("l" fb*scroll-other-window-down "scroll down"))
+#+end_src

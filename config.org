@@ -1,7 +1,6 @@
 #+TITLE: emacs Configuration
 * emacsConfiguration
 ** styleGuide
-org-startup
 *** elisp
 *** variable-naming
 - ~doom/abc~ A public, interactive command, designed to be used via =M-x= or a keybinding.

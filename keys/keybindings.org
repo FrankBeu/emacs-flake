@@ -373,6 +373,25 @@ on prompts use:
 ** global-leader =SPC=
 #+begin_src elisp
   (fb/leader-key
+
+    "a"  '(                                               :which-key "ace"                              :ignore t)
+    "aa" '(aw-show-dispatch-help                          :which-key "ace-window"                       )
+    "ab" '(balance-windows                                :which-key "balance"                          )
+    "ad" '(ace-delete-window                              :which-key "ace-delete"                       )
+    "af" '(aw-flip-window                                 :which-key "flip"                             )
+    "ag" '(hydra-window-frame/body                        :which-key "resize"                           )
+    "ah" '(fb/aw-split-window-horz                        :which-key "split |"                          )
+    "ai" '(winner-mode                                    :which-key "winner-mode"                      )
+    "am" '(delete-other-windows                           :which-key "maximize"                         )
+    "ao" '(hydra-window-scroll/body                       :which-key "scroll"                           )
+    "ap" '(ace-swap-window                                :which-key "ace-swap"                         )
+    "ar" '(fb/winner-redo                                 :which-key "winner-redo"                      )
+    "as" '(ace-select-window                              :which-key "ace-select"                       )
+    "au" '(fb/winner-undo                                 :which-key "winner-undo"                      )
+    "av" '(fb/aw-split-window-vert                        :which-key "split -"                          )
+    "aw" '(hydra-window-size/body                         :which-key "resize"                           )
+    "ax" '(ace-delete-other-windows                       :which-key "ace-delete-other"                 )
+
     "c"   '(                                              :which-key "comment"                          :ignore t)
     "cc"  '(evilnc-comment-operator                       :which-key "cmnt-operator"                    )
     "ci"  '(evilnc-toggle-invert-comment-line-by-line     :which-key "toggle-invert-cmnt-line-by-line"  )
@@ -452,7 +471,7 @@ on prompts use:
     "yy"  '(yas-insert-snippet                            :which-key "insert"                           )
     "yr"  '(yas-reload-all                                :which-key "reload-all"                       )
 
-    "u"  '(undo-tree-visualize                            :which-key "undotree"                         )
+    "u"   '(undo-tree-visualize                           :which-key "undotree"                         )
 
     "w"   '(writeroom-mode                                :which-key "writeroom-toggle"                 )
 

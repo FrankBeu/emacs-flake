@@ -7,5 +7,7 @@
 #+end_src
 ** font
 #+INCLUDE: "./font.org"
+** layout
+#+INCLUDE: "./layout.org"
 ** miscellaneous
 #+INCLUDE: "./misc.org"
