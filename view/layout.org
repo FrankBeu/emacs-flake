@@ -10,8 +10,8 @@
 #+begin_src elisp
   (use-package ace-window
     :config
-    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?;))
-    (set-face-attribute 'aw-leading-char-face nil  :weight 'bold  :height 3.0     :foreground "deep sky blue")
+    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?\;))
+    (set-face-attribute 'aw-leading-char-face nil  :weight 'bold  :height 2.0     :foreground "deep sky blue")
     (set-face-attribute 'aw-mode-line-face    nil  :inherit 'mode-line-buffer-id  :foreground "lawn green")
     (ace-window-display-mode t)
     ;; (setq aw-dispatch-always t)
@@ -115,9 +115,13 @@
       (winner-undo)
       (setq this-command 'winner-undo)))
 #+end_src
+** eyebrowse
+#+begin_src elisp :tangle no
+  (use-package )
+#+end_src
+*** TODO transient state
+~/SRC/GITHUB/EMACS/spacemacs/layers/+spacemacs/spacemacs-layouts/packages.el
 ** persp-mode
 #+begin_src elisp
-  (use-package persp-mode
-   )
+  (use-package persp-mode)
 #+end_src
-

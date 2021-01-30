@@ -439,9 +439,10 @@ on prompts use:
     "lT"  '(                                              :which-key "toggle"                           :ignore t)
 
     "n"   '(                                              :which-key "numbers"                          :ignore t)
-    "n="  '(evil-numbers/inc-at-pt                        :which-key "add"                              )
-    "n+"  '(evil-numbers/inc-at-pt                        :which-key "add"                              )
-    "n-"  '(evil-numbers/dec-at-pt                        :which-key "sub"                              )
+    "n+"  '(fb/inc-at-pt                                  :which-key "+"                                )
+    "n="  '(fb/inc-at-pt                                  :which-key "+"                                )
+    "n-"  '(fb/dec-at-pt                                  :which-key "-"                                )
+    "n_"  '(fb/dec-at-pt                                  :which-key "-"                                )
 
     "p"   '(projectile-command-map                        :which-key "projectile"                       )
 

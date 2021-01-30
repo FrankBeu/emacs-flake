@@ -1,0 +1,30 @@
+* global-packages-local
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-packages-local
+  ;;;;
+  ;;
+#+end_src
+** add-to-load-path: packages-local
+#+begin_src elisp
+  ;; (add-to-list 'load-path "~/.emacs.d/global/packages-local")
+  (add-to-list 'load-path (expand-file-name "global/packages-local" user-emacs-directory))
+#+end_src
+** core-functions
+only required functions are enabled
+dependency for core-transient-state
+#+begin_src elisp
+  (require 'core-funcs)
+#+end_src
+** transient
+#+begin_src elisp
+  (require 'core-transient-state)
+#+end_src
+*** changes
+**** added ~spacemacs/defer-until-after-user-config~: 15
+from =core-spacemacs.el=
+***** changed hook
+ ~spacemacs-post-user-config-hook~  ->  ~emacs-startup-hook~
+***** misleading name
+**** changed hook: ~spacemacs|transient-state-format-hint~ :100
+ ~spacemacs-post-user-config-hook~  ->  ~emacs-startup-hook~

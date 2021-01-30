@@ -1,0 +1,34 @@
+* keys-transient
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-transient
+  ;;;;
+  ;;
+#+end_src
+** transient
+transient-states are defined on ~emacs-start-hook~ - they cannot be tested with =C-x C-e=
+*** evil-numbers
+#+begin_src elisp
+  (spacemacs|define-transient-state evil-numbers
+    :title "Evil Numbers Transient State"
+    :doc
+    "\n[_+_/_=_/_k_] increase number  [_-_/___/_j_] decrease  [0..9] prefix  [_q_] quit"
+    :foreign-keys run
+    :bindings
+    ("+" evil-numbers/inc-at-pt)
+    ("=" evil-numbers/inc-at-pt)
+    ("k" evil-numbers/inc-at-pt)
+    ("-" evil-numbers/dec-at-pt)
+    ("_" evil-numbers/dec-at-pt)
+    ("l" evil-numbers/dec-at-pt)
+    ("q" nil :exit t))
+#+end_src
+**** commands
+#+begin_src elisp
+  (defun fb/inc-at-pt ()
+    (interactive)
+    (spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt))
+  (defun fb/inc-at-pt ()
+    (interactive)
+    (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
+#+end_src

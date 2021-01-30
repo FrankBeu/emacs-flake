@@ -3,6 +3,7 @@
 ** styleGuide
 *** elisp
 *** variable-naming
+**** doom
 - ~doom/abc~ A public, interactive command, designed to be used via =M-x= or a keybinding.
 - ~doom:abc~ A public evil operator, motion or command.
 - ~doom|abc~ A public, non-interactive function meant to be used as a hook.
@@ -15,6 +16,8 @@
   Autodefs usually serve to configure Doom or a module. [and are usually syntactic sugar]
 - Functions prefixed with ~+abc...~ belong to a module, e.g. ~+emacs-lisp|init-hook~ is a hook function in the ~lang/emacs-lisp~ module.
 - ~=abc~ An interactive command that invokes an app module.
+**** spacemacs
+ https://develop.spacemacs.org/doc/CONVENTIONS.html
 *** org-mode
 **** =verbatim=    ---   ~code~   ::    `=verbatim=' and `~code~'
 =●= == key-sequences and text, paths or file names - markup rather than code
@@ -56,6 +59,7 @@ https://github.com/rolandwalker/fixmee
 *** TODO magit
 **** TODO navigation
 ***** TODO rebase buffer
+*** TODO byte-compile everything
 ** package-loading
 #+begin_src elisp
   (require 'package)

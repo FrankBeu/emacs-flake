@@ -1,4 +1,5 @@
 * keys
+!! order matters !!
 ** marker
 #+begin_src elisp
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys
@@ -9,6 +10,8 @@
 #+INCLUDE: "./general.org"
 ** hydra
 #+INCLUDE: "./hydra.org"
+** transient
+#+INCLUDE: "./transient.org"
 ** keybindings
 #+INCLUDE: "./keybindings.org"
 ** orgmode

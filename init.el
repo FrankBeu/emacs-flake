@@ -400,6 +400,17 @@ byte-compiled from.")
 ;;;;
 ;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-packages-local
+;;;;
+;;
+
+;; (add-to-list 'load-path "~/.emacs.d/global/packages-local")
+(add-to-list 'load-path (expand-file-name "global/packages-local" user-emacs-directory))
+
+(require 'core-funcs)
+
+(require 'core-transient-state)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-misc
 ;;;;
 ;;
@@ -1263,8 +1274,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (use-package ace-window
   :config
-  (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?;))
-  (set-face-attribute 'aw-leading-char-face nil  :weight 'bold  :height 3.0     :foreground "deep sky blue")
+  (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?\;))
+  (set-face-attribute 'aw-leading-char-face nil  :weight 'bold  :height 2.0     :foreground "deep sky blue")
   (set-face-attribute 'aw-mode-line-face    nil  :inherit 'mode-line-buffer-id  :foreground "lawn green")
   (ace-window-display-mode t)
   ;; (setq aw-dispatch-always t)
@@ -1304,8 +1315,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
     (winner-undo)
     (setq this-command 'winner-undo)))
 
-(use-package persp-mode
- )
+(use-package persp-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view-misc
 ;;;;
@@ -1400,6 +1410,31 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "Scroll other window"
   ("k" fb*scroll-other-window "scroll")
   ("l" fb*scroll-other-window-down "scroll down"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-transient
+;;;;
+;;
+
+(spacemacs|define-transient-state evil-numbers
+  :title "Evil Numbers Transient State"
+  :doc
+  "\n[_+_/_=_/_k_] increase number  [_-_/___/_j_] decrease  [0..9] prefix  [_q_] quit"
+  :foreign-keys run
+  :bindings
+  ("+" evil-numbers/inc-at-pt)
+  ("=" evil-numbers/inc-at-pt)
+  ("k" evil-numbers/inc-at-pt)
+  ("-" evil-numbers/dec-at-pt)
+  ("_" evil-numbers/dec-at-pt)
+  ("l" evil-numbers/dec-at-pt)
+  ("q" nil :exit t))
+
+(defun fb/inc-at-pt ()
+  (interactive)
+  (spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt))
+(defun fb/inc-at-pt ()
+  (interactive)
+  (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-keybindings
 ;;;;
@@ -1736,9 +1771,10 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "lT"  '(                                              :which-key "toggle"                           :ignore t)
 
   "n"   '(                                              :which-key "numbers"                          :ignore t)
-  "n="  '(evil-numbers/inc-at-pt                        :which-key "add"                              )
-  "n+"  '(evil-numbers/inc-at-pt                        :which-key "add"                              )
-  "n-"  '(evil-numbers/dec-at-pt                        :which-key "sub"                              )
+  "n+"  '(fb/inc-at-pt                                  :which-key "+"                                )
+  "n="  '(fb/inc-at-pt                                  :which-key "+"                                )
+  "n-"  '(fb/dec-at-pt                                  :which-key "-"                                )
+  "n_"  '(fb/dec-at-pt                                  :which-key "-"                                )
 
   "p"   '(projectile-command-map                        :which-key "projectile"                       )
 
