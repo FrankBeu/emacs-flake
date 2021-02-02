@@ -10,12 +10,21 @@
 ;; (load-theme 'deeper-blue)
 ;; (load-theme 'wombat)
 #+end_src
-** zerodark
+** solaire-mode
+distinguish file-visiting windows
+https://github.com/hlissner/emacs-solaire-mode
 #+begin_src elisp
+(use-package solaire-mode
+  :hook (after-init . solaire-global-mode))
+#+end_src
+** zerodark
+https://github.com/NicolasPetton/zerodark-theme
+#+begin_src elisp :tangle no
 ;; (load-theme 'zerodark 'no-confirm)
 ;; (zerodark-setup-modeline-format)
 #+end_src
 ** doom-themes
+https://github.com/hlissner/emacs-doom-themes
 #+begin_src elisp
 (use-package doom-themes
   :config
@@ -27,7 +36,7 @@
   ;; (load-theme 'doom-challenger-deep t)
   ;; (load-theme 'doom-city-lights t)
   ;; (load-theme 'doom-dark+ t)                       ;; +
-  (load-theme 'doom-dracula t)                     ;; +
+ ;; (load-theme 'doom-dracula t)                     ;; +
   ;; (load-theme 'doom-ephemeral t)
   ;; (load-theme 'doom-fairy-floss t)
   ;; (load-theme 'doom-gruvbox-light t)
@@ -67,7 +76,6 @@
   ;; (load-theme 'doom-wilmersdorf t)
   ;; (load-theme 'doom-zenburn t)
 
-
   ;; Enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
 
@@ -80,4 +88,19 @@
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
   )
+#+end_src
+** base16
+https://github.com/belak/base16-emacs
+#+begin_src elisp :tangle no
+  ;; (use-package base16-theme
+  ;;   :config
+  ;;   ;; (load-theme 'base16-default-dark t)
+  ;;   (load-theme 'base16-dracula t)
+  ;;   )
+#+end_src
+** own
+#+begin_src elisp
+  (add-to-list 'custom-theme-load-path (expand-file-name "themes/themes" user-emacs-directory))
+  ;; (setq doom-theme 'fb-doom-dracula)
+  (load-theme 'fb-doom-dracula t)
 #+end_src

@@ -21,6 +21,10 @@ https://github.com/marcinkoziej/org-pomodoro
 #+INCLUDE: "./functions.org"
 ** agenda
 #+INCLUDE: "./agenda.org"
+** TODO babel
+,#+INCLUDE: "./babel.org"
+** TODO pomodoro
+,#+INCLUDE: "./pomodoro.org"
 ** miscellaneous
 #+INCLUDE: "./misc.org"
 ** with-eval-end

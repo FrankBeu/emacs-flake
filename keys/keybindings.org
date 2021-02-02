@@ -462,6 +462,7 @@ on prompts use:
     "t"   '(                                              :which-key "toggles"                          :ignore t)
     "ti"  '(imenu-list-smart-toggle                       :which-key "imenu"                            )
     "tl"  '(toggle-truncate-lines                         :which-key "truncate-lines"                   )
+    "tm"  '(treemacs                                      :which-key "treemacs"                         )
     "tn"  '(display-line-numbers-mode                     :which-key "line-numbers"                     )
     "tt"  '(counsel-load-theme                            :which-key "choose theme"                     )
     "tw"  '(whitespace-mode                               :which-key "whitespace"                       )

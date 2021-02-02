@@ -100,6 +100,8 @@ https://github.com/rolandwalker/fixmee
 !! order matters !!
 *** completion
 #+INCLUDE: "./completion/completion.org"
+*** themes
+#+INCLUDE: "./themes/themes.org"
 *** evil
 #+INCLUDE: "./evil/evil.org"
 *** global
@@ -114,8 +116,6 @@ https://github.com/rolandwalker/fixmee
 #+INCLUDE: "./project/project.org"
 *** tex
 #+INCLUDE: "./tex/tex.org"
-*** themes
-#+INCLUDE: "./themes/themes.org"
 *** view
 #+INCLUDE: "./view/view.org"
 *** keys

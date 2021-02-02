@@ -115,13 +115,15 @@
       (winner-undo)
       (setq this-command 'winner-undo)))
 #+end_src
-** eyebrowse
+** TODO eyebrowse
+~/SRC/GITHUB/EMACS/spacemacs/layers/+spacemacs/spacemacs-layouts/packages.el
 #+begin_src elisp :tangle no
-  (use-package )
+  (use-package eyebrowse
+    :config (eyebrowse-mode t)
+    )
 #+end_src
 *** TODO transient state
-~/SRC/GITHUB/EMACS/spacemacs/layers/+spacemacs/spacemacs-layouts/packages.el
-** persp-mode
+** TODO persp-mode
 #+begin_src elisp
   (use-package persp-mode)
 #+end_src
