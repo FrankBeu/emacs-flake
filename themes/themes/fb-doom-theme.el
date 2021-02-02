@@ -1,77 +1,77 @@
-;;; doom-dracula-theme.el - based on https://draculatheme.com/ -*- no-byte-compile: t; -*-
+;;; doom-theme.el - based on https://draculatheme.com/ -*- no-byte-compile: t; -*-
 (require 'doom-themes)
 
-;;
-(defgroup fb-doom-dracula-theme nil
+(defgroup fb-doom-theme nil
   "Options for doom-themes"
   :group 'doom-themes)
 
-(defcustom fb-doom-dracula-brighter-modeline nil
+(defcustom fb-doom-brighter-modeline nil
   "If non-nil, more vivid colors will be used to style the mode-line."
-  :group 'fb-doom-dracula-theme
+  :group 'fb-doom-theme
   :type 'boolean)
 
-(defcustom fb-doom-dracula-brighter-comments nil
+(defcustom fb-doom-brighter-comments nil
   "If non-nil, comments will be highlighted in more vivid colors."
-  :group 'fb-doom-dracula-theme
+  :group 'fb-doom-theme
   :type 'boolean)
 
-(defcustom fb-doom-dracula-colorful-headers nil
+(defcustom fb-doom-colorful-headers nil
   "If non-nil, headers in org-mode will be more colorful; which is truer to the
 original Dracula Emacs theme."
-  :group 'fb-doom-dracula-theme
+  :group 'fb-doom-theme
   :type 'boolean)
 
-(defcustom fb-doom-dracula-comment-bg fb-doom-dracula-brighter-comments
+(defcustom fb-doom-comment-bg fb-doom-brighter-comments
   "If non-nil, comments will have a subtle, darker background. Enhancing their
 legibility."
-  :group 'fb-doom-dracula-theme
+  :group 'fb-doom-theme
   :type 'boolean)
 
-(defcustom fb-doom-dracula-padded-modeline doom-themes-padded-modeline
+(defcustom fb-doom-padded-modeline doom-themes-padded-modeline
   "If non-nil, adds a 4px padding to the mode-line. Can be an integer to
 determine the exact padding."
-  :group 'fb-doom-dracula-theme
+  :group 'fb-doom-theme
   :type '(choice integer boolean))
 
-(def-doom-theme fb-doom-dracula
-  "A dark theme based on Dracula theme"
+(def-doom-theme fb-doom
+  "A modular theme based on doom-dracula theme"
 
-  ;; name        default   256       16
-  ((bg         '("#282a36" "#262626" nil            ))
-   (bg-alt     '("#1E2029" "#1c1c1c" nil            ))
-   (base0      '("#1E2029" "#1c1c1c" "black"        ))
-   (base1      '("#282a36" "#1e1e1e" "brightblack"  ))
-   (base2      '("#373844" "#2e2e2e" "brightblack"  ))
-   (base3      '("#44475a" "#262626" "brightblack"  ))
-   (base4      '("#565761" "#3f3f3f" "brightblack"  ))
-   (base5      '("#6272a4" "#525252" "brightblack"  ))
-   (base6      '("#b6b6b2" "#bbbbbb" "brightblack"  ))
-   (base7      '("#ccccc7" "#cccccc" "brightblack"  ))
-   (base8      '("#f8f8f2" "#dfdfdf" "white"        ))
-   (fg         '("#f8f8f2" "#ffffff" "white"        ))
-   (fg-alt     '("#e2e2dc" "#bfbfbf" "brightwhite"  ))
+  (
+   (bg        (cadr (plist-get fb-doom-colors :bg       )))
+   (bg-alt    (cadr (plist-get fb-doom-colors :bg-alt   )))
+   (base0     (cadr (plist-get fb-doom-colors :base0    )))
+   (base1     (cadr (plist-get fb-doom-colors :base1    )))
+   (base2     (cadr (plist-get fb-doom-colors :base2    )))
+   (base3     (cadr (plist-get fb-doom-colors :base3    )))
+   (base4     (cadr (plist-get fb-doom-colors :base4    )))
+   (base5     (cadr (plist-get fb-doom-colors :base5    )))
+   (base6     (cadr (plist-get fb-doom-colors :base6    )))
+   (base7     (cadr (plist-get fb-doom-colors :base7    )))
+   (base8     (cadr (plist-get fb-doom-colors :base8    )))
+   (fg        (cadr (plist-get fb-doom-colors :fg       )))
+   (fg-alt    (cadr (plist-get fb-doom-colors :fg-alt   )))
 
-   (grey       base4)
-   (red        '("#ff5555" "#ff6655" "red"          ))
-   (orange     '("#ffb86c" "#ffbb66" "brightred"    ))
-   (green      '("#50fa7b" "#55ff77" "green"        ))
-   (teal       '("#0189cc" "#0088cc" "brightgreen"  ))
-   (yellow     '("#f1fa8c" "#ffff88" "yellow"       ))
-   (blue       '("#61bfff" "#66bbff" "brightblue"   ))
-   (dark-blue  '("#0189cc" "#0088cc" "blue"         ))
-   (magenta    '("#ff79c6" "#ff77cc" "magenta"      ))
-   (violet     '("#bd93f9" "#bb99ff" "brightmagenta"))
-   (cyan       '("#8be9fd" "#88eeff" "brightcyan"   ))
-   (dark-cyan  '("#8be9fd" "#88eeff" "cyan"         ))
+   (grey       base4                                      )
+   (red       (cadr (plist-get fb-doom-colors :red      )))
+   (orange    (cadr (plist-get fb-doom-colors :orange   )))
+   (green     (cadr (plist-get fb-doom-colors :green    )))
+   (teal      (cadr (plist-get fb-doom-colors :teal     )))
+   (yellow    (cadr (plist-get fb-doom-colors :yellow   )))
+   (blue      (cadr (plist-get fb-doom-colors :blue     )))
+   (dark-blue (cadr (plist-get fb-doom-colors :dark-blue)))
+   (magenta   (cadr (plist-get fb-doom-colors :magenta  )))
+   (violet    (cadr (plist-get fb-doom-colors :violet   )))
+   (cyan      (cadr (plist-get fb-doom-colors :cyan     )))
+   (dark-cyan (cadr (plist-get fb-doom-colors :dark-cyan)))
+
 
    ;; face categories -- required for all themes
    (highlight      violet)
    (vertical-bar   (doom-darken base1 0.1))
    (selection      dark-blue)
    (builtin        orange)
-   (comments       (if fb-doom-dracula-brighter-comments dark-cyan base5))
-   (doc-comments   (doom-lighten (if fb-doom-dracula-brighter-comments dark-cyan base5) 0.25))
+   (comments       (if fb-doom-brighter-comments dark-cyan base5))
+   (doc-comments   (doom-lighten (if fb-doom-brighter-comments dark-cyan base5) 0.25))
    (constants      cyan)
    (functions      green)
    (keywords       magenta)
@@ -92,19 +92,19 @@ determine the exact padding."
    ;; custom categories
    (level1 magenta)
    (level2 violet)
-   (level3 (if fb-doom-dracula-colorful-headers green   (doom-lighten violet 0.35)))
-   (level4 (if fb-doom-dracula-colorful-headers yellow  (doom-lighten magenta 0.35)))
-   (level5 (if fb-doom-dracula-colorful-headers cyan    (doom-lighten violet 0.6)))
-   (level6 (if fb-doom-dracula-colorful-headers orange  (doom-lighten magenta 0.6)))
-   (level7 (if fb-doom-dracula-colorful-headers blue    (doom-lighten violet 0.85)))
-   (level8 (if fb-doom-dracula-colorful-headers magenta (doom-lighten magenta 0.85)))
-   (level9 (if fb-doom-dracula-colorful-headers violet  (doom-lighten violet 0.95)))
+   (level3 (if fb-doom-colorful-headers green   (doom-lighten violet 0.35)))
+   (level4 (if fb-doom-colorful-headers yellow  (doom-lighten magenta 0.35)))
+   (level5 (if fb-doom-colorful-headers cyan    (doom-lighten violet 0.6)))
+   (level6 (if fb-doom-colorful-headers orange  (doom-lighten magenta 0.6)))
+   (level7 (if fb-doom-colorful-headers blue    (doom-lighten violet 0.85)))
+   (level8 (if fb-doom-colorful-headers magenta (doom-lighten magenta 0.85)))
+   (level9 (if fb-doom-colorful-headers violet  (doom-lighten violet 0.95)))
 
    (hidden     base1)
-   (-modeline-bright fb-doom-dracula-brighter-modeline)
+   (-modeline-bright fb-doom-brighter-modeline)
    (-modeline-pad
-    (when fb-doom-dracula-padded-modeline
-      (if (integerp fb-doom-dracula-padded-modeline) fb-doom-dracula-padded-modeline 4)))
+    (when fb-doom-padded-modeline
+      (if (integerp fb-doom-padded-modeline) fb-doom-padded-modeline 4)))
 
    (modeline-fg     nil)
    (modeline-fg-alt base5)
@@ -130,7 +130,7 @@ determine the exact padding."
 
    (font-lock-comment-face
     :foreground comments
-    :background (if fb-doom-dracula-comment-bg (doom-lighten bg 0.05)))
+    :background (if fb-doom-comment-bg (doom-lighten bg 0.05)))
    (font-lock-doc-face
     :inherit 'font-lock-comment-face
     :foreground doc-comments)
@@ -261,4 +261,4 @@ determine the exact padding."
   ()
   )
 
-;;; fb-doom-dracula-theme.el ends here
+;;; fb-doom-theme.el ends here

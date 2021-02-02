@@ -1,0 +1,106 @@
+* themes-colorschemes
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; themes-colorschemes
+  ;;;;
+  ;;
+#+end_src
+** built-in
+#+begin_src elisp
+;; (load-theme 'deeper-blue)
+;; (load-theme 'wombat)
+#+end_src
+** solaire-mode
+distinguish file-visiting windows
+https://github.com/hlissner/emacs-solaire-mode
+#+begin_src elisp
+(use-package solaire-mode
+  :hook (after-init . solaire-global-mode))
+#+end_src
+** zerodark
+https://github.com/NicolasPetton/zerodark-theme
+#+begin_src elisp :tangle no
+;; (load-theme 'zerodark 'no-confirm)
+;; (zerodark-setup-modeline-format)
+#+end_src
+** doom-themes
+https://github.com/hlissner/emacs-doom-themes
+#+begin_src elisp
+(use-package doom-themes
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ;; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ;; if nil, italics is universally disabled
+  ;; (load-theme 'doom-acario-dark t)
+  ;; (load-theme 'doom-acario-light t)
+  ;; (load-theme 'doom-challenger-deep t)
+  ;; (load-theme 'doom-city-lights t)
+  ;; (load-theme 'doom-dark+ t)                       ;; +
+ ;; (load-theme 'doom-dracula t)                     ;; +
+  ;; (load-theme 'doom-ephemeral t)
+  ;; (load-theme 'doom-fairy-floss t)
+  ;; (load-theme 'doom-gruvbox-light t)
+  ;; (load-theme 'doom-gruvbox t)                     ;; +
+  ;; (load-theme 'doom-henna t)
+  ;; (load-theme 'doom-horizon t)
+  ;; (load-theme 'doom-Iosvkem t)
+  ;; (load-theme 'doom-laserwave t)
+  ;; (load-theme 'doom-manegarm t)
+  ;; (load-theme 'doom-material t)                    ;; +
+  ;; (load-theme 'doom-molokai t)
+  ;; (load-theme 'doom-monokai-classic t)
+  ;; (load-theme 'doom-monokai-pro t)
+  ;; (load-theme 'doom-monokai-spectrum t)
+  ;; (load-theme 'doom-moonlight t)
+  ;; (load-theme 'doom-nord-light t)
+  ;; (load-theme 'doom-nord t)
+  ;; (load-theme 'doom-nova t)
+  ;; (load-theme 'doom-oceanic-next t)
+  ;; (load-theme 'doom-old-hope t)
+  ;; (load-theme 'doom-one-light t)
+  ;; (load-theme 'doom-one t)                         ;; +
+  ;; (load-theme 'doom-opera-light t)
+  ;; (load-theme 'doom-opera t)
+  ;; (load-theme 'doom-outrun-electric t)
+  ;; (load-theme 'doom-palenight t)
+  ;; (load-theme 'doom-peacock t)
+  ;; (load-theme 'doom-rouge t)
+  ;; (load-theme 'doom-snazzy t)
+  ;; (load-theme 'doom-solarized-dark t)              ;; +
+  ;; (load-theme 'doom-solarized-light t)
+  ;; (load-theme 'doom-sourcerer t)
+  ;; (load-theme 'doom-spacegrey t)
+  ;; (load-theme 'doom-tomorrow-day t)
+  ;; (load-theme 'doom-tomorrow-night t)
+  ;; (load-theme 'doom-vibrant t)
+  ;; (load-theme 'doom-wilmersdorf t)
+  ;; (load-theme 'doom-zenburn t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-colors") ;; use the colorful treemacs theme
+  (doom-themes-treemacs-config)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config)
+  )
+#+end_src
+** base16
+https://github.com/belak/base16-emacs
+#+begin_src elisp :tangle no
+  ;; (use-package base16-theme
+  ;;   :config
+  ;;   ;; (load-theme 'base16-default-dark t)
+  ;;   (load-theme 'base16-dracula t)
+  ;;   )
+#+end_src
+** own
+#+begin_src elisp
+  (add-to-list 'custom-theme-load-path (expand-file-name "themes/themes" user-emacs-directory))
+  ;; (setq doom-theme 'fb-doom)
+  (load-theme 'fb-doom t)
+#+end_src

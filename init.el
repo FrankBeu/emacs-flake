@@ -330,6 +330,50 @@ byte-compiled from.")
 ;;;;
 ;;
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; themes-colors
+;;;;
+;;
+
+(defvar fb-doom-dracula-colors
+  ;; name          default   256       16
+  '(:bg         '("#282a36" "#262626"  nil           )
+    :bg-alt     '("#1E2029" "#1c1c1c"  nil           )
+    :base0      '("#1E2029" "#1c1c1c" "black"        )
+    :base1      '("#282a36" "#1e1e1e" "brightblack"  )
+    :base2      '("#373844" "#2e2e2e" "brightblack"  )
+    :base3      '("#44475a" "#262626" "brightblack"  )
+    :base4      '("#565761" "#3f3f3f" "brightblack"  )
+    :base5      '("#6272a4" "#525252" "brightblack"  )
+    :base6      '("#b6b6b2" "#bbbbbb" "brightblack"  )
+    :base7      '("#ccccc7" "#cccccc" "brightblack"  )
+    :base8      '("#f8f8f2" "#dfdfdf" "white"        )
+    :fg         '("#f8f8f2" "#ffffff" "white"        )
+    :fg-alt     '("#e2e2dc" "#bfbfbf" "brightwhite"  )
+
+    :grey       '("#565761" "#3f3f3f" "brightblack"  )
+    :red        '("#ff5555" "#ff6655" "red"          )
+    :orange     '("#ffb86c" "#ffbb66" "brightred"    )
+    :green      '("#50fa7b" "#55ff77" "green"        )
+    :teal       '("#0189cc" "#0088cc" "brightgreen"  )
+    :yellow     '("#f1fa8c" "#ffff88" "yellow"       )
+    :blue       '("#61bfff" "#66bbff" "brightblue"   )
+    :dark-blue  '("#0189cc" "#0088cc" "blue"         )
+    :magenta    '("#ff79c6" "#ff77cc" "magenta"      )
+    :violet     '("#bd93f9" "#bb99ff" "brightmagenta")
+    :cyan       '("#8be9fd" "#88eeff" "brightcyan"   )
+    :dark-cyan  '("#8be9fd" "#88eeff" "cyan"         )
+   ) "Definition of all dracula colors.")
+
+(setq fb-doom-colors fb-doom-dracula-colors)
+
+(defun fb*getDefaultColorValue (color)
+  "get the hex color value from currenty used colorscheme"
+            (nth 0 (nth 1 (plist-get fb-doom-colors color))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; themes-colorschemes
+;;;;
+;;
+
 ;; (load-theme 'deeper-blue)
 ;; (load-theme 'wombat)
 
@@ -400,8 +444,8 @@ byte-compiled from.")
   )
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/themes" user-emacs-directory))
-;; (setq doom-theme 'fb-doom-dracula)
-(load-theme 'fb-doom-dracula t)
+;; (setq doom-theme 'fb-doom)
+(load-theme 'fb-doom t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; evil
 ;;;;
@@ -1063,6 +1107,15 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (setq org-log-into-drawer t)
 
 (setq org-log-done 'note)
+
+(setq org-priority-faces
+  `(
+    (65 :foreground ,(fb*getDefaultColorValue :red) :background ,(fb*getDefaultColorValue :bg))
+    (66 :foreground ,(fb*getDefaultColorValue :yellow) :background ,(fb*getDefaultColorValue :bg))
+    (67 :foreground ,(fb*getDefaultColorValue :yellow) :background ,(fb*getDefaultColorValue :bg))
+    ;; (66 :foreground "black" :background "yellow")
+    ;; (67 . "blue")
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
 ;;;;
