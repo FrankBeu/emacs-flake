@@ -45,3 +45,15 @@ neotree-mode-hook
 #+begin_src elisp
   (setq org-startup-indented t)
 #+end_src
+** cursor
+Set the cursor color based on the evil state
+#+begin_src elisp
+    (setq
+          evil-emacs-state-cursor   `( box      ,(fb*getDefaultColorValue :orange ))
+          evil-insert-state-cursor  `((bar . 3) ,(fb*getDefaultColorValue :magenta))
+          evil-motion-state-cursor  `( box      ,(fb*getDefaultColorValue :base5  ))
+          evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :violet ))
+          evil-replace-state-cursor `((bar . 3) ,(fb*getDefaultColorValue :red    ))
+          evil-visual-state-cursor  `( box      ,(fb*getDefaultColorValue :yellow )))
+          ;; evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :green  ))
+#+end_src

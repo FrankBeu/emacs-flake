@@ -362,7 +362,7 @@ byte-compiled from.")
     :violet     '("#bd93f9" "#bb99ff" "brightmagenta")
     :cyan       '("#8be9fd" "#88eeff" "brightcyan"   )
     :dark-cyan  '("#8be9fd" "#88eeff" "cyan"         )
-   ) "Definition of all dracula colors.")
+   ) "Definition of all dracula-colors.")
 
 (setq fb-doom-colors fb-doom-dracula-colors)
 
@@ -1100,7 +1100,19 @@ an argument, unconditionally call `org-insert-SUBheading'."
 ;;;;
 ;;
 
-(setq org-agenda-files '("~/NOTES"))
+(setq org-agenda-files '(
+                         "~/NOTES"
+                         ;; "~/NOTES/AKTUELLES.org"
+                         ;; "~/NOTES/〇"
+                         ;; "~/NOTES/PROJECTS"
+                         ))
+
+(setq org-deadline-waring-days 14)
+
+(setq org-agenda-time-grid
+      '((daily today require-timed)
+        (0000 0200 0400 0600 0800 1000 1200 1400 1600 1800 2000 2200)
+        "······" "────────────────"))
 
 (setq org-agenda-start-with-log-mode t)
 
@@ -1110,12 +1122,47 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (setq org-priority-faces
   `(
-    (65 :foreground ,(fb*getDefaultColorValue :red) :background ,(fb*getDefaultColorValue :bg))
-    (66 :foreground ,(fb*getDefaultColorValue :yellow) :background ,(fb*getDefaultColorValue :bg))
-    (67 :foreground ,(fb*getDefaultColorValue :yellow) :background ,(fb*getDefaultColorValue :bg))
-    ;; (66 :foreground "black" :background "yellow")
-    ;; (67 . "blue")
+    (?A :foreground ,(fb*getDefaultColorValue :red)    :background ,(fb*getDefaultColorValue :bg))
+    (?B :foreground ,(fb*getDefaultColorValue :orange) :background ,(fb*getDefaultColorValue :bg))
+    (?C :foreground ,(fb*getDefaultColorValue :yellow) :background ,(fb*getDefaultColorValue :bg))
     ))
+
+(setq org-todo-keywords
+  '(
+    (sequence "TODO(t!)"   "PENDING(p!)"   "NEXT(n!)"   "WIP(w!)"                  "|" "DONE(d@/!)" "CANCELLED(c@/!)" "DEPRECATED(e@/!)" "ARCHIVED(a)")
+    (sequence "CRASH(C)"   "BUG(B)"        "REQUEST(R)" "TEST(E)"                  "|" "FIXED(F)"                                                     )
+    (sequence "BACKLOG(O)" "KONZEPTION(K)" "BEREIT(T)"  "UMSETZUNG(U)" "ABNAHME(A)" "LIVE(L)" "|" "ERLEDIGT(D)"                                       )
+    )
+  )
+
+(setq org-todo-keyword-faces
+      (list
+        `("TODO"       . (:foreground ,(fb*getDefaultColorValue :orange   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("PENDING"    . (:foreground ,(fb*getDefaultColorValue :yellow   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("NEXT"       . (:foreground ,(fb*getDefaultColorValue :red      ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("WIP"        . (:foreground ,(fb*getDefaultColorValue :dark-blue) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("DONE"       . (:foreground ,(fb*getDefaultColorValue :green    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("CANCELLED"  . (:foreground ,(fb*getDefaultColorValue :base5    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("DEPRECATED" . (:foreground ,(fb*getDefaultColorValue :base5    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("ARCHIVED"   . (:foreground ,(fb*getDefaultColorValue :base5    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+
+        `("CRASH"      . (:foreground ,(fb*getDefaultColorValue :red      ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("BUG"        . (:foreground ,(fb*getDefaultColorValue :orange   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("REQUEST"    . (:foreground ,(fb*getDefaultColorValue :cyan     ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("TEST"       . (:foreground ,(fb*getDefaultColorValue :blue     ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("FIXED"      . (:foreground ,(fb*getDefaultColorValue :green    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+
+        `("BACKLOG"    . (:foreground ,(fb*getDefaultColorValue :cyan     ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("KONZEPTION" . (:foreground ,(fb*getDefaultColorValue :orange   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("BEREIT"     . (:foreground ,(fb*getDefaultColorValue :red      ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("UMSETZUNG"  . (:foreground ,(fb*getDefaultColorValue :dark-blue) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("ABNAHME"    . (:foreground ,(fb*getDefaultColorValue :yellow   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("LIVE"       . (:foreground ,(fb*getDefaultColorValue :red      ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        `("ERLEDIGT"   . (:foreground ,(fb*getDefaultColorValue :green    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+        )
+      )
+
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
 ;;;;
@@ -1399,6 +1446,15 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (show-paren-mode 1)
 
 (setq org-startup-indented t)
+
+(setq
+      evil-emacs-state-cursor   `( box      ,(fb*getDefaultColorValue :orange ))
+      evil-insert-state-cursor  `((bar . 3) ,(fb*getDefaultColorValue :magenta))
+      evil-motion-state-cursor  `( box      ,(fb*getDefaultColorValue :base5  ))
+      evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :violet ))
+      evil-replace-state-cursor `((bar . 3) ,(fb*getDefaultColorValue :red    ))
+      evil-visual-state-cursor  `( box      ,(fb*getDefaultColorValue :yellow )))
+      ;; evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :green  ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys
 ;;;;

@@ -35,7 +35,7 @@
       :violet     '("#bd93f9" "#bb99ff" "brightmagenta")
       :cyan       '("#8be9fd" "#88eeff" "brightcyan"   )
       :dark-cyan  '("#8be9fd" "#88eeff" "cyan"         )
-     ) "Definition of all dracula colors.")
+     ) "Definition of all dracula-colors.")
 #+end_src
 ** color-used
 #+begin_src elisp

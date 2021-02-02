@@ -17,15 +17,11 @@
 #+end_src
 **** FUNDUS
 #+begin_src elisp :tangle no
-  ;; (setq org-agenda-files '("~/NOTES"))
-#+end_src
-#+begin_src elisp :tangle no
 ;; (setq org-agenda-files '(
 ;;                          "/home/frank/GTD/inbox.org"
 ;;                          "/home/frank/GTD/gtd.org"
 ;;                          "/home/frank/GTD/tickler.org"
 ;;                          ))
-
 #+end_src
 *** deadline
 **** notifications
@@ -41,10 +37,10 @@
 #+end_src
 ***** FUNDUS
 #+begin_src elisp :tangle no
-(setq org-agenda-time-grid
-      '((daily today require-timed)
-        (0000 0200 0400 0600 0800 1000 1200 1400 1600 1800 2000 2200)
-        "......" "----------------"))
+;; (setq org-agenda-time-grid
+;;       '((daily today require-timed)
+;;         (0000 0200 0400 0600 0800 1000 1200 1400 1600 1800 2000 2200)
+;;         "......" "----------------"))
 #+end_src
 *** log
 **** show log on start
@@ -63,174 +59,66 @@
 #+begin_src elisp
   (setq org-log-done 'note)
 #+end_src
-** priority
+** TODO priority
+    6 is used as defaultstate for all nodes not given a priority/importance
+#+begin_src elisp :tangle no
+;; (setq org-highest-priority ?1)
+;; (setq org-lowest-priority ?6)
+;; (setq org-default-priority ?6)
+#+end_src
+*** faces
 #+begin_src elisp
   (setq org-priority-faces
     `(
-      (65 :foreground ,(fb*getDefaultColorValue :red) :background ,(fb*getDefaultColorValue :bg))
-      (66 :foreground ,(fb*getDefaultColorValue :yellow) :background ,(fb*getDefaultColorValue :bg))
-      (67 :foreground ,(fb*getDefaultColorValue :yellow) :background ,(fb*getDefaultColorValue :bg))
-      ;; (66 :foreground "black" :background "yellow")
-      ;; (67 . "blue")
+      (?A :foreground ,(fb*getDefaultColorValue :red)    :background ,(fb*getDefaultColorValue :bg))
+      (?B :foreground ,(fb*getDefaultColorValue :orange) :background ,(fb*getDefaultColorValue :bg))
+      (?C :foreground ,(fb*getDefaultColorValue :yellow) :background ,(fb*getDefaultColorValue :bg))
       ))
 #+end_src
-#+begin_src elisp :tangle no
-(setq org-highest-priority ?1)
-(setq org-lowest-priority ?6)
-    ;;;; 6 is used as defaultstate for all nodes not given a priority/importance
-(setq org-default-priority ?6)
-#+end_src
 ** states
-*** INFO
-! is responsible for inserting timestamp @ for notes
 *** keywords
+! is responsible for inserting timestamp @ for notes
 #+begin_src elisp
 (setq org-todo-keywords
-      '(
-        ;; (sequence "TODO(t)" "SUBTREE(s)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELLED(c@/!)")
-        (sequence "TODO(t!)" "PENDING(p!)" "NEXT(n!)" "WIP(w!)" "|" "DONE(d@/!)" "CANCELLED(c@/!)" "DEPRECATED(e@/!)" "ARCHIVED(a)")
-        (sequence "CRASH(C)" "BUG(B)" "REQUEST(R)" "TEST(E)" "|" "FIXED(F)")
-        (sequence "BACKLOG(O)" "KONZEPTION(K)" "BEREIT(T)" "UMSETZUNG(U)" "ABNAHME(A)" "LIVE(L)" "|" "ERLEDIGT(D)")
-        (sequence " (N)") ;;;; placeholder -> last line is not shown in buffer properly
-        )
-      )
+  '(
+    (sequence "TODO(t!)"   "PENDING(p!)"   "NEXT(n!)"   "WIP(w!)"                  "|" "DONE(d@/!)" "CANCELLED(c@/!)" "DEPRECATED(e@/!)" "ARCHIVED(a)")
+    (sequence "CRASH(C)"   "BUG(B)"        "REQUEST(R)" "TEST(E)"                  "|" "FIXED(F)"                                                     )
+    (sequence "BACKLOG(O)" "KONZEPTION(K)" "BEREIT(T)"  "UMSETZUNG(U)" "ABNAHME(A)" "LIVE(L)" "|" "ERLEDIGT(D)"                                       )
+    )
+  )
 #+end_src
+#+begin_example elisp
+    ;; (sequence "TODO(t)" "SUBTREE(s)" "WAIT(w@/!)" "|" "DONE(d!)" "CANCELLED(c@/!)")
+    ;; (sequence " (N)") ;;;; placeholder -> last line is not shown in buffer properly
+#+end_example
 *** faces
-#+begin_src elisp :tangle no
-        (defvar fb*base16-colors fb-base16-dracula-colors)
-            (message "%s" (plist-get fb*base16-colors :base08))
-        (setq fb*test (plist-get fb*base16-colors :base08))
-      ;; (setq fb*test "#00f769")
-            ;; (message "%s" fb*test)
-        (setq org-todo-keyword-faces
-              (list
-                ;; `("TODO" . ,fb*test)                                     ;; WORKING
-                ;; (cons "TODO" fb*test)                                     ;; WORKING
-                ;; '("TODO" . "red")                                     ;; red
-                ;; `("TODO" . ,(plist-get fb*base16-colors :base0B))
-                `("TODO" . ,(fb*getDefaultColorValue :red))
-                '("PENDING" . "orange")
-                '("NEXT" . "red")
-                '("WIP" . "yellow")
-                '("DONE" . "green")
-                '("CANCELLED" . "gray")
-                '("DEPRECATED" . "black")
-                '("ARCHIVED" . "gray")
+#+begin_src elisp
+    (setq org-todo-keyword-faces
+          (list
+            `("TODO"       . (:foreground ,(fb*getDefaultColorValue :orange   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("PENDING"    . (:foreground ,(fb*getDefaultColorValue :yellow   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("NEXT"       . (:foreground ,(fb*getDefaultColorValue :red      ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("WIP"        . (:foreground ,(fb*getDefaultColorValue :dark-blue) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("DONE"       . (:foreground ,(fb*getDefaultColorValue :green    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("CANCELLED"  . (:foreground ,(fb*getDefaultColorValue :base5    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("DEPRECATED" . (:foreground ,(fb*getDefaultColorValue :base5    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("ARCHIVED"   . (:foreground ,(fb*getDefaultColorValue :base5    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
 
-                '("CRASH" . "red")
-                '("BUG" . "red")
-                '("REQUEST" . "turquoise")
-                '("TEST" . "blue")
-                '("FIXED" . "green")
+            `("CRASH"      . (:foreground ,(fb*getDefaultColorValue :red      ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("BUG"        . (:foreground ,(fb*getDefaultColorValue :orange   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("REQUEST"    . (:foreground ,(fb*getDefaultColorValue :cyan     ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("TEST"       . (:foreground ,(fb*getDefaultColorValue :blue     ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("FIXED"      . (:foreground ,(fb*getDefaultColorValue :green    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
 
-                '("BACKLOG" . "blue")
-                '("KONZEPTION" . "orange")
-                '("BEREIT" . "orange")
-                '("UMSETZUNG" . "red")
-                '("ABNAHME" . "turquoise")
-                '("LIVE" . "red")
-                '("ERLEDIGT" . "green")
-                )
-              )
-      ;; face                 (org-todo org-level-2)
-#+end_src
-#+begin_src elisp :tangle no
-  ;; Set the cursor color based on the evil state
-  (setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
-        evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
-        evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
-        evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
-        evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
-        evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box))
-
-    '(:base00 "#282936"
-      :base01 "#3a3c4e"
-      :base02 "#4d4f68"
-      :base03 "#626483"
-      :base04 "#62d6e8"
-      :base05 "#e9e9f4"
-      :base06 "#f1f2f8"
-      :base07 "#f7f7fb"
-      :base08 "#ea51b2"
-      :base09 "#b45bcf"
-      :base0A "#00f769"
-      :base0B "#ebff87"
-      :base0C "#a1efe4"
-      :base0D "#62d6e8"
-      :base0E "#b45bcf"
-      :base0F "#00f769")
-
-
-#+end_src
-**** FUNDUS
-***** misc
-#+begin_src elisp :tangle no
-  (setq org-todo-keyword-faces
-        '(
-          ;; "#1C1C1C"
-          ;; "#eeeeee"
-          ;; "Blue"
-          ;; "Blue1"
-          ;; "Cyan"
-          ;; "DarkGoldenrod"
-          ;; "Firebrick"
-          ;; "LightGoldenrod"
-          ;; "LightSkyBlue"
-          ;; "Pink"
-          ;; "Purple"
-          ;; "Red1"
-          ;; "blue"
-          ;; "blue"
-          ;; "chocolate1"
-          ;; "gray"
-          ;; "green"
-          ;; "grey"
-          ;; "orange"
-          ;; "red"
-          ;; "turquoise"
-          ;; "turquoise1"
-          ;; "white"
-          ;; (:foreground "blue" :weight bold)
-          ;; (:foreground "blue"  :background "grey90" :weight normal :slant normal :strike-through nil :underline nil :bold t :italic t)
-          ;; (:foreground "blue"  :background "grey30" :weight bold :slant normal :strike-through nil :underline nil)
-          ;; ("ERLEDIGT" . (:foreground "green" :background "cyan"   :weight bold :slant normal :strike-through t :underline t))
-
-          ;; ("SUBTREE" . "grey")
-          ;; ("WAIT" . "white")
-          ;; ("CRASH" . "red")
-          ;; ("BUG" . "red")
-          ;; ("TEST" . "turquoise1")
-          ;; ("CANCELED" . (:foreground "blue" :weight bold))
-	)
-#+end_src
-***** my-orig
-#+begin_src elisp :tangle no
-  (setq org-todo-keyword-faces
-        '(
-          ("TODO" . "red")                                     ;; red
-          ("PENDING" . "orange")
-          ("NEXT" . "red")
-          ("WIP" . "yellow")
-          ("DONE" . "green")
-          ("CANCELLED" . "gray")
-          ("DEPRECATED" . "black")
-          ("ARCHIVED" . "gray")
-
-          ("CRASH" . "red")
-          ("BUG" . "red")
-          ("REQUEST" . "turquoise")
-          ("TEST" . "blue")
-          ("FIXED" . "green")
-
-          ("BACKLOG" . "blue")
-          ("KONZEPTION" . "orange")
-          ("BEREIT" . "orange")
-          ("UMSETZUNG" . "red")
-          ("ABNAHME" . "turquoise")
-          ("LIVE" . "red")
-          ("ERLEDIGT" . "green")
+            `("BACKLOG"    . (:foreground ,(fb*getDefaultColorValue :cyan     ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("KONZEPTION" . (:foreground ,(fb*getDefaultColorValue :orange   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("BEREIT"     . (:foreground ,(fb*getDefaultColorValue :red      ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("UMSETZUNG"  . (:foreground ,(fb*getDefaultColorValue :dark-blue) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("ABNAHME"    . (:foreground ,(fb*getDefaultColorValue :yellow   ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("LIVE"       . (:foreground ,(fb*getDefaultColorValue :red      ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            `("ERLEDIGT"   . (:foreground ,(fb*getDefaultColorValue :green    ) :weight bold :background ,(fb*getDefaultColorValue :bg-alt)))
+            )
           )
-        )
 #+end_src
 ** TODO FUNDUS
 :LOGBOOK:
@@ -245,7 +133,6 @@
         ;; ("amazon" ,(list (all-the-icons-faicon "amazon" :height 1.2 :face 'all-the-icons-dorange)) nil nil :ascent center)
         ("amazon" ,(list (all-the-icons-faicon "amazon" :height 1 :face 'all-the-icons-orange)) nil nil :ascent center)
         ))
-
 #+end_src
 *** TODO IMPORTANCE
 :LOGBOOK:
@@ -275,8 +162,6 @@
 ;;;; CLOSED: [2020-04-30 Thu 23:39]
 (setq org-log-done nil)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; TODO-STATES
-
 ;;;; dependency between TODO-items
 (require 'org-depend)
 
@@ -288,11 +173,9 @@
   (beginning-of-line)
   (org-update-statistics-cookies ())
   )
-
 #+end_src
 *** TODO urgency
 #+begin_src elisp
-
 #+end_src
 ** TODO org-ql
 :LOGBOOK:
@@ -324,10 +207,3 @@
 - State "TODO"       from              [2021-02-01 Mon 06:38]
 :END:
 https://github.com/alphapapa/org-ql
-** test
-:LOGBOOK:
-- State "WIP"        from "NEXT"       [2021-02-01 Mon 05:15]
-- State "NEXT"       from "PENDING"    [2021-02-01 Mon 05:15]
-- State "PENDING"    from "TODO"       [2021-02-01 Mon 05:15]
-- State "TODO"       from              [2021-02-01 Mon 05:15]
-:END:
