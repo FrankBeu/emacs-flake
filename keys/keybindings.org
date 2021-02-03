@@ -357,6 +357,20 @@ on prompts use:
      ;; ";" 'undo-tree-visualize-switch-branch-right       ;;; working
      )
 #+end_src
+** which-key
+#+begin_src elisp :tangle no
+    (general-define-key
+     :keymaps '(which-key-C-h-map)
+     ;; :states  'motion
+     ;; "j" 'undo-tree-visualize-switch-branch-left        ;;; working
+     "C-M-:" 'which-key-show-next-page-cycle
+     "C-M-J" 'which-key-show-previous-page-cycle
+     "C-M-H" 'which-key-show-standard-help
+     "C-M-D" 'which-key-toggle-docstrings
+     "C-M-G" 'which-key-abort
+     "C-M-U" 'which-key-undo-key
+     )
+#+end_src
 ** writeroom
 #+begin_src elisp
   (general-define-key

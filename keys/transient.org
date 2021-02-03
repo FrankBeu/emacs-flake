@@ -28,7 +28,7 @@ transient-states are defined on ~emacs-start-hook~ - they cannot be tested with 
   (defun fb/inc-at-pt ()
     (interactive)
     (spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt))
-  (defun fb/inc-at-pt ()
+  (defun fb/dec-at-pt ()
     (interactive)
     (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
 #+end_src

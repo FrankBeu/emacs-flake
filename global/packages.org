@@ -289,13 +289,36 @@ use treemacs instead
     :diminish which-key-mode
     :config
     (setq
-     which-key-idle-delay 0.5
-     which-key-max-description-length nil
-     which-key-allow-imprecise-window-fit t
-     ;; which-key-sort-order 'which-key-key-order-alpha
-     which-key-sort-order 'which-key-description-order
-     )
-    )
+      which-key-idle-delay 0.5
+      which-key-max-description-length nil
+      which-key-allow-imprecise-window-fit nil
+      ;; which-key-popup-type 'minibuffer
+      which-key-popup-type 'side-window
+      ;; which-key-popup-type 'frame
+      which-key-separator " "
+      ;; which-key-use-C-h-commands nil
+      which-key-use-C-h-commands t
+      which-key-sort-order 'which-key-description-order
+    ))
+#+end_src
+*** TODO paging not working
+[[file:~/.emacs.d/keys/keybindings.org::*which-key][which-key]]
+*** FUNDUS
+#+begin_src elisp
+
+  ;; which-key-sort-order 'which-key-key-order-alpha
+
+  ;; which-key-allow-imprecise-window-fit t
+
+  ;; which-key-popup-type 'side-window
+  ;; which-key-popup-type 'frame
+  ;; which-key-popup-type 'custom
+  ;; which-key-custom-show-popup-function
+
+  ;; which-key-side-window-max-height
+  ;; which-key-min-display-lines
+
+  ;; which-key-use-C-h-commands t
 #+end_src
 ** writeroom-mode
 #+begin_src elisp

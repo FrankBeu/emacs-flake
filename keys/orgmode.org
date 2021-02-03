@@ -32,42 +32,6 @@
   "M-S-<return>" 'org-insert-todo-subheading
    )
 #+end_src
-** local-leader
-#+begin_src elisp
-  (fb/local-leader-key
-    :keymaps 'org-mode-map
-    :states  '(normal visual insert)
-    "c"      '(org-comment-dwim                             :which-key "comment"       )
-
-    "S"      '(org-insert-structure-template 'elisp         :which-key "struc-temp"    )
-    "s"      '(                                             :which-key "subtree"       :ignore t)
-    "sn"     '(org-narrow-to-subtree                        :which-key "narrow"        )
-    "sw"     '(widen                                        :which-key "widen"         )
-
-    "t"      '(                                             :which-key "todo"          :ignore t)
-    "tc"     '(org-todo                                     :which-key "cycle"         )
-    "t SPC"  '(org-todo                                     :which-key "cycle"         )
-    "tt"     '((lambda () (interactive)(org-todo 'todo))    :which-key "todo"          )
-    "td"     '((lambda () (interactive)(org-todo 'done))    :which-key "done"          )
-    "tx"     '((lambda () (interactive)(org-todo 'none))    :which-key "none"          )
-
-    "x"      '(                                             :which-key "text"          :ignore t)
-    "xb"     '((lambda () (interactive)(org-emphasize ?\*)) :which-key "bold"          )
-    "xc"     '((lambda () (interactive)(org-emphasize ?\~)) :which-key "code"          )
-    "xi"     '((lambda () (interactive)(org-emphasize ?\/)) :which-key "italic"        )
-    "xr"     '((lambda () (interactive)(org-emphasize ?\ )) :which-key "clear"         )
-    "xR"     '((lambda () (interactive)(org-emphasize ?\s)) :which-key "clear"         )
-    "xs"     '((lambda () (interactive)(org-emphasize ?\+)) :which-key "strike-through")
-    "xu"     '((lambda () (interactive)(org-emphasize ?\_)) :which-key "underline"     )
-    "xv"     '((lambda () (interactive)(org-emphasize ?\=)) :which-key "verbatim"      )
-    )
-#+end_src
-*** org-emphasize
-**** cf. spacemacs
-#+begin_example shell
-rg org-emphasize ~/SRC/GITHUB/spacemacs
-#+end_example
-**** TODO =xr= clearing not working - inserts " " arround region
 ** minibuffer date
 https://orgmode.org/manual/The-date_002ftime-prompt.html
 #+begin_src elisp
@@ -169,3 +133,63 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
 #+begin_src elisp
   (add-hook 'org-mode-hook 'fb*org-mode-keybindings-h)
 #+end_src
+** local-leader
+#+begin_src elisp
+    (fb/local-leader-key
+      :keymaps 'org-mode-map
+      :states  '(normal visual insert)
+
+      "a"     '(org-agenda                                          :which-key "agenda"           )
+
+      "c"      '(org-comment-dwim                                   :which-key "comment"          )
+
+      "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
+
+      "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
+
+      "s"      '(                                                   :which-key "subtree"          :ignore t)
+      "sn"     '(org-narrow-to-subtree                              :which-key "narrow"           )
+      "sw"     '(widen                                              :which-key "widen"            )
+
+      "r"      '(fb/org-refile-hydra-grouped/body                   :which-key "refile"           )
+
+      "t"      '(                                                   :which-key "todo"             :ignore t)
+      "tc"     '(org-todo                                           :which-key "cycle"            )
+      "t SPC"  '(org-todo                                           :which-key "cycle"            )
+      "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
+      "td"     '((lambda () (interactive)(org-todo 'done))          :which-key "done"             )
+      "tx"     '((lambda () (interactive)(org-todo 'none))          :which-key "none"             )
+
+      "T"      '(                                                   :which-key "time"             :ignore t)
+      "TC"     '(                                                   :which-key "check"            :ignore t)
+      "TCA"    '(org-check-after-date                               :which-key "check-after"      )
+      "TCB"    '(org-check-before-date                              :which-key "check-before"     )
+      "TCC"    '(org-goto-calendar                                  :which-key "calendar"         )
+      "TCD"    '(org-check-deadlines                                :which-key "check-deadline"   )
+      "TD"     '(org-date-from-calendar                             :which-key "date"             )
+      "TE"     '(org-evaluate-time-range                            :which-key "evaluate"         )
+      "TV"     '((lambda()(interactive)(org-evaluate-time-range 0)) :which-key "evaluate+ins"     )
+      "TI"     '(org-time-stamp-inactive                            :which-key "inact"            )
+      "TO"     '((lambda()(interactive)(org-time-stamp-inactive 0)) :which-key "inact+time"       )
+      "TL"     '(org-deadline                                       :which-key "deadline"         )
+      "TS"     '(org-schedule                                       :which-key "schedule"         )
+      "TR"     '(org-time-stamp                                     :which-key "date"             )
+      "TT"     '((lambda()(interactive)(org-time-stamp 0))          :which-key "date+time"        )
+
+      "x"      '(                                                   :which-key "text"             :ignore t)
+      "xb"     '((lambda () (interactive)(org-emphasize ?\*))       :which-key "bold"             )
+      "xc"     '((lambda () (interactive)(org-emphasize ?\~))       :which-key "code"             )
+      "xi"     '((lambda () (interactive)(org-emphasize ?\/))       :which-key "italic"           )
+      "xr"     '((lambda () (interactive)(org-emphasize ?\ ))       :which-key "clear"            )
+      "xR"     '((lambda () (interactive)(org-emphasize ?\s))       :which-key "clear"            )
+      "xs"     '((lambda () (interactive)(org-emphasize ?\+))       :which-key "strike-through"   )
+      "xu"     '((lambda () (interactive)(org-emphasize ?\_))       :which-key "underline"        )
+      "xv"     '((lambda () (interactive)(org-emphasize ?\=))       :which-key "verbatim"         )
+      )
+#+end_src
+*** org-emphasize
+**** cf. spacemacs
+#+begin_example shell
+rg org-emphasize ~/SRC/GITHUB/spacemacs
+#+end_example
+**** TODO =xr= clearing not working - inserts " " arround region

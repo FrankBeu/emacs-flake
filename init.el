@@ -786,13 +786,31 @@ byte-compiled from.")
   :diminish which-key-mode
   :config
   (setq
-   which-key-idle-delay 0.5
-   which-key-max-description-length nil
-   which-key-allow-imprecise-window-fit t
-   ;; which-key-sort-order 'which-key-key-order-alpha
-   which-key-sort-order 'which-key-description-order
-   )
-  )
+    which-key-idle-delay 0.5
+    which-key-max-description-length nil
+    which-key-allow-imprecise-window-fit nil
+    ;; which-key-popup-type 'minibuffer
+    which-key-popup-type 'side-window
+    ;; which-key-popup-type 'frame
+    which-key-separator " "
+    ;; which-key-use-C-h-commands nil
+    which-key-use-C-h-commands t
+    which-key-sort-order 'which-key-description-order
+  ))
+
+;; which-key-sort-order 'which-key-key-order-alpha
+
+;; which-key-allow-imprecise-window-fit t
+
+;; which-key-popup-type 'side-window
+;; which-key-popup-type 'frame
+;; which-key-popup-type 'custom
+;; which-key-custom-show-popup-function
+
+;; which-key-side-window-max-height
+;; which-key-min-display-lines
+
+;; which-key-use-C-h-commands t
 
 (use-package writeroom-mode
   :config
@@ -1107,7 +1125,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
                          ;; "~/NOTES/PROJECTS"
                          ))
 
-(setq org-deadline-waring-days 14)
+(setq org-deadline-warning-days 14)
 
 (setq org-agenda-time-grid
       '((daily today require-timed)
@@ -1132,6 +1150,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
     (sequence "TODO(t!)"   "PENDING(p!)"   "NEXT(n!)"   "WIP(w!)"                  "|" "DONE(d@/!)" "CANCELLED(c@/!)" "DEPRECATED(e@/!)" "ARCHIVED(a)")
     (sequence "CRASH(C)"   "BUG(B)"        "REQUEST(R)" "TEST(E)"                  "|" "FIXED(F)"                                                     )
     (sequence "BACKLOG(O)" "KONZEPTION(K)" "BEREIT(T)"  "UMSETZUNG(U)" "ABNAHME(A)" "LIVE(L)" "|" "ERLEDIGT(D)"                                       )
+    (sequence " (N)") ;;;; placeholder -> last line is not shown in buffer properly
     )
   )
 
@@ -1163,6 +1182,246 @@ an argument, unconditionally call `org-insert-SUBheading'."
       )
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-refile
+;;;;
+;;
+
+(defmacro fb/make-org-refile-hydra (hydraname keyandheadline)
+  "Make a hydra named HYDRANAME with refile targets to FILE."
+  `(defhydra ,hydraname (:color blue :columns 6) "org-Refile-Hydra"
+     ,@(cl-loop for kv in keyandheadline
+                collect (list (car kv) (list 'fb/refile (cdr kv)) (f-base(cdr kv))))
+     ;; (when (string= hydraname "org-refile-hydra")
+     ;; ("j" org-refile-goto-last-stored "Jump to last refile")
+     ;; )
+     ("q" nil "cancel"))
+  )
+
+(defun fb/refile (file &optional headline arg)
+  (unless headline (setq headline "1  UNSORTIERTES"))
+  ;; (message headline)
+  (let ((pos (save-excursion
+               (find-file file)
+               (org-find-exact-headline-in-buffer headline))))
+    (org-refile arg nil (list headline file nil pos)))
+  (switch-to-buffer (current-buffer)))
+
+(defun fb/getDayForErledigtes ()
+  (pcase (format-time-string "%w" (current-time) )
+    ("0" "SO")
+    ("1" "MO")
+    ("2" "DI")
+    ("3" "MI")
+    ("4" "DO")
+    ("5" "FR")
+    ("6" "SA")
+    )
+  )
+
+(defhydra fb/org-refile-hydra-grouped (:foreign-keys run :columns 2 :column "Horizontal")
+  "Org-Refile"
+  ("a" fb/org-refile-hydra-a/body "AI Anthroposophie Archlinux Art Astronomy" :exit t)
+  ("b" fb/org-refile-hydra-b/body "Berufliches BigData Browser" :exit t)
+  ("c" fb/org-refile-hydra-c/body "Computer Consoles Container+Cloud CSS" :exit t)
+  ("d" fb/org-refile-hydra-d/body "Dart DB Debugging" :exit t)
+  ("e" fb/org-refile-hydra-e/body "ECMA Editors emacs Embedded Energy Ernährung" :exit t)
+  ;; ("f" fb/org-refile-hydra-f/body "" :exit t)
+  ("g" fb/org-refile-hydra-g/body "Geographie Git Golang" :exit t)
+  ("h" fb/org-refile-hydra-h/body "Hardware Haushalt" :exit t)
+  ("i" fb/org-refile-hydra-i/body "Infrastructure Installationen IoT" :exit t)
+  ;; ("j" fb/org-refile-hydra-j/body "" :exit t)
+  ("k" fb/org-refile-hydra-k/body "k8s Keyboard Klassifikation Körper" :exit t)
+  ("l" fb/org-refile-hydra-l/body "Lisp" :exit t)
+  ("m" fb/org-refile-hydra-m/body "Maker Mathematik MeinLeben Mobile Music" :exit t)
+  ("n" fb/org-refile-hydra-n/body "Network NixOS" :exit t)
+  ("o" fb/org-refile-hydra-o/body "OrgMode OperatingSystems" :exit t)
+  ("p" fb/org-refile-hydra-p/body "Personal Pflanzen Planning Programming Projects Psychologie Python" :exit t)
+  ;; ("q" fb/org-refile-hydra-q/body "" :exit t)
+  ("r" fb/org-refile-hydra-r/body "ReadTheDocs Religion Rust" :exit t)
+  ("s" fb/org-refile-hydra-s/body "Schrift Search Security Sprachen" :exit t)
+  ("t" fb/org-refile-hydra-t/body "Technology Testing Tools" :exit t)
+  ;; ("u" fb/org-refile-hydra-u/body "" :exit t)
+  ("v" fb/org-refile-hydra-v/body "Virtualisierung VirtualReality" :exit t)
+  ("w" fb/org-refile-hydra-w/body "Web Welt" :exit t)
+  ;; ("x" fb/org-refile-hydra-x/body "" :exit t)
+  ("y" fb/org-refile-hydra-y/body "Yoga" :exit t)
+  ("z" fb/org-refile-hydra-z/body "Zukunft" :exit t)
+
+  ("E" (fb/refile "AKTUELLES.org" (fb/getDayForErledigtes) ) "Erledigtes->aktueller Wochentag" :exit t)
+
+  ("0" fb/org-refile-hydra-0/body "〇" :exit t)
+
+  ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
+  ("q" nil "cancel")
+  )
+
+(fb/make-org-refile-hydra fb/org-refile-hydra-a
+                          (
+                           ("i" . "PROJECTS/AI.org")
+                           ("l" . "PROJECTS/Archlinux.org")
+                           ("r" . "PROJECTS/Art.org")
+                           ("s" . "PROJECTS/Anthroposophie.org")
+                           ("t" . "PROJECTS/Astronomy.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-b
+                          (
+                           ("r" . "PROJECTS/Berufliches.org")
+                           ("d" . "PROJECTS/BigData.org")
+                           ("s" . "PROJECTS/Browser.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-c
+                          (
+                           ("c" . "PROJECTS/ContainerCloud.org")
+                           ("p" . "PROJECTS/Computer.org")
+                           ("l" . "PROJECTS/Consoles.org")
+                           ("s" . "PROJECTS/CSS.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-d
+                          (
+                           ("a" . "PROJECTS/Dart.org")
+                           ("b" . "PROJECTS/DataBases.org")
+                           ("g" . "PROJECTS/Debugging.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-e
+                          (
+                           ("c" . "PROJECTS/ECMA.org")
+                           ("d" . "PROJECTS/Editors.org")
+                           ("s" . "PROJECTS/emacs.org")
+                           ("m" . "PROJECTS/Embedded.org")
+                           ("g" . "PROJECTS/Energy.org")
+                           ("n" . "PROJECTS/Ernährung.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-g
+                          (
+                           ("g" . "PROJECTS/Geographie.org")
+                           ("t" . "PROJECTS/Git.org")
+                           ("o" . "PROJECTS/Golang.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-h
+                          (
+                           ("w" . "PROJECTS/Hardware.org")
+                           ("h" . "PROJECTS/Haushalt.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-i
+                          (
+                           ("s" . "PROJECTS/Infrastructure.org")
+                           ("l" . "PROJECTS/Installation.org")
+                           ("t" . "PROJECTS/IoT.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-k
+                          (
+                           ("s" . "PROJECTS/k8s.org")
+                           ("b" . "PROJECTS/Keyboard.org")
+                           ("k" . "PROJECTS/Klassifikation.org")
+                           ("p" . "PROJECTS/Körper.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-l
+                          (
+                           ("i" . "PROJECTS/Lisp.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-m
+                          (
+                           ("a" . "PROJECTS/Maker.org")
+                           ("l" . "PROJECTS/MeinLeben.org")
+                           ("m" . "PROJECTS/Mathematik.org")
+                           ("o" . "PROJECTS/Mobile.org")
+                           ("u" . "PROJECTS/Music.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-n
+                          (
+                           ("w" . "PROJECTS/Network.org")
+                           ("x" . "PROJECTS/NixOS.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-o
+                          (
+                           ("m" . "PROJECTS/OrgMode.org")
+                           ("s" . "PROJECTS/OperatingSystems.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-p
+                          (
+                           ("s" . "PROJECTS/Personal.org")
+                           ("f" . "PROJECTS/Pflanzen.org")
+                           ("l" . "PROJECTS/Planning.org")
+                           ("g" . "PROJECTS/Programming.org")
+                           ("j" . "PROJECTS/Projects.org")
+                           ("i" . "PROJECTS/Psychologie.org")
+                           ("y" . "PROJECTS/Python.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-r
+                          (
+                           ("d" . "PROJECTS/ReadTheDocs.org")
+                           ("l" . "PROJECTS/Religion.org")
+                           ("u" . "PROJECTS/Rust.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-s
+                          (
+                           ("t" . "PROJECTS/Schrift.org")
+                           ("e" . "PROJECTS/Search.org")
+                           ("c" . "PROJECTS/Security.org")
+                           ("p" . "PROJECTS/Sprachen.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-t
+                          (
+                           ("c" . "PROJECTS/Technology.org")
+                           ("e" . "PROJECTS/Testing.org")
+                           ("o" . "PROJECTS/Tools.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-v
+                          (
+                           ("i" . "PROJECTS/Virtualisierung.org")
+                           ("r" . "PROJECTS/VirtualReality.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-w
+                          (
+                           ("e" . "PROJECTS/Web.org")
+                           ("l" . "PROJECTS/Welt.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-y
+                          (
+                           ("g" . "PROJECTS/Yoga.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-z
+                          (
+                           ("k" . "PROJECTS/Zukunft.org")
+                           )
+                          )
+(fb/make-org-refile-hydra fb/org-refile-hydra-0
+                          (
+                           ("1" . "〇/1  UNSORTIERTES.org")
+                           ("2" . "〇/2  IDEEN.org")
+                           ("3" . "〇/3  FRAGEN.org")
+                           ("4" . "〇/4  RECHERCHE.org")
+                           ("5" . "〇/5  BIBLIO~.org")
+                           ("6" . "〇/6  I.org")
+                           ("7" . "〇/7  ToDO.org")
+                           ("a" . "〇/7a ANSCHAFFUNGEN.org")
+                           ("8" . "〇/8  INSTALLATIONEN.org")
+                           ("9" . "〇/9  ROUTINEN.org")
+                           ("0" . "〇/10 ERKENNTNISSE.org")
+                           ("e" . "〇/11 ERLEDIGTES.org")
+                           )
+                          )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
 ;;;;
@@ -1473,7 +1732,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
   (general-create-definer fb/local-leader-key
     :keymaps '(normal insert visual emacs)
     :prefix "SPC k"
-    :global-prefix "C-SPC k")
+    :global-prefix "C-SPC k"
+    )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-hydra
@@ -1544,7 +1804,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (defun fb/inc-at-pt ()
   (interactive)
   (spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt))
-(defun fb/inc-at-pt ()
+(defun fb/dec-at-pt ()
   (interactive)
   (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
 
@@ -1947,34 +2207,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
 "M-S-<return>" 'org-insert-todo-subheading
  )
 
-(fb/local-leader-key
-  :keymaps 'org-mode-map
-  :states  '(normal visual insert)
-  "c"      '(org-comment-dwim                             :which-key "comment"       )
-
-  "S"      '(org-insert-structure-template 'elisp         :which-key "struc-temp"    )
-  "s"      '(                                             :which-key "subtree"       :ignore t)
-  "sn"     '(org-narrow-to-subtree                        :which-key "narrow"        )
-  "sw"     '(widen                                        :which-key "widen"         )
-
-  "t"      '(                                             :which-key "todo"          :ignore t)
-  "tc"     '(org-todo                                     :which-key "cycle"         )
-  "t SPC"  '(org-todo                                     :which-key "cycle"         )
-  "tt"     '((lambda () (interactive)(org-todo 'todo))    :which-key "todo"          )
-  "td"     '((lambda () (interactive)(org-todo 'done))    :which-key "done"          )
-  "tx"     '((lambda () (interactive)(org-todo 'none))    :which-key "none"          )
-
-  "x"      '(                                             :which-key "text"          :ignore t)
-  "xb"     '((lambda () (interactive)(org-emphasize ?\*)) :which-key "bold"          )
-  "xc"     '((lambda () (interactive)(org-emphasize ?\~)) :which-key "code"          )
-  "xi"     '((lambda () (interactive)(org-emphasize ?\/)) :which-key "italic"        )
-  "xr"     '((lambda () (interactive)(org-emphasize ?\ )) :which-key "clear"         )
-  "xR"     '((lambda () (interactive)(org-emphasize ?\s)) :which-key "clear"         )
-  "xs"     '((lambda () (interactive)(org-emphasize ?\+)) :which-key "strike-through")
-  "xu"     '((lambda () (interactive)(org-emphasize ?\_)) :which-key "underline"     )
-  "xv"     '((lambda () (interactive)(org-emphasize ?\=)) :which-key "verbatim"      )
-  )
-
 (general-define-key
  :keymaps 'org-read-date-minibuffer-local-map
 
@@ -2057,6 +2289,58 @@ an argument, unconditionally call `org-insert-SUBheading'."
 )
 
 (add-hook 'org-mode-hook 'fb*org-mode-keybindings-h)
+
+(fb/local-leader-key
+  :keymaps 'org-mode-map
+  :states  '(normal visual insert)
+
+  "a"     '(org-agenda                                          :which-key "agenda"           )
+
+  "c"      '(org-comment-dwim                                   :which-key "comment"          )
+
+  "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
+
+  "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
+
+  "s"      '(                                                   :which-key "subtree"          :ignore t)
+  "sn"     '(org-narrow-to-subtree                              :which-key "narrow"           )
+  "sw"     '(widen                                              :which-key "widen"            )
+
+  "r"      '(fb/org-refile-hydra-grouped/body                   :which-key "refile"           )
+
+  "t"      '(                                                   :which-key "todo"             :ignore t)
+  "tc"     '(org-todo                                           :which-key "cycle"            )
+  "t SPC"  '(org-todo                                           :which-key "cycle"            )
+  "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
+  "td"     '((lambda () (interactive)(org-todo 'done))          :which-key "done"             )
+  "tx"     '((lambda () (interactive)(org-todo 'none))          :which-key "none"             )
+
+  "T"      '(                                                   :which-key "time"             :ignore t)
+  "TC"     '(                                                   :which-key "check"            :ignore t)
+  "TCA"    '(org-check-after-date                               :which-key "check-after"      )
+  "TCB"    '(org-check-before-date                              :which-key "check-before"     )
+  "TCC"    '(org-goto-calendar                                  :which-key "calendar"         )
+  "TCD"    '(org-check-deadlines                                :which-key "check-deadline"   )
+  "TD"     '(org-date-from-calendar                             :which-key "date"             )
+  "TE"     '(org-evaluate-time-range                            :which-key "evaluate"         )
+  "TV"     '((lambda()(interactive)(org-evaluate-time-range 0)) :which-key "evaluate+ins"     )
+  "TI"     '(org-time-stamp-inactive                            :which-key "inact"            )
+  "TO"     '((lambda()(interactive)(org-time-stamp-inactive 0)) :which-key "inact+time"       )
+  "TL"     '(org-deadline                                       :which-key "deadline"         )
+  "TS"     '(org-schedule                                       :which-key "schedule"         )
+  "TR"     '(org-time-stamp                                     :which-key "date"             )
+  "TT"     '((lambda()(interactive)(org-time-stamp 0))          :which-key "date+time"        )
+
+  "x"      '(                                                   :which-key "text"             :ignore t)
+  "xb"     '((lambda () (interactive)(org-emphasize ?\*))       :which-key "bold"             )
+  "xc"     '((lambda () (interactive)(org-emphasize ?\~))       :which-key "code"             )
+  "xi"     '((lambda () (interactive)(org-emphasize ?\/))       :which-key "italic"           )
+  "xr"     '((lambda () (interactive)(org-emphasize ?\ ))       :which-key "clear"            )
+  "xR"     '((lambda () (interactive)(org-emphasize ?\s))       :which-key "clear"            )
+  "xs"     '((lambda () (interactive)(org-emphasize ?\+))       :which-key "strike-through"   )
+  "xu"     '((lambda () (interactive)(org-emphasize ?\_))       :which-key "underline"        )
+  "xv"     '((lambda () (interactive)(org-emphasize ?\=))       :which-key "verbatim"         )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keybindings-outline
 ;;;;

@@ -23,6 +23,10 @@ https://github.com/marcinkoziej/org-pomodoro
 #+INCLUDE: "./agenda.org"
 ** TODO babel
 ,#+INCLUDE: "./babel.org"
+** TODO capture
+,#+INCLUDE: "./capture.org"
+** TODO refile
+#+INCLUDE: "./refile.org"
 ** TODO pomodoro
 ,#+INCLUDE: "./pomodoro.org"
 ** miscellaneous

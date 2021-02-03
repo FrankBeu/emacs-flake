@@ -1,0 +1,518 @@
+* orgmode-refile
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-refile
+  ;;;;
+  ;;
+#+end_src
+** refile
+**** TODO create-hydra-refile
+:PROPERTIES:
+:URL-SOURCE: https://mollermara.com/blog/Fast-refiling-in-org-mode-with-hydras/
+:END:
+#+begin_src elisp
+  (defmacro fb/make-org-refile-hydra (hydraname keyandheadline)
+    "Make a hydra named HYDRANAME with refile targets to FILE."
+    `(defhydra ,hydraname (:color blue :columns 6) "org-Refile-Hydra"
+       ,@(cl-loop for kv in keyandheadline
+                  collect (list (car kv) (list 'fb/refile (cdr kv)) (f-base(cdr kv))))
+       ;; (when (string= hydraname "org-refile-hydra")
+       ;; ("j" org-refile-goto-last-stored "Jump to last refile")
+       ;; )
+       ("q" nil "cancel"))
+    )
+#+end_src
+**** TODO refile
+#+begin_src elisp
+  (defun fb/refile (file &optional headline arg)
+    (unless headline (setq headline "1  UNSORTIERTES"))
+    ;; (message headline)
+    (let ((pos (save-excursion
+                 (find-file file)
+                 (org-find-exact-headline-in-buffer headline))))
+      (org-refile arg nil (list headline file nil pos)))
+    (switch-to-buffer (current-buffer)))
+#+end_src
+**** TODO daysForErledigtes
+#+begin_src elisp
+  (defun fb/getDayForErledigtes ()
+    (pcase (format-time-string "%w" (current-time) )
+      ("0" "SO")
+      ("1" "MO")
+      ("2" "DI")
+      ("3" "MI")
+      ("4" "DO")
+      ("5" "FR")
+      ("6" "SA")
+      )
+    )
+#+end_src
+**** TODO hydra-command
+#+begin_src elisp
+    (defhydra fb/org-refile-hydra-grouped (:foreign-keys run :columns 2 :column "Horizontal")
+      "Org-Refile"
+      ("a" fb/org-refile-hydra-a/body "AI Anthroposophie Archlinux Art Astronomy" :exit t)
+      ("b" fb/org-refile-hydra-b/body "Berufliches BigData Browser" :exit t)
+      ("c" fb/org-refile-hydra-c/body "Computer Consoles Container+Cloud CSS" :exit t)
+      ("d" fb/org-refile-hydra-d/body "Dart DB Debugging" :exit t)
+      ("e" fb/org-refile-hydra-e/body "ECMA Editors emacs Embedded Energy Ernährung" :exit t)
+      ;; ("f" fb/org-refile-hydra-f/body "" :exit t)
+      ("g" fb/org-refile-hydra-g/body "Geographie Git Golang" :exit t)
+      ("h" fb/org-refile-hydra-h/body "Hardware Haushalt" :exit t)
+      ("i" fb/org-refile-hydra-i/body "Infrastructure Installationen IoT" :exit t)
+      ;; ("j" fb/org-refile-hydra-j/body "" :exit t)
+      ("k" fb/org-refile-hydra-k/body "k8s Keyboard Klassifikation Körper" :exit t)
+      ("l" fb/org-refile-hydra-l/body "Lisp" :exit t)
+      ("m" fb/org-refile-hydra-m/body "Maker Mathematik MeinLeben Mobile Music" :exit t)
+      ("n" fb/org-refile-hydra-n/body "Network NixOS" :exit t)
+      ("o" fb/org-refile-hydra-o/body "OrgMode OperatingSystems" :exit t)
+      ("p" fb/org-refile-hydra-p/body "Personal Pflanzen Planning Programming Projects Psychologie Python" :exit t)
+      ;; ("q" fb/org-refile-hydra-q/body "" :exit t)
+      ("r" fb/org-refile-hydra-r/body "ReadTheDocs Religion Rust" :exit t)
+      ("s" fb/org-refile-hydra-s/body "Schrift Search Security Sprachen" :exit t)
+      ("t" fb/org-refile-hydra-t/body "Technology Testing Tools" :exit t)
+      ;; ("u" fb/org-refile-hydra-u/body "" :exit t)
+      ("v" fb/org-refile-hydra-v/body "Virtualisierung VirtualReality" :exit t)
+      ("w" fb/org-refile-hydra-w/body "Web Welt" :exit t)
+      ;; ("x" fb/org-refile-hydra-x/body "" :exit t)
+      ("y" fb/org-refile-hydra-y/body "Yoga" :exit t)
+      ("z" fb/org-refile-hydra-z/body "Zukunft" :exit t)
+
+      ("E" (fb/refile "AKTUELLES.org" (fb/getDayForErledigtes) ) "Erledigtes->aktueller Wochentag" :exit t)
+
+      ("0" fb/org-refile-hydra-0/body "〇" :exit t)
+
+      ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
+      ("q" nil "cancel")
+      )
+#+end_src
+**** TODO hydras
+#+begin_src elisp
+  (fb/make-org-refile-hydra fb/org-refile-hydra-a
+                            (
+                             ("i" . "PROJECTS/AI.org")
+                             ("l" . "PROJECTS/Archlinux.org")
+                             ("r" . "PROJECTS/Art.org")
+                             ("s" . "PROJECTS/Anthroposophie.org")
+                             ("t" . "PROJECTS/Astronomy.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-b
+                            (
+                             ("r" . "PROJECTS/Berufliches.org")
+                             ("d" . "PROJECTS/BigData.org")
+                             ("s" . "PROJECTS/Browser.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-c
+                            (
+                             ("c" . "PROJECTS/ContainerCloud.org")
+                             ("p" . "PROJECTS/Computer.org")
+                             ("l" . "PROJECTS/Consoles.org")
+                             ("s" . "PROJECTS/CSS.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-d
+                            (
+                             ("a" . "PROJECTS/Dart.org")
+                             ("b" . "PROJECTS/DataBases.org")
+                             ("g" . "PROJECTS/Debugging.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-e
+                            (
+                             ("c" . "PROJECTS/ECMA.org")
+                             ("d" . "PROJECTS/Editors.org")
+                             ("s" . "PROJECTS/emacs.org")
+                             ("m" . "PROJECTS/Embedded.org")
+                             ("g" . "PROJECTS/Energy.org")
+                             ("n" . "PROJECTS/Ernährung.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-g
+                            (
+                             ("g" . "PROJECTS/Geographie.org")
+                             ("t" . "PROJECTS/Git.org")
+                             ("o" . "PROJECTS/Golang.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-h
+                            (
+                             ("w" . "PROJECTS/Hardware.org")
+                             ("h" . "PROJECTS/Haushalt.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-i
+                            (
+                             ("s" . "PROJECTS/Infrastructure.org")
+                             ("l" . "PROJECTS/Installation.org")
+                             ("t" . "PROJECTS/IoT.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-k
+                            (
+                             ("s" . "PROJECTS/k8s.org")
+                             ("b" . "PROJECTS/Keyboard.org")
+                             ("k" . "PROJECTS/Klassifikation.org")
+                             ("p" . "PROJECTS/Körper.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-l
+                            (
+                             ("i" . "PROJECTS/Lisp.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-m
+                            (
+                             ("a" . "PROJECTS/Maker.org")
+                             ("l" . "PROJECTS/MeinLeben.org")
+                             ("m" . "PROJECTS/Mathematik.org")
+                             ("o" . "PROJECTS/Mobile.org")
+                             ("u" . "PROJECTS/Music.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-n
+                            (
+                             ("w" . "PROJECTS/Network.org")
+                             ("x" . "PROJECTS/NixOS.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-o
+                            (
+                             ("m" . "PROJECTS/OrgMode.org")
+                             ("s" . "PROJECTS/OperatingSystems.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-p
+                            (
+                             ("s" . "PROJECTS/Personal.org")
+                             ("f" . "PROJECTS/Pflanzen.org")
+                             ("l" . "PROJECTS/Planning.org")
+                             ("g" . "PROJECTS/Programming.org")
+                             ("j" . "PROJECTS/Projects.org")
+                             ("i" . "PROJECTS/Psychologie.org")
+                             ("y" . "PROJECTS/Python.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-r
+                            (
+                             ("d" . "PROJECTS/ReadTheDocs.org")
+                             ("l" . "PROJECTS/Religion.org")
+                             ("u" . "PROJECTS/Rust.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-s
+                            (
+                             ("t" . "PROJECTS/Schrift.org")
+                             ("e" . "PROJECTS/Search.org")
+                             ("c" . "PROJECTS/Security.org")
+                             ("p" . "PROJECTS/Sprachen.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-t
+                            (
+                             ("c" . "PROJECTS/Technology.org")
+                             ("e" . "PROJECTS/Testing.org")
+                             ("o" . "PROJECTS/Tools.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-v
+                            (
+                             ("i" . "PROJECTS/Virtualisierung.org")
+                             ("r" . "PROJECTS/VirtualReality.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-w
+                            (
+                             ("e" . "PROJECTS/Web.org")
+                             ("l" . "PROJECTS/Welt.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-y
+                            (
+                             ("g" . "PROJECTS/Yoga.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-z
+                            (
+                             ("k" . "PROJECTS/Zukunft.org")
+                             )
+                            )
+  (fb/make-org-refile-hydra fb/org-refile-hydra-0
+                            (
+                             ("1" . "〇/1  UNSORTIERTES.org")
+                             ("2" . "〇/2  IDEEN.org")
+                             ("3" . "〇/3  FRAGEN.org")
+                             ("4" . "〇/4  RECHERCHE.org")
+                             ("5" . "〇/5  BIBLIO~.org")
+                             ("6" . "〇/6  I.org")
+                             ("7" . "〇/7  ToDO.org")
+                             ("a" . "〇/7a ANSCHAFFUNGEN.org")
+                             ("8" . "〇/8  INSTALLATIONEN.org")
+                             ("9" . "〇/9  ROUTINEN.org")
+                             ("0" . "〇/10 ERKENNTNISSE.org")
+                             ("e" . "〇/11 ERLEDIGTES.org")
+                             )
+                            )
+#+end_src
+*** FUNDUS 
+**** DEPRECATED create-org-refile-hydra
+NOT WORKING
+#+begin_src elisp :tangle no
+
+  ;; (setq keyAndFile
+  ;;       '(
+  ;;         ("ww" . "PROJECTS/Web.org")
+  ;;         ("wl" . "PROJECTS/Welt.org")
+  ;;         ("wo" . "PROJECTS/Wohnung.org")
+  ;;         ("zk" . "PROJECTS/Zukunft.org")
+  ;;         )
+  ;;       )
+
+  ;; (defun fb/create-org-refile-hydra ()
+  ;;   (interactive)
+  ;;   (eval
+  ;;    '(defhydra fb/org-refile-hydra2 (:color blue)
+  ;;       "Org-Refile-Hydra"
+  ;;       (cl-loop for kf in keyAndFile
+  ;;                collect (list (car kf) (list 'fb/refile (cdr kf)) (cdr kf))
+  ;;             )
+  ;;       ("j" org-refile-goto-last-stored "Jump to last refile")
+  ;;       ("q" nil "cancel")
+  ;;       ))
+  ;;   )
+
+  ;; (fb/create-org-refile-hydra)
+
+
+#+end_src
+**** DEPRECATED refile-hydra
+NOT WORKING
+#+begin_src elisp :tangle no
+  ;; (setq keyAndFile2
+  ;;       '(
+  ;;         ("ww" . "PROJECTS/Web.org")
+  ;;         ("wl" . "PROJECTS/Welt.org")
+  ;;         ("wo" . "PROJECTS/Wohnung.org")
+  ;;         ("zk" . "PROJECTS/Zukunft.org")
+  ;;         )
+  ;;       )
+  ;; (fb/make-org-refile-hydra fb/org-refile-hydra-test keyAndFile2)
+
+  ;; (fb/make-org-refile-hydra fb/org-refile-hydra ;;;; WORKING
+  ;;                           (
+  ;;                            ("ai" . "PROJECTS/AI.org")
+  ;;                            ("al" . "PROJECTS/Archlinux.org")
+  ;;                            ("as" . "PROJECTS/Anthroposophie.org")
+  ;;                            ("at" . "PROJECTS/Art.org")
+  ;;                            ("br" . "PROJECTS/Berufliches.org")
+  ;;                            ("bd" . "PROJECTS/BigData.org")
+  ;;                            ("bs" . "PROJECTS/Browser.org")
+  ;;                            ("cc" . "PROJECTS/Container+Cloud.org")
+  ;;                            ("cp" . "PROJECTS/Computer.org")
+  ;;                            ("cl" . "PROJECTS/Consoles.org")
+  ;;                            ("cs" . "PROJECTS/CSS.org")
+  ;;                            ("da" . "PROJECTS/Dart.org")
+  ;;                            ("db" . "PROJECTS/DataBases.org")
+  ;;                            ("dg" . "PROJECTS/Debugging.org")
+  ;;                            ("ec" . "PROJECTS/ECMA.org")
+  ;;                            ("ed" . "PROJECTS/Editors.org")
+  ;;                            ("eg" . "PROJECTS/Energy.org")
+  ;;                            ("en" . "PROJECTS/Ernährung.org")
+  ;;                            ("gg" . "PROJECTS/Geographie.org")
+  ;;                            ("gl" . "PROJECTS/Git+GitLab.org")
+  ;;                            ("go" . "PROJECTS/Golang.org")
+  ;;                            ("ha" . "PROJECTS/Hacking.org")
+  ;;                            ("hh" . "PROJECTS/Haushalt.org")
+  ;;                            ("is" . "PROJECTS/Infrastructure.org")
+  ;;                            ("il" . "PROJECTS/Installation.org")
+  ;;                            ("it" . "PROJECTS/IoT.org")
+  ;;                            ("kb" . "PROJECTS/Keyboard.org")
+  ;;                            ("kk" . "PROJECTS/Klassifikation.org")
+  ;;                            ("kp" . "PROJECTS/Körper.org")
+  ;;                            ("li" . "PROJECTS/Lisp.org")
+  ;;                            ("ma" . "PROJECTS/Maker.org")
+  ;;                            ("ml" . "PROJECTS/MeinLeben.org")
+  ;;                            ("mm" . "PROJECTS/Mathematik.org")
+  ;;                            ("mo" . "PROJECTS/Mobile.org")
+  ;;                            ("mu" . "PROJECTS/Music.org")
+  ;;                            ("ne" . "PROJECTS/Network.org")
+  ;;                            ("ng" . "PROJECTS/Angular.org")
+  ;;                            ("nx" . "PROJECTS/NixOS.org")
+  ;;                            ("om" . "PROJECTS/OrgMode.org")
+  ;;                            ("os" . "PROJECTS/OperatingSystems.org")
+  ;;                            ("pf" . "PROJECTS/Pflanzen.org")
+  ;;                            ("pg" . "PROJECTS/Programming.org")
+  ;;                            ("pi" . "PROJECTS/Psychologie.org")
+  ;;                            ("pj" . "PROJECTS/Projects.org")
+  ;;                            ("pl" . "PROJECTS/PHP+Laravel.org")
+  ;;                            ("pn" . "PROJECTS/Planning.org")
+  ;;                            ("ps" . "PROJECTS/Personal.org")
+  ;;                            ("py" . "PROJECTS/Python.org")
+  ;;                            ("rd" . "PROJECTS/ReadTheDocs.org")
+  ;;                            ("rl" . "PROJECTS/Religion.org")
+  ;;                            ("ru" . "PROJECTS/Rust.org")
+  ;;                            ("sc" . "PROJECTS/Schrift.org")
+  ;;                            ("se" . "PROJECTS/Search.org")
+  ;;                            ("sr" . "PROJECTS/Security.org")
+  ;;                            ("sm" . "PROJECTS/Spacemacs.org")
+  ;;                            ("sp" . "PROJECTS/Sprachen.org")
+  ;;                            ("ta" . "PROJECTS/Tastatur.org")
+  ;;                            ("tc" . "PROJECTS/Technologie.org")
+  ;;                            ("te" . "PROJECTS/Testing.org")
+  ;;                            ("to" . "PROJECTS/Tools.org")
+  ;;                            ("ul" . "PROJECTS/Überlieferung.org")
+  ;;                            ("uz" . "PROJECTS/Umzug.org")
+  ;;                            ("vi" . "PROJECTS/Virtualisierung.org")
+  ;;                            ("vr" . "PROJECTS/VirtualReality.org")
+  ;;                            ("vu" . "PROJECTS/Vue.org")
+  ;;                            ("we" . "PROJECTS/Web.org")
+  ;;                            ("wl" . "PROJECTS/Welt.org")
+  ;;                            ("wo" . "PROJECTS/Wohnung.org")
+  ;;                            ("yg" . "PROJECTS/Yoga.org")
+  ;;                            ("zk" . "PROJECTS/Zukunft.org")
+  ;;                            ("1" . "〇/1  UNSORTIERTES.org")
+  ;;                            ("2" . "〇/2  IDEEN.org")
+  ;;                            ("3" . "〇/3  FRAGEN.org")
+  ;;                            ("4" . "〇/4  RECHERCHE.org")
+  ;;                            ("5" . "〇/5  BIBLIO~.org")
+  ;;                            ("6" . "〇/6  I.org")
+  ;;                            ("7" . "〇/7  ToDO.org")
+  ;;                            ("a" . "〇/7a ANSCHAFFUNGEN.org")
+  ;;                            ("8" . "〇/8  INSTALLATIONEN.org")
+  ;;                            ("9" . "〇/9  ROUTINEN.org")
+  ;;                            ("0" . "〇/10 ERKENNTNISSE.org")
+  ;;                            ("e" . "〇/11 ERLEDIGTES.org")
+  ;;                            )
+  ;;                           )
+#+end_src
+**** DEPRECATED ORG-REFILE
+too slow (to big) - use refile-hydra instead
+#+begin_src elisp :tangle no
+  (setq org-refile-targets '(
+
+                             ;;;; ALL TARGET-FILES must be ORG-FILES
+                             ;;;; be aware of modlines...
+
+                             ;; ("~/GTD/gtd.org" :maxlevel . 3)
+                             ;; ("~/GTD/someday.org" :level . 1)
+                             ;; ("~/GTD/tickler.org" :maxlevel . 2)
+                             ;; ("~/Downloads/NOTES/Zusammenfassung.org"  :maxlevel . 2)
+                             ;;;; 〇
+                             ("/home/frank/Downloads/NOTES/〇/1  UNSORTIERTES.org" :regexp . "UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/2  IDEEN.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/3  FRAGEN.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/4  RECHERCHE.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/5  BIBLIO~.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/6  I.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/7  ToDO.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/7a Anschaffungen.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/8  INSTALLATIONEN.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/9  ROUTINEN.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/10 ERKENNTNISSE.org" :regexp . ".*UNSORTIERTES")
+                             ("/home/frank/Downloads/NOTES/〇/11 ERLEDIGTES.org" :regexp . ".*UNSORTIERTES")
+                             ;;;; Projectfiles
+                             ("~/Downloads/NOTES/AKTUELLES.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/Zusammenfassung.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/AI.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Angular.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Anthroposophie.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Archlinux.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Art.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Astronomie.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/BigData.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Berufliches.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Browser.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Computer.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Consoles.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Container+Cloud.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/CSS.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Dart.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/DataBases.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Debugging.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/ECMA.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Editors.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Energy.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Ernährung.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Geographie.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Git+GitLab.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Golang.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Infrastructure.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Installation.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Hacking.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Haushalt.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/IoT.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Keyboard.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Klassifikation.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Körper.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Lisp.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Maker.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/MeinLeben.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Mathematik.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Mobile.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Music.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Network.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/NixOS.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/OperatingSystems.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/OrgMode.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Personal.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Pflanzen.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/PHP+Laravel.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Planning.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Python.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Programming.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Projects.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Psychologie.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Religion.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/ReadTheDocs.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Rust.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Schrift.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Search.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Security.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Spacemacs.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Sprachen.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Tastatur.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Technologie.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Testing.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Tools.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Ueberlieferung.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Umzug.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Virtualisierung.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/VirtualReality.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Vue.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Web.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Welt.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Wohnung.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Yoga.org" :regexp . ".*UNSORTIERTES")
+                             ("~/Downloads/NOTES/PROJECTS/Zukunft.org" :regexp . ".*UNSORTIERTES")
+                             ))
+#+end_src
+**** test-functions
+***** test
+#+begin_src elisp :tangle no
+
+  ;; (defun fb/test1 ()
+  ;;   "testFunction1"
+  ;;   (interactive)
+  ;;   (message "test")
+  ;;   nnnnnnnnnnnnnnnn)
+  ;; (defun fb/test2 ()
+  ;;   "testFunction2"
+  ;;   (interactive)
+  ;;   (fb/org-refile-hydra-test/body)
+  ;;   )
+  ;; (defun fb/test3 ()
+  ;;   "testFunction3"
+  ;;   (interactive)
+  ;;   (message "%s" keyAndFile2)
+  ;;   )
+#+end_src
+***** test
+#+begin_src elisp :tangle no
+  ;; (defun fb/test2 ()
+  ;; "testFunction2"
+  ;; (interactive)
+  ;; (fb/org-refile-hydra-grouped/body)
+  ;; ;; (fb/org-refile-hydra-a/body)
+  ;; )
+#+end_src

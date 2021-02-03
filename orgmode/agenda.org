@@ -26,7 +26,7 @@
 *** deadline
 **** notifications
 #+begin_src elisp
-  (setq org-deadline-waring-days 14)
+  (setq org-deadline-warning-days 14)
 #+end_src
 *** time-grid
 #+begin_src elisp
@@ -53,9 +53,9 @@
 #+end_src
 ***** FUNDUS
 #+begin_src elisp :tangle no
-(setq org-log-into-drawer 'LOGBOOK)
+;; (setq org-log-into-drawer 'LOGBOOK)
 #+end_src
-**** files
+**** entry
 #+begin_src elisp
   (setq org-log-done 'note)
 #+end_src
@@ -84,6 +84,7 @@
     (sequence "TODO(t!)"   "PENDING(p!)"   "NEXT(n!)"   "WIP(w!)"                  "|" "DONE(d@/!)" "CANCELLED(c@/!)" "DEPRECATED(e@/!)" "ARCHIVED(a)")
     (sequence "CRASH(C)"   "BUG(B)"        "REQUEST(R)" "TEST(E)"                  "|" "FIXED(F)"                                                     )
     (sequence "BACKLOG(O)" "KONZEPTION(K)" "BEREIT(T)"  "UMSETZUNG(U)" "ABNAHME(A)" "LIVE(L)" "|" "ERLEDIGT(D)"                                       )
+    (sequence " (N)") ;;;; placeholder -> last line is not shown in buffer properly
     )
   )
 #+end_src
