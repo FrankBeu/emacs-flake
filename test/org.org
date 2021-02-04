@@ -1,0 +1,67 @@
+* tree
+** test1a
+*** test2a
+*** test2b
+*** test2c
+**** test3a
+**** test3b
+**** test3c
+**** test3d
+** test1b
+*** test2a
+*** test2b
+*** test2c
+**** test3a
+**** test3b
+**** test3c
+**** test3d
+* priority
+** [#A] test
+** [#B] test
+** [#C] test
+* states
+** todo-state
+*** TODO TODO
+*** PENDING PENDING
+*** NEXT NEXT
+*** WIP WIP
+*** DONE DONE
+*** CANCELLED CANCELLED
+*** DEPRECATED DEPRECATED
+*** ARCHIVED ARCHIVED
+** feature-state
+*** CRASH CRASH
+*** BUG BUG
+*** REQUEST REQUEST
+*** TEST TEST
+*** FIXED FIXED
+** project-state
+*** BACKLOG BACKLOG
+*** KONZEPTION KONZEPTION
+*** BEREIT BEREIT
+*** UMSETZUNG UMSETZUNG
+*** ABNAHME ABNAHME
+*** LIVE LIVE
+*** ERLEDIGT ERLEDIGT
+* timestamps
+** deadlines
+*** deadline
+DEADLINE: <2021-02-03 Wed>
+*** deadline with time
+** timestamp
+*** active
+**** active
+**** active with time
+<2021-02-03 Wed 06:44>
+*** inactive
+**** inactive
+[2021-02-03 Wed]
+**** inactive with time
+[2021-02-03 Wed 05:59]
+*** deadline
+DEADLINE: <2021-02-21 Sun>
+*** scheduled
+SCHEDULED: <2021-02-17 Wed>
+*** range
+[2021-02-03 Wed]--[2021-02-06 Sat] 3d
+[2021-02-03 Wed 09:04]--[2021-02-06 Sat 09:04] 3d 00:00
