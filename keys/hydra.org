@@ -40,10 +40,10 @@
 ** window
 *** frame
 #+begin_src elisp
-  (defhydra hydra-window-frame (:color red)
-    "Frame"
-    ("k" make-frame "new frame")
-    ("l" delete-frame "delete frame"))
+    (defhydra hydra-window-frame (:color red)
+      "Frame"
+      ("k" delete-frame "delete frame")
+      ("l" make-frame   "new frame"   ))
 #+end_src
 *** size
 #+begin_src elisp

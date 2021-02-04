@@ -24,7 +24,7 @@ https://github.com/marcinkoziej/org-pomodoro
 ** TODO babel
 ,#+INCLUDE: "./babel.org"
 ** TODO capture
-,#+INCLUDE: "./capture.org"
+#+INCLUDE: "./capture.org"
 ** TODO refile
 #+INCLUDE: "./refile.org"
 ** TODO pomodoro

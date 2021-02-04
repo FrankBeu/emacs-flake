@@ -393,7 +393,7 @@ on prompts use:
     "ab" '(balance-windows                                :which-key "balance"                          )
     "ad" '(ace-delete-window                              :which-key "ace-delete"                       )
     "af" '(aw-flip-window                                 :which-key "flip"                             )
-    "ag" '(hydra-window-frame/body                        :which-key "resize"                           )
+    "ag" '(hydra-window-frame/body                        :which-key "frame"                            )
     "ah" '(fb/aw-split-window-horz                        :which-key "split |"                          )
     "ai" '(winner-mode                                    :which-key "winner-mode"                      )
     "am" '(delete-other-windows                           :which-key "maximize"                         )
@@ -457,6 +457,11 @@ on prompts use:
     "n="  '(fb/inc-at-pt                                  :which-key "+"                                )
     "n-"  '(fb/dec-at-pt                                  :which-key "-"                                )
     "n_"  '(fb/dec-at-pt                                  :which-key "-"                                )
+
+    "o"   '(                                              :which-key "org"                              :ignore t)
+    "oa"  '(org-agenda                                    :which-key "agenda"                           )
+    "oc"  '(org-capture                                   :which-key "capture"                          )
+    "ol"  '(org-store-link                                :which-key "store-link"                       )
 
     "p"   '(projectile-command-map                        :which-key "projectile"                       )
 

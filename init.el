@@ -1183,14 +1183,195 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-capture
+;;;;
+;;
+
+(add-hook 'org-capture-mode-hook 'evil-insert-state)
+
+(defvar fb*noteFile "~/NOTES/AKTUELLES.org" "Target file for org-capture")
+
+(setq org-capture-templates '())
+
+(dolist (template '(
+  ("W" "Protocol"      entry
+     "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
+  ("Q" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+     "* %? \n[[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
+  ))
+  (push template org-capture-templates))
+
+(setq aktuelles-templates '(("ak" "AKTUELLES" entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")))
+(setq org-capture-templates (append org-capture-templates aktuelles-templates))
+
+(setq project-templates '(
+    ("a" "AKTUELLES AI Anthroposophie Archlinux Art Astronomy")
+    ("ai" "AI"               entry (file+olp fb*noteFile "PROJECTS" "AI"               ) "* %i%?\n")
+    ("as" "Anthroposophie"   entry (file+olp fb*noteFile "PROJECTS" "Anthroposophie"   ) "* %i%?\n")
+    ("al" "Archlinux"        entry (file+olp fb*noteFile "PROJECTS" "Archlinux"        ) "* %i%?\n")
+    ("ar" "Art"              entry (file+olp fb*noteFile "PROJECTS" "Art"              ) "* %i%?\n")
+    ("at" "Astronomy"        entry (file+olp fb*noteFile "PROJECTS" "Astronomy"        ) "* %i%?\n")
+    ("b" "Berufliches BigData Browser")
+    ("br" "Berufliches"      entry (file+olp fb*noteFile "PROJECTS" "Berufliches"      ) "* %i%?\n")
+    ("bd" "BigData"          entry (file+olp fb*noteFile "PROJECTS" "BigData"          ) "* %i%?\n")
+    ("bs" "Browser"          entry (file+olp fb*noteFile "PROJECTS" "Browser"          ) "* %i%?\n")
+
+    ("c" "Computer Consoles Container+Cloud CSS")
+    ("cp" "Computer"         entry (file+olp fb*noteFile "PROJECTS" "Computer"         ) "* %i%?\n")
+    ("cl" "Consoles"         entry (file+olp fb*noteFile "PROJECTS" "Consoles"         ) "* %i%?\n")
+    ("cc" "Container+Cloud"  entry (file+olp fb*noteFile "PROJECTS" "Container+Cloud"  ) "* %i%?\n")
+    ("cs" "CSS"              entry (file+olp fb*noteFile "PROJECTS" "CSS"              ) "* %i%?\n")
+
+    ("d" "Dart DB Debugging")
+    ("da" "Dart"             entry (file+olp fb*noteFile "PROJECTS" "Dart"             ) "* %i%?\n")
+    ("db" "DataBases"        entry (file+olp fb*noteFile "PROJECTS" "DataBases"        ) "* %i%?\n")
+    ("dg" "Debugging"        entry (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS")"* %i%?\n")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  debugging
+
+    ("e" "Editors emacs Embedded Energy Ernährung")
+    ("ec" "emacs"            entry (file+olp fb*noteFile "PROJECTS" "emacs"            ) "* %i%?\n")
+    ("ed" "Editors"          entry (file+olp fb*noteFile "PROJECTS" "Editors"          ) "* %i%?\n")
+    ("em" "embedded"         entry (file+olp fb*noteFile "PROJECTS" "embedded"         ) "* %i%?\n")
+    ("eg" "Energy"           entry (file+olp fb*noteFile "PROJECTS" "Energy"           ) "* %i%?\n")
+    ("en" "Ernährung"        entry (file+olp fb*noteFile "PROJECTS" "Ernährung"        ) "* %i%?\n")
+
+    ("g" "Geographie Git Golang")
+    ("gg" "Geographie"       entry (file+olp fb*noteFile "PROJECTS" "Geographie"       ) "* %i%?\n")
+    ("gt" "Git"              entry (file+olp fb*noteFile "PROJECTS" "Git"              ) "* %i%?\n")
+    ("go" "Golang"           entry (file+olp fb*noteFile "PROJECTS" "Golang"           ) "* %i%?\n")
+
+    ("h" "Hardware Haushalt")
+    ("hw" "Hardware"         entry (file+olp fb*noteFile "PROJECTS" "Hardware"         ) "* %i%?\n")
+    ("hh" "Haushalt"         entry (file+olp fb*noteFile "PROJECTS" "Haushalt"         ) "* %i%?\n")
+
+    ("i" "Infrastructure Installationen IoT")
+    ("is" "Infrastructure"   entry (file+olp fb*noteFile "PROJECTS" "Infrastructure"   ) "* %i%?\n")
+    ("il" "Installation"     entry (file+olp fb*noteFile "PROJECTS" "Installation"     ) "* %i%?\n")
+    ("it" "IoT"              entry (file+olp fb*noteFile "PROJECTS" "IoT"              ) "* %i%?\n")
+
+    ("k" "k8s Keyboard Klassifikation Körper")
+    ("k8" "k8s"              entry (file+olp fb*noteFile "PROJECTS" "k8s"              ) "* %i%?\n")
+    ("kb" "Keyboard"         entry (file+olp fb*noteFile "PROJECTS" "Keyboard"         ) "* %i%?\n")
+    ("kk" "Klassifikation"   entry (file+olp fb*noteFile "PROJECTS" "Klassifikation"   ) "* %i%?\n")
+    ("kp" "Körper"           entry (file+olp fb*noteFile "PROJECTS" "Körper"           ) "* %i%?\n")
+
+    ("l" "Lisp")
+    ("li" "Lisp"             entry (file+olp fb*noteFile "PROJECTS" "Lisp"             ) "* %i%?\n")
+
+    ("m" "Maker Mathematik MeinLeben Mobile Music")
+    ("ma" "Maker"            entry (file+olp fb*noteFile "PROJECTS" "Maker"            ) "* %i%?\n")
+    ("mm" "Mathematik"       entry (file+olp fb*noteFile "PROJECTS" "Mathematik"       ) "* %i%?\n")
+    ("ml" "MeinLeben"        entry (file+olp fb*noteFile "PROJECTS" "MeinLeben"        ) "* %i%?\n")
+    ("mo" "Mobile"           entry (file+olp fb*noteFile "PROJECTS" "Mobile"           ) "* %i%?\n")
+    ("mu" "Music"            entry (file+olp fb*noteFile "PROJECTS" "Music"            ) "* %i%?\n")
+
+    ("n" "Network NixOS")
+    ("nw" "Network"          entry (file+olp fb*noteFile "PROJECTS" "Network"          ) "* %i%?\n")
+    ("nx" "NixOS"            entry (file+olp fb*noteFile "PROJECTS" "NixOS"            ) "* %i%?\n")
+
+    ("o" "OperatingSystems OrgMode")
+    ("os" "OperatingSystems" entry (file+olp fb*noteFile "PROJECTS" "OperatingSystems" ) "* %i%?\n")
+    ("om" "OrgMode"          entry (file+olp fb*noteFile "PROJECTS" "OrgMode"          ) "* %i%?\n")
+
+    ("p" "Personal Pflanzen Planning Programming Projects Psychologie Python")
+    ("ps" "Personal"         entry (file+olp fb*noteFile "PROJECTS" "Personal"         ) "* %i%?\n")
+    ("pf" "Pflanzen"         entry (file+olp fb*noteFile "PROJECTS" "Pflanzen"         ) "* %i%?\n")
+    ("pl" "Planning"         entry (file+olp fb*noteFile "PROJECTS" "Planning"         ) "* %i%?\n")
+    ("pg" "Programming"      entry (file+olp fb*noteFile "PROJECTS" "Programming"      ) "* %i%?\n")
+    ("pj" "Projects"         entry (file+olp fb*noteFile "PROJECTS" "Projects"         ) "* %i%?\n")
+    ("pi" "Psychologie"      entry (file+olp fb*noteFile "PROJECTS" "Psychologie"      ) "* %i%?\n")
+    ("py" "Python"           entry (file+olp fb*noteFile "PROJECTS" "Python"           ) "* %i%?\n")
+
+    ("r" "ReadTheDocs Religion Rust")
+    ("rd" "ReadTheDocs"      entry (file+olp fb*noteFile "PROJECTS" "ReadTheDocs"      ) "* %i%?\n")
+    ("rl" "Religion"         entry (file+olp fb*noteFile "PROJECTS" "Religion"         ) "* %i%?\n")
+    ("ru" "Rust"             entry (file+olp fb*noteFile "PROJECTS" "Rust"             ) "* %i%?\n")
+
+    ("s" "Schrift Search Security Sprachen")
+    ("st" "Schrift"          entry (file+olp fb*noteFile "PROJECTS" "Schrift"          ) "* %i%?\n")
+    ("se" "Search"           entry (file+olp fb*noteFile "PROJECTS" "Search"           ) "* %i%?\n")
+    ("sc" "Security"         entry (file+olp fb*noteFile "PROJECTS" "Security"         ) "* %i%?\n")
+    ("sp" "Sprachen"         entry (file+olp fb*noteFile "PROJECTS" "Sprachen"         ) "* %i%?\n")
+
+    ("t" "Technology Testing Tools")
+    ("tc" "Technology"       entry (file+olp fb*noteFile "PROJECTS" "Technology"       ) "* %i%?\n")
+    ("te" "Testing"          entry (file+olp fb*noteFile "PROJECTS" "Testing"          ) "* %i%?\n")
+    ("to" "Tools"            entry (file+olp fb*noteFile "PROJECTS" "Tools"            ) "* %i%?\n")
+
+    ("v" "Virtualisierung VirtualReality")
+    ("vi" "Virtualisierung"  entry (file+olp fb*noteFile "PROJECTS" "Virtualisierung"  ) "* %i%?\n")
+    ("vr" "VirtualReality"   entry (file+olp fb*noteFile "PROJECTS" "VirtualReality"   ) "* %i%?\n")
+
+    ("w" "Web Welt")
+    ("we" "Web"              entry (file+olp fb*noteFile "PROJECTS" "Web"              ) "* %i%?\n")
+    ("wl" "Welt"             entry (file+olp fb*noteFile "PROJECTS" "Welt"             ) "* %i%?\n")
+
+    ("y" "Yoga")
+    ("yg" "Yoga"             entry (file+olp fb*noteFile "PROJECTS" "Yoga"             ) "* %i%?\n")
+
+    ("z" "Zukunft")
+    ("zk" "Zukunft"          entry (file+olp fb*noteFile "PROJECTS" "Zukunft"          ) "* %i%?\n")
+    ))
+    (setq org-capture-templates (append org-capture-templates project-templates))
+
+(setq clock-template '(("ck" "clock" entry (clock) "* %i%?\n")))
+(setq org-capture-templates (append org-capture-templates clock-template))
+
+(setq 〇-templates '(
+  ("1" "UNSORTIERTES"   entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES"                  ) "* %i%?\n")
+  ("2" "IDEEN"          entry (file+olp fb*noteFile "〇" "2  IDEEN"                         ) "* %i%?\n")
+  ("3" "FRAGEN"         entry (file+olp fb*noteFile "〇" "3  FRAGEN"                        ) "* %i%?\n")
+  ("4" "RECHERCHE"      entry (file+olp fb*noteFile "〇" "4  RECHERCHE"                     ) "* %i%?\n")
+  ("5" "BIBLIO~"        entry (file+olp fb*noteFile "〇" "5  BIBLIO~"                       ) "* %i%?\n")
+  ("6" "I"              entry (file+olp fb*noteFile "〇" "6  I"                             ) "* %i%?\n")
+  ("7" "ToDO"           entry (file+olp fb*noteFile "〇" "7  ToDO"                          ) "* TODO %i%?\n")
+  ("A" "ANSCHAFFUNGEN"  entry (file+olp fb*noteFile "〇" "7a ANSCHAFFUNGEN"                 ) "* %i%?\n")
+  ("8" "INSTALLATIONEN" entry (file+olp fb*noteFile "〇" "8  INSTALLATIONEN"                ) "* %i%?\n")
+  ("9" "ROUTINEN"       entry (file+olp fb*noteFile "〇" "9  ROUTINEN + EVENTS + TRIGGERED" ) "* %i%?\n")
+  ("0" "ERKENNTNISSE"   entry (file+olp fb*noteFile "〇" "10 ERKENNTNISSE"                  ) "* %i%?\n")
+  ("E" "ERLEDIGTES"     entry (file+olp fb*noteFile "〇" "11 ERLEDIGTES"                    ) "* %i%?\n")
+  ))
+  (setq org-capture-templates (append org-capture-templates 〇-templates))
+
+;;;; TODO: ask for headline location
+                              ;; ("p" "projects" entry
+                              ;; (file+function fb*noteFile org-ask-location)
+                              ;; "\n\n** %?\n<%<%Y-%m-%d %a %T>>"
+                              ;; :empty-lines 1)
+;;;; org-protocol
+                              ;; ("W" "Web TODO" entry (file org-default-notes-file)
+                              ;; "* TODO %?\n%U\n%a\n")
+
+                              ;; ("w" "WEB" entry
+                              ;; (file+olp "~/Downloads/NOTES/test.org" "AKTUELLES")
+                              ;; "* %i%? \n")
+
+;;;; AKTUELLES
+                              ;; ("ak" "AKTUELLES" entry
+                              ;; (file+olp fb*noteFile "AKTUELLES")
+                              ;; "* %i%? \n")
+                              ;; ("A" "AKTUELLES" entry
+                              ;; (file+olp fb*noteFile "AKTUELLES")
+                              ;; "* TODO %i%? \n")
+
+;;;; org-protocol
+;;;; web-Snippets
+                              ;; ("W" "Web site" entry
+                              ;; (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+                              ;; "* %? :website:\n%c\n%:initial")
+
+                              ;; (file fb*noteFile )
+                              ;; "* %c :website:\n%U\n%:initial\n%?")
+                              ;; "* %a :website:\n\n%U %?\n\n%:initial")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-refile
 ;;;;
 ;;
 
-(defmacro fb/make-org-refile-hydra (hydraname keyandheadline)
+(defmacro fb/make-org-refile-hydra (hydraname keyAndHeadline)
   "Make a hydra named HYDRANAME with refile targets to FILE."
   `(defhydra ,hydraname (:color blue :columns 6) "org-Refile-Hydra"
-     ,@(cl-loop for kv in keyandheadline
+     ,@(cl-loop for kv in keyAndHeadline
                 collect (list (car kv) (list 'fb/refile (cdr kv)) (f-base(cdr kv))))
      ;; (when (string= hydraname "org-refile-hydra")
      ;; ("j" org-refile-goto-last-stored "Jump to last refile")
@@ -1207,7 +1388,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
     (org-refile arg nil (list headline file nil pos)))
   (switch-to-buffer (current-buffer)))
 
-(defun fb/getDayForErledigtes ()
+(defun fb*getDayForErledigtes ()
   (pcase (format-time-string "%w" (current-time) )
     ("0" "SO")
     ("1" "MO")
@@ -1221,207 +1402,185 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (defhydra fb/org-refile-hydra-grouped (:foreign-keys run :columns 2 :column "Horizontal")
   "Org-Refile"
-  ("a" fb/org-refile-hydra-a/body "AI Anthroposophie Archlinux Art Astronomy" :exit t)
-  ("b" fb/org-refile-hydra-b/body "Berufliches BigData Browser" :exit t)
-  ("c" fb/org-refile-hydra-c/body "Computer Consoles Container+Cloud CSS" :exit t)
-  ("d" fb/org-refile-hydra-d/body "Dart DB Debugging" :exit t)
-  ("e" fb/org-refile-hydra-e/body "ECMA Editors emacs Embedded Energy Ernährung" :exit t)
+  ("a" fb/org-refile-hydra-a/body "AI Anthroposophie Archlinux Art Astronomy"                          :exit t)
+  ("b" fb/org-refile-hydra-b/body "Berufliches BigData Browser"                                        :exit t)
+  ("c" fb/org-refile-hydra-c/body "Computer Consoles Container+Cloud CSS"                              :exit t)
+  ("d" fb/org-refile-hydra-d/body "Dart DB Debugging"                                                  :exit t)
+  ("e" fb/org-refile-hydra-e/body "Editors emacs Embedded Energy Ernährung"                            :exit t)
   ;; ("f" fb/org-refile-hydra-f/body "" :exit t)
-  ("g" fb/org-refile-hydra-g/body "Geographie Git Golang" :exit t)
-  ("h" fb/org-refile-hydra-h/body "Hardware Haushalt" :exit t)
-  ("i" fb/org-refile-hydra-i/body "Infrastructure Installationen IoT" :exit t)
+  ("g" fb/org-refile-hydra-g/body "Geographie Git Golang"                                              :exit t)
+  ("h" fb/org-refile-hydra-h/body "Hardware Haushalt"                                                  :exit t)
+  ("i" fb/org-refile-hydra-i/body "Infrastructure Installationen IoT"                                  :exit t)
   ;; ("j" fb/org-refile-hydra-j/body "" :exit t)
-  ("k" fb/org-refile-hydra-k/body "k8s Keyboard Klassifikation Körper" :exit t)
-  ("l" fb/org-refile-hydra-l/body "Lisp" :exit t)
-  ("m" fb/org-refile-hydra-m/body "Maker Mathematik MeinLeben Mobile Music" :exit t)
-  ("n" fb/org-refile-hydra-n/body "Network NixOS" :exit t)
-  ("o" fb/org-refile-hydra-o/body "OrgMode OperatingSystems" :exit t)
+  ("k" fb/org-refile-hydra-k/body "k8s Keyboard Klassifikation Körper"                                 :exit t)
+  ("l" fb/org-refile-hydra-l/body "Lisp"                                                               :exit t)
+  ("m" fb/org-refile-hydra-m/body "Maker Mathematik MeinLeben Mobile Music"                            :exit t)
+  ("n" fb/org-refile-hydra-n/body "Network NixOS"                                                      :exit t)
+  ("o" fb/org-refile-hydra-o/body "OperatingSystems OrgMode"                                           :exit t)
   ("p" fb/org-refile-hydra-p/body "Personal Pflanzen Planning Programming Projects Psychologie Python" :exit t)
   ;; ("q" fb/org-refile-hydra-q/body "" :exit t)
-  ("r" fb/org-refile-hydra-r/body "ReadTheDocs Religion Rust" :exit t)
-  ("s" fb/org-refile-hydra-s/body "Schrift Search Security Sprachen" :exit t)
-  ("t" fb/org-refile-hydra-t/body "Technology Testing Tools" :exit t)
+  ("r" fb/org-refile-hydra-r/body "ReadTheDocs Religion Rust"                                          :exit t)
+  ("s" fb/org-refile-hydra-s/body "Schrift Search Security Sprachen"                                   :exit t)
+  ("t" fb/org-refile-hydra-t/body "Technology Testing Tools"                                           :exit t)
   ;; ("u" fb/org-refile-hydra-u/body "" :exit t)
-  ("v" fb/org-refile-hydra-v/body "Virtualisierung VirtualReality" :exit t)
-  ("w" fb/org-refile-hydra-w/body "Web Welt" :exit t)
+  ("v" fb/org-refile-hydra-v/body "Virtualisierung VirtualReality"                                     :exit t)
+  ("w" fb/org-refile-hydra-w/body "Web Welt"                                                           :exit t)
   ;; ("x" fb/org-refile-hydra-x/body "" :exit t)
-  ("y" fb/org-refile-hydra-y/body "Yoga" :exit t)
-  ("z" fb/org-refile-hydra-z/body "Zukunft" :exit t)
+  ("y" fb/org-refile-hydra-y/body "Yoga"                                                               :exit t)
+  ("z" fb/org-refile-hydra-z/body "Zukunft"                                                            :exit t)
 
-  ("E" (fb/refile "AKTUELLES.org" (fb/getDayForErledigtes) ) "Erledigtes->aktueller Wochentag" :exit t)
+  ("E" (fb/refile "AKTUELLES.org" (fb*getDayForErledigtes) ) "Erledigtes->aktueller Wochentag"         :exit t)
 
-  ("0" fb/org-refile-hydra-0/body "〇" :exit t)
+  ("0" fb/org-refile-hydra-0/body "〇"                                                                 :exit t)
 
-  ("j" org-refile-goto-last-stored "Jump to last refile" :exit t)
+  ("j" org-refile-goto-last-stored "Jump to last refile"                                               :exit t)
   ("q" nil "cancel")
   )
 
 (fb/make-org-refile-hydra fb/org-refile-hydra-a
                           (
-                           ("i" . "PROJECTS/AI.org")
-                           ("l" . "PROJECTS/Archlinux.org")
-                           ("r" . "PROJECTS/Art.org")
+                           ("i" . "PROJECTS/AI.org"            )
                            ("s" . "PROJECTS/Anthroposophie.org")
-                           ("t" . "PROJECTS/Astronomy.org")
-                           )
-                          )
+                           ("l" . "PROJECTS/Archlinux.org"     )
+                           ("r" . "PROJECTS/Art.org"           )
+                           ("t" . "PROJECTS/Astronomy.org"     )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-b
                           (
                            ("r" . "PROJECTS/Berufliches.org")
-                           ("d" . "PROJECTS/BigData.org")
-                           ("s" . "PROJECTS/Browser.org")
-                           )
-                          )
+                           ("d" . "PROJECTS/BigData.org"    )
+                           ("s" . "PROJECTS/Browser.org"    )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-c
                           (
+                           ("p" . "PROJECTS/Computer.org"      )
+                           ("l" . "PROJECTS/Consoles.org"      )
                            ("c" . "PROJECTS/ContainerCloud.org")
-                           ("p" . "PROJECTS/Computer.org")
-                           ("l" . "PROJECTS/Consoles.org")
-                           ("s" . "PROJECTS/CSS.org")
-                           )
-                          )
+                           ("s" . "PROJECTS/CSS.org"           )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-d
                           (
-                           ("a" . "PROJECTS/Dart.org")
+                           ("a" . "PROJECTS/Dart.org"     )
                            ("b" . "PROJECTS/DataBases.org")
                            ("g" . "PROJECTS/Debugging.org")
-                           )
-                          )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-e
                           (
-                           ("c" . "PROJECTS/ECMA.org")
-                           ("d" . "PROJECTS/Editors.org")
-                           ("s" . "PROJECTS/emacs.org")
-                           ("m" . "PROJECTS/Embedded.org")
-                           ("g" . "PROJECTS/Energy.org")
+                           ("c" . "PROJECTS/emacs.org"    )
+                           ("d" . "PROJECTS/Editors.org"  )
+                           ("m" . "PROJECTS/Embedded.org" )
+                           ("g" . "PROJECTS/Energy.org"   )
                            ("n" . "PROJECTS/Ernährung.org")
-                           )
-                          )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-g
                           (
                            ("g" . "PROJECTS/Geographie.org")
-                           ("t" . "PROJECTS/Git.org")
-                           ("o" . "PROJECTS/Golang.org")
-                           )
-                          )
+                           ("t" . "PROJECTS/Git.org"       )
+                           ("o" . "PROJECTS/Golang.org"    )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-h
                           (
                            ("w" . "PROJECTS/Hardware.org")
                            ("h" . "PROJECTS/Haushalt.org")
-                           )
-                          )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-i
                           (
                            ("s" . "PROJECTS/Infrastructure.org")
-                           ("l" . "PROJECTS/Installation.org")
-                           ("t" . "PROJECTS/IoT.org")
-                           )
-                          )
+                           ("l" . "PROJECTS/Installation.org"  )
+                           ("t" . "PROJECTS/IoT.org"           )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-k
                           (
-                           ("s" . "PROJECTS/k8s.org")
-                           ("b" . "PROJECTS/Keyboard.org")
+                           ("s" . "PROJECTS/k8s.org"           )
+                           ("b" . "PROJECTS/Keyboard.org"      )
                            ("k" . "PROJECTS/Klassifikation.org")
-                           ("p" . "PROJECTS/Körper.org")
-                           )
-                          )
+                           ("p" . "PROJECTS/Körper.org"        )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-l
                           (
                            ("i" . "PROJECTS/Lisp.org")
-                           )
-                          )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-m
                           (
-                           ("a" . "PROJECTS/Maker.org")
-                           ("l" . "PROJECTS/MeinLeben.org")
+                           ("a" . "PROJECTS/Maker.org"     )
                            ("m" . "PROJECTS/Mathematik.org")
-                           ("o" . "PROJECTS/Mobile.org")
-                           ("u" . "PROJECTS/Music.org")
+                           ("l" . "PROJECTS/MeinLeben.org" )
+                           ("o" . "PROJECTS/Mobile.org"    )
+                           ("u" . "PROJECTS/Music.org"     )
                            )
                           )
 (fb/make-org-refile-hydra fb/org-refile-hydra-n
                           (
                            ("w" . "PROJECTS/Network.org")
-                           ("x" . "PROJECTS/NixOS.org")
-                           )
-                          )
+                           ("x" . "PROJECTS/NixOS.org"  )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-o
                           (
-                           ("m" . "PROJECTS/OrgMode.org")
                            ("s" . "PROJECTS/OperatingSystems.org")
-                           )
-                          )
+                           ("m" . "PROJECTS/OrgMode.org"         )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-p
                           (
-                           ("s" . "PROJECTS/Personal.org")
-                           ("f" . "PROJECTS/Pflanzen.org")
-                           ("l" . "PROJECTS/Planning.org")
+                           ("s" . "PROJECTS/Personal.org"   )
+                           ("f" . "PROJECTS/Pflanzen.org"   )
+                           ("l" . "PROJECTS/Planning.org"   )
                            ("g" . "PROJECTS/Programming.org")
-                           ("j" . "PROJECTS/Projects.org")
+                           ("j" . "PROJECTS/Projects.org"   )
                            ("i" . "PROJECTS/Psychologie.org")
-                           ("y" . "PROJECTS/Python.org")
-                           )
-                          )
+                           ("y" . "PROJECTS/Python.org"     )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-r
                           (
                            ("d" . "PROJECTS/ReadTheDocs.org")
-                           ("l" . "PROJECTS/Religion.org")
-                           ("u" . "PROJECTS/Rust.org")
-                           )
-                          )
+                           ("l" . "PROJECTS/Religion.org"   )
+                           ("u" . "PROJECTS/Rust.org"       )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-s
                           (
-                           ("t" . "PROJECTS/Schrift.org")
-                           ("e" . "PROJECTS/Search.org")
+                           ("t" . "PROJECTS/Schrift.org" )
+                           ("e" . "PROJECTS/Search.org"  )
                            ("c" . "PROJECTS/Security.org")
                            ("p" . "PROJECTS/Sprachen.org")
-                           )
-                          )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-t
                           (
                            ("c" . "PROJECTS/Technology.org")
-                           ("e" . "PROJECTS/Testing.org")
-                           ("o" . "PROJECTS/Tools.org")
-                           )
-                          )
+                           ("e" . "PROJECTS/Testing.org"   )
+                           ("o" . "PROJECTS/Tools.org"     )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-v
                           (
                            ("i" . "PROJECTS/Virtualisierung.org")
-                           ("r" . "PROJECTS/VirtualReality.org")
-                           )
-                          )
+                           ("r" . "PROJECTS/VirtualReality.org" )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-w
                           (
-                           ("e" . "PROJECTS/Web.org")
+                           ("e" . "PROJECTS/Web.org" )
                            ("l" . "PROJECTS/Welt.org")
-                           )
-                          )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-y
                           (
                            ("g" . "PROJECTS/Yoga.org")
-                           )
-                          )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-z
                           (
                            ("k" . "PROJECTS/Zukunft.org")
-                           )
-                          )
+                           ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-0
                           (
-                           ("1" . "〇/1  UNSORTIERTES.org")
-                           ("2" . "〇/2  IDEEN.org")
-                           ("3" . "〇/3  FRAGEN.org")
-                           ("4" . "〇/4  RECHERCHE.org")
-                           ("5" . "〇/5  BIBLIO~.org")
-                           ("6" . "〇/6  I.org")
-                           ("7" . "〇/7  ToDO.org")
-                           ("a" . "〇/7a ANSCHAFFUNGEN.org")
+                           ("1" . "〇/1  UNSORTIERTES.org"  )
+                           ("2" . "〇/2  IDEEN.org"         )
+                           ("3" . "〇/3  FRAGEN.org"        )
+                           ("4" . "〇/4  RECHERCHE.org"     )
+                           ("5" . "〇/5  BIBLIO~.org"       )
+                           ("6" . "〇/6  I.org"             )
+                           ("7" . "〇/7  ToDO.org"          )
+                           ("a" . "〇/7a ANSCHAFFUNGEN.org" )
                            ("8" . "〇/8  INSTALLATIONEN.org")
-                           ("9" . "〇/9  ROUTINEN.org")
-                           ("0" . "〇/10 ERKENNTNISSE.org")
-                           ("e" . "〇/11 ERLEDIGTES.org")
-                           )
-                          )
+                           ("9" . "〇/9  ROUTINEN.org"      )
+                           ("0" . "〇/10 ERKENNTNISSE.org"  )
+                           ("e" . "〇/11 ERLEDIGTES.org"    )
+                           ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
 ;;;;
@@ -1762,8 +1921,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (defhydra hydra-window-frame (:color red)
   "Frame"
-  ("k" make-frame "new frame")
-  ("l" delete-frame "delete frame"))
+  ("k" delete-frame "delete frame")
+  ("l" make-frame   "new frame"   ))
 
 (defhydra hydra-window-size (:color red)
   "Windows size"
@@ -2083,7 +2242,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "ab" '(balance-windows                                :which-key "balance"                          )
   "ad" '(ace-delete-window                              :which-key "ace-delete"                       )
   "af" '(aw-flip-window                                 :which-key "flip"                             )
-  "ag" '(hydra-window-frame/body                        :which-key "resize"                           )
+  "ag" '(hydra-window-frame/body                        :which-key "frame"                            )
   "ah" '(fb/aw-split-window-horz                        :which-key "split |"                          )
   "ai" '(winner-mode                                    :which-key "winner-mode"                      )
   "am" '(delete-other-windows                           :which-key "maximize"                         )
@@ -2147,6 +2306,11 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "n="  '(fb/inc-at-pt                                  :which-key "+"                                )
   "n-"  '(fb/dec-at-pt                                  :which-key "-"                                )
   "n_"  '(fb/dec-at-pt                                  :which-key "-"                                )
+
+  "o"   '(                                              :which-key "org"                              :ignore t)
+  "oa"  '(org-agenda                                    :which-key "agenda"                           )
+  "oc"  '(org-capture                                   :which-key "capture"                          )
+  "ol"  '(org-store-link                                :which-key "store-link"                       )
 
   "p"   '(projectile-command-map                        :which-key "projectile"                       )
 
