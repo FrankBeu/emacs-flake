@@ -84,6 +84,9 @@ use-package company-restclient
 #+begin_src elisp
   (kbd "M-h") #'company-box-doc-manually
 #+end_src
+*** TODO company-wordfreq
+https://github.com/johannes-mueller/company-wordfreq.el
+**** TODO create nix-package
 *** DEPRECATED company-lsp
 Comapny-lsp is no longer supported. Delete that package and lsp-mode will pick company-capf.
 https://github.com/tigersoldier/company-lsp
