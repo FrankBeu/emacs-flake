@@ -143,12 +143,15 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
 
       "c"      '(org-comment-dwim                                   :which-key "comment"          )
 
+      "l"      '(org-insert-last-stored-link                        :which-key "insert link"      )
+
       "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
 
       "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
 
       "s"      '(                                                   :which-key "subtree"          :ignore t)
       "sn"     '(org-narrow-to-subtree                              :which-key "narrow"           )
+      "so"     '(org-sort                                           :which-key "sort"             )
       "sw"     '(widen                                              :which-key "widen"            )
 
       "r"      '(fb/org-refile-hydra-grouped/body                   :which-key "refile"           )

@@ -15,6 +15,7 @@
 (defvar fb*noteFile "~/NOTES/AKTUELLES.org" "Target file for org-capture")
 #+end_src
 *** templates
+**** variable
 #+begin_src elisp
 (setq org-capture-templates '())
 #+end_src
@@ -30,122 +31,132 @@
 #+end_src
 **** AKTUELLES
 #+begin_src elisp
-  (setq aktuelles-templates '(("ak" "AKTUELLES" entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")))
+  (setq aktuelles-templates '(
+                              ("ak" "AKTUELLES"      entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")
+                              ("ad" "AKTUELLES TODO" entry (file+headline fb*noteFile "AKTUELLES") "* TODO %i%?\n")
+                              ))
   (setq org-capture-templates (append org-capture-templates aktuelles-templates))
 #+end_src
-**** PROJECTS 
+**** PROJECTS
 #+begin_src elisp
-  (setq project-templates '(
-    ("a" "AKTUELLES AI Anthroposophie Archlinux Art Astronomy")
-    ("ai" "AI"               entry (file+olp fb*noteFile "PROJECTS" "AI"               ) "* %i%?\n")
-    ("as" "Anthroposophie"   entry (file+olp fb*noteFile "PROJECTS" "Anthroposophie"   ) "* %i%?\n")
-    ("al" "Archlinux"        entry (file+olp fb*noteFile "PROJECTS" "Archlinux"        ) "* %i%?\n")
-    ("ar" "Art"              entry (file+olp fb*noteFile "PROJECTS" "Art"              ) "* %i%?\n")
-    ("at" "Astronomy"        entry (file+olp fb*noteFile "PROJECTS" "Astronomy"        ) "* %i%?\n")
-    ("b" "Berufliches BigData Browser")
-    ("br" "Berufliches"      entry (file+olp fb*noteFile "PROJECTS" "Berufliches"      ) "* %i%?\n")
-    ("bd" "BigData"          entry (file+olp fb*noteFile "PROJECTS" "BigData"          ) "* %i%?\n")
-    ("bs" "Browser"          entry (file+olp fb*noteFile "PROJECTS" "Browser"          ) "* %i%?\n")
+    (setq project-templates '(
+      ("a" "AKTUELLES AI Anthroposophie Archlinux Art Astronomy")
+      ("ai" "AI"               entry (file+olp fb*noteFile "PROJECTS" "AI"               ) "* %i%?\n")
+      ("as" "Anthroposophie"   entry (file+olp fb*noteFile "PROJECTS" "Anthroposophie"   ) "* %i%?\n")
+      ("al" "Archlinux"        entry (file+olp fb*noteFile "PROJECTS" "Archlinux"        ) "* %i%?\n")
+      ("ar" "Art"              entry (file+olp fb*noteFile "PROJECTS" "Art"              ) "* %i%?\n")
+      ("at" "Astronomy"        entry (file+olp fb*noteFile "PROJECTS" "Astronomy"        ) "* %i%?\n")
 
-    ("c" "Computer Consoles Container+Cloud CSS")
-    ("cp" "Computer"         entry (file+olp fb*noteFile "PROJECTS" "Computer"         ) "* %i%?\n")
-    ("cl" "Consoles"         entry (file+olp fb*noteFile "PROJECTS" "Consoles"         ) "* %i%?\n")
-    ("cc" "Container+Cloud"  entry (file+olp fb*noteFile "PROJECTS" "Container+Cloud"  ) "* %i%?\n")
-    ("cs" "CSS"              entry (file+olp fb*noteFile "PROJECTS" "CSS"              ) "* %i%?\n")
+      ("b" "Berufliches BigData Browser")
+      ("br" "Berufliches"      entry (file+olp fb*noteFile "PROJECTS" "Berufliches"      ) "* %i%?\n")
+      ("bd" "BigData"          entry (file+olp fb*noteFile "PROJECTS" "BigData"          ) "* %i%?\n")
+      ("bs" "Browser"          entry (file+olp fb*noteFile "PROJECTS" "Browser"          ) "* %i%?\n")
 
-    ("d" "Dart DB Debugging")
-    ("da" "Dart"             entry (file+olp fb*noteFile "PROJECTS" "Dart"             ) "* %i%?\n")
-    ("db" "DataBases"        entry (file+olp fb*noteFile "PROJECTS" "DataBases"        ) "* %i%?\n")
-    ("dg" "Debugging"        entry (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS")"* %i%?\n")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  debugging
+      ("c" "Computer Consoles Container+Cloud CSS")
+      ("cp" "Computer"         entry (file+olp fb*noteFile "PROJECTS" "Computer"         ) "* %i%?\n")
+      ("cl" "Consoles"         entry (file+olp fb*noteFile "PROJECTS" "Consoles"         ) "* %i%?\n")
+      ("cc" "Container+Cloud"  entry (file+olp fb*noteFile "PROJECTS" "Container+Cloud"  ) "* %i%?\n")
+      ("cs" "CSS"              entry (file+olp fb*noteFile "PROJECTS" "CSS"              ) "* %i%?\n")
 
-    ("e" "Editors emacs Embedded Energy Ernährung")
-    ("ec" "emacs"            entry (file+olp fb*noteFile "PROJECTS" "emacs"            ) "* %i%?\n")
-    ("ed" "Editors"          entry (file+olp fb*noteFile "PROJECTS" "Editors"          ) "* %i%?\n")
-    ("em" "embedded"         entry (file+olp fb*noteFile "PROJECTS" "embedded"         ) "* %i%?\n")
-    ("eg" "Energy"           entry (file+olp fb*noteFile "PROJECTS" "Energy"           ) "* %i%?\n")
-    ("en" "Ernährung"        entry (file+olp fb*noteFile "PROJECTS" "Ernährung"        ) "* %i%?\n")
+      ("d" "Dart DB Debugging")
+      ("da" "Dart"             entry (file+olp fb*noteFile "PROJECTS" "Dart"             ) "* %i%?\n")
+      ("db" "DataBases"        entry (file+olp fb*noteFile "PROJECTS" "DataBases"        ) "* %i%?\n")
+      ("dg" "Debugging"        entry (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS") "%i**** %^{EVENT}
+  \***** SITUATION/SETUP
+    %^{SITUATION}
+  \***** MESSAGE
+    %x
+  \***** PROBLEM / CAUSE
+    %^{PROBLEM}
+  \***** SOLUTION
+    %?
+    ")
+      ("e" "Editors emacs Embedded Energy Ernährung")
+      ("em" "emacs"            entry (file+olp fb*noteFile "PROJECTS" "emacs"            ) "* %i%?\n")
+      ("ed" "Editors"          entry (file+olp fb*noteFile "PROJECTS" "Editors"          ) "* %i%?\n")
+      ("eb" "embedded"         entry (file+olp fb*noteFile "PROJECTS" "embedded"         ) "* %i%?\n")
+      ("eg" "Energy"           entry (file+olp fb*noteFile "PROJECTS" "Energy"           ) "* %i%?\n")
+      ("en" "Ernährung"        entry (file+olp fb*noteFile "PROJECTS" "Ernährung"        ) "* %i%?\n")
 
-    ("g" "Geographie Git Golang")
-    ("gg" "Geographie"       entry (file+olp fb*noteFile "PROJECTS" "Geographie"       ) "* %i%?\n")
-    ("gt" "Git"              entry (file+olp fb*noteFile "PROJECTS" "Git"              ) "* %i%?\n")
-    ("go" "Golang"           entry (file+olp fb*noteFile "PROJECTS" "Golang"           ) "* %i%?\n")
+      ("g" "Geographie Git Golang")
+      ("gg" "Geographie"       entry (file+olp fb*noteFile "PROJECTS" "Geographie"       ) "* %i%?\n")
+      ("gt" "Git"              entry (file+olp fb*noteFile "PROJECTS" "Git"              ) "* %i%?\n")
+      ("go" "Golang"           entry (file+olp fb*noteFile "PROJECTS" "Golang"           ) "* %i%?\n")
 
-    ("h" "Hardware Haushalt")
-    ("hw" "Hardware"         entry (file+olp fb*noteFile "PROJECTS" "Hardware"         ) "* %i%?\n")
-    ("hh" "Haushalt"         entry (file+olp fb*noteFile "PROJECTS" "Haushalt"         ) "* %i%?\n")
+      ("h" "Hardware Haushalt")
+      ("hw" "Hardware"         entry (file+olp fb*noteFile "PROJECTS" "Hardware"         ) "* %i%?\n")
+      ("hh" "Haushalt"         entry (file+olp fb*noteFile "PROJECTS" "Haushalt"         ) "* %i%?\n")
 
-    ("i" "Infrastructure Installationen IoT")
-    ("is" "Infrastructure"   entry (file+olp fb*noteFile "PROJECTS" "Infrastructure"   ) "* %i%?\n")
-    ("il" "Installation"     entry (file+olp fb*noteFile "PROJECTS" "Installation"     ) "* %i%?\n")
-    ("it" "IoT"              entry (file+olp fb*noteFile "PROJECTS" "IoT"              ) "* %i%?\n")
+      ("i" "Infrastructure Installationen IoT")
+      ("is" "Infrastructure"   entry (file+olp fb*noteFile "PROJECTS" "Infrastructure"   ) "* %i%?\n")
+      ("il" "Installation"     entry (file+olp fb*noteFile "PROJECTS" "Installation"     ) "* %i%?\n")
+      ("it" "IoT"              entry (file+olp fb*noteFile "PROJECTS" "IoT"              ) "* %i%?\n")
 
-    ("k" "k8s Keyboard Klassifikation Körper")
-    ("k8" "k8s"              entry (file+olp fb*noteFile "PROJECTS" "k8s"              ) "* %i%?\n")
-    ("kb" "Keyboard"         entry (file+olp fb*noteFile "PROJECTS" "Keyboard"         ) "* %i%?\n")
-    ("kk" "Klassifikation"   entry (file+olp fb*noteFile "PROJECTS" "Klassifikation"   ) "* %i%?\n")
-    ("kp" "Körper"           entry (file+olp fb*noteFile "PROJECTS" "Körper"           ) "* %i%?\n")
+      ("k" "Keyboard Klassifikation Körper")
+      ("kb" "Keyboard"         entry (file+olp fb*noteFile "PROJECTS" "Keyboard"         ) "* %i%?\n")
+      ("kk" "Klassifikation"   entry (file+olp fb*noteFile "PROJECTS" "Klassifikation"   ) "* %i%?\n")
+      ("kp" "Körper"           entry (file+olp fb*noteFile "PROJECTS" "Körper"           ) "* %i%?\n")
 
-    ("l" "Lisp")
-    ("li" "Lisp"             entry (file+olp fb*noteFile "PROJECTS" "Lisp"             ) "* %i%?\n")
+      ("l" "Lisp")
+      ("li" "Lisp"             entry (file+olp fb*noteFile "PROJECTS" "Lisp"             ) "* %i%?\n")
 
-    ("m" "Maker Mathematik MeinLeben Mobile Music")
-    ("ma" "Maker"            entry (file+olp fb*noteFile "PROJECTS" "Maker"            ) "* %i%?\n")
-    ("mm" "Mathematik"       entry (file+olp fb*noteFile "PROJECTS" "Mathematik"       ) "* %i%?\n")
-    ("ml" "MeinLeben"        entry (file+olp fb*noteFile "PROJECTS" "MeinLeben"        ) "* %i%?\n")
-    ("mo" "Mobile"           entry (file+olp fb*noteFile "PROJECTS" "Mobile"           ) "* %i%?\n")
-    ("mu" "Music"            entry (file+olp fb*noteFile "PROJECTS" "Music"            ) "* %i%?\n")
+      ("m" "Maker Mathematik MeinLeben Mobile Music")
+      ("ma" "Maker"            entry (file+olp fb*noteFile "PROJECTS" "Maker"            ) "* %i%?\n")
+      ("mm" "Mathematik"       entry (file+olp fb*noteFile "PROJECTS" "Mathematik"       ) "* %i%?\n")
+      ("ml" "MeinLeben"        entry (file+olp fb*noteFile "PROJECTS" "MeinLeben"        ) "* %i%?\n")
+      ("mb" "Mobile"           entry (file+olp fb*noteFile "PROJECTS" "Mobile"           ) "* %i%?\n")
+      ("mu" "Music"            entry (file+olp fb*noteFile "PROJECTS" "Music"            ) "* %i%?\n")
 
-    ("n" "Network NixOS")
-    ("nw" "Network"          entry (file+olp fb*noteFile "PROJECTS" "Network"          ) "* %i%?\n")
-    ("nx" "NixOS"            entry (file+olp fb*noteFile "PROJECTS" "NixOS"            ) "* %i%?\n")
+      ("n" "Network NixOS")
+      ("nw" "Network"          entry (file+olp fb*noteFile "PROJECTS" "Network"          ) "* %i%?\n")
+      ("nx" "NixOS"            entry (file+olp fb*noteFile "PROJECTS" "NixOS"            ) "* %i%?\n")
 
-    ("o" "OperatingSystems OrgMode")
-    ("os" "OperatingSystems" entry (file+olp fb*noteFile "PROJECTS" "OperatingSystems" ) "* %i%?\n")
-    ("om" "OrgMode"          entry (file+olp fb*noteFile "PROJECTS" "OrgMode"          ) "* %i%?\n")
+      ("o" "OperatingSystems OrgMode")
+      ("os" "OperatingSystems" entry (file+olp fb*noteFile "PROJECTS" "OperatingSystems" ) "* %i%?\n")
+      ("om" "OrgMode"          entry (file+olp fb*noteFile "PROJECTS" "OrgMode"          ) "* %i%?\n")
 
-    ("p" "Personal Pflanzen Planning Programming Projects Psychologie Python")
-    ("ps" "Personal"         entry (file+olp fb*noteFile "PROJECTS" "Personal"         ) "* %i%?\n")
-    ("pf" "Pflanzen"         entry (file+olp fb*noteFile "PROJECTS" "Pflanzen"         ) "* %i%?\n")
-    ("pl" "Planning"         entry (file+olp fb*noteFile "PROJECTS" "Planning"         ) "* %i%?\n")
-    ("pg" "Programming"      entry (file+olp fb*noteFile "PROJECTS" "Programming"      ) "* %i%?\n")
-    ("pj" "Projects"         entry (file+olp fb*noteFile "PROJECTS" "Projects"         ) "* %i%?\n")
-    ("pi" "Psychologie"      entry (file+olp fb*noteFile "PROJECTS" "Psychologie"      ) "* %i%?\n")
-    ("py" "Python"           entry (file+olp fb*noteFile "PROJECTS" "Python"           ) "* %i%?\n")
+      ("p" "Personal Pflanzen Planning Programming Projects Psychologie Python")
+      ("ps" "Personal"         entry (file+olp fb*noteFile "PROJECTS" "Personal"         ) "* %i%?\n")
+      ("pf" "Pflanzen"         entry (file+olp fb*noteFile "PROJECTS" "Pflanzen"         ) "* %i%?\n")
+      ("pl" "Planning"         entry (file+olp fb*noteFile "PROJECTS" "Planning"         ) "* %i%?\n")
+      ("pg" "Programming"      entry (file+olp fb*noteFile "PROJECTS" "Programming"      ) "* %i%?\n")
+      ("pj" "Projects"         entry (file+olp fb*noteFile "PROJECTS" "Projects"         ) "* %i%?\n")
+      ("pi" "Psychologie"      entry (file+olp fb*noteFile "PROJECTS" "Psychologie"      ) "* %i%?\n")
+      ("py" "Python"           entry (file+olp fb*noteFile "PROJECTS" "Python"           ) "* %i%?\n")
 
-    ("r" "ReadTheDocs Religion Rust")
-    ("rd" "ReadTheDocs"      entry (file+olp fb*noteFile "PROJECTS" "ReadTheDocs"      ) "* %i%?\n")
-    ("rl" "Religion"         entry (file+olp fb*noteFile "PROJECTS" "Religion"         ) "* %i%?\n")
-    ("ru" "Rust"             entry (file+olp fb*noteFile "PROJECTS" "Rust"             ) "* %i%?\n")
+      ("r" "ReadTheDocs Religion Rust")
+      ("rd" "ReadTheDocs"      entry (file+olp fb*noteFile "PROJECTS" "ReadTheDocs"      ) "* %i%?\n")
+      ("rl" "Religion"         entry (file+olp fb*noteFile "PROJECTS" "Religion"         ) "* %i%?\n")
+      ("ru" "Rust"             entry (file+olp fb*noteFile "PROJECTS" "Rust"             ) "* %i%?\n")
 
-    ("s" "Schrift Search Security Sprachen")
-    ("st" "Schrift"          entry (file+olp fb*noteFile "PROJECTS" "Schrift"          ) "* %i%?\n")
-    ("se" "Search"           entry (file+olp fb*noteFile "PROJECTS" "Search"           ) "* %i%?\n")
-    ("sc" "Security"         entry (file+olp fb*noteFile "PROJECTS" "Security"         ) "* %i%?\n")
-    ("sp" "Sprachen"         entry (file+olp fb*noteFile "PROJECTS" "Sprachen"         ) "* %i%?\n")
+      ("s" "Schrift Search Security Sprachen")
+      ("st" "Schrift"          entry (file+olp fb*noteFile "PROJECTS" "Schrift"          ) "* %i%?\n")
+      ("se" "Search"           entry (file+olp fb*noteFile "PROJECTS" "Search"           ) "* %i%?\n")
+      ("sc" "Security"         entry (file+olp fb*noteFile "PROJECTS" "Security"         ) "* %i%?\n")
+      ("sp" "Sprachen"         entry (file+olp fb*noteFile "PROJECTS" "Sprachen"         ) "* %i%?\n")
 
-    ("t" "Technology Testing Tools")
-    ("tc" "Technology"       entry (file+olp fb*noteFile "PROJECTS" "Technology"       ) "* %i%?\n")
-    ("te" "Testing"          entry (file+olp fb*noteFile "PROJECTS" "Testing"          ) "* %i%?\n")
-    ("to" "Tools"            entry (file+olp fb*noteFile "PROJECTS" "Tools"            ) "* %i%?\n")
+      ("t" "Technology Testing Tools")
+      ("tc" "Technology"       entry (file+olp fb*noteFile "PROJECTS" "Technology"       ) "* %i%?\n")
+      ("te" "Testing"          entry (file+olp fb*noteFile "PROJECTS" "Testing"          ) "* %i%?\n")
+      ("to" "Tools"            entry (file+olp fb*noteFile "PROJECTS" "Tools"            ) "* %i%?\n")
 
-    ("v" "Virtualisierung VirtualReality")
-    ("vi" "Virtualisierung"  entry (file+olp fb*noteFile "PROJECTS" "Virtualisierung"  ) "* %i%?\n")
-    ("vr" "VirtualReality"   entry (file+olp fb*noteFile "PROJECTS" "VirtualReality"   ) "* %i%?\n")
+      ("v" "Virtualisierung VirtualReality")
+      ("vi" "Virtualisierung"  entry (file+olp fb*noteFile "PROJECTS" "Virtualisierung"  ) "* %i%?\n")
+      ("vr" "VirtualReality"   entry (file+olp fb*noteFile "PROJECTS" "VirtualReality"   ) "* %i%?\n")
 
-    ("w" "Web Welt")
-    ("we" "Web"              entry (file+olp fb*noteFile "PROJECTS" "Web"              ) "* %i%?\n")
-    ("wl" "Welt"             entry (file+olp fb*noteFile "PROJECTS" "Welt"             ) "* %i%?\n")
+      ("w" "Web Welt")
+      ("we" "Web"              entry (file+olp fb*noteFile "PROJECTS" "Web"              ) "* %i%?\n")
+      ("wl" "Welt"             entry (file+olp fb*noteFile "PROJECTS" "Welt"             ) "* %i%?\n")
 
-    ("y" "Yoga")
-    ("yg" "Yoga"             entry (file+olp fb*noteFile "PROJECTS" "Yoga"             ) "* %i%?\n")
+      ("y" "Yoga")
+      ("yg" "Yoga"             entry (file+olp fb*noteFile "PROJECTS" "Yoga"             ) "* %i%?\n")
 
-    ("z" "Zukunft")
-    ("zk" "Zukunft"          entry (file+olp fb*noteFile "PROJECTS" "Zukunft"          ) "* %i%?\n")
-    ))
-    (setq org-capture-templates (append org-capture-templates project-templates))
+      ("z" "Zukunft")
+      ("zk" "Zukunft"          entry (file+olp fb*noteFile "PROJECTS" "Zukunft"          ) "* %i%?\n")
+      ))
+      (setq org-capture-templates (append org-capture-templates project-templates))
 #+end_src
-**** CURRENT-ITEM-CLOCKED-IN 
+**** CURRENT-ITEM-CLOCKED-IN
 #+begin_src elisp
   (setq clock-template '(("ck" "clock" entry (clock) "* %i%?\n")))
   (setq org-capture-templates (append org-capture-templates clock-template))
@@ -168,7 +179,7 @@
     ))
     (setq org-capture-templates (append org-capture-templates 〇-templates))
 #+end_src
-**** TODO FUNDUS 
+**** TODO FUNDUS
 :LOGBOOK:
 - State "TODO"       from              [2021-02-04 Thu 10:46]
 :END:
@@ -186,14 +197,6 @@
                               ;; (file+olp "~/Downloads/NOTES/test.org" "AKTUELLES")
                               ;; "* %i%? \n")
 
-;;;; AKTUELLES
-                              ;; ("ak" "AKTUELLES" entry
-                              ;; (file+olp fb*noteFile "AKTUELLES")
-                              ;; "* %i%? \n")
-                              ;; ("A" "AKTUELLES" entry
-                              ;; (file+olp fb*noteFile "AKTUELLES")
-                              ;; "* TODO %i%? \n")
-
 ;;;; org-protocol
 ;;;; web-Snippets
                               ;; ("W" "Web site" entry
@@ -203,19 +206,4 @@
                               ;; (file fb*noteFile )
                               ;; "* %c :website:\n%U\n%:initial\n%?")
                               ;; "* %a :website:\n\n%U %?\n\n%:initial")
-
 #+end_src
-* TODO debugging: as is 
-                              ("dg" "Debugging" entry
-                               (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS")
-                               "%i**** %^{EVENT}
-***** SITUATION/SETUP
-%?
-***** MESSAGE
-
-***** PROBLEM / CAUSE
-
-***** SOLUTION
-
-#
-")

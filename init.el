@@ -837,6 +837,123 @@ byte-compiled from.")
       (message (kill-new (abbreviate-file-name filename)))
     (error "Couldn't find filename in current buffer")))
 
+;; modified function from http://emacswiki.org/emacs/AlignCommands
+(defun spacemacs/align-repeat (start end regexp &optional justify-right after)
+  "Repeat alignment with respect to the given regular expression.
+If JUSTIFY-RIGHT is non nil justify to the right instead of the
+left. If AFTER is non-nil, add whitespace to the left instead of
+the right."
+  (interactive "r\nsAlign regexp: ")
+  (let* ((ws-regexp (if (string-empty-p regexp)
+                        "\\(\\s-+\\)"
+                      "\\(\\s-*\\)"))
+         (complete-regexp (if after
+                              (concat regexp ws-regexp)
+                            (concat ws-regexp regexp)))
+         (group (if justify-right -1 1)))
+
+    (unless (use-region-p)
+      (save-excursion
+        (while (and
+                (string-match-p complete-regexp (thing-at-point 'line))
+                (= 0 (forward-line -1)))
+          (setq start (point-at-bol))))
+      (save-excursion
+        (while (and
+                (string-match-p complete-regexp (thing-at-point 'line))
+                (= 0 (forward-line 1)))
+          (setq end (point-at-eol)))))
+
+    (align-regexp start end complete-regexp group 1 t)))
+
+;; Modified answer from http://emacs.stackexchange.com/questions/47/align-vertical-columns-of-numbers-on-the-decimal-point
+(defun spacemacs/align-repeat-decimal (start end)
+  "Align a table of numbers on decimal points and dollar signs (both optional)"
+  (interactive "r")
+  (require 'align)
+  (align-region start end nil
+                '((nil (regexp . "\\([\t ]*\\)\\$?\\([\t ]+[0-9]+\\)\\.?")
+                       (repeat . t)
+                       (group 1 2)
+                       (spacing 1 1)
+                       (justify nil t)))
+                nil))
+
+(defmacro spacemacs|create-align-repeat-x (name regexp &optional justify-right default-after)
+  (let* ((new-func (intern (concat "spacemacs/align-repeat-" name)))
+         (new-func-defn
+          `(defun ,new-func (start end switch)
+             (interactive "r\nP")
+             (let ((after (not (eq (if switch t nil) (if ,default-after t nil)))))
+               (spacemacs/align-repeat start end ,regexp ,justify-right after)))))
+    (put new-func 'function-documentation "Created by `spacemacs|create-align-repeat-x'.")
+    new-func-defn))
+
+(spacemacs|create-align-repeat-x "comma"              ","        nil  t )
+(spacemacs|create-align-repeat-x "semicolon"          ";"        nil  t )
+(spacemacs|create-align-repeat-x "colon"              ":"        nil  t )
+(spacemacs|create-align-repeat-x "equal"              "="               )
+(spacemacs|create-align-repeat-x "math-oper"          "[+\\-*/]"        )
+(spacemacs|create-align-repeat-x "percent"            "%"               )
+(spacemacs|create-align-repeat-x "ampersand"          "&"               )
+(spacemacs|create-align-repeat-x "bar"                "|"               )
+(spacemacs|create-align-repeat-x "left-paren"         "("               )
+(spacemacs|create-align-repeat-x "right-paren"        ")"             t )
+(spacemacs|create-align-repeat-x "left-curly-brace"   "{"               )
+(spacemacs|create-align-repeat-x "right-curly-brace"  "}"             t )
+(spacemacs|create-align-repeat-x "left-square-brace"  "\\["             )
+(spacemacs|create-align-repeat-x "right-square-brace" "\\]"           t )
+(spacemacs|create-align-repeat-x "backslash"          "\\\\"            )
+
+(defun spacemacs/uniquify-lines ()
+  "Remove duplicate adjacent lines in a region or the current buffer"
+  (interactive)
+  (save-excursion
+    (save-restriction
+      (let* ((region-active (or (region-active-p) (evil-visual-state-p)))
+             (beg (if region-active (region-beginning) (point-min)))
+             (end (if region-active (region-end) (point-max))))
+        (goto-char beg)
+        (while (re-search-forward "^\\(.*\n\\)\\1+" end t)
+          (replace-match "\\1"))))))
+
+(defun spacemacs/sort-lines (&optional reverse)
+  "Sort lines in a region or the current buffer.
+A non-nil argument sorts in reverse order."
+  (interactive "P")
+  (let* ((region-active (or (region-active-p) (evil-visual-state-p)))
+         (beg (if region-active (region-beginning) (point-min)))
+         (end (if region-active (region-end) (point-max))))
+    (sort-lines reverse beg end)))
+
+(defun spacemacs/sort-lines-reverse ()
+  "Sort lines in reverse order, in a region or the current buffer."
+  (interactive)
+  (spacemacs/sort-lines -1))
+
+(defun spacemacs/sort-lines-by-column (&optional reverse)
+  "Sort lines by the selected column,
+using a visual block/rectangle selection.
+A non-nil argument sorts in REVERSE order."
+  (interactive "P")
+  (if (and
+       ;; is there an active selection
+       (or (region-active-p) (evil-visual-state-p))
+       ;; is it a block or rectangle selection
+       (or (eq evil-visual-selection 'block) (eq rectangle-mark-mode t))
+       ;; is the selection height 2 or more lines
+       (>= (1+ (- (line-number-at-pos (region-end))
+                  (line-number-at-pos (region-beginning)))) 2))
+      (sort-columns reverse (region-beginning) (region-end))
+    (error
+     "Sorting by column requires a block/rect selection on 2 or more lines.")))
+
+(defun spacemacs/sort-lines-by-column-reverse ()
+  "Sort lines by the selected column in reverse order,
+using a visual block/rectangle selection."
+  (interactive)
+  (spacemacs/sort-lines-by-column -1))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-commands
 ;;;;
 ;;
@@ -1201,7 +1318,10 @@ an argument, unconditionally call `org-insert-SUBheading'."
   ))
   (push template org-capture-templates))
 
-(setq aktuelles-templates '(("ak" "AKTUELLES" entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")))
+(setq aktuelles-templates '(
+                            ("ak" "AKTUELLES"      entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")
+                            ("ad" "AKTUELLES TODO" entry (file+headline fb*noteFile "AKTUELLES") "* TODO %i%?\n")
+                            ))
 (setq org-capture-templates (append org-capture-templates aktuelles-templates))
 
 (setq project-templates '(
@@ -1211,6 +1331,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
     ("al" "Archlinux"        entry (file+olp fb*noteFile "PROJECTS" "Archlinux"        ) "* %i%?\n")
     ("ar" "Art"              entry (file+olp fb*noteFile "PROJECTS" "Art"              ) "* %i%?\n")
     ("at" "Astronomy"        entry (file+olp fb*noteFile "PROJECTS" "Astronomy"        ) "* %i%?\n")
+
     ("b" "Berufliches BigData Browser")
     ("br" "Berufliches"      entry (file+olp fb*noteFile "PROJECTS" "Berufliches"      ) "* %i%?\n")
     ("bd" "BigData"          entry (file+olp fb*noteFile "PROJECTS" "BigData"          ) "* %i%?\n")
@@ -1225,13 +1346,20 @@ an argument, unconditionally call `org-insert-SUBheading'."
     ("d" "Dart DB Debugging")
     ("da" "Dart"             entry (file+olp fb*noteFile "PROJECTS" "Dart"             ) "* %i%?\n")
     ("db" "DataBases"        entry (file+olp fb*noteFile "PROJECTS" "DataBases"        ) "* %i%?\n")
-    ("dg" "Debugging"        entry (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS")"* %i%?\n")
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;  debugging
-
+    ("dg" "Debugging"        entry (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS") "%i**** %^{EVENT}
+\***** SITUATION/SETUP
+  %^{SITUATION}
+\***** MESSAGE
+  %x
+\***** PROBLEM / CAUSE
+  %^{PROBLEM}
+\***** SOLUTION
+  %?
+  ")
     ("e" "Editors emacs Embedded Energy Ernährung")
-    ("ec" "emacs"            entry (file+olp fb*noteFile "PROJECTS" "emacs"            ) "* %i%?\n")
+    ("em" "emacs"            entry (file+olp fb*noteFile "PROJECTS" "emacs"            ) "* %i%?\n")
     ("ed" "Editors"          entry (file+olp fb*noteFile "PROJECTS" "Editors"          ) "* %i%?\n")
-    ("em" "embedded"         entry (file+olp fb*noteFile "PROJECTS" "embedded"         ) "* %i%?\n")
+    ("eb" "embedded"         entry (file+olp fb*noteFile "PROJECTS" "embedded"         ) "* %i%?\n")
     ("eg" "Energy"           entry (file+olp fb*noteFile "PROJECTS" "Energy"           ) "* %i%?\n")
     ("en" "Ernährung"        entry (file+olp fb*noteFile "PROJECTS" "Ernährung"        ) "* %i%?\n")
 
@@ -1249,8 +1377,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
     ("il" "Installation"     entry (file+olp fb*noteFile "PROJECTS" "Installation"     ) "* %i%?\n")
     ("it" "IoT"              entry (file+olp fb*noteFile "PROJECTS" "IoT"              ) "* %i%?\n")
 
-    ("k" "k8s Keyboard Klassifikation Körper")
-    ("k8" "k8s"              entry (file+olp fb*noteFile "PROJECTS" "k8s"              ) "* %i%?\n")
+    ("k" "Keyboard Klassifikation Körper")
     ("kb" "Keyboard"         entry (file+olp fb*noteFile "PROJECTS" "Keyboard"         ) "* %i%?\n")
     ("kk" "Klassifikation"   entry (file+olp fb*noteFile "PROJECTS" "Klassifikation"   ) "* %i%?\n")
     ("kp" "Körper"           entry (file+olp fb*noteFile "PROJECTS" "Körper"           ) "* %i%?\n")
@@ -1262,7 +1389,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
     ("ma" "Maker"            entry (file+olp fb*noteFile "PROJECTS" "Maker"            ) "* %i%?\n")
     ("mm" "Mathematik"       entry (file+olp fb*noteFile "PROJECTS" "Mathematik"       ) "* %i%?\n")
     ("ml" "MeinLeben"        entry (file+olp fb*noteFile "PROJECTS" "MeinLeben"        ) "* %i%?\n")
-    ("mo" "Mobile"           entry (file+olp fb*noteFile "PROJECTS" "Mobile"           ) "* %i%?\n")
+    ("mb" "Mobile"           entry (file+olp fb*noteFile "PROJECTS" "Mobile"           ) "* %i%?\n")
     ("mu" "Music"            entry (file+olp fb*noteFile "PROJECTS" "Music"            ) "* %i%?\n")
 
     ("n" "Network NixOS")
@@ -1346,14 +1473,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
                               ;; (file+olp "~/Downloads/NOTES/test.org" "AKTUELLES")
                               ;; "* %i%? \n")
 
-;;;; AKTUELLES
-                              ;; ("ak" "AKTUELLES" entry
-                              ;; (file+olp fb*noteFile "AKTUELLES")
-                              ;; "* %i%? \n")
-                              ;; ("A" "AKTUELLES" entry
-                              ;; (file+olp fb*noteFile "AKTUELLES")
-                              ;; "* TODO %i%? \n")
-
 ;;;; org-protocol
 ;;;; web-Snippets
                               ;; ("W" "Web site" entry
@@ -1373,9 +1492,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
   `(defhydra ,hydraname (:color blue :columns 6) "org-Refile-Hydra"
      ,@(cl-loop for kv in keyAndHeadline
                 collect (list (car kv) (list 'fb/refile (cdr kv)) (f-base(cdr kv))))
-     ;; (when (string= hydraname "org-refile-hydra")
-     ;; ("j" org-refile-goto-last-stored "Jump to last refile")
-     ;; )
      ("q" nil "cancel"))
   )
 
@@ -1412,7 +1528,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
   ("h" fb/org-refile-hydra-h/body "Hardware Haushalt"                                                  :exit t)
   ("i" fb/org-refile-hydra-i/body "Infrastructure Installationen IoT"                                  :exit t)
   ;; ("j" fb/org-refile-hydra-j/body "" :exit t)
-  ("k" fb/org-refile-hydra-k/body "k8s Keyboard Klassifikation Körper"                                 :exit t)
+  ("k" fb/org-refile-hydra-k/body "Keyboard Klassifikation Körper"                                     :exit t)
   ("l" fb/org-refile-hydra-l/body "Lisp"                                                               :exit t)
   ("m" fb/org-refile-hydra-m/body "Maker Mathematik MeinLeben Mobile Music"                            :exit t)
   ("n" fb/org-refile-hydra-n/body "Network NixOS"                                                      :exit t)
@@ -1466,9 +1582,9 @@ an argument, unconditionally call `org-insert-SUBheading'."
                            ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-e
                           (
-                           ("c" . "PROJECTS/emacs.org"    )
+                           ("m" . "PROJECTS/emacs.org"    )
                            ("d" . "PROJECTS/Editors.org"  )
-                           ("m" . "PROJECTS/Embedded.org" )
+                           ("b" . "PROJECTS/Embedded.org" )
                            ("g" . "PROJECTS/Energy.org"   )
                            ("n" . "PROJECTS/Ernährung.org")
                            ))
@@ -1491,7 +1607,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
                            ))
 (fb/make-org-refile-hydra fb/org-refile-hydra-k
                           (
-                           ("s" . "PROJECTS/k8s.org"           )
                            ("b" . "PROJECTS/Keyboard.org"      )
                            ("k" . "PROJECTS/Klassifikation.org")
                            ("p" . "PROJECTS/Körper.org"        )
@@ -1505,7 +1620,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
                            ("a" . "PROJECTS/Maker.org"     )
                            ("m" . "PROJECTS/Mathematik.org")
                            ("l" . "PROJECTS/MeinLeben.org" )
-                           ("o" . "PROJECTS/Mobile.org"    )
+                           ("b" . "PROJECTS/Mobile.org"    )
                            ("u" . "PROJECTS/Music.org"     )
                            )
                           )
@@ -1870,7 +1985,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
       evil-insert-state-cursor  `((bar . 3) ,(fb*getDefaultColorValue :magenta))
       evil-motion-state-cursor  `( box      ,(fb*getDefaultColorValue :base5  ))
       evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :violet ))
-      evil-replace-state-cursor `((bar . 3) ,(fb*getDefaultColorValue :red    ))
+      evil-replace-state-cursor `( box      ,(fb*getDefaultColorValue :red    ))
       evil-visual-state-cursor  `( box      ,(fb*getDefaultColorValue :yellow )))
       ;; evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :green  ))
 
@@ -2237,115 +2352,176 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (fb/leader-key
 
-  "a"  '(                                               :which-key "ace"                              :ignore t)
-  "aa" '(aw-show-dispatch-help                          :which-key "ace-window"                       )
-  "ab" '(balance-windows                                :which-key "balance"                          )
-  "ad" '(ace-delete-window                              :which-key "ace-delete"                       )
-  "af" '(aw-flip-window                                 :which-key "flip"                             )
-  "ag" '(hydra-window-frame/body                        :which-key "frame"                            )
-  "ah" '(fb/aw-split-window-horz                        :which-key "split |"                          )
-  "ai" '(winner-mode                                    :which-key "winner-mode"                      )
-  "am" '(delete-other-windows                           :which-key "maximize"                         )
-  "ao" '(hydra-window-scroll/body                       :which-key "scroll"                           )
-  "ap" '(ace-swap-window                                :which-key "ace-swap"                         )
-  "ar" '(fb/winner-redo                                 :which-key "winner-redo"                      )
-  "as" '(ace-select-window                              :which-key "ace-select"                       )
-  "au" '(fb/winner-undo                                 :which-key "winner-undo"                      )
-  "av" '(fb/aw-split-window-vert                        :which-key "split -"                          )
-  "aw" '(hydra-window-size/body                         :which-key "resize"                           )
-  "ax" '(ace-delete-other-windows                       :which-key "ace-delete-other"                 )
+  "a"  '(                                                            :which-key "ace"                              :ignore t)
+  "aa" '(aw-show-dispatch-help                                       :which-key "ace-window"                       )
+  "ab" '(balance-windows                                             :which-key "balance"                          )
+  "ad" '(ace-delete-window                                           :which-key "ace-delete"                       )
+  "af" '(aw-flip-window                                              :which-key "flip"                             )
+  "ag" '(hydra-window-frame/body                                     :which-key "frame"                            )
+  "ah" '(fb/aw-split-window-horz                                     :which-key "split |"                          )
+  "ai" '(winner-mode                                                 :which-key "winner-mode"                      )
+  "am" '(delete-other-windows                                        :which-key "maximize"                         )
+  "ao" '(hydra-window-scroll/body                                    :which-key "scroll"                           )
+  "ap" '(ace-swap-window                                             :which-key "ace-swap"                         )
+  "ar" '(fb/winner-redo                                              :which-key "winner-redo"                      )
+  "as" '(ace-select-window                                           :which-key "ace-select"                       )
+  "au" '(fb/winner-undo                                              :which-key "winner-undo"                      )
+  "av" '(fb/aw-split-window-vert                                     :which-key "split -"                          )
+  "aw" '(hydra-window-size/body                                      :which-key "resize"                           )
+  "ax" '(ace-delete-other-windows                                    :which-key "ace-delete-other"                 )
 
-  "c"   '(                                              :which-key "comment"                          :ignore t)
-  "cc"  '(evilnc-comment-operator                       :which-key "cmnt-operator"                    )
-  "ci"  '(evilnc-toggle-invert-comment-line-by-line     :which-key "toggle-invert-cmnt-line-by-line"  )
-  "cl"  '(evilnc-comment-or-uncomment-lines             :which-key "cmmnt-or-uncmnt-lines"            )
-  "cp"  '(evilnc-comment-or-uncomment-paragraphs        :which-key "cmmnt-or-uncmnt-paragraphs"       )
-  "cr"  '(comment-or-uncomment-region                   :which-key "cmmnt-or-uncmnt-region"           )
-  "ct"  '(evilnc-quick-comment-or-uncomment-to-the-line :which-key "quick-cmmnt-or-uncmnt-to-the-line")
-  "cy"  '(evilnc-copy-and-comment-lines                 :which-key "cp-and-cmnt-lines"                )
+  "c"   '(                                                           :which-key "comment"                          :ignore t)
+  "cc"  '(evilnc-comment-operator                                    :which-key "cmnt-operator"                    )
+  "ci"  '(evilnc-toggle-invert-comment-line-by-line                  :which-key "toggle-invert-cmnt-line-by-line"  )
+  "cl"  '(evilnc-comment-or-uncomment-lines                          :which-key "cmmnt-or-uncmnt-lines"            )
+  "cp"  '(evilnc-comment-or-uncomment-paragraphs                     :which-key "cmmnt-or-uncmnt-paragraphs"       )
+  "cr"  '(comment-or-uncomment-region                                :which-key "cmmnt-or-uncmnt-region"           )
+  "ct"  '(evilnc-quick-comment-or-uncomment-to-the-line              :which-key "quick-cmmnt-or-uncmnt-to-the-line")
+  "cy"  '(evilnc-copy-and-comment-lines                              :which-key "cp-and-cmnt-lines"                )
 
-  "C"   '(                                              :which-key "command-log-mode"                 :ignore t)
-  "CC"  '(command-log-mode                              :which-key "toggle-local"                     )
-  "CB"  '(clm/open-command-log-buffer                   :which-key "show-clm-buffer"                  )
-  "CG"  '(global-command-log-mode                       :which-key "toggle-global"                    )
+  "C"   '(                                                           :which-key "command-log-mode"                 :ignore t)
+  "CC"  '(command-log-mode                                           :which-key "toggle-local"                     )
+  "CB"  '(clm/open-command-log-buffer                                :which-key "show-clm-buffer"                  )
+  "CG"  '(global-command-log-mode                                    :which-key "toggle-global"                    )
 
-  "d"   '(                                              :which-key "delete"                           :ignore t)
-  "dw"  '(delete-trailing-whitespace                    :which-key "trailing-wsp"                     )
+  "d"   '(                                                           :which-key "delete"                           :ignore t)
+  "dw"  '(delete-trailing-whitespace                                 :which-key "trailing-wsp"                     )
 
-  "f"   '(                                              :which-key "fast/file"                        :ignore t)
-  "fy"  '(fb/yank-buffer-filename                       :which-key "files"                            )
-  "ff"  '(counsel-find-file                             :which-key "files"                            )
-  "fs"  '(save-buffer                                   :which-key "save-buffer"                      )
-  "fS"  '(save-some-buffers                             :which-key "save-some-buffer"                 )
+  "f"   '(                                                           :which-key "fast/file"                        :ignore t)
+  "fy"  '(fb/yank-buffer-filename                                    :which-key "yank-name"                        )
+  "ff"  '(counsel-find-file                                          :which-key "find"                             )
+  "fs"  '(save-buffer                                                :which-key "save-buffer"                      )
+  "fS"  '(save-some-buffers                                          :which-key "save-some-buffer"                 )
 
-  "g"   '(                                              :which-key "git"                              :ignore t)
-  "gs"  '(magit-status                                  :which-key "status"                           )
+  "g"   '(                                                           :which-key "git"                              :ignore t)
+  "gs"  '(magit-status                                               :which-key "status"                           )
 
-  "i"   '(                                              :which-key "imenu"                            :ignore t)
-  "ii"  '(imenu-list                                    :which-key "imenulist"                        )
+  "i"   '(                                                           :which-key "imenu"                            :ignore t)
+  "ii"  '(imenu-list                                                 :which-key "imenulist"                        )
 
-  "j"   '(dired-jump                                    :which-key "dired"                            )
+  "j"   '(dired-jump                                                 :which-key "dired"                            )
 
-  "L"   '(lsp                                           :which-key "start lsp"                        )
-  "l"   '(:keymap lsp-command-map :package lsp-mode     :which-key "lsp"                              )
-  "li"  '(                                              :which-key "ivy/imenu"                        :ignore t)
-  "lt"  '(                                              :which-key "treemacs"                         :ignore t)
+  "L"   '(lsp                                                        :which-key "start lsp"                        )
+  "l"   '(:keymap lsp-command-map :package lsp-mode                  :which-key "lsp"                              )
+  "li"  '(                                                           :which-key "ivy/imenu"                        :ignore t)
+  "lt"  '(                                                           :which-key "treemacs"                         :ignore t)
 
-  "l="  '(                                              :which-key "formatting"                       :ignore t)
-  "la"  '(                                              :which-key "code actions"                     :ignore t)
-  "lF"  '(                                              :which-key "folders"                          :ignore t)
-  "lG"  '(                                              :which-key "peek"                             :ignore t)
-  "lg"  '(                                              :which-key "goto"                             :ignore t)
-  "lh"  '(                                              :which-key "help"                             :ignore t)
-  "lr"  '(                                              :which-key "refactor"                         :ignore t)
-  "ls"  '(                                              :which-key "sessions"                         :ignore t)
-  "lT"  '(                                              :which-key "toggle"                           :ignore t)
+  "l="  '(                                                           :which-key "formatting"                       :ignore t)
+  "la"  '(                                                           :which-key "code actions"                     :ignore t)
+  "lF"  '(                                                           :which-key "folders"                          :ignore t)
+  "lG"  '(                                                           :which-key "peek"                             :ignore t)
+  "lg"  '(                                                           :which-key "goto"                             :ignore t)
+  "lh"  '(                                                           :which-key "help"                             :ignore t)
+  "lr"  '(                                                           :which-key "refactor"                         :ignore t)
+  "ls"  '(                                                           :which-key "sessions"                         :ignore t)
+  "lT"  '(                                                           :which-key "toggle"                           :ignore t)
 
-  "n"   '(                                              :which-key "numbers"                          :ignore t)
-  "n+"  '(fb/inc-at-pt                                  :which-key "+"                                )
-  "n="  '(fb/inc-at-pt                                  :which-key "+"                                )
-  "n-"  '(fb/dec-at-pt                                  :which-key "-"                                )
-  "n_"  '(fb/dec-at-pt                                  :which-key "-"                                )
+  "n"   '(                                                           :which-key "numbers"                          :ignore t)
+  "n+"  '(fb/inc-at-pt                                               :which-key "+"                                )
+  "n="  '(fb/inc-at-pt                                               :which-key "+"                                )
+  "n-"  '(fb/dec-at-pt                                               :which-key "-"                                )
+  "n_"  '(fb/dec-at-pt                                               :which-key "-"                                )
 
-  "o"   '(                                              :which-key "org"                              :ignore t)
-  "oa"  '(org-agenda                                    :which-key "agenda"                           )
-  "oc"  '(org-capture                                   :which-key "capture"                          )
-  "ol"  '(org-store-link                                :which-key "store-link"                       )
+  "o"   '(                                                           :which-key "org"                              :ignore t)
+  "oa"  '(org-agenda                                                 :which-key "agenda"                           )
+  "oc"  '(org-capture                                                :which-key "capture"                          )
+  "ol"  '(org-store-link                                             :which-key "store-link"                       )
 
-  "p"   '(projectile-command-map                        :which-key "projectile"                       )
+  "oi"  '(                                                                      :which-key "go2file"               :ignore t)
+  "oiu" '((lambda()(interactive)(find-file "~/NOTES/AKTUELLES.org"           )) :which-key "AKTUELLES"             )
+  "oi1" '((lambda()(interactive)(find-file "~/NOTES/〇/1  UNSORTIERTES.org"   )) :which-key "UNSORTIERTES"          )
+  "oi2" '((lambda()(interactive)(find-file "~/NOTES/〇/2  IDEEN.org"          )) :which-key "IDEEN"                 )
+  "oi3" '((lambda()(interactive)(find-file "~/NOTES/〇/3  FRAGEN.org"         )) :which-key "FRAGEN"                )
+  "oi4" '((lambda()(interactive)(find-file "~/NOTES/〇/4  RECHERCHE.org"      )) :which-key "RECHERCHE"             )
+  "oi5" '((lambda()(interactive)(find-file "~/NOTES/〇/5  BIBLIO~.org"        )) :which-key "BIBLIO~"               )
+  "oi6" '((lambda()(interactive)(find-file "~/NOTES/〇/6  I.org"              )) :which-key "INFORMATION"           )
+  "oi7" '((lambda()(interactive)(find-file "~/NOTES/〇/7  ToDO.org"           )) :which-key "TODO"                  )
+  "oia" '((lambda()(interactive)(find-file "~/NOTES/〇/7a ANSCHAFFUNGEN.org"  )) :which-key "ANSCHAFFUNGEN"         )
+  "oi8" '((lambda()(interactive)(find-file "~/NOTES/〇/8  INSTALLATIONEN.org" )) :which-key "INSTALLATIONEN"        )
+  "oi9" '((lambda()(interactive)(find-file "~/NOTES/〇/9  ROUTINEN.org"       )) :which-key "ROUTINEN"              )
+  "oi0" '((lambda()(interactive)(find-file "~/NOTES/〇/10 ERKENNTNISSE.org"   )) :which-key "ERKENNTNISSE"          )
+  "oie" '((lambda()(interactive)(find-file "~/NOTES/〇/11 ERLEDIGTES.org"     )) :which-key "ERLEDIGTES"            )
 
-  "r"   '(                                              :which-key "re-~"                             :ignore t)
-  "rc"  '(fb/literate-recompile                         :which-key "recompile-emacs.d"                )
-  "rd"   '(                                             :which-key "reloadDirLocals"                  :ignore t)
-  "rdb" '(fb/reload-dir-locals-current-buffer           :which-key "reloadDirLocalsCurrentBuffer"     )
-  "rda" '(fb/reload-dir-locals-all-directory-buffer     :which-key "reloadDirLocalsDirBuffer"         )
-  "rf"  '(                                              :which-key "reformat"                         :ignore t)
-  "rfh" '(fb/break-here                                 :which-key "break-here"                       )
-  "rfc" '(fb/break-sub-sentence                         :which-key "break-sub"                        )
-  "rfs" '(fb/break-sentence                             :which-key "break-sentence"                   )
+  "p"   '(projectile-command-map                                     :which-key "projectile"                       )
 
-  "rr"  '(redraw-display                                :which-key "redraw-display"                   )
-  "rl"  '(fb/reload-config                              :which-key "reload init.el"                   )
+  "r"   '(                                                           :which-key "re-~"                             :ignore t)
+  "rc"  '(fb/literate-recompile                                      :which-key "recompile-emacs.d"                )
+  "rd"   '(                                                          :which-key "reloadDirLocals"                  :ignore t)
+  "rdb" '(fb/reload-dir-locals-current-buffer                        :which-key "reloadDirLocalsCurrentBuffer"     )
+  "rda" '(fb/reload-dir-locals-all-directory-buffer                  :which-key "reloadDirLocalsDirBuffer"         )
+  "rf"  '(                                                           :which-key "reformat"                         :ignore t)
+  "rfh" '(fb/break-here                                              :which-key "break-here"                       )
+  "rfc" '(fb/break-sub-sentence                                      :which-key "break-sub"                        )
+  "rfs" '(fb/break-sentence                                          :which-key "break-sentence"                   )
 
-  "t"   '(                                              :which-key "toggles"                          :ignore t)
-  "ti"  '(imenu-list-smart-toggle                       :which-key "imenu"                            )
-  "tl"  '(toggle-truncate-lines                         :which-key "truncate-lines"                   )
-  "tm"  '(treemacs                                      :which-key "treemacs"                         )
-  "tn"  '(display-line-numbers-mode                     :which-key "line-numbers"                     )
-  "tt"  '(counsel-load-theme                            :which-key "choose theme"                     )
-  "tw"  '(whitespace-mode                               :which-key "whitespace"                       )
-  "T"   '(                                              :which-key "toggles"                          :ignore t)
-  "TW"  '(fb/toggle-which-key-sort-order                :which-key "whickKey-sort-order"              )
+  "rr"  '(redraw-display                                             :which-key "redraw-display"                   )
+  "rl"  '(fb/reload-config                                           :which-key "reload init.el"                   )
 
-  "y"   '(                                              :which-key "yasnippets"                       :ignore t)
-  "yy"  '(yas-insert-snippet                            :which-key "insert"                           )
-  "yr"  '(yas-reload-all                                :which-key "reload-all"                       )
+  "t"   '(                                                           :which-key "toggles"                          :ignore t)
+  "ti"  '(imenu-list-smart-toggle                                    :which-key "imenu"                            )
+  "tl"  '(toggle-truncate-lines                                      :which-key "truncate-lines"                   )
+  "tm"  '(treemacs                                                   :which-key "treemacs"                         )
+  "tn"  '(display-line-numbers-mode                                  :which-key "line-numbers"                     )
+  "tt"  '(counsel-load-theme                                         :which-key "choose theme"                     )
+  "tw"  '(whitespace-mode                                            :which-key "whitespace"                       )
+  "T"   '(                                                           :which-key "toggles"                          :ignore t)
+  "TW"  '(fb/toggle-which-key-sort-order                             :which-key "whickKey-sort-order"              )
 
-  "u"   '(undo-tree-visualize                           :which-key "undotree"                         )
+  "xa"   '(                                                          :which-key "align"                            :ignore t)
+  "xa%"  '(spacemacs/align-repeat-percent                            :which-key "repeat-percent"                   )
+  "xa&"  '(spacemacs/align-repeat-ampersand                          :which-key "repeat-ampersand"                 )
+  "xa("  '(spacemacs/align-repeat-left-paren                         :which-key "repeat-left-paren"                )
+  "xa)"  '(spacemacs/align-repeat-right-paren                        :which-key "repeat-right-paren"               )
+  "xa{"  '(spacemacs/align-repeat-left-curly-brace                   :which-key "repeat-left-curly-brace"          )
+  "xa}"  '(spacemacs/align-repeat-right-curly-brace                  :which-key "repeat-right-curly-brace"         )
+  "xa["  '(spacemacs/align-repeat-left-square-brace                  :which-key "repeat-left-square-brace"         )
+  "xa]"  '(spacemacs/align-repeat-right-square-brace                 :which-key "repeat-right-square-brace"        )
+  "xa,"  '(spacemacs/align-repeat-comma                              :which-key "repeat-comma"                     )
+  "xa."  '(spacemacs/align-repeat-decimal                            :which-key "repeat-decimal"                   )
+  "xa:"  '(spacemacs/align-repeat-colon                              :which-key "repeat-colon"                     )
+  "xa;"  '(spacemacs/align-repeat-semicolon                          :which-key "repeat-semicolon"                 )
+  "xa="  '(spacemacs/align-repeat-equal                              :which-key "repeat-equal"                     )
+  "xa\\" '(spacemacs/align-repeat-backslash                          :which-key "repeat-backslash"                 )
+  "xaa"  '(align                                                     :which-key "align"                            )
+  "xac"  '(align-current                                             :which-key "align-current"                    )
+  "xam"  '(spacemacs/align-repeat-math-oper                          :which-key "align-repeat-math-oper"           )
+  "xar"  '(spacemacs/align-repeat                                    :which-key "align-repeat"                     )
+  "xa|"  '(spacemacs/align-repeat-bar                                :which-key "align-repeat-bar"                 )
+  "xc"   '(count-region                                              :which-key "count-region"                     )
+  "xd"   '(                                                          :which-key "delete"                           )
+  "xdl"  '(delete-blank-lines                                        :which-key "delete-blank-lines"               )
+  "xdw"  '(delete-trailing-whitespace                                :which-key "delete-trailing-whitespace"       )
+  "xj"   '(                                                          :which-key "justification"                    :ignore t)
+  "xjc"  '(set-justification-center                                  :which-key "justification-center"             )
+  "xjf"  '(set-justification-full                                    :which-key "justification-full"               )
+  "xjl"  '(set-justification-left                                    :which-key "justification-left"               )
+  "xjn"  '(set-justification-none                                    :which-key "justification-none"               )
+  "xjr"  '(set-justification-right                                   :which-key "justification-right"              )
+  "xl"   '(                                                          :which-key "sort-lines"                       )
+  "xlc"  '(spacemacs/sort-lines-by-column                            :which-key "sort-lines-by-column"             )
+  "xlC"  '(spacemacs/sort-lines-by-column-reverse                    :which-key "sort-lines-by-column-reverse"     )
+  "xls"  '(spacemacs/sort-lines                                      :which-key "sort-lines"                       )
+  "xlS"  '(spacemacs/sort-lines-reverse                              :which-key "sort-lines-reverse"               )
+  "xlu"  '(spacemacs/uniquify-lines                                  :which-key "uniquify-lines"                   )
+  "xt"   '(                                                          :which-key "transpose"                        )
+  "xtc"  '(transpose-chars                                           :which-key "transpose-chars"                  )
+  "xte"  '(transpose-sexps                                           :which-key "transpose-sexps"                  )
+  "xtl"  '(transpose-lines                                           :which-key "transpose-lines"                  )
+  "xtp"  '(transpose-paragraphs                                      :which-key "transpose-paragraphs"             )
+  "xts"  '(transpose-sentences                                       :which-key "transpose-sentences"              )
+  "xtw"  '(transpose-words                                           :which-key "transpose-words"                  )
+  "xU"   '(upcase-region                                             :which-key "upcase-region"                    )
+  "xu"   '(downcase-region                                           :which-key "downcase-region"                  )
 
-  "w"   '(writeroom-mode                                :which-key "writeroom-toggle"                 )
+  "y"   '(                                                           :which-key "yasnippets"                       :ignore t)
+  "yy"  '(yas-insert-snippet                                         :which-key "insert"                           )
+  "yr"  '(yas-reload-all                                             :which-key "reload-all"                       )
 
-  ";"   '(counsel-switch-buffer                         :which-key "switch-buffer"                    )
+  "u"   '(undo-tree-visualize                                        :which-key "undotree"                         )
+
+  "w"   '(writeroom-mode                                             :which-key "writeroom-toggle"                 )
+
+  ";"   '(counsel-switch-buffer                                      :which-key "switch-buffer"                    )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-keybindings
@@ -2462,12 +2638,15 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
   "c"      '(org-comment-dwim                                   :which-key "comment"          )
 
+  "l"      '(org-insert-last-stored-link                        :which-key "insert link"      )
+
   "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
 
   "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
 
   "s"      '(                                                   :which-key "subtree"          :ignore t)
   "sn"     '(org-narrow-to-subtree                              :which-key "narrow"           )
+  "so"     '(org-sort                                           :which-key "sort"             )
   "sw"     '(widen                                              :which-key "widen"            )
 
   "r"      '(fb/org-refile-hydra-grouped/body                   :which-key "refile"           )
