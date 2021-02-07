@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : source-code-block-nix
+#key : bnx
+#contributor : fb
+# --
+#+begin_src nix
+$>$0
+#+end_src
