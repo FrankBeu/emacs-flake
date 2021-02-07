@@ -954,6 +954,12 @@ using a visual block/rectangle selection."
   (interactive)
   (spacemacs/sort-lines-by-column -1))
 
+(defun fb*transform-square-brackets-to-round-ones(string-to-transform)
+  "Transforms [ into ( and ] into ), other chars left unchanged."
+  (concat
+  (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-commands
 ;;;;
 ;;
@@ -1304,19 +1310,25 @@ an argument, unconditionally call `org-insert-SUBheading'."
 ;;;;
 ;;
 
+(use-package org-protocol)
+
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
 
 (defvar fb*noteFile "~/NOTES/AKTUELLES.org" "Target file for org-capture")
 
 (setq org-capture-templates '())
 
-(dolist (template '(
-  ("W" "Protocol"      entry
-     "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-  ("Q" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
-     "* %? \n[[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
+(setq webSelection-templates '(
+  ("P" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+    "* %?\n[[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE")
   ))
-  (push template org-capture-templates))
+(setq org-capture-templates (append org-capture-templates webSelection-templates))
+
+(setq webWithoutSelection-templates '(
+  ("L" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+    "* %? [[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n")
+  ))
+(setq org-capture-templates (append org-capture-templates webWithoutSelection-templates))
 
 (setq aktuelles-templates '(
                             ("ak" "AKTUELLES"      entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")
@@ -1461,27 +1473,10 @@ an argument, unconditionally call `org-insert-SUBheading'."
   (setq org-capture-templates (append org-capture-templates 〇-templates))
 
 ;;;; TODO: ask for headline location
-                              ;; ("p" "projects" entry
-                              ;; (file+function fb*noteFile org-ask-location)
-                              ;; "\n\n** %?\n<%<%Y-%m-%d %a %T>>"
-                              ;; :empty-lines 1)
-;;;; org-protocol
-                              ;; ("W" "Web TODO" entry (file org-default-notes-file)
-                              ;; "* TODO %?\n%U\n%a\n")
-
-                              ;; ("w" "WEB" entry
-                              ;; (file+olp "~/Downloads/NOTES/test.org" "AKTUELLES")
-                              ;; "* %i%? \n")
-
-;;;; org-protocol
-;;;; web-Snippets
-                              ;; ("W" "Web site" entry
-                              ;; (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
-                              ;; "* %? :website:\n%c\n%:initial")
-
-                              ;; (file fb*noteFile )
-                              ;; "* %c :website:\n%U\n%:initial\n%?")
-                              ;; "* %a :website:\n\n%U %?\n\n%:initial")
+  ;; ("p" "projects" entry
+  ;; (file+function fb*noteFile org-ask-location)
+  ;; "\n\n** %?\n<%<%Y-%m-%d %a %T>>"
+  ;; :empty-lines 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-refile
 ;;;;

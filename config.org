@@ -23,6 +23,13 @@
 =●= == key-sequences and text, paths or file names - markup rather than code
 ~●~ ~~ functions and variables commands
 ***** TODO check project
+*** function-naming
+**** keep names
+- doom
+- spacemacs
+**** disregarding the origin all other functions
+are prefixed by =fb=
+**** don't touch packages
 ** TODO TODOS
 *** TODO global
 **** TODO check undo behaviour

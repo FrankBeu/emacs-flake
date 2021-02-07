@@ -6,6 +6,12 @@
   ;;
 #+end_src
 ** capture
+*** INFO
+https://orgmode.org/manual/Template-expansion.html#Template-expansion
+*** package
+#+begin_src elisp
+(use-package org-protocol)
+#+end_src
 *** start capturing in insert-state
 #+begin_src elisp
 (add-hook 'org-capture-mode-hook 'evil-insert-state)
@@ -19,15 +25,28 @@
 #+begin_src elisp
 (setq org-capture-templates '())
 #+end_src
-**** TODO PROTOCOL
+**** PROTOCOL
+***** with selection
 #+begin_src elisp
-    (dolist (template '(
-      ("W" "Protocol"      entry
-         "* %^{Title}\nSource: %u, %c\n #+BEGIN_QUOTE\n%i\n#+END_QUOTE\n\n\n%?")
-      ("Q" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
-         "* %? \n[[%:link][%(transform-square-brackets-to-round-ones \"%:description\")]]\n")
-      ))
-      (push template org-capture-templates))
+  (setq webSelection-templates '(
+    ("P" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+      "* %?\n[[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE")
+    ))
+  (setq org-capture-templates (append org-capture-templates webSelection-templates))
+#+end_src
+***** without selection
+#+begin_src elisp
+  (setq webWithoutSelection-templates '(
+    ("L" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+      "* %? [[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n")
+    ))
+  (setq org-capture-templates (append org-capture-templates webWithoutSelection-templates))
+#+end_src
+***** FUNDUS
+****** ask for *Title*
+#+begin_src elisp :tangle no
+  ;; ("P" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+  ;; "* %^{Title}\n[[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n%?")
 #+end_src
 **** AKTUELLES
 #+begin_src elisp
@@ -179,31 +198,14 @@
     ))
     (setq org-capture-templates (append org-capture-templates 〇-templates))
 #+end_src
-**** TODO FUNDUS
-:LOGBOOK:
-- State "TODO"       from              [2021-02-04 Thu 10:46]
-:END:
+**** FUNDUS
 #+begin_src elisp
 ;;;; TODO: ask for headline location
-                              ;; ("p" "projects" entry
-                              ;; (file+function fb*noteFile org-ask-location)
-                              ;; "\n\n** %?\n<%<%Y-%m-%d %a %T>>"
-                              ;; :empty-lines 1)
-;;;; org-protocol
-                              ;; ("W" "Web TODO" entry (file org-default-notes-file)
-                              ;; "* TODO %?\n%U\n%a\n")
-
-                              ;; ("w" "WEB" entry
-                              ;; (file+olp "~/Downloads/NOTES/test.org" "AKTUELLES")
-                              ;; "* %i%? \n")
-
-;;;; org-protocol
-;;;; web-Snippets
-                              ;; ("W" "Web site" entry
-                              ;; (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
-                              ;; "* %? :website:\n%c\n%:initial")
-
-                              ;; (file fb*noteFile )
-                              ;; "* %c :website:\n%U\n%:initial\n%?")
-                              ;; "* %a :website:\n\n%U %?\n\n%:initial")
+  ;; ("p" "projects" entry
+  ;; (file+function fb*noteFile org-ask-location)
+  ;; "\n\n** %?\n<%<%Y-%m-%d %a %T>>"
+  ;; :empty-lines 1)
 #+end_src
+*** TODO org-protocol-capture-html
+check if this is a replacement or an addition
+https://github.com/alphapapa/org-protocol-capture-html

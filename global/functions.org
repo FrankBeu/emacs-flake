@@ -151,3 +151,12 @@ using a visual block/rectangle selection."
   (interactive)
   (spacemacs/sort-lines-by-column -1))
 #+end_src
+** transform
+*** brackets to braces
+#+begin_src elisp
+  (defun fb*transform-square-brackets-to-round-ones(string-to-transform)
+    "Transforms [ into ( and ] into ), other chars left unchanged."
+    (concat
+    (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
+    )
+#+end_src
