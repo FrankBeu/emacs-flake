@@ -9,14 +9,26 @@
 #+INCLUDE: "./misc.org"
 ** lsp-mode
 #+INCLUDE: "./lsp.org"
+** c#
+#+INCLUDE: "./cSharp.org"
 ** elisp
 #+INCLUDE: "./elisp.org"
 ** golang
 #+INCLUDE: "./golang.org"
 ** k8s
 #+INCLUDE: "./k8s.org"
+** kotlin
+#+INCLUDE: "./kotlin.org"
 ** nix
 #+INCLUDE: "./nix.org"
+** protobuf
+#+INCLUDE: "./protobuf.org"
+** python
+#+INCLUDE: "./python.org"
+** rust
+#+INCLUDE: "./rust.org"
+** swift
+#+INCLUDE: "./swift.org"
 ** typeScript
 #+INCLUDE: "./typeScript.org"
 ** TODO TODOS

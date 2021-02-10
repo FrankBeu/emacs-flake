@@ -22,7 +22,7 @@ https://github.com/marcinkoziej/org-pomodoro
 ** agenda
 #+INCLUDE: "./agenda.org"
 ** TODO babel
-,#+INCLUDE: "./babel.org"
+#+INCLUDE: "./babel.org"
 ** TODO capture
 #+INCLUDE: "./capture.org"
 ** TODO refile

@@ -65,3 +65,118 @@ SCHEDULED: <2021-02-17 Wed>
 *** range
 [2021-02-03 Wed]--[2021-02-06 Sat] 3d
 [2021-02-03 Wed 09:04]--[2021-02-06 Sat 09:04] 3d 00:00
+* babel
+** c#
+#+BEGIN_SRC csharp :results verbatim :exports both
+class HelloWorld {
+  public static void Main()
+  {
+    System.Console.WriteLine("Hello World!");
+  }
+}
+#+END_SRC
+
+#+RESULTS:
+: Hello World!
+** dart
+#+BEGIN_SRC dart :exports both :results output
+  var str = "hello" + " there";
+  print (str == "hello there");
+  print (str == "not hello there");
+#+END_SRC
+#+RESULTS:
+: true
+: false
+** go
+#+BEGIN_SRC go :imports "fmt"
+  fmt.Println("Hello, 世界")
+#+END_SRC
+
+#+RESULTS:
+: Hello, 世界
+** java
+#+HEADERS: :classname HelloWorld
+#+begin_src java  :results output :exports both
+  public class HelloWorld {
+      public static void main(String[] args) {
+          System.out.println("Hello, World");
+      }
+  }
+#+end_src
+
+#+RESULTS:
+: Hello, World
+** js
+#+BEGIN_SRC js
+console.log("Hello, World!");
+#+END_SRC
+
+#+RESULTS:
+: Hello, World!
+** TODO kotlin
+#+BEGIN_SRC kotlin
+(1..100).filter {it % 19 == 0}.reduce {a,b -> a + b}
+#+END_SRC
+
+#+RESULTS:
+: res0: kotlin.Int = 285
+: res1: kotlin.String = >>>
+** python
+#+begin_src python
+def foo(x):
+  if x>0:
+    return x+1
+
+  else:
+    return x-1
+
+return foo(5)
+#+end_src
+
+#+RESULTS:
+: 6
+** TODO rust
+#+BEGIN_SRC rust
+for count in 0..3 {
+    println!("{}. Hello World!", count);
+}
+#+END_SRC
+
+#+RESULTS:
+** swift
+#+begin_src swift
+let apples = 3
+let oranges = 5
+let appleSummary = "I have \(apples) apples."
+let fruitSummary = "I have \(apples + oranges) pieces of fruit.
+#+end_src
+
+#+RESULTS:
+: zsh:1: command not found: swift
+** typescript
+#+begin_src typescript :results output :var x="foo" :var y='("bar" "baz")
+module Greeting {
+    export class Hello {
+        constructor(private text : string) {
+        }
+        say() :void{
+            console.log(`${this.text}, ${x}, ${y}`);
+        }
+    }
+}
+var hello : Greeting.Hello = new Greeting.Hello("Hello, World!");
+hello.say();
+#+end_src
+
+#+RESULTS:
+: Hello, World!, foo, bar,baz
+** c++
+,#+begin_src cpp :includes <stdio.h>
+ #+begin_src C++ :includes <stdio.h>
+    int a=1;
+    int b=1;
+    printf("%d\n", a+b);
+#+end_src
+
+#+RESULTS:
+: 2

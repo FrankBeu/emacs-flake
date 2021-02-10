@@ -67,7 +67,7 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
 #+begin_src elisp
   (general-define-key
    :keymaps '(org-mode-map)
-   :states  '(normal)
+   :states  '(normal visual)
    "gj"     'outline-up-heading
    "gl"     'org-forward-heading-same-level
    )

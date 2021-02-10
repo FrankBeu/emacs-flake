@@ -1,0 +1,210 @@
+* orgmode-babel
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-babel
+  ;;;;
+  ;;
+#+end_src
+** languages
+*** TODO arduino
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(arduino . t))
+#+end_src
+*** TODO browser
+https://github.com/krisajenkins/ob-browser
+#+begin_src elisp :tangle no
+  (use-package browser)
+  (add-to-list 'org-babel-load-languages  '(browser . t))
+#+end_src
+*** c#
+#+begin_src elisp
+  (use-package ob-csharp)
+  (add-to-list 'org-babel-load-languages  '(csharp . t))
+#+end_src
+*** C++
+https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-C.html
+#+begin_src elisp
+  (use-package ob-C)
+  (add-to-list 'org-babel-load-languages  '(cpp . t))
+#+end_src
+*** TODO css
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(css . t))
+#+end_src
+*** dart
+https://github.com/mzimmerm/ob-dart
+#+begin_src elisp
+  (use-package ob-dart)
+  (add-to-list 'org-babel-load-languages  '(dart . t))
+#+end_src
+*** TODO elisp
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(emacs-lisp . t))
+#+end_src
+*** go
+https://github.com/pope/ob-go
+#+begin_src elisp
+  (use-package ob-go)
+  (add-to-list 'org-babel-load-languages  '(go . t))
+#+end_src
+*** TODO graphql
+https://github.com/jdormit/ob-graphql
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(graphql . t))
+#+end_src
+**** TODO also needs
+https://github.com/davazp/graphql-mode
+*** TODO haskell
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(haskell . t))
+#+end_src
+*** TODO http
+https://github.com/zweifisch/ob-http
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(http  . t))
+#+end_src
+*** java
+https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-java.html
+#+begin_src elisp
+  (use-package ob-java)
+  (add-to-list 'org-babel-load-languages  '(java . t))
+#+end_src
+*** js
+https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-js.html
+uses ,#+begin_src js
+#+begin_src elisp
+  (use-package ob-js)
+  (add-to-list 'org-babel-load-languages  '(js . t))
+#+end_src
+**** alt
+https://github.com/zweifisch/ob-javascript
+uses ,#+begin_src javascript
+not implemented
+*** TODO kotlin
+#+begin_src elisp
+  (use-package ob-kotlin)
+  (add-to-list 'org-babel-load-languages  '(kotlin . t))
+#+end_src
+*** TODO latex
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(latex . t))
+#+end_src
+*** TODO make
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(make . t))
+#+end_src
+*** TODO mermaid
+https://github.com/arnm/ob-mermaid
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(mermaid . t))
+#+end_src
+**** also needs
+mermaid.cli
+*** TODO mongo
+https://github.com/krisajenkins/ob-mongo
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(mongo  . t))
+#+end_src
+*** TODO plantuml
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(plantuml . t))
+#+end_src
+*** python
+https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html
+#+begin_src elisp
+  (use-package ob-python)
+  (add-to-list 'org-babel-load-languages  '(python . t))
+#+end_src
+*** TODO redis
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(redis . t))
+#+end_src
+*** TODO restclient
+https://github.com/alf/ob-restclient.el
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(restclient . t))
+#+end_src
+*** TODO rust
+https://github.com/zweifisch/ob-rust
+#+begin_src elisp
+  (use-package ob-rust)
+  (add-to-list 'org-babel-load-languages  '(rust . t))
+#+end_src
+*** TODO sass
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(sass . t))
+#+end_src
+*** TODO swift
+#+begin_src elisp
+  (use-package ob-swift)
+  (add-to-list 'org-babel-load-languages  '(swift . t))
+#+end_src
+*** TODO shell
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(shell . t))
+#+end_src
+*** TODO sql
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(sql . t))
+#+end_src
+*** TODO sqlite
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(sqlite . t))
+#+end_src
+*** TODO translate
+google-translate
+https://github.com/krisajenkins/ob-translate
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(translate  . t))
+#+end_src
+*** typescript
+https://github.com/lurdan/ob-typescript
+#+begin_src elisp
+  (use-package ob-typescript)
+  (add-to-list 'org-babel-load-languages  '(typescript  . t))
+#+end_src
+*** FUNDUS 
+**** ledger
+https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-ledger.html
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '( . t))
+#+end_src
+**** neo4j
+https://github.com/zweifisch/ob-cypher
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(cypher  . t))
+#+end_src
+**** prolog
+https://github.com/ljos/ob-prolog
+#+begin_src elisp :tangle no
+  (use-package )
+  (add-to-list 'org-babel-load-languages  '(prolog  . t))
+#+end_src
+
+#+begin_src elisp :tangle no
+  (org-babel-do-load-languages 'org-babel-load-languages)
+#+end_src
+** INFO
+https://orgmode.org/worg/org-contrib/babel/languages/index.html
+** TODO TEMPLATES
+create all templates uppercase

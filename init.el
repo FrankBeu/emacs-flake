@@ -509,6 +509,11 @@ byte-compiled from.")
   (global-evil-surround-mode 1)
   )
 
+(use-package evil-surround
+  :config
+  (global-evil-surround-mode 1)
+  )
+
 (use-package undo-tree
   :config
   (global-undo-tree-mode 1)
@@ -516,6 +521,11 @@ byte-compiled from.")
   (undo-tree-visualizer-diff t)
   (undo-tree-visualizer-timestamps t) 
   )
+
+(setq
+       evil-search-module 'evil-search
+       ;; evil-magic 'very-magic
+     )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global
 ;;;;
@@ -1125,6 +1135,12 @@ current buffer's, reload dir-locals."
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-c#
+;;;;
+;;
+
+(use-package csharp-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-elisp
 ;;;;
 ;;
@@ -1152,6 +1168,8 @@ current buffer's, reload dir-locals."
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
 ;;;;
 ;;
@@ -1175,6 +1193,12 @@ current buffer's, reload dir-locals."
   :hook (yaml-mode . lsp-deferred)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-kotlin
+;;;;
+;;
+
+(use-package kotlin-mode)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-nix
 ;;;;
 ;;
@@ -1188,6 +1212,30 @@ current buffer's, reload dir-locals."
  ;; (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                   ;; :major-modes '(nix-mode)
                   ;; :server-id 'nix))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-protobuf
+;;;;
+;;
+
+(use-package protobuf-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-python
+;;;;
+;;
+
+(use-package python-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-rust
+;;;;
+;;
+
+(use-package rust-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-swift
+;;;;
+;;
+
+(use-package swift-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-typeScript
 ;;;;
@@ -1305,6 +1353,43 @@ an argument, unconditionally call `org-insert-SUBheading'."
       )
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-babel
+;;;;
+;;
+
+(use-package ob-csharp)
+(add-to-list 'org-babel-load-languages  '(csharp . t))
+
+(use-package ob-C)
+(add-to-list 'org-babel-load-languages  '(cpp . t))
+
+(use-package ob-dart)
+(add-to-list 'org-babel-load-languages  '(dart . t))
+
+(use-package ob-go)
+(add-to-list 'org-babel-load-languages  '(go . t))
+
+(use-package ob-java)
+(add-to-list 'org-babel-load-languages  '(java . t))
+
+(use-package ob-js)
+(add-to-list 'org-babel-load-languages  '(js . t))
+
+(use-package ob-kotlin)
+(add-to-list 'org-babel-load-languages  '(kotlin . t))
+
+(use-package ob-python)
+(add-to-list 'org-babel-load-languages  '(python . t))
+
+(use-package ob-rust)
+(add-to-list 'org-babel-load-languages  '(rust . t))
+
+(use-package ob-swift)
+(add-to-list 'org-babel-load-languages  '(swift . t))
+
+(use-package ob-typescript)
+(add-to-list 'org-babel-load-languages  '(typescript  . t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-capture
 ;;;;
@@ -2572,7 +2657,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (general-define-key
  :keymaps '(org-mode-map)
- :states  '(normal)
+ :states  '(normal visual)
  "gj"     'outline-up-heading
  "gl"     'org-forward-heading-same-level
  )

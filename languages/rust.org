@@ -1,0 +1,15 @@
+* languages-rust
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-rust
+  ;;;;
+  ;;
+#+end_src
+** rust-mode
+https://github.com/rust-lang/rust-mode
+#+begin_src elisp
+  (use-package rust-mode)
+#+end_src
+** INFO
+https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/rust.section.md
+

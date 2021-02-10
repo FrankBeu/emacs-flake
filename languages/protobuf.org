@@ -1,0 +1,12 @@
+* languages-protobuf
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-protobuf
+  ;;;;
+  ;;
+#+end_src
+** protobuf-mode
+#+begin_src elisp
+(use-package protobuf-mode)
+#+end_src
+** INFO

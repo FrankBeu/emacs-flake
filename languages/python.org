@@ -1,0 +1,14 @@
+* languages-python
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-python
+  ;;;;
+  ;;
+#+end_src
+** rust-mode
+https://gitlab.com/python-mode-devs/python-mode/
+#+begin_src elisp
+  (use-package python-mode)
+#+end_src
+** INFO
+
