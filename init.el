@@ -1145,6 +1145,10 @@ current buffer's, reload dir-locals."
   (setq lsp-prefer-flymake nil)
   ;; (setq lsp-enable-snippet nil)
   (setq lsp-completion-provider :none)
+  ;; (lsp-register-custom-settings '(
+     ;; ("gopls.completeUnimported" t t)
+     ;; ("gopls.staticcheck" t t)
+     ;; ))
   )
 
 (use-package lsp-ui
@@ -1156,12 +1160,22 @@ current buffer's, reload dir-locals."
   ;; (lsp-ui-sideline-show-code-actions t)
   ;; (lsp-ui-sideline-update-mode t)
   (lsp-ui-sideline-delay 0)
+
+  ;; (lsp-ui-doc-position 'top)
   ;; (lsp-ui-doc-position 'bottom)
   (lsp-ui-doc-position 'at-point)
 
   ;; (lsp-ui-flycheck-enable t)
   ;; (lsp-ui-flycheck-list-position 'right)
   ;; (lsp-ui-flycheck-live-reporting t)
+
+  ;; (lsp-ui-doc-border "white")
+  ;; (lsp-ui-doc-border (fb*getDefaultColorValue :orange))
+  (lsp-ui-doc-border (fb*getDefaultColorValue :base5))
+  (lsp-ui-doc-max-width 150)
+  (lsp-ui-doc-max-height 13)
+  (lsp-ui-doc-use-childframe t)
+  (lsp-ui-doc-use-webkit t)
   )
 
 (use-package lsp-ivy
@@ -1260,10 +1274,18 @@ current buffer's, reload dir-locals."
 "Provide the status of go-test-coverage.")
 (spacemacs|add-toggle go-test-coverage
   :documentation "Enable test coverage."
-  :status fb*go-test-benchmark-p
-  :on  (progn (setq go-use-test-args "-coverage") (setq fb*go-test-coverage-p t  ))
-  :off (progn (setq go-use-test-args ""         ) (setq fb*go-test-coverage-p nil))
+  :status fb*go-test-coverage-p
+  :on  (progn (setq go-use-test-args "-cover") (setq fb*go-test-coverage-p t  ))
+  :off (progn (setq go-use-test-args ""      ) (setq fb*go-test-coverage-p nil))
   )
+
+(with-eval-after-load 'lsp-mode
+;; (add-hook 'go-mode-hook
+    (lsp-register-custom-settings '(
+       ("gopls.completeUnimported" t t)
+       ("gopls.staticcheck" t t)
+       )))
+;;     ;; )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
 ;;;;

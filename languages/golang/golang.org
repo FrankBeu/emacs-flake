@@ -38,9 +38,6 @@ Make sure you don't have other gofmt/goimports hooks enabled.
             (when (derived-mode-p 'go-mode)
               (setq fb*flycheck-local-cache '((lsp . ((next-checkers . (golangci-lint)))))))))
 #+end_src
-
-** TODO table-driven
-https://github.com/damienlevin/GoTests-Emacs
 *** TODO create nix-package
 ** functions
 *** spacemacs
@@ -55,7 +52,10 @@ https://github.com/cweill/gotests
 #+begin_src elisp
   (use-package go-gen-test)
 #+end_src
-**** go-use-testify-toggle
+
+**** alternative
+https://github.com/damienlevin/GoTests-Emacs
+*** go-use-testify-toggle
 #+begin_src elisp
     (spacemacs|add-toggle go-test-testify-for-testing
       :documentation "Enable testify-test."
@@ -95,6 +95,20 @@ https://github.com/cweill/gotests
     :off (progn (setq go-use-test-args ""      ) (setq fb*go-test-coverage-p nil))
     )
 #+end_src
+** gopls-settings
+**** experimental 
+https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+#+begin_src elisp
+  (with-eval-after-load 'lsp-mode
+     (lsp-register-custom-settings '(
+        ("gopls.completeUnimported" t t)
+        ("gopls.staticcheck" t t)
+        )))
+#+end_src
+**** stable
+https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-go.el
+*** restart after change
+=SPC l s r=
 ** TODO TODOS
 *** codelenses
 #+begin_src emacs-lisp

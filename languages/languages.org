@@ -14,7 +14,7 @@
 ** elisp
 #+INCLUDE: "./elisp.org"
 ** golang
-#+INCLUDE: "./golang.org"
+#+INCLUDE: "./golang/golang.org"
 ** k8s
 #+INCLUDE: "./k8s.org"
 ** kotlin

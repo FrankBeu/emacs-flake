@@ -53,12 +53,22 @@ https://emacs-lsp.github.io/lsp-ui/
     ;; (lsp-ui-sideline-show-code-actions t)
     ;; (lsp-ui-sideline-update-mode t)
     (lsp-ui-sideline-delay 0)
+
+    ;; (lsp-ui-doc-position 'top)
     ;; (lsp-ui-doc-position 'bottom)
     (lsp-ui-doc-position 'at-point)
 
     ;; (lsp-ui-flycheck-enable t)
     ;; (lsp-ui-flycheck-list-position 'right)
     ;; (lsp-ui-flycheck-live-reporting t)
+
+    ;; (lsp-ui-doc-border "white")
+    ;; (lsp-ui-doc-border (fb*getDefaultColorValue :orange))
+    (lsp-ui-doc-border (fb*getDefaultColorValue :base5))
+    (lsp-ui-doc-max-width 150)
+    (lsp-ui-doc-max-height 13)
+    (lsp-ui-doc-use-childframe t)
+    (lsp-ui-doc-use-webkit t)
     )
 #+end_src
 ** lsp-ivy
