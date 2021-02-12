@@ -119,18 +119,66 @@ https://github.com/tigersoldier/company-lsp
     (yas-reload-all)
     )
 #+end_src
-** flycheck
+** TODO [#A] flycheck
 #+begin_src elisp
-;; (use-package flycheck
-;;   :hook (prog-mode . flycheck-mode)
-;;   ;; :config
-;;   ;; (global-flycheck-mode)
-;;   )
-#+end_src
-*** modes
-**** vimrc-mode
-#+begin_src elisp
-  (use-package vimrc-mode
-    :mode "\\.vim\\(rc\\)?\\'"
+  (use-package flycheck
+    :hook (prog-mode . flycheck-mode)
+    ;; :defer t
+    ;; :commands flycheck-list-errors
+    :after lsp-mode
+    ;; :init
+    ;; (global-flycheck-mode)
     )
+#+end_src
+*** TODO [#A] IMPORTANT
+:LOGBOOK:
+- State "TODO"       from              [2021-02-11 Thu 09:23]
+:END:
+#+begin_example elisp
+    :after lsp-mode
+#+end_example
+prevents emacs from crashing
+on crash: no messages were sent
+cf. journalctl
+lsp has to be started to get flycheck working
+*** buffer-functions
+#+begin_src elisp
+  ;; toggle flycheck window
+  (defun fb/toggle-flycheck-error-buffer ()
+    "toggle a flycheck error buffer."
+    (interactive)
+    (if (string-match-p "Flycheck errors" (format "%s" (window-list)))
+        (dolist (w (window-list))
+          (when (string-match-p "*Flycheck errors*" (buffer-name (window-buffer w)))
+            (delete-window w)
+            ))
+      (flycheck-list-errors)
+      )
+    )
+  (defun spacemacs/goto-flycheck-error-list ()
+    "Open and go to the error list buffer."
+    (interactive)
+    (if (flycheck-get-error-list-window)
+        (switch-to-buffer flycheck-error-list-buffer)
+      (progn
+        (flycheck-list-errors)
+        (switch-to-buffer-other-window flycheck-error-list-buffer))))
+#+end_src
+*** checker-chaining
+#+begin_src elisp
+  (defvar-local fb*flycheck-local-cache nil)
+
+  (defun fb*flycheck-checker-get (fn checker property)
+    (or (alist-get property (alist-get checker fb*flycheck-local-cache))
+        (funcall fn checker property)))
+
+  (advice-add 'flycheck-checker-get :around 'fb*flycheck-checker-get)
+#+end_src
+*** window-height
+#+begin_src elisp
+(defadvice flycheck-error-list-refresh (around shrink-error-list activate)
+  ad-do-it
+  (-when-let (window (flycheck-get-error-list-window t))
+    (with-selected-window window
+      (fit-window-to-buffer window 30))))
 #+end_src

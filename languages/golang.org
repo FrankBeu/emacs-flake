@@ -25,8 +25,92 @@ Make sure you don't have other gofmt/goimports hooks enabled.
     (add-hook 'before-save-hook #'lsp-format-buffer t t)
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
 #+end_src
+** golangci-lint
+#+begin_src elisp
+    (use-package flycheck-golangci-lint
+      :hook (go-mode . flycheck-golangci-lint-setup)
+      )
+#+end_src
+*** add checker
+#+begin_src elisp
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'go-mode)
+              (setq fb*flycheck-local-cache '((lsp . ((next-checkers . (golangci-lint)))))))))
+#+end_src
+
+** TODO table-driven
+https://github.com/damienlevin/GoTests-Emacs
+*** TODO create nix-package
+** functions
+*** spacemacs
+#+begin_src elisp
+  (load-file (expand-file-name "languages/golang/config.el" user-emacs-directory))
+  (load-file (expand-file-name "languages/golang/funcs.el" user-emacs-directory))
+#+end_src
+** testing
+*** go-gen-test
+https://github.com/s-kostyaev/go-gen-test
+https://github.com/cweill/gotests
+#+begin_src elisp
+  (use-package go-gen-test)
+#+end_src
+**** go-use-testify-toggle
+#+begin_src elisp
+    (spacemacs|add-toggle go-test-testify-for-testing
+      :documentation "Enable testify-test."
+      :status go-use-testify-for-testing
+      :on  (setq go-use-testify-for-testing t)
+      :off (setq go-use-testify-for-testing nil)
+      )
+#+end_src
+*** go-test-verbose-toggle
+#+begin_src elisp
+    (spacemacs|add-toggle go-test-verbose
+      :documentation "Enable verbose test output."
+      :status go-test-verbose
+      :on (setq go-test-verbose t)
+      :off (setq go-test-verbose nil)
+      )
+#+end_src
+*** go-test-benchmark-toggle
+#+begin_src elisp
+  (defvar fb*go-test-benchmark-p nil
+  "Provide the status of go-test-Benchmark.")
+  (spacemacs|add-toggle go-test-benchmark
+    :documentation "Enable benchmark-tests."
+    :status fb*go-test-benchmark-p
+    :on  (progn (setq go-use-test-args "-bench=.") (setq fb*go-test-benchmark-p t  ))
+    :off (progn (setq go-use-test-args ""        ) (setq fb*go-test-benchmark-p nil))
+    )
+#+end_src
+*** go-test-coverage-toggle
+#+begin_src elisp
+  (defvar fb*go-test-coverage-p nil
+  "Provide the status of go-test-coverage.")
+  (spacemacs|add-toggle go-test-coverage
+    :documentation "Enable test coverage."
+    :status fb*go-test-coverage-p
+    :on  (progn (setq go-use-test-args "-cover") (setq fb*go-test-coverage-p t  ))
+    :off (progn (setq go-use-test-args ""      ) (setq fb*go-test-coverage-p nil))
+    )
+#+end_src
 ** TODO TODOS
 *** codelenses
 #+begin_src emacs-lisp
   (setq lsp-gopls-codelens nil)
 #+end_src
+
+** lsp-debugging
+*** enabling
+#+begin_src elisp :tangle no
+(setq lsp-go-gopls-server-args '("serve" "--debug=localhost:6060"))
+#+end_src
+*** disabling
+#+begin_src elisp :tangle no
+(setq lsp-go-gopls-server-args nil)
+#+end_src
+*** restart after change
+=SPC l s r=
+*** visit site
+[[http://localhost:6060]]

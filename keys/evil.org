@@ -1,0 +1,25 @@
+* keys-evil
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-evil
+  ;;;;
+  ;;
+#+end_src
+** evil
+*** evil-window
+#+begin_src elisp
+    (general-define-key
+     :keymaps  'evil-window-map
+     "H" 'nil
+     "J" 'evil-window-move-far-left
+     "K" 'evil-window-move-very-top
+     "L" 'evil-window-move-very-bottom
+     ":" 'evil-window-move-far-right
+
+     "h" 'nil
+     "j" 'evil-window-left
+     "k" 'evil-window-down
+     "l" 'evil-window-up
+     ";" 'evil-window-right
+     )
+#+end_src

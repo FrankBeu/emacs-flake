@@ -149,6 +149,16 @@ use treemacs instead
      )
     )
 #+end_src
+** CANCELLED popwin
+CLOSED: [2021-02-11 Thu 05:35]
+:LOGBOOK:
+- State "CANCELLED"  from              [2021-02-11 Thu 05:35] \\
+  useCase??
+:END:
+https://github.com/emacsorphanage/popwin
+#+begin_src elisp :tangle no
+  ;; (use-package popwin)
+#+end_src
 ** rainbow-delimiters
 #+begin_src elisp
   (use-package rainbow-delimiters

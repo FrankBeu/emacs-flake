@@ -24,9 +24,9 @@ always start emacs in server-mode
 #+end_src
 ** window-splitting
 #+begin_src elisp
-(setq
- split-width-threshold 0
- split-height-threshold nil)
+;; (setq
+;;  split-width-threshold 0
+;;  split-height-threshold nil)
 #+end_src
 ** yes-or-no to y-or-no
 accept {y,n} as answer

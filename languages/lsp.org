@@ -29,6 +29,7 @@ https://emacs-lsp.github.io/lsp-mode/page/performance/
     ;; (setq lsp-keymap-prefix "SPC l")  ;; shows named-prefixes; prevent usage of "SPC"
     :config
     (setq lsp-enable-snippet t)
+    (setq lsp-prefer-flymake nil)
     ;; (setq lsp-enable-snippet nil)
     (setq lsp-completion-provider :none)
     )
@@ -54,6 +55,10 @@ https://emacs-lsp.github.io/lsp-ui/
     (lsp-ui-sideline-delay 0)
     ;; (lsp-ui-doc-position 'bottom)
     (lsp-ui-doc-position 'at-point)
+
+    ;; (lsp-ui-flycheck-enable t)
+    ;; (lsp-ui-flycheck-list-position 'right)
+    ;; (lsp-ui-flycheck-live-reporting t)
     )
 #+end_src
 ** lsp-ivy
@@ -74,8 +79,19 @@ https://github.com/emacs-lsp/lsp-treemacs
     :after lsp
     )
 #+end_src
-** dap-mode
+** TODO dap-mode
 #+begin_src elisp
   ;; (use-package dap-mode)
   ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+  ;; (use-package dap-mode
+  ;;   :straight t
+  ;;   :custom
+  ;;   (lsp-enable-dap-auto-configure nil)
+  ;;   :config
+  ;;   (dap-ui-mode 1)
+  ;;   (dap-tooltip-mode 1)
+  ;;   (require 'dap-node)
+  ;;   (dap-node-setup))
+
 #+end_src

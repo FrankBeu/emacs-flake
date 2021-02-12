@@ -6,6 +6,8 @@
   ;;;;
   ;;
 #+end_src
+** evil
+#+INCLUDE: "./evil.org"
 ** general.el
 #+INCLUDE: "./general.org"
 ** hydra
@@ -14,6 +16,8 @@
 #+INCLUDE: "./transient.org"
 ** keybindings
 #+INCLUDE: "./keybindings.org"
+** go
+#+INCLUDE: "./golang.org"
 ** orgmode
 #+INCLUDE: "./orgmode.org"
 ** outline

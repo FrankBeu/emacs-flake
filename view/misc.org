@@ -40,6 +40,10 @@ neotree-mode-hook
 #+begin_src elisp
   (show-paren-mode 1)
 #+end_src
+** highlight-current-line
+#+begin_src elisp
+(global-hl-line-mode 1)
+#+end_src
 ** orgmode
 *** startup-indentation
 #+begin_src elisp

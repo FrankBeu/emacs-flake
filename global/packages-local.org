@@ -16,6 +16,10 @@ dependency for core-transient-state
 #+begin_src elisp
   (require 'core-funcs)
 #+end_src
+** core-toggle
+#+begin_src elisp
+  (require 'core-toggle)
+#+end_src
 ** transient
 #+begin_src elisp
   (require 'core-transient-state)

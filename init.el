@@ -540,6 +540,8 @@ byte-compiled from.")
 
 (require 'core-funcs)
 
+(require 'core-toggle)
+
 (require 'core-transient-state)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-misc
@@ -556,9 +558,9 @@ byte-compiled from.")
 
 (server-start)
 
-(setq
- split-width-threshold 0
- split-height-threshold nil)
+;; (setq
+;;  split-width-threshold 0
+;;  split-height-threshold nil)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -967,7 +969,7 @@ using a visual block/rectangle selection."
 (defun fb*transform-square-brackets-to-round-ones(string-to-transform)
   "Transforms [ into ( and ] into ), other chars left unchanged."
   (concat
-  (mapcar #'(lambda (c) (if (equal c ?[) ?\( (if (equal c ?]) ?\) c))) string-to-transform))
+  (mapcar #'(lambda (c) (if (equal c ?\[) ?\( (if (equal c ?\]) ?\) c))) string-to-transform))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-commands
@@ -1078,15 +1080,49 @@ current buffer's, reload dir-locals."
   (yas-reload-all)
   )
 
-;; (use-package flycheck
-;;   :hook (prog-mode . flycheck-mode)
-;;   ;; :config
-;;   ;; (global-flycheck-mode)
-;;   )
-
-(use-package vimrc-mode
-  :mode "\\.vim\\(rc\\)?\\'"
+(use-package flycheck
+  :hook (prog-mode . flycheck-mode)
+  ;; :defer t
+  ;; :commands flycheck-list-errors
+  :after lsp-mode
+  ;; :init
+  ;; (global-flycheck-mode)
   )
+
+;; toggle flycheck window
+(defun fb/toggle-flycheck-error-buffer ()
+  "toggle a flycheck error buffer."
+  (interactive)
+  (if (string-match-p "Flycheck errors" (format "%s" (window-list)))
+      (dolist (w (window-list))
+        (when (string-match-p "*Flycheck errors*" (buffer-name (window-buffer w)))
+          (delete-window w)
+          ))
+    (flycheck-list-errors)
+    )
+  )
+(defun spacemacs/goto-flycheck-error-list ()
+  "Open and go to the error list buffer."
+  (interactive)
+  (if (flycheck-get-error-list-window)
+      (switch-to-buffer flycheck-error-list-buffer)
+    (progn
+      (flycheck-list-errors)
+      (switch-to-buffer-other-window flycheck-error-list-buffer))))
+
+(defvar-local fb*flycheck-local-cache nil)
+
+(defun fb*flycheck-checker-get (fn checker property)
+  (or (alist-get property (alist-get checker fb*flycheck-local-cache))
+      (funcall fn checker property)))
+
+(advice-add 'flycheck-checker-get :around 'fb*flycheck-checker-get)
+
+(defadvice flycheck-error-list-refresh (around shrink-error-list activate)
+  ad-do-it
+  (-when-let (window (flycheck-get-error-list-window t))
+    (with-selected-window window
+      (fit-window-to-buffer window 30))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-lsp
 ;;;;
@@ -1106,6 +1142,7 @@ current buffer's, reload dir-locals."
   ;; (setq lsp-keymap-prefix "SPC l")  ;; shows named-prefixes; prevent usage of "SPC"
   :config
   (setq lsp-enable-snippet t)
+  (setq lsp-prefer-flymake nil)
   ;; (setq lsp-enable-snippet nil)
   (setq lsp-completion-provider :none)
   )
@@ -1121,6 +1158,10 @@ current buffer's, reload dir-locals."
   (lsp-ui-sideline-delay 0)
   ;; (lsp-ui-doc-position 'bottom)
   (lsp-ui-doc-position 'at-point)
+
+  ;; (lsp-ui-flycheck-enable t)
+  ;; (lsp-ui-flycheck-list-position 'right)
+  ;; (lsp-ui-flycheck-live-reporting t)
   )
 
 (use-package lsp-ivy
@@ -1134,6 +1175,16 @@ current buffer's, reload dir-locals."
 
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+;; (use-package dap-mode
+;;   :straight t
+;;   :custom
+;;   (lsp-enable-dap-auto-configure nil)
+;;   :config
+;;   (dap-ui-mode 1)
+;;   (dap-tooltip-mode 1)
+;;   (require 'dap-node)
+;;   (dap-node-setup))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-c#
 ;;;;
@@ -1168,7 +1219,51 @@ current buffer's, reload dir-locals."
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
+(use-package flycheck-golangci-lint
+  :hook (go-mode . flycheck-golangci-lint-setup)
+  )
 
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'go-mode)
+              (setq fb*flycheck-local-cache '((lsp . ((next-checkers . (golangci-lint)))))))))
+
+(load-file (expand-file-name "languages/golang/config.el" user-emacs-directory))
+(load-file (expand-file-name "languages/golang/funcs.el" user-emacs-directory))
+
+(use-package go-gen-test)
+
+(spacemacs|add-toggle go-test-testify-for-testing
+  :documentation "Enable testify-test."
+  :status go-use-testify-for-testing
+  :on  (setq go-use-testify-for-testing t)
+  :off (setq go-use-testify-for-testing nil)
+  )
+
+(spacemacs|add-toggle go-test-verbose
+  :documentation "Enable verbose test output."
+  :status go-test-verbose
+  :on (setq go-test-verbose t)
+  :off (setq go-test-verbose nil)
+  )
+
+(defvar fb*go-test-benchmark-p nil
+"Provide the status of go-test-Benchmark.")
+(spacemacs|add-toggle go-test-benchmark
+  :documentation "Enable benchmark-tests."
+  :status fb*go-test-benchmark-p
+  :on  (progn (setq go-use-test-args "-bench=.") (setq fb*go-test-benchmark-p t  ))
+  :off (progn (setq go-use-test-args ""        ) (setq fb*go-test-benchmark-p nil))
+  )
+
+(defvar fb*go-test-coverage-p nil
+"Provide the status of go-test-coverage.")
+(spacemacs|add-toggle go-test-coverage
+  :documentation "Enable test coverage."
+  :status fb*go-test-benchmark-p
+  :on  (progn (setq go-use-test-args "-coverage") (setq fb*go-test-coverage-p t  ))
+  :off (progn (setq go-use-test-args ""         ) (setq fb*go-test-coverage-p nil))
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
 ;;;;
@@ -2058,6 +2153,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (show-paren-mode 1)
 
+(global-hl-line-mode 1)
+
 (setq org-startup-indented t)
 
 (setq
@@ -2072,6 +2169,25 @@ an argument, unconditionally call `org-insert-SUBheading'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys
 ;;;;
 ;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-evil
+;;;;
+;;
+
+(general-define-key
+ :keymaps  'evil-window-map
+ "H" 'nil
+ "J" 'evil-window-move-far-left
+ "K" 'evil-window-move-very-top
+ "L" 'evil-window-move-very-bottom
+ ":" 'evil-window-move-far-right
+
+ "h" 'nil
+ "j" 'evil-window-left
+ "k" 'evil-window-down
+ "l" 'evil-window-up
+ ";" 'evil-window-right
+ )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-general
 ;;;;
@@ -2432,23 +2548,25 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (fb/leader-key
 
-  "a"  '(                                                            :which-key "ace"                              :ignore t)
-  "aa" '(aw-show-dispatch-help                                       :which-key "ace-window"                       )
-  "ab" '(balance-windows                                             :which-key "balance"                          )
-  "ad" '(ace-delete-window                                           :which-key "ace-delete"                       )
-  "af" '(aw-flip-window                                              :which-key "flip"                             )
-  "ag" '(hydra-window-frame/body                                     :which-key "frame"                            )
-  "ah" '(fb/aw-split-window-horz                                     :which-key "split |"                          )
-  "ai" '(winner-mode                                                 :which-key "winner-mode"                      )
-  "am" '(delete-other-windows                                        :which-key "maximize"                         )
-  "ao" '(hydra-window-scroll/body                                    :which-key "scroll"                           )
-  "ap" '(ace-swap-window                                             :which-key "ace-swap"                         )
-  "ar" '(fb/winner-redo                                              :which-key "winner-redo"                      )
-  "as" '(ace-select-window                                           :which-key "ace-select"                       )
-  "au" '(fb/winner-undo                                              :which-key "winner-undo"                      )
-  "av" '(fb/aw-split-window-vert                                     :which-key "split -"                          )
-  "aw" '(hydra-window-size/body                                      :which-key "resize"                           )
-  "ax" '(ace-delete-other-windows                                    :which-key "ace-delete-other"                 )
+  "a"   '(                                                           :which-key "ace"                              :ignore t)
+  "aa"  '(aw-show-dispatch-help                                      :which-key "ace-window"                       )
+  "ab"  '(balance-windows                                            :which-key "balance"                          )
+  "ad"  '(ace-delete-window                                          :which-key "ace-delete"                       )
+  "ae"  '(:keymap evil-window-map :package evil                      :which-key "evil-window"                      )
+
+  "af"  '(aw-flip-window                                             :which-key "flip"                             )
+  "ag"  '(hydra-window-frame/body                                    :which-key "frame"                            )
+  "ah"  '(fb/aw-split-window-horz                                    :which-key "split |"                          )
+  "ai"  '(winner-mode                                                :which-key "winner-mode"                      )
+  "am"  '(delete-other-windows                                       :which-key "maximize"                         )
+  "ao"  '(hydra-window-scroll/body                                   :which-key "scroll"                           )
+  "ap"  '(ace-swap-window                                            :which-key "ace-swap"                         )
+  "ar"  '(fb/winner-redo                                             :which-key "winner-redo"                      )
+  "as"  '(ace-select-window                                          :which-key "ace-select"                       )
+  "au"  '(fb/winner-undo                                             :which-key "winner-undo"                      )
+  "av"  '(fb/aw-split-window-vert                                    :which-key "split -"                          )
+  "aw"  '(hydra-window-size/body                                     :which-key "resize"                           )
+  "ax"  '(ace-delete-other-windows                                   :which-key "ace-delete-other"                 )
 
   "c"   '(                                                           :which-key "comment"                          :ignore t)
   "cc"  '(evilnc-comment-operator                                    :which-key "cmnt-operator"                    )
@@ -2467,6 +2585,25 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "d"   '(                                                           :which-key "delete"                           :ignore t)
   "dw"  '(delete-trailing-whitespace                                 :which-key "trailing-wsp"                     )
 
+  "e"   '(                                                           :which-key "error"                            :ignore t)
+  "e?"  '(flycheck-describe-checker                                  :which-key "describe-checker"                 )
+  "eH"  '(display-local-help                                         :which-key "local-help"                       )
+  "eL"  '(spacemacs/goto-flycheck-error-list                         :which-key "goto-list"                        )
+  "eM"  '(flycheck-compile                                           :which-key "compile"                          )
+  "eS"  '(flycheck-set-checker-executable                            :which-key "set-checker-executable"           )
+  "eV"  '(flycheck-version                                           :which-key "version"                          )
+  "eb"  '(flycheck-buffer                                            :which-key "buffer"                           )
+  "ec"  '(flycheck-clear                                             :which-key "clear"                            )
+  "ee"  '(flycheck-explain-error-at-point                            :which-key "explain-at-point"                 )
+  "ei"  '(flycheck-manual                                            :which-key "manual"                           )
+  "el"  '(fb/toggle-flycheck-error-buffer                            :which-key "toggle-list"                      )
+  "en"  '(flycheck-next-error                                        :which-key "next"                             )
+  "ep"  '(flycheck-previous-error                                    :which-key "previous"                         )
+  "es"  '(flycheck-select-checker                                    :which-key "select-checker"                   )
+  "ev"  '(flycheck-verify-setup                                      :which-key "verify-setup"                     )
+  "ex"  '(flycheck-disable-checker                                   :which-key "disable"                          )
+  "ey"  '(flycheck-copy-errors-as-kill                               :which-key "copy-errors"                      )
+
   "f"   '(                                                           :which-key "fast/file"                        :ignore t)
   "fy"  '(fb/yank-buffer-filename                                    :which-key "yank-name"                        )
   "ff"  '(counsel-find-file                                          :which-key "find"                             )
@@ -2481,11 +2618,20 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
   "j"   '(dired-jump                                                 :which-key "dired"                            )
 
-  "L"   '(lsp                                                        :which-key "start lsp"                        )
+  "L"   '(                                                           :which-key "lsp"                              :ignore t)
+  "LD"  '(xref-find-definitions                                      :which-key "find-def"                         )
+  "LR"  '(xref-find-references                                       :which-key "find-ref"                         )
+  "LN"  '(lsp-ui-find-next-reference                                 :which-key "next-ref"                         )
+  "LP"  '(lsp-ui-find-prev-reference                                 :which-key "prev-ref"                         )
+  "LS"  '(counsel-imenu                                              :which-key "counsel0imenu"                    )
+  "LE"  '(lsp-ui-flycheck-list                                       :which-key "list"                             )
+  "LS"  '(lsp-ui-sideline-mode                                       :which-key "sideline"                         )
+  "LX"  '(lsp-execute-code-action                                    :which-key "action"                           )
+  "LL"  '(lsp                                                        :which-key "start-lsp"                        )
+
   "l"   '(:keymap lsp-command-map :package lsp-mode                  :which-key "lsp"                              )
   "li"  '(                                                           :which-key "ivy/imenu"                        :ignore t)
   "lt"  '(                                                           :which-key "treemacs"                         :ignore t)
-
   "l="  '(                                                           :which-key "formatting"                       :ignore t)
   "la"  '(                                                           :which-key "code actions"                     :ignore t)
   "lF"  '(                                                           :which-key "folders"                          :ignore t)
@@ -2599,9 +2745,61 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
   "u"   '(undo-tree-visualize                                        :which-key "undotree"                         )
 
-  "w"   '(writeroom-mode                                             :which-key "writeroom-toggle"                 )
+  "w"   '(                                                           :which-key "window"                           :ignore t)
+  "ww"   '(writeroom-mode                                            :which-key "writeroom-toggle"                 )
+  "we"  '(:keymap evil-window-map :package evil                      :which-key "evil-window"                      )
 
   ";"   '(counsel-switch-buffer                                      :which-key "switch-buffer"                    )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; go-keybindings
+;;;;
+;;
+
+(fb/local-leader-key
+  :keymaps 'go-mode-map
+  :states  '(normal visual insert)
+
+  "a"      '(go-import-add                                      :which-key "import-add"       )
+
+
+  "d"      '(                                                   :which-key "godef"            :ignore t)
+  "dd"     '(godef-describe                                     :which-key "run-main"         )
+  "dj"     '(godef-jump                                         :which-key "run-main"         )
+  "do"     '(godef-jump-other-window                            :which-key "run-main"         )
+
+  "g"      '(                                                   :which-key "goto"             :ignore t)
+  "ga"     '(go-goto-arguments                                  :which-key "run-main"         )
+  "gd"     '(go-goto-docstring                                  :which-key "run-main"         )
+  "gf"     '(go-goto-function                                   :which-key "run-main"         )
+  "gi"     '(go-goto-imports                                    :which-key "run-main"         )
+  "gm"     '(go-goto-method-receiver                            :which-key "run-main"         )
+  "gn"     '(go-goto-function-name                              :which-key "run-main"         )
+  "gr"     '(go-goto-return-values                              :which-key "run-main"         )
+
+  "i"      '(prog-indent-sexp                                   :which-key "indent"           )
+
+  "t"      '(                                                   :which-key "test"             :ignore t)
+  "tg"     '(                                                   :which-key "generate"         :ignore t)
+  "tgg"    '(go-gen-test-dwim                                   :which-key "dwim"             )
+  "tgf"    '(go-gen-test-exported                               :which-key "exported"         )
+  "tgF"    '(go-gen-test-all                                    :which-key "all"              )
+  "tP"     '(spacemacs/go-run-package-tests-nested              :which-key "nested"           )
+  "tp"     '(spacemacs/go-run-package-tests                     :which-key "tests"            )
+  "ts"     '(spacemacs/go-run-test-current-suite                :which-key "suite"            )
+  "tt"     '(spacemacs/go-run-test-current-function             :which-key "function"         )
+
+  "T"      '(                                                   :which-key "toggle"           :ignore t)
+  "TB"     '(spacemacs/toggle-go-test-benchmark                 :which-key "test-benchmark"   )
+  "TC"     '(spacemacs/toggle-go-test-coverage                  :which-key "test-coverage"    )
+  "TT"     '(spacemacs/toggle-go-test-testify-for-testing       :which-key "use-testify"      )
+  "TV"     '(spacemacs/toggle-go-test-verbose                   :which-key "test-verbose"     )
+
+
+  "x"      '(                                                   :which-key "execute"          :ignore t)
+  "xx"     '(spacemacs/go-run-main                              :which-key "run-main"         )
+
+  ;; "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-keybindings

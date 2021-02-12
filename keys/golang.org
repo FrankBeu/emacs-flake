@@ -1,0 +1,58 @@
+* go-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; go-keybindings
+  ;;;;
+  ;;
+#+end_src
+** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'go-mode-map
+    :states  '(normal visual insert)
+
+    "a"      '(go-import-add                                      :which-key "import-add"       )
+
+
+    "d"      '(                                                   :which-key "godef"            :ignore t)
+    "dd"     '(godef-describe                                     :which-key "run-main"         )
+    "dj"     '(godef-jump                                         :which-key "run-main"         )
+    "do"     '(godef-jump-other-window                            :which-key "run-main"         )
+
+    "g"      '(                                                   :which-key "goto"             :ignore t)
+    "ga"     '(go-goto-arguments                                  :which-key "run-main"         )
+    "gd"     '(go-goto-docstring                                  :which-key "run-main"         )
+    "gf"     '(go-goto-function                                   :which-key "run-main"         )
+    "gi"     '(go-goto-imports                                    :which-key "run-main"         )
+    "gm"     '(go-goto-method-receiver                            :which-key "run-main"         )
+    "gn"     '(go-goto-function-name                              :which-key "run-main"         )
+    "gr"     '(go-goto-return-values                              :which-key "run-main"         )
+
+    "i"      '(prog-indent-sexp                                   :which-key "indent"           )
+
+    "t"      '(                                                   :which-key "test"             :ignore t)
+    "tg"     '(                                                   :which-key "generate"         :ignore t)
+    "tgg"    '(go-gen-test-dwim                                   :which-key "dwim"             )
+    "tgf"    '(go-gen-test-exported                               :which-key "exported"         )
+    "tgF"    '(go-gen-test-all                                    :which-key "all"              )
+    "tP"     '(spacemacs/go-run-package-tests-nested              :which-key "nested"           )
+    "tp"     '(spacemacs/go-run-package-tests                     :which-key "tests"            )
+    "ts"     '(spacemacs/go-run-test-current-suite                :which-key "suite"            )
+    "tt"     '(spacemacs/go-run-test-current-function             :which-key "function"         )
+
+    "T"      '(                                                   :which-key "toggle"           :ignore t)
+    "TB"     '(spacemacs/toggle-go-test-benchmark                 :which-key "test-benchmark"   )
+    "TC"     '(spacemacs/toggle-go-test-coverage                  :which-key "test-coverage"    )
+    "TT"     '(spacemacs/toggle-go-test-testify-for-testing       :which-key "use-testify"      )
+    "TV"     '(spacemacs/toggle-go-test-verbose                   :which-key "test-verbose"     )
+
+
+    "x"      '(                                                   :which-key "execute"          :ignore t)
+    "xx"     '(spacemacs/go-run-main                              :which-key "run-main"         )
+
+    ;; "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
+    )
+#+end_src
+
+** INFO
+[[~/SRC/GITHUB/EMACS/spacemacs/layers/+lang/go/README.org]]

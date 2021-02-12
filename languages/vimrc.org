@@ -1,0 +1,13 @@
+* languages-vimrc
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-vimrc
+  ;;;;
+  ;;
+#+end_src
+** vimrc-mode
+#+begin_src elisp
+  (use-package vimrc-mode
+    :mode "\\.vim\\(rc\\)?\\'"
+    )
+#+end_src
