@@ -1145,10 +1145,6 @@ current buffer's, reload dir-locals."
   (setq lsp-prefer-flymake nil)
   ;; (setq lsp-enable-snippet nil)
   (setq lsp-completion-provider :none)
-  ;; (lsp-register-custom-settings '(
-     ;; ("gopls.completeUnimported" t t)
-     ;; ("gopls.staticcheck" t t)
-     ;; ))
   )
 
 (use-package lsp-ui
@@ -1186,19 +1182,6 @@ current buffer's, reload dir-locals."
   :commands lsp-treemacs-errors-list
   :after lsp
   )
-
-;; (use-package dap-mode)
-;; (use-package dap-LANGUAGE) to load the dap adapter for your language
-
-;; (use-package dap-mode
-;;   :straight t
-;;   :custom
-;;   (lsp-enable-dap-auto-configure nil)
-;;   :config
-;;   (dap-ui-mode 1)
-;;   (dap-tooltip-mode 1)
-;;   (require 'dap-node)
-;;   (dap-node-setup))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-c#
 ;;;;
@@ -1247,6 +1230,8 @@ current buffer's, reload dir-locals."
 
 (use-package go-gen-test)
 
+(use-package gotest)
+
 (spacemacs|add-toggle go-test-testify-for-testing
   :documentation "Enable testify-test."
   :status go-use-testify-for-testing
@@ -1280,12 +1265,11 @@ current buffer's, reload dir-locals."
   )
 
 (with-eval-after-load 'lsp-mode
-;; (add-hook 'go-mode-hook
-    (lsp-register-custom-settings '(
-       ("gopls.completeUnimported" t t)
-       ("gopls.staticcheck" t t)
-       )))
-;;     ;; )
+   (lsp-register-custom-settings '(
+      ("gopls.completeUnimported" t t)
+      ("gopls.staticcheck" t t)
+      ("gopls.gofumpt" t t)
+      )))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
 ;;;;
@@ -2809,7 +2793,16 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "tP"     '(spacemacs/go-run-package-tests-nested              :which-key "nested"           )
   "tp"     '(spacemacs/go-run-package-tests                     :which-key "tests"            )
   "ts"     '(spacemacs/go-run-test-current-suite                :which-key "suite"            )
-  "tt"     '(spacemacs/go-run-test-current-function             :which-key "function"         )
+  "tc"     '(spacemacs/go-run-test-current-function             :which-key "function"         )
+  "tt"     '(                                                   :which-key "go-test"          :ignore t)
+  "ttbb"   '(go-test-current-benchmark                          :which-key "bench"            )
+  "ttbf"   '(go-test-current-file-benchmarks                    :which-key "bench-file"       )
+  "ttbp"   '(go-test-current-project-benchmarks                 :which-key "bench-project"    )
+  "ttc"    '(go-test-current-coverage                           :which-key "coverage"         )
+  "tta"    '(go-test-current-test-cache                         :which-key "cache"            )
+  "ttf"    '(go-test-current-file                               :which-key "file"             )
+  "ttp"    '(go-test-current-project                            :which-key "project"          )
+  "ttt"    '(go-test-current-test                               :which-key "test"             )
 
   "T"      '(                                                   :which-key "toggle"           :ignore t)
   "TB"     '(spacemacs/toggle-go-test-benchmark                 :which-key "test-benchmark"   )

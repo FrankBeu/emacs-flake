@@ -26,10 +26,12 @@ Make sure you don't have other gofmt/goimports hooks enabled.
     (add-hook 'before-save-hook #'lsp-organize-imports t t))
 #+end_src
 ** golangci-lint
+https://golangci-lint.run/
+https://github.com/weijiangan/flycheck-golangci-lint
 #+begin_src elisp
-    (use-package flycheck-golangci-lint
-      :hook (go-mode . flycheck-golangci-lint-setup)
-      )
+  (use-package flycheck-golangci-lint
+    :hook (go-mode . flycheck-golangci-lint-setup)
+    )
 #+end_src
 *** add checker
 #+begin_src elisp
@@ -52,10 +54,15 @@ https://github.com/cweill/gotests
 #+begin_src elisp
   (use-package go-gen-test)
 #+end_src
-
 **** alternative
 https://github.com/damienlevin/GoTests-Emacs
-*** go-use-testify-toggle
+*** gotest
+https://github.com/nlamirault/gotest.el
+#+begin_src elisp
+  (use-package gotest)
+#+end_src
+*** toggles
+**** go-use-testify-toggle
 #+begin_src elisp
     (spacemacs|add-toggle go-test-testify-for-testing
       :documentation "Enable testify-test."
@@ -64,7 +71,7 @@ https://github.com/damienlevin/GoTests-Emacs
       :off (setq go-use-testify-for-testing nil)
       )
 #+end_src
-*** go-test-verbose-toggle
+**** go-test-verbose-toggle
 #+begin_src elisp
     (spacemacs|add-toggle go-test-verbose
       :documentation "Enable verbose test output."
@@ -73,7 +80,7 @@ https://github.com/damienlevin/GoTests-Emacs
       :off (setq go-test-verbose nil)
       )
 #+end_src
-*** go-test-benchmark-toggle
+**** go-test-benchmark-toggle
 #+begin_src elisp
   (defvar fb*go-test-benchmark-p nil
   "Provide the status of go-test-Benchmark.")
@@ -84,7 +91,8 @@ https://github.com/damienlevin/GoTests-Emacs
     :off (progn (setq go-use-test-args ""        ) (setq fb*go-test-benchmark-p nil))
     )
 #+end_src
-*** go-test-coverage-toggle
+**** go-test-coverage-toggle
+https://blog.golang.org/cover
 #+begin_src elisp
   (defvar fb*go-test-coverage-p nil
   "Provide the status of go-test-coverage.")
@@ -95,7 +103,13 @@ https://github.com/damienlevin/GoTests-Emacs
     :off (progn (setq go-use-test-args ""      ) (setq fb*go-test-coverage-p nil))
     )
 #+end_src
+****** TODO coverage-html-output
+1. create coverage.out
+2. open browser
+go test -coverprofile=coverage.out
+% go tool cover -html=count.out
 ** gopls-settings
+https://emacs-lsp.github.io/lsp-mode/page/lsp-gopls/
 **** experimental 
 https://github.com/golang/tools/blob/master/gopls/doc/settings.md
 #+begin_src elisp
@@ -103,6 +117,7 @@ https://github.com/golang/tools/blob/master/gopls/doc/settings.md
      (lsp-register-custom-settings '(
         ("gopls.completeUnimported" t t)
         ("gopls.staticcheck" t t)
+        ("gopls.gofumpt" t t)
         )))
 #+end_src
 **** stable
