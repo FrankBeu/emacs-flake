@@ -1,0 +1,31 @@
+* languages-dap
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dap
+  ;;;;
+  ;;
+#+end_src
+** INFO
+https://github.com/emacs-lsp/dap-mode
+*** config
+https://emacs-lsp.github.io/dap-mode/page/configuration/
+https://emacs-lsp.github.io/dap-mode/page/configuration/#go
+https://emacs-lsp.github.io/dap-mode/page/configuration/#dart
+https://emacs-lsp.github.io/dap-mode/page/configuration/#python
+https://emacs-lsp.github.io/dap-mode/page/configuration/#rust
+** TODO dap-mode
+#+begin_src elisp
+  ;; (use-package dap-mode)
+  ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+  ;; (use-package dap-mode
+  ;;   :straight t
+  ;;   :custom
+  ;;   (lsp-enable-dap-auto-configure nil)
+  ;;   :config
+  ;;   (dap-ui-mode 1)
+  ;;   (dap-tooltip-mode 1)
+  ;;   (require 'dap-node)
+  ;;   (dap-node-setup))
+
+#+end_src

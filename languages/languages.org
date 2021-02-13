@@ -9,6 +9,8 @@
 #+INCLUDE: "./misc.org"
 ** lsp-mode
 #+INCLUDE: "./lsp.org"
+** dap-mode
+#+INCLUDE: "./dap.org"
 ** c#
 #+INCLUDE: "./cSharp.org"
 ** elisp
