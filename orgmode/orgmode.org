@@ -17,6 +17,8 @@ https://github.com/marcinkoziej/org-pomodoro
 #+begin_src elisp
 (with-eval-after-load 'org
 #+end_src
+** org-mode
+#+INCLUDE: "./org.org"
 ** functions
 #+INCLUDE: "./functions.org"
 ** agenda
@@ -29,9 +31,12 @@ https://github.com/marcinkoziej/org-pomodoro
 #+INCLUDE: "./refile.org"
 ** TODO pomodoro
 ,#+INCLUDE: "./pomodoro.org"
+** TODO verb
+https://github.com/federicotdn/verb
 ** miscellaneous
 #+INCLUDE: "./misc.org"
 ** with-eval-end
 #+begin_src elisp
   );;with-eval-end
 #+end_src
+

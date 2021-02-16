@@ -5,10 +5,12 @@
   ;;;;
   ;;
 #+end_src
-** rust-mode
+** python-mode
 https://gitlab.com/python-mode-devs/python-mode/
 #+begin_src elisp
   (use-package python-mode)
 #+end_src
+** TODO dap
+https://emacs-lsp.github.io/dap-mode/page/configuration/#python
 ** INFO
 

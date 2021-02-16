@@ -655,6 +655,8 @@ byte-compiled from.")
   ;; :disabled
   )
 
+(use-package string-inflection)
+
 ;; (use-package neotree
 ;;   :config
 ;;   (setq neo-smart-open t)
@@ -1028,6 +1030,27 @@ current buffer's, reload dir-locals."
         (when (equal default-directory dir))
         (my-reload-dir-locals-for-current-buffer)))))
 
+(defun fb/titlecase-word ()
+  (interactive)
+  (progn
+    (evil-backward-word-begin)
+    (capitalize-word 1)
+    ))
+
+(defun fb/downcase-word ()
+  (interactive)
+  (progn
+    (evil-backward-word-begin)
+    (downcase-word 1)
+    ))
+
+(defun fb/upcase-word ()
+  (interactive)
+  (progn
+    (evil-backward-word-begin)
+    (upcase-word 1)
+    ))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages
 ;;;;
 ;;
@@ -1183,6 +1206,36 @@ current buffer's, reload dir-locals."
   :after lsp
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dap
+;;;;
+;;
+
+(use-package dap-mode
+;;   :straight t
+  :custom
+  (lsp-enable-dap-auto-configure t)
+  :config
+  ;;   (dap-ui-mode 1)
+;;   (dap-tooltip-mode 1)
+  )
+
+(add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-hydra)))
+
+(defvar fb*dap-enable-mouse-support t
+  "If non-nil, enable `dap-mode''s mouse support.")
+
+(spacemacs|add-toggle dap-mouse
+  :status dap-tooltip-mode
+  :on (progn (dap-tooltip-mode)
+             (tooltip-mode))
+  :off (progn (dap-tooltip-mode -1)
+              (tooltip-mode -1))
+  :documentation "Enable mouse support in DAP mode.")
+
+(when fb*dap-enable-mouse-support
+  (spacemacs/toggle-dap-mouse-on))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-c#
 ;;;;
 ;;
@@ -1199,6 +1252,18 @@ current buffer's, reload dir-locals."
 	          company-mode
               ))
   (add-hook 'emacs-lisp-mode-hook fn))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dart
+;;;;
+;;
+
+(use-package lsp-dart
+  :after lsp
+  :hook (dart-mode . lsp)
+  )
+
+(with-eval-after-load 'lsp-dart
+  (dap-dart-setup))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-golang
 ;;;;
@@ -1270,6 +1335,12 @@ current buffer's, reload dir-locals."
       ("gopls.staticcheck" t t)
       ("gopls.gofumpt" t t)
       )))
+
+(use-package dap-go
+  ;; :after dap
+  :config
+  (dap-go-setup)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
 ;;;;
@@ -1347,6 +1418,8 @@ current buffer's, reload dir-locals."
   :hook (typescript-mode . lsp-deferred)
   :config
   (setq typescript-indent-level 2)
+  (require 'dap-node)
+  (dap-node-setup)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; modeline
@@ -1368,6 +1441,40 @@ current buffer's, reload dir-locals."
 ;;
 
 (with-eval-after-load 'org
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-org
+;;;;
+;;
+
+(use-package org
+  ;; :hook
+  ;; :config
+  ;; :custom
+  )
+
+(use-package evil-org
+  :after org
+  :init
+  (setq evil-org-use-additional-insert t
+  evil-org-key-theme '(
+                            ;; additional
+                            ;; calendar
+                            ;; heading
+                            ;; insert
+                            ;; navigation
+                            ;; return
+                            ;; shift
+                            textobjects
+                            ;; todo
+                            )
+  )
+  ;; :hook (org-mode . (lambda () evil-org-mode))
+  :hook (org-mode . evil-org-mode)
+  :config
+  (require 'evil-org-agenda)
+  (evil-org-agenda-set-keys)
+  (evil-org-set-key-theme)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-functions
 ;;;;
@@ -1882,12 +1989,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
 ;;;;
 ;;
 
-(use-package org
-  ;; :hook
-  ;; :config
-  ;; :custom
-  )
-
 (setq org-hide-emphasis-markers t)
 
 (setq org-ellipsis
@@ -2157,6 +2258,54 @@ an argument, unconditionally call `org-insert-SUBheading'."
                 ))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+(spacemacs|add-toggle absolute-line-numbers
+      :status (and (featurep 'display-line-numbers)
+                   display-line-numbers-mode
+                   (eq display-line-numbers t))
+      :on (prog1 (display-line-numbers-mode)
+            (setq display-line-numbers t))
+      :off (display-line-numbers-mode -1)
+      :on-message "Absolute line numbers enabled."
+      :off-message "Line numbers disabled."
+      :documentation "Show the line numbers."
+      )
+
+;; (spacemacs|add-toggle line-numbers
+  ;; :status (and (featurep 'display-line-numbers)
+               ;; display-line-numbers-mode
+               ;; (eq display-line-numbers t))
+  ;; :on (prog1 (display-line-numbers-mode)
+        ;; (setq display-line-numbers t))
+  ;; :off (display-line-numbers-mode -1)
+  ;; :(or )n-message "Absolute line numbers enabled."
+  ;; :off-message "Line numbers disabled."
+  ;; :documentation "Show the line numbers.")
+
+(spacemacs|add-toggle visual-line-numbers
+  :status (and (featurep 'display-line-numbers)
+               display-line-numbers-mode
+               (eq display-line-numbers 'visual))
+  :on (prog1 (display-line-numbers-mode)
+        (setq display-line-numbers 'visual))
+  :off (display-line-numbers-mode -1)
+  :documentation "Show relative visual line numbers."
+  :on-message "Visual line numbers enabled."
+  :off-message "Line numbers disabled."
+  ;; :evil-leader "tnv"
+  )
+
+(spacemacs|add-toggle relative-line-numbers
+  :status (and (featurep 'display-line-numbers)
+               display-line-numbers-mode
+               (eq display-line-numbers 'relative))
+  :on (prog1 (display-line-numbers-mode)
+        (setq display-line-numbers 'relative))
+  :off (display-line-numbers-mode -1)
+  :documentation "Show relative line numbers."
+  :on-message "Relative line numbers enabled."
+  :off-message "Line numbers disabled."
+  )
+
 (show-paren-mode 1)
 
 (global-hl-line-mode 1)
@@ -2283,6 +2432,12 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (defun fb/dec-at-pt ()
   (interactive)
   (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
+
+(spacemacs|define-transient-state string-inflection
+  :title "String Inflection Transient State"
+  :doc "\n [_i_] cycle"
+  :bindings
+  ("i" string-inflection-all-cycle))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-keybindings
 ;;;;
@@ -2588,8 +2743,56 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "CB"  '(clm/open-command-log-buffer                                :which-key "show-clm-buffer"                  )
   "CG"  '(global-command-log-mode                                    :which-key "toggle-global"                    )
 
-  "d"   '(                                                           :which-key "delete"                           :ignore t)
-  "dw"  '(delete-trailing-whitespace                                 :which-key "trailing-wsp"                     )
+  "d"   '(                                                           :which-key "dap"                              :ignore t)
+
+  "d"   '(                                                           :which-key "debug"                            :ignore t)
+  "d."  '(dap-hydra                                                  :which-key "hydra"                            )
+  "d'"  '(dap-ui-repl                                                :which-key "repl"                             )
+  "da"  '(                                                           :which-key "abandon"                          )
+  "daa" '(dap-disconnect                                             :which-key "disconnect"                       )
+  "daA" '(dap-delete-all-sessions                                    :which-key "delete-all-sessions"              )
+  "db"  '(                                                           :which-key "breakpoints"                      :ignore t)
+  "dbb" '(dap-breakpoint-toggle                                      :which-key "bp-toggle"                        )
+  "dbc" '(dap-breakpoint-condition                                   :which-key "bp-condition"                     )
+  "dbl" '(dap-breakpoint-log-message                                 :which-key "bp-log-message"                   )
+  "dbh" '(dap-breakpoint-hit-condition                               :which-key "bp-hit-cond"                      )
+  "dba" '(dap-breakpoint-add                                         :which-key "bp-add"                           )
+  "dbd" '(dap-breakpoint-delete                                      :which-key "bp-delete"                        )
+  "dbD" '(dap-breakpoint-delete-all                                  :which-key "bp-delete-all"                    )
+  "dd"  '(                                                           :which-key "debugging"                        :ignore t)
+  "ddd" '(dap-debug                                                  :which-key "debug"                            )
+  "dde" '(dap-debug-edit-template                                    :which-key "edit-template"                    )
+  "ddl" '(dap-debug-last                                             :which-key "last"                             )
+  "ddr" '(dap-debug-recent                                           :which-key "recent"                           )
+  "de"  '(                                                           :which-key "eval"                             :ignore t)
+  "dee" '(dap-eval                                                   :which-key "eval"                             )
+  "der" '(dap-eval-region                                            :which-key "eval-region"                      )
+  "det" '(dap-eval-thing-at-point                                    :which-key "eval-thing-at-point"              )
+  "det" '(dap-ui-expressions-add                                     :which-key "ui-expressions-add"               )
+  "dI"  '(                                                           :which-key "inspect"                          :ignore t)
+  "dIi" '(dap-ui-inspect                                             :which-key "ui-inspect"                       )
+  "dIr" '(dap-ui-inspect-region                                      :which-key "ui-inspect-region"                )
+  "dIt" '(dap-ui-inspect-thing-at-point                              :which-key "ui-inspect-thing-at-point"        )
+
+  "dc"  '(dap-continue                                               :which-key "continue"                         )
+  "di"  '(dap-step-in                                                :which-key "step-in"                          )
+  "do"  '(dap-step-out                                               :which-key "step-out"                         )
+  "dr"  '(dap-restart-frame                                          :which-key "restart-frame"                    )
+  "ds"  '(dap-next                                                   :which-key "next"                             )
+  "dv"  '(dap-ui-inspect-thing-at-point                              :which-key "ui-inspect-thing-at-point"        )
+  "dS"  '(                                                           :which-key "switch"                           :ignore t)
+  "dSs" '(dap-switch-session                                         :which-key "switch-session"                   )
+  "dSt" '(dap-switch-thread                                          :which-key "switch-thread"                    )
+  "dSf" '(dap-switch-frame                                           :which-key "switch-frame"                     )
+  "dT"  '(                                                           :which-key "toggles"                          :ignore t)
+  "dTm" '(spacemacs/toggle-dap-mouse                                 :which-key "mouse"                            )
+  "dw"  '(                                                           :which-key "windows"                          :ignore t)
+  "dwo" '(dap-go-to-output-buffer                                    :which-key "go-to-output-buffer"              )
+  "dwl" '(dap-ui-locals                                              :which-key "ui-locals"                        )
+  "dws" '(dap-ui-sessions                                            :which-key "ui-sessions"                      )
+  "dwb" '(dap-ui-breakpoints                                         :which-key "ui-breakpoints"                   )
+
+  ;; "D"   '(                                                           :which-key "delete"                           :ignore t)
 
   "e"   '(                                                           :which-key "error"                            :ignore t)
   "e?"  '(flycheck-describe-checker                                  :which-key "describe-checker"                 )
@@ -2618,6 +2821,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
   "g"   '(                                                           :which-key "git"                              :ignore t)
   "gs"  '(magit-status                                               :which-key "status"                           )
+
 
   "i"   '(                                                           :which-key "imenu"                            :ignore t)
   "ii"  '(imenu-list                                                 :which-key "imenulist"                        )
@@ -2689,11 +2893,18 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "rr"  '(redraw-display                                             :which-key "redraw-display"                   )
   "rl"  '(fb/reload-config                                           :which-key "reload init.el"                   )
 
+  "s"   '(                                                           :which-key "move"                             :ignore t)
+  "sb"  '(beginning-of-defun                                         :which-key "func-bg"                          )
+  "se"  '(end-of-defun                                               :which-key "func-be"                          )
+
   "t"   '(                                                           :which-key "toggles"                          :ignore t)
   "ti"  '(imenu-list-smart-toggle                                    :which-key "imenu"                            )
   "tl"  '(toggle-truncate-lines                                      :which-key "truncate-lines"                   )
   "tm"  '(treemacs                                                   :which-key "treemacs"                         )
-  "tn"  '(display-line-numbers-mode                                  :which-key "line-numbers"                     )
+  "tn"  '(                                                           :which-key "line-numbers"                     :ignore t)
+  "tna" '(spacemacs/toggle-absolute-line-numbers                     :which-key "line-absolute"                    )
+  "tnr" '(spacemacs/toggle-relative-line-numbers                     :which-key "line-relative"                    )
+  "tnv" '(spacemacs/toggle-visual-line-numbers                       :which-key "line-visual"                      )
   "tt"  '(counsel-load-theme                                         :which-key "choose theme"                     )
   "tw"  '(whitespace-mode                                            :which-key "whitespace"                       )
   "T"   '(                                                           :which-key "toggles"                          :ignore t)
@@ -2723,6 +2934,23 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "xd"   '(                                                          :which-key "delete"                           )
   "xdl"  '(delete-blank-lines                                        :which-key "delete-blank-lines"               )
   "xdw"  '(delete-trailing-whitespace                                :which-key "delete-trailing-whitespace"       )
+
+  "xi"  '(                                                           :which-key "inflection"                       :ignore t)
+  "xic" '(string-inflection-lower-camelcase                          :which-key "camel"                            )                                  
+  "xiC" '(string-inflection-camelcase                                :which-key "camel-lower"                      )
+  "xid" '(fb/downcase-word                                           :which-key "down"                             )
+  "xiD" '(fb/upcase-word                                             :which-key "up"                               )
+  "xii" '(spacemacs/string-inflection-transient-state/body           :which-key "transient"                        )                                                 
+  "xi." '(spacemacs/string-inflection-transient-state/body           :which-key "transient"                        )                                                 
+  "xi-" '(string-inflection-kebab-case                               :which-key "kebab"                            )                             
+  "xik" '(string-inflection-kebab-case                               :which-key "kebab"                            )                             
+  "xil" '(downcase-region                                            :which-key "downcase-region"                  )
+  "xi_" '(string-inflection-underscore                               :which-key "snake"                            )                             
+  "xis" '(string-inflection-underscore                               :which-key "snake"                            )                             
+  "xit" '(fb/titlecase-word                                          :which-key "title"                            )                                           
+  "xiu" '(string-inflection-capital-underscore                       :which-key "snake-upper"                      )                             
+  "xiU" '(string-inflection-upcase                                   :which-key "upper"                            )                                           
+
   "xj"   '(                                                          :which-key "justification"                    :ignore t)
   "xjc"  '(set-justification-center                                  :which-key "justification-center"             )
   "xjf"  '(set-justification-full                                    :which-key "justification-full"               )
@@ -2730,20 +2958,20 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "xjn"  '(set-justification-none                                    :which-key "justification-none"               )
   "xjr"  '(set-justification-right                                   :which-key "justification-right"              )
   "xl"   '(                                                          :which-key "sort-lines"                       )
-  "xlc"  '(spacemacs/sort-lines-by-column                            :which-key "sort-lines-by-column"             )
-  "xlC"  '(spacemacs/sort-lines-by-column-reverse                    :which-key "sort-lines-by-column-reverse"     )
-  "xls"  '(spacemacs/sort-lines                                      :which-key "sort-lines"                       )
-  "xlS"  '(spacemacs/sort-lines-reverse                              :which-key "sort-lines-reverse"               )
-  "xlu"  '(spacemacs/uniquify-lines                                  :which-key "uniquify-lines"                   )
-  "xt"   '(                                                          :which-key "transpose"                        )
-  "xtc"  '(transpose-chars                                           :which-key "transpose-chars"                  )
-  "xte"  '(transpose-sexps                                           :which-key "transpose-sexps"                  )
-  "xtl"  '(transpose-lines                                           :which-key "transpose-lines"                  )
-  "xtp"  '(transpose-paragraphs                                      :which-key "transpose-paragraphs"             )
-  "xts"  '(transpose-sentences                                       :which-key "transpose-sentences"              )
-  "xtw"  '(transpose-words                                           :which-key "transpose-words"                  )
-  "xU"   '(upcase-region                                             :which-key "upcase-region"                    )
-  "xu"   '(downcase-region                                           :which-key "downcase-region"                  )
+  "xlc" '(spacemacs/sort-lines-by-column                             :which-key "sort-lines-by-column"             )
+  "xlC" '(spacemacs/sort-lines-by-column-reverse                     :which-key "sort-lines-by-column-reverse"     )
+  "xls" '(spacemacs/sort-lines                                       :which-key "sort-lines"                       )
+  "xlS" '(spacemacs/sort-lines-reverse                               :which-key "sort-lines-reverse"               )
+  "xlu" '(spacemacs/uniquify-lines                                   :which-key "uniquify-lines"                   )
+  "xt"  '(                                                           :which-key "transpose"                        )
+  "xtc" '(transpose-chars                                            :which-key "transpose-chars"                  )
+  "xte" '(transpose-sexps                                            :which-key "transpose-sexps"                  )
+  "xtl" '(transpose-lines                                            :which-key "transpose-lines"                  )
+  "xtp" '(transpose-paragraphs                                       :which-key "transpose-paragraphs"             )
+  "xts" '(transpose-sentences                                        :which-key "transpose-sentences"              )
+  "xtw" '(transpose-words                                            :which-key "transpose-words"                  )
+  "xU"  '(upcase-region                                              :which-key "upcase-region"                    )
+  "xu"  '(downcase-region                                            :which-key "downcase-region"                  )
 
   "y"   '(                                                           :which-key "yasnippets"                       :ignore t)
   "yy"  '(yas-insert-snippet                                         :which-key "insert"                           )

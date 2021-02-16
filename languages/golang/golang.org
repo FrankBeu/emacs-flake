@@ -143,3 +143,24 @@ https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-go.el
 =SPC l s r=
 *** visit site
 [[http://localhost:6060]]
+** dap
+https://emacs-lsp.github.io/dap-mode/page/configuration/#go
+#+begin_src elisp
+  (use-package dap-go
+    ;; :after dap
+    :config
+    (dap-go-setup)
+    )
+#+end_src
+*** INFO
+
+**** debugging
+https://github.com/golang/vscode-go/blob/master/docs/debugging.md
+https://github.com/golang/vscode-go/blob/master/docs/debugging.md#check-your-launch-configuration
+**** ~dap-go-setup~
+will install to
+#+begin_example elisp
+dap-go-debug-path
+#+end_example
+**** delve
+https://github.com/go-delve/delve

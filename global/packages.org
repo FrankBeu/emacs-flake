@@ -119,6 +119,11 @@ open file with rifle
     ;; :disabled
     )
 #+end_src
+** inflection
+https://github.com/akicho8/string-inflection
+#+begin_src elisp
+  (use-package string-inflection)
+#+end_src
 ** DEPRECATED neotree
 use treemacs instead
 #+begin_src elisp

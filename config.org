@@ -31,6 +31,12 @@
 are prefixed by =fb=
 **** don't touch packages
 ** TODO TODOS
+*** CRASH cannot open \*.el-buffer  after \*.org-buffer
+when \*.el-buffer is opened first then  \*.org-buffer then other \*.el-buffer can be opened
+**** suspicion
+related to flycheck
+cf. go-mode
+**** TODO bisect config
 *** TODO global
 **** TODO check undo behaviour
 **** TODO [#A] use gccEmacs
@@ -67,6 +73,8 @@ https://github.com/rolandwalker/fixmee
 **** TODO navigation
 ***** TODO rebase buffer
 *** TODO byte-compile everything
+*** TODO which-key
+**** BUG cannot use paging
 ** package-loading
 #+begin_src elisp
   (require 'package)

@@ -80,3 +80,32 @@
           (when (equal default-directory dir))
           (my-reload-dir-locals-for-current-buffer)))))
 #+end_src
+** inflection
+*** capitalize-word
+#+begin_src elisp
+  (defun fb/titlecase-word ()
+    (interactive)
+    (progn
+      (evil-backward-word-begin)
+      (capitalize-word 1)
+      ))
+#+end_src
+*** lowercase-word
+#+begin_src elisp
+  (defun fb/downcase-word ()
+    (interactive)
+    (progn
+      (evil-backward-word-begin)
+      (downcase-word 1)
+      ))
+#+end_src
+*** uppercase-word
+#+begin_src elisp
+  (defun fb/upcase-word ()
+    (interactive)
+    (progn
+      (evil-backward-word-begin)
+      (upcase-word 1)
+      ))
+#+end_src
+

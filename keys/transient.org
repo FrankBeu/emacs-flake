@@ -32,3 +32,11 @@ transient-states are defined on ~emacs-start-hook~ - they cannot be tested with 
     (interactive)
     (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
 #+end_src
+*** string-inflection
+#+begin_src elisp
+  (spacemacs|define-transient-state string-inflection
+    :title "String Inflection Transient State"
+    :doc "\n [_i_] cycle"
+    :bindings
+    ("i" string-inflection-all-cycle))
+#+end_src

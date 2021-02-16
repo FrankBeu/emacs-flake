@@ -10,6 +10,8 @@ https://github.com/rust-lang/rust-mode
 #+begin_src elisp
   (use-package rust-mode)
 #+end_src
+** dap
+https://emacs-lsp.github.io/dap-mode/page/configuration/#dart
 ** INFO
 https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/rust.section.md
 

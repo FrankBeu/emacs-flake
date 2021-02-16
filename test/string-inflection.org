@@ -1,0 +1,25 @@
+* string-inflection
+TestCase
+testCase
+test-case
+Test_Case
+test_case
+testcase
+** PascalCase (camel-case)
+TestCase
+** camel (lower-camel-case)
+testCase
+** kebab (kebab-case)
+test-case
+** cobra-case (capital-underscore)
+test_case
+** snake (underscore)
+test_case
+** upcase (upcase)
+TEST_CASE
+** titlecase
+Titlecase
+** lower (evil-downcase)
+titlecase
+** upper (evil-upcase)
+TITLECASE

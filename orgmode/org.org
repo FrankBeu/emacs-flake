@@ -1,0 +1,45 @@
+* orgmode-org
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-org
+  ;;;;
+  ;;
+#+end_src
+** TODO TODOS
+*** mark variables as save
+*** font-face monotype: text
+** org-mode
+#+begin_src elisp
+  (use-package org
+    ;; :hook
+    ;; :config
+    ;; :custom
+    )
+#+end_src
+** evil-org
+https://github.com/Somelauw/evil-org-mode
+#+begin_src elisp
+    (use-package evil-org
+      :after org
+      :init
+      (setq evil-org-use-additional-insert t
+      evil-org-key-theme '(
+                                ;; additional
+                                ;; calendar
+                                ;; heading
+                                ;; insert
+                                ;; navigation
+                                ;; return
+                                ;; shift
+                                textobjects
+                                ;; todo
+                                )
+      )
+      ;; :hook (org-mode . (lambda () evil-org-mode))
+      :hook (org-mode . evil-org-mode)
+      :config
+      (require 'evil-org-agenda)
+      (evil-org-agenda-set-keys)
+      (evil-org-set-key-theme)
+      )
+#+end_src

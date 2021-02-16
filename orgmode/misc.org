@@ -5,17 +5,6 @@
   ;;;;
   ;;
 #+end_src
-** TODO TODOS
-*** mark variables as save
-*** font-face monotype: text
-** org-mode
-#+begin_src elisp
-  (use-package org
-    ;; :hook
-    ;; :config
-    ;; :custom
-    )
-#+end_src
 ** hide emphasis-markers `*BOLD*`
 #+begin_src elisp
   (setq org-hide-emphasis-markers t)

@@ -1,0 +1,23 @@
+* languages-dart
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dart
+  ;;;;
+  ;;
+#+end_src
+** TODO setup - current state: prevent dap-loading-error
+** TODO lsp
+https://github.com/emacs-lsp/lsp-dart
+#+begin_src elisp
+  (use-package lsp-dart
+    :after lsp
+    :hook (dart-mode . lsp)
+    )
+#+end_src
+** TODO dap
+https://emacs-lsp.github.io/dap-mode/page/configuration/#dart
+#+begin_src elisp
+  (with-eval-after-load 'lsp-dart
+    (dap-dart-setup))
+#+end_src
+** INFO
