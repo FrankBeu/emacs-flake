@@ -65,6 +65,12 @@ SCHEDULED: <2021-02-17 Wed>
 *** range
 [2021-02-03 Wed]--[2021-02-06 Sat] 3d
 [2021-02-03 Wed 09:04]--[2021-02-06 Sat 09:04] 3d 00:00
+** desktop-notification
+*** TODO Notification test
+  SCHEDULED:<2021-02-21 Sun 17:55>
+  :PROPERTIES:
+  :NOTIFY: 5 4 3 2 1
+  :END:
 * babel
 ** c#
 #+BEGIN_SRC csharp :results verbatim :exports both

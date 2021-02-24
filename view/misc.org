@@ -22,6 +22,7 @@ disable multiple bars
 *** Disable display of line numbers in some modes
 #+begin_src elisp
   (dolist (mode '(
+                  calendar-mode-hook
                   eshell-mode-hook
                   helpful-mode-hook
                   org-mode-hook

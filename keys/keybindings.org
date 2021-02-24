@@ -229,6 +229,12 @@ on prompts use:
    "C-d" 'ivy-reverse-i-search-kill
    )
 #+end_src
+** lisp
+#+begin_src elisp
+  (general-define-key
+   "C-M-x" 'eval-last-sexp
+   )
+#+end_src
 ** lsp
 *** lsp-command-map
 #+begin_src elisp
@@ -388,26 +394,6 @@ on prompts use:
 #+begin_src elisp
   (fb/leader-key
 
-    "a"   '(                                                           :which-key "ace"                              :ignore t)
-    "aa"  '(aw-show-dispatch-help                                      :which-key "ace-window"                       )
-    "ab"  '(balance-windows                                            :which-key "balance"                          )
-    "ad"  '(ace-delete-window                                          :which-key "ace-delete"                       )
-    "ae"  '(:keymap evil-window-map :package evil                      :which-key "evil-window"                      )
-
-    "af"  '(aw-flip-window                                             :which-key "flip"                             )
-    "ag"  '(hydra-window-frame/body                                    :which-key "frame"                            )
-    "ah"  '(fb/aw-split-window-horz                                    :which-key "split |"                          )
-    "ai"  '(winner-mode                                                :which-key "winner-mode"                      )
-    "am"  '(delete-other-windows                                       :which-key "maximize"                         )
-    "ao"  '(hydra-window-scroll/body                                   :which-key "scroll"                           )
-    "ap"  '(ace-swap-window                                            :which-key "ace-swap"                         )
-    "ar"  '(fb/winner-redo                                             :which-key "winner-redo"                      )
-    "as"  '(ace-select-window                                          :which-key "ace-select"                       )
-    "au"  '(fb/winner-undo                                             :which-key "winner-undo"                      )
-    "av"  '(fb/aw-split-window-vert                                    :which-key "split -"                          )
-    "aw"  '(hydra-window-size/body                                     :which-key "resize"                           )
-    "ax"  '(ace-delete-other-windows                                   :which-key "ace-delete-other"                 )
-
     "c"   '(                                                           :which-key "comment"                          :ignore t)
     "cc"  '(evilnc-comment-operator                                    :which-key "cmnt-operator"                    )
     "ci"  '(evilnc-toggle-invert-comment-line-by-line                  :which-key "toggle-invert-cmnt-line-by-line"  )
@@ -418,6 +404,7 @@ on prompts use:
     "cy"  '(evilnc-copy-and-comment-lines                              :which-key "cp-and-cmnt-lines"                )
 
     "C"   '(                                                           :which-key "command-log-mode"                 :ignore t)
+    "CA"  '(cfw:open-org-calendar                                      :which-key "org-cal"                          )
     "CC"  '(command-log-mode                                           :which-key "toggle-local"                     )
     "CB"  '(clm/open-command-log-buffer                                :which-key "show-clm-buffer"                  )
     "CG"  '(global-command-log-mode                                    :which-key "toggle-global"                    )
@@ -613,22 +600,22 @@ on prompts use:
     "xd"   '(                                                          :which-key "delete"                           )
     "xdl"  '(delete-blank-lines                                        :which-key "delete-blank-lines"               )
     "xdw"  '(delete-trailing-whitespace                                :which-key "delete-trailing-whitespace"       )
-  
-    "xi"  '(                                                           :which-key "inflection"                       :ignore t)
-    "xic" '(string-inflection-lower-camelcase                          :which-key "camel"                            )                                  
-    "xiC" '(string-inflection-camelcase                                :which-key "camel-lower"                      )
-    "xid" '(fb/downcase-word                                           :which-key "down"                             )
-    "xiD" '(fb/upcase-word                                             :which-key "up"                               )
-    "xii" '(spacemacs/string-inflection-transient-state/body           :which-key "transient"                        )                                                 
-    "xi." '(spacemacs/string-inflection-transient-state/body           :which-key "transient"                        )                                                 
-    "xi-" '(string-inflection-kebab-case                               :which-key "kebab"                            )                             
-    "xik" '(string-inflection-kebab-case                               :which-key "kebab"                            )                             
-    "xil" '(downcase-region                                            :which-key "downcase-region"                  )
-    "xi_" '(string-inflection-underscore                               :which-key "snake"                            )                             
-    "xis" '(string-inflection-underscore                               :which-key "snake"                            )                             
-    "xit" '(fb/titlecase-word                                          :which-key "title"                            )                                           
-    "xiu" '(string-inflection-capital-underscore                       :which-key "snake-upper"                      )                             
-    "xiU" '(string-inflection-upcase                                   :which-key "upper"                            )                                           
+
+    "xi"   '(                                                          :which-key "inflection"                       :ignore t)
+    "xic"  '(string-inflection-lower-camelcase                         :which-key "camel"                            )                                  
+    "xiC"  '(string-inflection-camelcase                               :which-key "camel-lower"                      )
+    "xid"  '(fb/downcase-word                                          :which-key "down"                             )
+    "xiD"  '(fb/upcase-word                                            :which-key "up"                               )
+    "xii"  '(spacemacs/string-inflection-transient-state/body          :which-key "transient"                        )                                                 
+    "xi."  '(spacemacs/string-inflection-transient-state/body          :which-key "transient"                        )                                                 
+    "xi-"  '(string-inflection-kebab-case                              :which-key "kebab"                            )                             
+    "xik"  '(string-inflection-kebab-case                              :which-key "kebab"                            )                             
+    "xil"  '(downcase-region                                           :which-key "downcase-region"                  )
+    "xi_"  '(string-inflection-underscore                              :which-key "snake"                            )                             
+    "xis"  '(string-inflection-underscore                              :which-key "snake"                            )                             
+    "xit"  '(fb/titlecase-word                                         :which-key "title"                            )                                           
+    "xiu"  '(string-inflection-capital-underscore                      :which-key "snake-upper"                      )                             
+    "xiU"  '(string-inflection-upcase                                  :which-key "upper"                            )                                           
 
     "xj"   '(                                                          :which-key "justification"                    :ignore t)
     "xjc"  '(set-justification-center                                  :which-key "justification-center"             )
@@ -655,12 +642,30 @@ on prompts use:
     "y"   '(                                                           :which-key "yasnippets"                       :ignore t)
     "yy"  '(yas-insert-snippet                                         :which-key "insert"                           )
     "yr"  '(yas-reload-all                                             :which-key "reload-all"                       )
+    "yv"  '(yas-visit-snippet-file                                     :which-key "visit"                            )
 
     "u"   '(undo-tree-visualize                                        :which-key "undotree"                         )
 
     "w"   '(                                                           :which-key "window"                           :ignore t)
-    "ww"   '(writeroom-mode                                            :which-key "writeroom-toggle"                 )
+    "wa"  '(aw-show-dispatch-help                                      :which-key "ace-window"                       )
+    "wb"  '(balance-windows                                            :which-key "balance"                          )
+    "wd"  '(ace-delete-window                                          :which-key "ace-delete"                       )
     "we"  '(:keymap evil-window-map :package evil                      :which-key "evil-window"                      )
+    "wf"  '(aw-flip-window                                             :which-key "flip"                             )
+    "wg"  '(hydra-window-frame/body                                    :which-key "frame"                            )
+    "wh"  '(fb/aw-split-window-horz                                    :which-key "split |"                          )
+    "wi"  '(winner-mode                                                :which-key "winner-mode"                      )
+    "wl"  '(hydra-window-size/body                                     :which-key "resize"                           )
+    "wm"  '(delete-other-windows                                       :which-key "maximize"                         )
+    "wo"  '(hydra-window-scroll/body                                   :which-key "scroll"                           )
+    "wp"  '(ace-swap-window                                            :which-key "ace-swap"                         )
+    "wr"  '(fb/winner-redo                                             :which-key "winner-redo"                      )
+    "ws"  '(ace-select-window                                          :which-key "ace-select"                       )
+    "wu"  '(fb/winner-undo                                             :which-key "winner-undo"                      )
+  ;;;; TODO harmonize with =SPW w e v= cf. RESULT vs ACTION
+    "wv"  '(fb/aw-split-window-vert                                    :which-key "split -"                          )
+    "ww"  '(writeroom-mode                                            :which-key "writeroom-toggle"                 )
+    "wx"  '(ace-delete-other-windows                                   :which-key "ace-delete-other"                 )
 
     ";"   '(counsel-switch-buffer                                      :which-key "switch-buffer"                    )
     )

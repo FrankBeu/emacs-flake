@@ -8,6 +8,7 @@
 ** TODO setup - current state: prevent dap-loading-error
 ** TODO lsp
 https://github.com/emacs-lsp/lsp-dart
+https://emacs-lsp.github.io/lsp-dart/#rundebug-tests
 #+begin_src elisp
   (use-package lsp-dart
     :after lsp

@@ -591,6 +591,8 @@ byte-compiled from.")
 
 (use-package avy)
 
+(use-package calfw)
+
 (use-package command-log-mode)
 
 (use-package dired
@@ -2036,6 +2038,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (use-package org-make-toc
   :hook (org-mode . org-make-toc-mode))
 
+(use-package calfw-org)
+
 (add-to-list 'org-structure-template-alist '("sh"   . "src sh"))
 (add-to-list 'org-structure-template-alist '("el"   . "src emacs-lisp"))
 (add-to-list 'org-structure-template-alist '("sc"   . "src scheme"))
@@ -2046,6 +2050,15 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (add-to-list 'org-structure-template-alist '("go"   . "src go"))
 (add-to-list 'org-structure-template-alist '("rt"   . "src rust"))
 (add-to-list 'org-structure-template-alist '("dt"   . "src dart"))
+
+(use-package org-wild-notifier
+  :hook (org-mode . org-wild-notifier-mode)
+  :config
+  (setq
+    alert-default-style 'libnotify
+    org-wild-notifier-alert-times-property 'NOTIFY
+  )
+)
 
 (defun fb*org-mode-h ()
   (fb*default-company-backends-h)
@@ -2249,6 +2262,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (global-display-line-numbers-mode t)
 
 (dolist (mode '(
+                calendar-mode-hook
                 eshell-mode-hook
                 helpful-mode-hook
                 org-mode-hook
@@ -2433,12 +2447,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
   (interactive)
   (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
 
-(spacemacs|define-transient-state string-inflection
-  :title "String Inflection Transient State"
-  :doc "\n [_i_] cycle"
-  :bindings
-  ("i" string-inflection-all-cycle))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-keybindings
 ;;;;
 ;;
@@ -2589,6 +2597,10 @@ an argument, unconditionally call `org-insert-SUBheading'."
  )
 
 (general-define-key
+ "C-M-x" 'eval-last-sexp
+ )
+
+(general-define-key
  :keymaps '(lsp-command-map)
  ;; "i"  '(:ignore t :which-key "ivy/imenu") ;;; defined in fb/leader-key
  "ii"  'lsp-ivy-workspace-symbol
@@ -2709,26 +2721,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
 
 (fb/leader-key
 
-  "a"   '(                                                           :which-key "ace"                              :ignore t)
-  "aa"  '(aw-show-dispatch-help                                      :which-key "ace-window"                       )
-  "ab"  '(balance-windows                                            :which-key "balance"                          )
-  "ad"  '(ace-delete-window                                          :which-key "ace-delete"                       )
-  "ae"  '(:keymap evil-window-map :package evil                      :which-key "evil-window"                      )
-
-  "af"  '(aw-flip-window                                             :which-key "flip"                             )
-  "ag"  '(hydra-window-frame/body                                    :which-key "frame"                            )
-  "ah"  '(fb/aw-split-window-horz                                    :which-key "split |"                          )
-  "ai"  '(winner-mode                                                :which-key "winner-mode"                      )
-  "am"  '(delete-other-windows                                       :which-key "maximize"                         )
-  "ao"  '(hydra-window-scroll/body                                   :which-key "scroll"                           )
-  "ap"  '(ace-swap-window                                            :which-key "ace-swap"                         )
-  "ar"  '(fb/winner-redo                                             :which-key "winner-redo"                      )
-  "as"  '(ace-select-window                                          :which-key "ace-select"                       )
-  "au"  '(fb/winner-undo                                             :which-key "winner-undo"                      )
-  "av"  '(fb/aw-split-window-vert                                    :which-key "split -"                          )
-  "aw"  '(hydra-window-size/body                                     :which-key "resize"                           )
-  "ax"  '(ace-delete-other-windows                                   :which-key "ace-delete-other"                 )
-
   "c"   '(                                                           :which-key "comment"                          :ignore t)
   "cc"  '(evilnc-comment-operator                                    :which-key "cmnt-operator"                    )
   "ci"  '(evilnc-toggle-invert-comment-line-by-line                  :which-key "toggle-invert-cmnt-line-by-line"  )
@@ -2739,6 +2731,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "cy"  '(evilnc-copy-and-comment-lines                              :which-key "cp-and-cmnt-lines"                )
 
   "C"   '(                                                           :which-key "command-log-mode"                 :ignore t)
+  "CA"  '(cfw:open-org-calendar                                      :which-key "org-cal"                          )
   "CC"  '(command-log-mode                                           :which-key "toggle-local"                     )
   "CB"  '(clm/open-command-log-buffer                                :which-key "show-clm-buffer"                  )
   "CG"  '(global-command-log-mode                                    :which-key "toggle-global"                    )
@@ -2935,21 +2928,21 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "xdl"  '(delete-blank-lines                                        :which-key "delete-blank-lines"               )
   "xdw"  '(delete-trailing-whitespace                                :which-key "delete-trailing-whitespace"       )
 
-  "xi"  '(                                                           :which-key "inflection"                       :ignore t)
-  "xic" '(string-inflection-lower-camelcase                          :which-key "camel"                            )                                  
-  "xiC" '(string-inflection-camelcase                                :which-key "camel-lower"                      )
-  "xid" '(fb/downcase-word                                           :which-key "down"                             )
-  "xiD" '(fb/upcase-word                                             :which-key "up"                               )
-  "xii" '(spacemacs/string-inflection-transient-state/body           :which-key "transient"                        )                                                 
-  "xi." '(spacemacs/string-inflection-transient-state/body           :which-key "transient"                        )                                                 
-  "xi-" '(string-inflection-kebab-case                               :which-key "kebab"                            )                             
-  "xik" '(string-inflection-kebab-case                               :which-key "kebab"                            )                             
-  "xil" '(downcase-region                                            :which-key "downcase-region"                  )
-  "xi_" '(string-inflection-underscore                               :which-key "snake"                            )                             
-  "xis" '(string-inflection-underscore                               :which-key "snake"                            )                             
-  "xit" '(fb/titlecase-word                                          :which-key "title"                            )                                           
-  "xiu" '(string-inflection-capital-underscore                       :which-key "snake-upper"                      )                             
-  "xiU" '(string-inflection-upcase                                   :which-key "upper"                            )                                           
+  "xi"   '(                                                          :which-key "inflection"                       :ignore t)
+  "xic"  '(string-inflection-lower-camelcase                         :which-key "camel"                            )                                  
+  "xiC"  '(string-inflection-camelcase                               :which-key "camel-lower"                      )
+  "xid"  '(fb/downcase-word                                          :which-key "down"                             )
+  "xiD"  '(fb/upcase-word                                            :which-key "up"                               )
+  "xii"  '(spacemacs/string-inflection-transient-state/body          :which-key "transient"                        )                                                 
+  "xi."  '(spacemacs/string-inflection-transient-state/body          :which-key "transient"                        )                                                 
+  "xi-"  '(string-inflection-kebab-case                              :which-key "kebab"                            )                             
+  "xik"  '(string-inflection-kebab-case                              :which-key "kebab"                            )                             
+  "xil"  '(downcase-region                                           :which-key "downcase-region"                  )
+  "xi_"  '(string-inflection-underscore                              :which-key "snake"                            )                             
+  "xis"  '(string-inflection-underscore                              :which-key "snake"                            )                             
+  "xit"  '(fb/titlecase-word                                         :which-key "title"                            )                                           
+  "xiu"  '(string-inflection-capital-underscore                      :which-key "snake-upper"                      )                             
+  "xiU"  '(string-inflection-upcase                                  :which-key "upper"                            )                                           
 
   "xj"   '(                                                          :which-key "justification"                    :ignore t)
   "xjc"  '(set-justification-center                                  :which-key "justification-center"             )
@@ -2976,12 +2969,30 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "y"   '(                                                           :which-key "yasnippets"                       :ignore t)
   "yy"  '(yas-insert-snippet                                         :which-key "insert"                           )
   "yr"  '(yas-reload-all                                             :which-key "reload-all"                       )
+  "yv"  '(yas-visit-snippet-file                                     :which-key "visit"                            )
 
   "u"   '(undo-tree-visualize                                        :which-key "undotree"                         )
 
   "w"   '(                                                           :which-key "window"                           :ignore t)
-  "ww"   '(writeroom-mode                                            :which-key "writeroom-toggle"                 )
+  "wa"  '(aw-show-dispatch-help                                      :which-key "ace-window"                       )
+  "wb"  '(balance-windows                                            :which-key "balance"                          )
+  "wd"  '(ace-delete-window                                          :which-key "ace-delete"                       )
   "we"  '(:keymap evil-window-map :package evil                      :which-key "evil-window"                      )
+  "wf"  '(aw-flip-window                                             :which-key "flip"                             )
+  "wg"  '(hydra-window-frame/body                                    :which-key "frame"                            )
+  "wh"  '(fb/aw-split-window-horz                                    :which-key "split |"                          )
+  "wi"  '(winner-mode                                                :which-key "winner-mode"                      )
+  "wl"  '(hydra-window-size/body                                     :which-key "resize"                           )
+  "wm"  '(delete-other-windows                                       :which-key "maximize"                         )
+  "wo"  '(hydra-window-scroll/body                                   :which-key "scroll"                           )
+  "wp"  '(ace-swap-window                                            :which-key "ace-swap"                         )
+  "wr"  '(fb/winner-redo                                             :which-key "winner-redo"                      )
+  "ws"  '(ace-select-window                                          :which-key "ace-select"                       )
+  "wu"  '(fb/winner-undo                                             :which-key "winner-undo"                      )
+;;;; TODO harmonize with =SPW w e v= cf. RESULT vs ACTION
+  "wv"  '(fb/aw-split-window-vert                                    :which-key "split -"                          )
+  "ww"  '(writeroom-mode                                            :which-key "writeroom-toggle"                 )
+  "wx"  '(ace-delete-other-windows                                   :which-key "ace-delete-other"                 )
 
   ";"   '(counsel-switch-buffer                                      :which-key "switch-buffer"                    )
   )
@@ -3156,6 +3167,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
   :states  '(normal visual insert)
 
   "a"     '(org-agenda                                          :which-key "agenda"           )
+  "b"     '(                                                    :which-key "table"            :ignore t)
 
   "c"      '(org-comment-dwim                                   :which-key "comment"          )
 
@@ -3240,3 +3252,12 @@ an argument, unconditionally call `org-insert-SUBheading'."
     (hack-dir-local-variables-non-file-buffer)))
 
 (setq lsp-gopls-codelens nil)
+
+package main
+
+func main() {
+// yasnip nl
+
+// nolint
+// nolint:govet
+}

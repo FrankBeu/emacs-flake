@@ -32,3 +32,4 @@
   ;; (add-to-list 'TeX-view-program-list '("zathura" zathura-forward-search))
   ;; (setq TeX-view-program-selection (quote ((output-pdf "zathura") (output-dvi "xdvi"))))
 #+end_src
+** TODO move to langs

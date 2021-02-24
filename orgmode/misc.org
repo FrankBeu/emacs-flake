@@ -64,8 +64,13 @@
   (use-package org-make-toc
     :hook (org-mode . org-make-toc-mode))
 #+end_src
-** TODO keybindings
-** TODO capture 
+** calfw-org
+https://github.com/kiwanami/emacs-calfw#for-org-users
+#+begin_src elisp
+  (use-package calfw-org)
+#+end_src
+*** TODO disable line-numbers
+*** TODO colors
 ** TODO structure-templates
   https://orgmode.org/manual/Structure-Templates.html
   https://blog.aaronbieber.com/2016/11/23/creating-org-mode-structure-templates.html
@@ -81,19 +86,35 @@
   (add-to-list 'org-structure-template-alist '("rt"   . "src rust"))
   (add-to-list 'org-structure-template-alist '("dt"   . "src dart"))
 #+end_src
-** TODO notifications - desktop
+** notifications - desktop
+*** org-wild-notifier
 https://github.com/akhramov/org-wild-notifier.el
+#+begin_src elisp
+  (use-package org-wild-notifier
+    :hook (org-mode . org-wild-notifier-mode)
+    :config
+    (setq
+      alert-default-style 'libnotify
+      org-wild-notifier-alert-times-property 'NOTIFY
+    )
+  )
+#+end_src
+*** alternatives
+**** org-notify
+#+begin_src elisp :tangle no
+  ;; (use-package org-notify
+    ;; :config (org-notify-start))
+#+end_src
+**** org-alert
+https://github.com/spegoraro/org-alert
 ** TODO doct 
 https://github.com/progfolio/doct
 ** TODO babel
 https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/org/config.el
-** TODO =v i e=
-not defined
-
 ** TODO packages
   toc-org
   valign
-
+  
 ** TODO org-drill
 flashcards (like anki)
 https://orgmode.org/worg/org-contrib/org-drill.html

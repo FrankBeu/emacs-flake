@@ -34,6 +34,8 @@ https://github.com/weijiangan/flycheck-golangci-lint
     )
 #+end_src
 *** add checker
+cf. [[file:~/.emacs.d/languages/misc.org::*checker-chaining][checker-chaining]]
+golangci-lint is a linterRunner - will run all the available linters - no need to add them one by one
 #+begin_src elisp
 (add-hook 'lsp-managed-mode-hook
           (lambda ()
@@ -41,6 +43,15 @@ https://github.com/weijiangan/flycheck-golangci-lint
               (setq fb*flycheck-local-cache '((lsp . ((next-checkers . (golangci-lint)))))))))
 #+end_src
 *** TODO create nix-package
+*** INFO
+**** disable linting
+https://golangci-lint.run/usage/false-positives/#nolint
+#+begin_src go :results drawer
+  // yasnip nl
+
+  // nolint
+  // nolint:govet
+#+end_src
 ** functions
 *** spacemacs
 #+begin_src elisp
@@ -153,7 +164,6 @@ https://emacs-lsp.github.io/dap-mode/page/configuration/#go
     )
 #+end_src
 *** INFO
-
 **** debugging
 https://github.com/golang/vscode-go/blob/master/docs/debugging.md
 https://github.com/golang/vscode-go/blob/master/docs/debugging.md#check-your-launch-configuration
@@ -164,3 +174,7 @@ dap-go-debug-path
 #+end_example
 **** delve
 https://github.com/go-delve/delve
+**** templates
+https://github.com/emacs-lsp/dap-mode/blob/master/dap-go.el
+**** configuration
+https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings

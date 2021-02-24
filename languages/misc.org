@@ -165,6 +165,7 @@ lsp has to be started to get flycheck working
         (switch-to-buffer-other-window flycheck-error-list-buffer))))
 #+end_src
 *** checker-chaining
+https://github.com/flycheck/flycheck/issues/1762
 #+begin_src elisp
   (defvar-local fb*flycheck-local-cache nil)
 

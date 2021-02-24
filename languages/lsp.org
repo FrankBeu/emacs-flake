@@ -6,6 +6,8 @@
   ;;
 #+end_src
 ** INFO
+*** spacemacs
+https://develop.spacemacs.org/layers/+tools/lsp/README.html
 *** protocol
 https://microsoft.github.io/language-server-protocol/
 *** TODO performance

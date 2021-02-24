@@ -27,6 +27,12 @@ current: emacs26Packages
 #+begin_src elisp
   (use-package avy)
 #+end_src
+** calfw
+https://github.com/kiwanami/emacs-calfw
+#+begin_src elisp
+  (use-package calfw)
+#+end_src
+*** [[file:~/.emacs.d/orgmode/misc.org::calfw-org][calfw-org]]
 ** command-log
 #+begin_src elisp
   (use-package command-log-mode)
