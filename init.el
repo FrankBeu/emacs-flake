@@ -1022,6 +1022,12 @@ using a visual block/rectangle selection."
   (interactive)
   (fb*toggle-which-key-sort-order))
 
+(defun fb/reload-dir-locals-current-buffer ()
+  "reload dir-locals for the current buffer"
+  (interactive)
+  (let ((enable-local-variables :all))
+    (hack-dir-local-variables-non-file-buffer)))
+
 (defun fb/reload-dir-locals-all-directory-buffer ()
   "For every buffer with the same `default-directory` as the
 current buffer's, reload dir-locals."
@@ -1259,6 +1265,18 @@ current buffer's, reload dir-locals."
 ;;;;
 ;;
 
+(use-package dart-mode
+  :hook (dart-mode . flutter-test-mode)
+  )
+
+(use-package flutter
+  :after dart-mode
+  :bind (:map dart-mode-map
+              ("C-M-x" . #'flutter-run-or-hot-reload))
+  ;; :custom
+  ;; (flutter-sdk-path "/run/current-system/sw/bin/flutter")
+  )
+
 (use-package lsp-dart
   :after lsp
   :hook (dart-mode . lsp)
@@ -1266,6 +1284,8 @@ current buffer's, reload dir-locals."
 
 (with-eval-after-load 'lsp-dart
   (dap-dart-setup))
+
+(use-package hover)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-golang
 ;;;;
@@ -1337,6 +1357,8 @@ current buffer's, reload dir-locals."
       ("gopls.staticcheck" t t)
       ("gopls.gofumpt" t t)
       )))
+
+(setq lsp-gopls-codelens nil)
 
 (use-package dap-go
   ;; :after dap
@@ -2429,7 +2451,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (spacemacs|define-transient-state evil-numbers
   :title "Evil Numbers Transient State"
   :doc
-  "\n[_+_/_=_/_k_] increase number  [_-_/___/_j_] decrease  [0..9] prefix  [_q_] quit"
+  "\n[_+_/_=_/_k_] increase number  [_-_/___/_l_] decrease  [0..9] prefix  [_q_] quit"
   :foreign-keys run
   :bindings
   ("+" evil-numbers/inc-at-pt)
@@ -3244,20 +3266,3 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
 
 (global-set-key "\M-o" cm-map)
-
-(defun fb/reload-dir-locals-current-buffer ()
-  "reload dir-locals for the current buffer"
-  (interactive)
-  (let ((enable-local-variables :all))
-    (hack-dir-local-variables-non-file-buffer)))
-
-(setq lsp-gopls-codelens nil)
-
-package main
-
-func main() {
-// yasnip nl
-
-// nolint
-// nolint:govet
-}

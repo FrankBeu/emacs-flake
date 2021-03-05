@@ -62,7 +62,7 @@
     (fb*toggle-which-key-sort-order))
 #+end_src
 ** dir-local-variables
-#+begin_src emacs-lisp
+#+begin_src elisp
   (defun fb/reload-dir-locals-current-buffer ()
     "reload dir-locals for the current buffer"
     (interactive)

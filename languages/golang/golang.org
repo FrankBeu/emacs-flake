@@ -46,12 +46,12 @@ golangci-lint is a linterRunner - will run all the available linters - no need t
 *** INFO
 **** disable linting
 https://golangci-lint.run/usage/false-positives/#nolint
-#+begin_src go :results drawer
+#+begin_example go
   // yasnip nl
 
   // nolint
   // nolint:govet
-#+end_src
+#+end_example
 ** functions
 *** spacemacs
 #+begin_src elisp
@@ -137,10 +137,9 @@ https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-go.el
 =SPC l s r=
 ** TODO TODOS
 *** codelenses
-#+begin_src emacs-lisp
+#+begin_src elisp
   (setq lsp-gopls-codelens nil)
 #+end_src
-
 ** lsp-debugging
 *** enabling
 #+begin_src elisp :tangle no

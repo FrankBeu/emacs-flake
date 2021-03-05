@@ -12,7 +12,7 @@ transient-states are defined on ~emacs-start-hook~ - they cannot be tested with 
   (spacemacs|define-transient-state evil-numbers
     :title "Evil Numbers Transient State"
     :doc
-    "\n[_+_/_=_/_k_] increase number  [_-_/___/_j_] decrease  [0..9] prefix  [_q_] quit"
+    "\n[_+_/_=_/_k_] increase number  [_-_/___/_l_] decrease  [0..9] prefix  [_q_] quit"
     :foreign-keys run
     :bindings
     ("+" evil-numbers/inc-at-pt)

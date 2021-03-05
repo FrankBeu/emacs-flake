@@ -6,6 +6,22 @@
   ;;
 #+end_src
 ** TODO setup - current state: prevent dap-loading-error
+** dart
+#+begin_src elisp
+  (use-package dart-mode
+    :hook (dart-mode . flutter-test-mode)
+    )
+#+end_src
+** flutter
+#+begin_src elisp
+  (use-package flutter
+    :after dart-mode
+    :bind (:map dart-mode-map
+                ("C-M-x" . #'flutter-run-or-hot-reload))
+    ;; :custom
+    ;; (flutter-sdk-path "/run/current-system/sw/bin/flutter")
+    )
+#+end_src
 ** TODO lsp
 https://github.com/emacs-lsp/lsp-dart
 https://emacs-lsp.github.io/lsp-dart/#rundebug-tests
@@ -21,4 +37,10 @@ https://emacs-lsp.github.io/dap-mode/page/configuration/#dart
   (with-eval-after-load 'lsp-dart
     (dap-dart-setup))
 #+end_src
+** hover
+run app from desktop without emulator
+#+begin_src elisp
+  (use-package hover)
+#+end_src
+)
 ** INFO

@@ -93,6 +93,16 @@ https://github.com/rolandwalker/fixmee
 #+end_src
 ** tangling
 #+INCLUDE: "./tangling/tangling.org"
+*** INFO
+**** TangleOrder
+src-blocks will be tangled alphabetically
+#+begin_src elisp :tangle no
+#+end_src
+#+begin_src emacs-lisp :tangle no
+#+end_src
+#+begin_src go :tangle no
+#+end_src
+always use elisp instead of emacs-lisp
 ** debugging
 #+begin_src elisp
   ;; (setq debug-on-error t)
