@@ -133,6 +133,7 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
 #+begin_src elisp
   (add-hook 'org-mode-hook 'fb*org-mode-keybindings-h)
 #+end_src
+** TODO tables
 ** local-leader
 #+begin_src elisp
   (fb/local-leader-key
@@ -147,6 +148,8 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "l"      '(org-insert-last-stored-link                        :which-key "insert link"      )
 
     "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
+    "O"      '(                                                   :which-key "toggle"           :ignore t)
+    "OI"     '(org-toggle-inline-images                           :which-key "images"           )
 
     "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
 

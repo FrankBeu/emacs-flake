@@ -119,6 +119,19 @@ https://github.com/tigersoldier/company-lsp
     (yas-reload-all)
     )
 #+end_src
+*** TODO expand yas-snippets with the same keypress as company
+**** ACTUAL
+- tab: ~yas-expand~
+- C-l: ~company-complete~
+**** TARGET
+- C-l: ~company-complete~ + ~yas-expand~
+  depending on context
+*** TODO inside expanded snippet move to next stop with other keybinding
+*** TODO Change current keybinding moving cursor to next stop inside expanded snippet
+**** ACTUAL
+- tab
+**** TARGET
+- ????
 ** TODO [#A] flycheck
 #+begin_src elisp
   (use-package flycheck

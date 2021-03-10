@@ -209,3 +209,5 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 *** TODO org-protocol-capture-html
 check if this is a replacement or an addition
 https://github.com/alphapapa/org-protocol-capture-html
+*** TODO yas-org-capture
+https://github.com/ag91/ya-org-capture

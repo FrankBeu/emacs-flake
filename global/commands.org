@@ -108,4 +108,12 @@
       (upcase-word 1)
       ))
 #+end_src
+** debugging
+*** find last executed command
+#+begin_src elisp
+(defun fb/describe-last-function()
+  (interactive)
+  (describe-function last-command))
+#+end_src
+**** there is also =M-x command-history=
 

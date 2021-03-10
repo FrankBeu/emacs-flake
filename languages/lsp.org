@@ -81,8 +81,14 @@ https://github.com/emacs-lsp/lsp-ivy
     :commands lsp-ivy-workspace-symbol
     )
 #+end_src
-** TODO lsp-origami
+** lsp-origami
 https://github.com/emacs-lsp/lsp-origami
+#+begin_src elisp
+  (use-package lsp-origami
+    :hook (lsp-after-open . lsp-origami-try-enable)
+    )
+  ;; (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
+#+end_src
 ** lsp-treemacs
 https://github.com/emacs-lsp/lsp-treemacs
 #+begin_src elisp
@@ -90,4 +96,9 @@ https://github.com/emacs-lsp/lsp-treemacs
     :commands lsp-treemacs-errors-list
     :after lsp
     )
+#+end_src
+** TODO TODOS
+*** restart completion
+#+begin_src go :results drawer
+	err := json.NewDecoder(r).Decode(&league)
 #+end_src

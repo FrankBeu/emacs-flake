@@ -20,3 +20,40 @@ an argument, unconditionally call `org-insert-SUBheading'."
 				((org-in-item-p) #'org-insert-item)
 				(t #'org-insert-subheading)))))
 #+end_src
+** screenshots
+#+begin_src elisp
+  (defvar fb/org-screenshot-dir
+  (concat (file-name-as-directory fb/notesDir) "TMP")
+  ;; (expand-file-name (concat (file-name-as-directory fb/notesDir) "TMP"))
+    "Path to dir where all org-screenshots are stored"
+    )
+#+end_src
+#+begin_src elisp
+    (defun fb/org-screenshot-plus-click ()
+      "Take a screenshot into a time stamped unique-named file in the
+    screenshotDir and insert a link to this file."
+      (interactive)
+      (setq filename
+            (concat
+             (make-temp-name
+              ;; (concat (buffer-file-name) ;;;; current filename
+              (concat (file-name-as-directory fb/org-screenshot-dir)
+                      (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+      (call-process "import" nil nil nil filename)                      ;;;; takes screenshot and creates file
+      (insert (concat "[[" filename "]]"))
+      (org-display-inline-images))
+#+end_src
+*** TODO fix storePath
+if in AKTUELLES
+find nearest previous **-headline
+store under
+=/home/frank/NOTES/ASSETS/<HEADLINE>=
+*** TODO use screenshot taken with flameshot
+**** from clipboard
+needs xclip
+#+begin_example
+xclip -selection clipboard -t image/png -o > PATH.png
+#+end_example
+**** mv newest screenshots
+*** TODO ask for location
+*** TODO ask for name

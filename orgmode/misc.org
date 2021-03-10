@@ -9,6 +9,12 @@
 #+begin_src elisp
   (setq org-hide-emphasis-markers t)
 #+end_src
+** notes-Dir
+#+begin_src elisp
+  (defvar fb/notesDir
+  (expand-file-name "~/NOTES/")
+    "The file path to the org-notes-files")
+#+end_src
 ** subtree-elipsis
 *** TODO fix: delete trailing whitespace will remove "  ▼", too
 #+begin_src elisp
@@ -122,6 +128,8 @@ https://orgmode.org/worg/org-contrib/org-drill.html
 https://github.com/novoid/Memacs
 ** TODO org-manage
 https://github.com/dmgerman/org-manage
+** TODO org-hacks
+https://orgmode.org/worg/org-hacks.html
 ** hook
 *** hook-function
 #+begin_src elisp

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+#name : assert
+#key : as
+#contributor : fb
+# --
+
+func assert$1(t testing.TB, ${2:got} ${3:gotType} , ${4:want} ${5:wantType} ) {
+	t.Helper()
+	if $2 != $4 {
+		t.Errorf("${6:message}, got %q want %q", $2, $4)
+	}
+}
+$0

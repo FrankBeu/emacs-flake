@@ -2,7 +2,7 @@
 * emacsConfiguration
 ** styleGuide
 *** elisp
-*** variable-naming
+*** naming
 **** doom
 - ~doom/abc~ A public, interactive command, designed to be used via =M-x= or a keybinding.
 - ~doom:abc~ A public evil operator, motion or command.
@@ -18,6 +18,11 @@
 - ~=abc~ An interactive command that invokes an app module.
 **** spacemacs
  https://develop.spacemacs.org/doc/CONVENTIONS.html
+**** TODO variables
+***** ??
+****** use ::
+cf. rust
+****** use .
 *** org-mode
 **** =verbatim=    ---   ~code~   ::    `=verbatim=' and `~code~'
 =●= == key-sequences and text, paths or file names - markup rather than code
@@ -109,6 +114,12 @@ always use elisp instead of emacs-lisp
   ;; (setq debug-ignored-error t)
   ;;;; nixos-packages
 #+end_src
+*** INFO
+**** Errors
+***** Message
+Reading at buffer position N
+***** response
+=M-x= ~goto-char~ N RET
 ** functions: loadConfig
 #+begin_src elisp
   (defun fb*getPathToConfigFile (filename)

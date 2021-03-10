@@ -104,6 +104,7 @@ open file with rifle
     :disabled
     )
 #+end_src
+*** TODO icons are displayed twice
 ** helpful
 #+begin_src elisp
   (use-package helpful
@@ -158,6 +159,13 @@ use treemacs instead
      vc-make-backup-files t         ;;; make backups file even when in version controlled dir
      version-control t              ;;; use version control
      )
+    )
+#+end_src
+** origami
+https://github.com/gregsexton/origami.el
+#+begin_src elisp
+  (use-package origami
+    ;; :hook
     )
 #+end_src
 ** CANCELLED popwin
@@ -303,6 +311,8 @@ https://github.com/emacsorphanage/popwin
   (use-package treemacs-projectile
     :after treemacs projectile)
 #+end_src
+*** CRASH starting Treemacs kills emacs
+but lspTremacs is working
 ** which-key
 #+begin_src elisp
   (use-package which-key
