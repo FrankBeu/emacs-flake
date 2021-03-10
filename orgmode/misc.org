@@ -73,7 +73,10 @@
 ** calfw-org
 https://github.com/kiwanami/emacs-calfw#for-org-users
 #+begin_src elisp
-  (use-package calfw-org)
+  (use-package calfw-org
+    :config
+    (setq cfw:org-face-agenda-item-foreground-color (fb*getDefaultColorValue :base8))
+    )
 #+end_src
 *** TODO disable line-numbers
 *** TODO colors

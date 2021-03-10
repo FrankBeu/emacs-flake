@@ -28,11 +28,65 @@ current: emacs26Packages
   (use-package avy)
 #+end_src
 ** calfw
+calendar-view
 https://github.com/kiwanami/emacs-calfw
 #+begin_src elisp
-  (use-package calfw)
+    (use-package calfw
+      :config
+      (custom-set-faces
+       `(cfw:face-title              ((t :foreground ,(fb*getDefaultColorValue :magenta)            :height 2.0                           :weight bold :inherit variable-pitch    )))
+       `(cfw:face-header             ((t :foreground ,(fb*getDefaultColorValue :base6)                                                    :weight bold                            )))
+       `(cfw:face-sunday             ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+       `(cfw:face-saturday           ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+       `(cfw:face-holiday            ((t :foreground ,(fb*getDefaultColorValue :base2)  :background ,(fb*getDefaultColorValue :orange)    :weight bold                            )))
+       `(cfw:face-grid               ((t :foreground ,(fb*getDefaultColorValue :fg)                                                                                               )))
+       `(cfw:face-default-content    ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
+       `(cfw:face-periods            ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
+       `(cfw:face-day-title          ((t                                                :background ,(fb*getDefaultColorValue :bg)                                                )))
+       `(cfw:face-default-day        ((t                                                                                                  :weight bold :inherit cfw:face-day-title)))
+       `(cfw:face-annotation         ((t :foreground ,(fb*getDefaultColorValue :bg-alt)                                                                :inherit cfw:face-day-title)))
+       `(cfw:face-disable            ((t :foreground ,(fb*getDefaultColorValue :blue)                                                                  :inherit cfw:face-day-title)))
+       `(cfw:face-today-title        ((t                                                :background ,(fb*getDefaultColorValue :dark-blue) :weight bold                            )))
+       `(cfw:face-today              ((t                                                :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+       `(cfw:face-select             ((t                                                :background ,(fb*getDefaultColorValue :violet)                                            )))
+       `(cfw:face-toolbar            ((t :foreground ,(fb*getDefaultColorValue :bg)     :background ,(fb*getDefaultColorValue :bg)                                                )))
+       `(cfw:face-toolbar-button-off ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            )))
+       `(cfw:face-toolbar-button-on  ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            ))))
+      (setq cfw:fchar-junction ?╋
+            cfw:fchar-vertical-line ?│
+            cfw:fchar-horizontal-line ?━
+            cfw:fchar-left-junction ?┣
+            cfw:fchar-right-junction ?┫
+            cfw:fchar-top-junction ?┯
+            cfw:fchar-top-left-corner ?┏
+            cfw:fchar-top-right-corner ?┓)
+      )
 #+end_src
-*** [[file:~/.emacs.d/orgmode/misc.org::calfw-org][calfw-org]]
+*** cf. [[file:~/.emacs.d/orgmode/misc.org::calfw-org][calfw-org]]
+*** combined View
+display calendars from different sources
+#+begin_src elisp
+  (defun fb/open-calendar ()
+    (interactive)
+    (cfw:open-calendar-buffer
+     :contents-sources
+     (list
+      (cfw:org-create-source                                  (fb*getDefaultColorValue :base8)) ;; orgmode source
+      ;; (cfw:howm-create-source                                 (fb*getDefaultColorValue :base7)) ;; howm source
+      ;; (cfw:cal-create-source                                  (fb*getDefaultColorValue :base6)) ;; diary source
+      ;; (cfw:ical-create-source "Moon" "~/moon.ics"             (fb*getDefaultColorValue :base5)) ;; ICS source1
+      ;; (cfw:ical-create-source "gcal" "https://..../basic.ics" (fb*getDefaultColorValue :base4  )) ;; google calendar ICS
+      )))
+#+end_src
+*** other sources must be implemented if needed
+#+begin_example elisp
+;; (require 'calfw-cal)
+;; (require 'calfw-ical)
+;; (require 'calfw-howm)
+;; (require 'calfw-org)
+#+end_example
+*** TODO disable line-numbers
+*** TODO show calendarWeeksNr
 ** command-log
 #+begin_src elisp
   (use-package command-log-mode)

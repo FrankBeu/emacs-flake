@@ -105,6 +105,39 @@ on prompts use:
    "C-\"" 'avy-goto-line
    )
 #+end_src
+** calfw
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(
+              cfw:calendar-mode-map
+              )
+   ";"     'nil
+
+   "j"     'cfw:navi-previous-day-command
+   "k"     'cfw:navi-previous-week-command
+   "l"     'cfw:navi-next-week-command
+   ";"     'cfw:navi-next-day-command
+
+   "K"     'cfw:navi-previous-month-command
+   "L"     'cfw:navi-next-month-command
+
+   "S-TAB" 'cfw:navi-prev-item-command
+   "TAB"   'cfw:navi-next-item-command
+
+   "d"     'cfw:change-view-day
+   "w"     'cfw:change-view-week
+   "f"     'cfw:change-view-two-weeks
+   "m"     'cfw:change-view-month
+
+   "r"     'cfw:refresh-calendar-buffer
+   "h"     'cfw:org-goto-date
+   "x"     'cfw:org-clean-exit
+
+
+   "SPC"   'cfw:show-details-command            ;; show in agenda
+   "RET"   'cfw:org-onclick                     ;; jump
+   )
+#+end_src
 ** company
 *** company-mode-map
 #+begin_src elisp
@@ -403,9 +436,10 @@ on prompts use:
     "ct"  '(evilnc-quick-comment-or-uncomment-to-the-line              :which-key "quick-cmmnt-or-uncmnt-to-the-line")
     "cy"  '(evilnc-copy-and-comment-lines                              :which-key "cp-and-cmnt-lines"                )
 
-    "C"   '(                                                           :which-key "command-log-mode"                 :ignore t)
+    "C"   '(                                                           :which-key "command-log cal"                  :ignore t)
     "CA"  '(cfw:open-org-calendar                                      :which-key "org-cal"                          )
-    "CC"  '(command-log-mode                                           :which-key "toggle-local"                     )
+    "CC"  '(fb/open-calendar                                           :which-key "combined-cal"                     )
+    "CL"  '(command-log-mode                                           :which-key "toggle-local"                     )
     "CB"  '(clm/open-command-log-buffer                                :which-key "show-clm-buffer"                  )
     "CG"  '(global-command-log-mode                                    :which-key "toggle-global"                    )
 

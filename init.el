@@ -591,7 +591,48 @@ byte-compiled from.")
 
 (use-package avy)
 
-(use-package calfw)
+(use-package calfw
+  :config
+  (custom-set-faces
+   `(cfw:face-title              ((t :foreground ,(fb*getDefaultColorValue :magenta)            :height 2.0                           :weight bold :inherit variable-pitch    )))
+   `(cfw:face-header             ((t :foreground ,(fb*getDefaultColorValue :base6)                                                    :weight bold                            )))
+   `(cfw:face-sunday             ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+   `(cfw:face-saturday           ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+   `(cfw:face-holiday            ((t :foreground ,(fb*getDefaultColorValue :base2)  :background ,(fb*getDefaultColorValue :orange)    :weight bold                            )))
+   `(cfw:face-grid               ((t :foreground ,(fb*getDefaultColorValue :fg)                                                                                               )))
+   `(cfw:face-default-content    ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
+   `(cfw:face-periods            ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
+   `(cfw:face-day-title          ((t                                                :background ,(fb*getDefaultColorValue :bg)                                                )))
+   `(cfw:face-default-day        ((t                                                                                                  :weight bold :inherit cfw:face-day-title)))
+   `(cfw:face-annotation         ((t :foreground ,(fb*getDefaultColorValue :bg-alt)                                                                :inherit cfw:face-day-title)))
+   `(cfw:face-disable            ((t :foreground ,(fb*getDefaultColorValue :blue)                                                                  :inherit cfw:face-day-title)))
+   `(cfw:face-today-title        ((t                                                :background ,(fb*getDefaultColorValue :dark-blue) :weight bold                            )))
+   `(cfw:face-today              ((t                                                :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+   `(cfw:face-select             ((t                                                :background ,(fb*getDefaultColorValue :violet)                                            )))
+   `(cfw:face-toolbar            ((t :foreground ,(fb*getDefaultColorValue :bg)     :background ,(fb*getDefaultColorValue :bg)                                                )))
+   `(cfw:face-toolbar-button-off ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            )))
+   `(cfw:face-toolbar-button-on  ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            ))))
+  (setq cfw:fchar-junction ?╋
+        cfw:fchar-vertical-line ?│
+        cfw:fchar-horizontal-line ?━
+        cfw:fchar-left-junction ?┣
+        cfw:fchar-right-junction ?┫
+        cfw:fchar-top-junction ?┯
+        cfw:fchar-top-left-corner ?┏
+        cfw:fchar-top-right-corner ?┓)
+  )
+
+(defun fb/open-calendar ()
+  (interactive)
+  (cfw:open-calendar-buffer
+   :contents-sources
+   (list
+    (cfw:org-create-source                                  (fb*getDefaultColorValue :base8)) ;; orgmode source
+    ;; (cfw:howm-create-source                                 (fb*getDefaultColorValue :base7)) ;; howm source
+    ;; (cfw:cal-create-source                                  (fb*getDefaultColorValue :base6)) ;; diary source
+    ;; (cfw:ical-create-source "Moon" "~/moon.ics"             (fb*getDefaultColorValue :base5)) ;; ICS source1
+    ;; (cfw:ical-create-source "gcal" "https://..../basic.ics" (fb*getDefaultColorValue :base4  )) ;; google calendar ICS
+    )))
 
 (use-package command-log-mode)
 
@@ -682,6 +723,10 @@ byte-compiled from.")
    vc-make-backup-files t         ;;; make backups file even when in version controlled dir
    version-control t              ;;; use version control
    )
+  )
+
+(use-package origami
+  ;; :hook
   )
 
 (use-package rainbow-delimiters
@@ -1059,6 +1104,10 @@ current buffer's, reload dir-locals."
     (upcase-word 1)
     ))
 
+(defun fb/describe-last-function()
+  (interactive)
+  (describe-function last-command))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages
 ;;;;
 ;;
@@ -1208,6 +1257,11 @@ current buffer's, reload dir-locals."
 (use-package lsp-ivy
   :commands lsp-ivy-workspace-symbol
   )
+
+(use-package lsp-origami
+  :hook (lsp-after-open . lsp-origami-try-enable)
+  )
+;; (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
 
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list
@@ -1500,6 +1554,93 @@ current buffer's, reload dir-locals."
   (evil-org-set-key-theme)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
+;;;;
+;;
+
+(setq org-hide-emphasis-markers t)
+
+(defvar fb/notesDir
+(expand-file-name "~/NOTES/")
+  "The file path to the org-notes-files")
+
+(setq org-ellipsis
+      ;; " ▾"
+      ;; " ▽"
+      "  ▼"
+      ;; "  ◦◦◦"
+      )
+
+(use-package org-superstar
+  :after org
+  :hook (org-mode . org-superstar-mode)
+  :custom
+  (org-superstar-remove-leading-stars t)
+  (org-superstar-headline-bullets-list
+   ;; '("◉" "○" "●" "○" "●" "○" "●")
+   ;; '("●" "◉" "○" "●" "◉" "○" "●")
+   ;; '("●")
+   ;; '("◉")
+   '("○")
+   )
+  (org-superstar-item-bullet-alist
+   '(
+     (?- . ?•)
+     (?+ . ?➤)
+     ;; (?+ . ?▶)
+     ;; (?+ . ?▷)
+     ;; (?+ . ?▸)
+     ;; (?+ . ?▹)
+     ;; (?+ . ?►)
+     ;; (?+ . ?▻)
+     ;; (?+ . ?◉)
+     ;; (?+ . ?○)
+     ;; (?+ . ?◌)
+     ;; (?+ . ?◍)
+     ;; (?+ . ?◎)
+     ;; (?+ . ?●)
+     (?* . ?•)
+     )
+   )
+  )
+
+(setq org-startup-indented t)
+
+(use-package org-make-toc
+  :hook (org-mode . org-make-toc-mode))
+
+(use-package calfw-org
+  :config
+  (setq cfw:org-face-agenda-item-foreground-color (fb*getDefaultColorValue :base8))
+  )
+
+(add-to-list 'org-structure-template-alist '("sh"   . "src sh"))
+(add-to-list 'org-structure-template-alist '("el"   . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("sc"   . "src scheme"))
+(add-to-list 'org-structure-template-alist '("ts"   . "src typescript"))
+(add-to-list 'org-structure-template-alist '("py"   . "src python"))
+(add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
+(add-to-list 'org-structure-template-alist '("json" . "src json"))
+(add-to-list 'org-structure-template-alist '("go"   . "src go"))
+(add-to-list 'org-structure-template-alist '("rt"   . "src rust"))
+(add-to-list 'org-structure-template-alist '("dt"   . "src dart"))
+
+(use-package org-wild-notifier
+  :hook (org-mode . org-wild-notifier-mode)
+  :config
+  (setq
+    alert-default-style 'libnotify
+    org-wild-notifier-alert-times-property 'NOTIFY
+  )
+)
+
+(defun fb*org-mode-h ()
+  (fb*default-company-backends-h)
+  (company-mode)
+  )
+
+(add-hook 'org-mode-hook 'fb*org-mode-h)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-functions
 ;;;;
 ;;
@@ -1516,6 +1657,26 @@ an argument, unconditionally call `org-insert-SUBheading'."
 				((org-at-table-p) #'org-table-wrap-region)
 				((org-in-item-p) #'org-insert-item)
 				(t #'org-insert-subheading)))))
+
+(defvar fb/org-screenshot-dir
+(concat (file-name-as-directory fb/notesDir) "TMP")
+;; (expand-file-name (concat (file-name-as-directory fb/notesDir) "TMP"))
+  "Path to dir where all org-screenshots are stored"
+  )
+
+(defun fb/org-screenshot-plus-click ()
+  "Take a screenshot into a time stamped unique-named file in the
+screenshotDir and insert a link to this file."
+  (interactive)
+  (setq filename
+        (concat
+         (make-temp-name
+          ;; (concat (buffer-file-name) ;;;; current filename
+          (concat (file-name-as-directory fb/org-screenshot-dir)
+                  (format-time-string "%Y%m%d_%H%M%S_")) ) ".png"))
+  (call-process "import" nil nil nil filename)                      ;;;; takes screenshot and creates file
+  (insert (concat "[[" filename "]]"))
+  (org-display-inline-images))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-agenda
 ;;;;
@@ -2009,86 +2170,6 @@ an argument, unconditionally call `org-insert-SUBheading'."
                            ("e" . "〇/11 ERLEDIGTES.org"    )
                            ))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-misc
-;;;;
-;;
-
-(setq org-hide-emphasis-markers t)
-
-(setq org-ellipsis
-      ;; " ▾"
-      ;; " ▽"
-      "  ▼"
-      ;; "  ◦◦◦"
-      )
-
-(use-package org-superstar
-  :after org
-  :hook (org-mode . org-superstar-mode)
-  :custom
-  (org-superstar-remove-leading-stars t)
-  (org-superstar-headline-bullets-list
-   ;; '("◉" "○" "●" "○" "●" "○" "●")
-   ;; '("●" "◉" "○" "●" "◉" "○" "●")
-   ;; '("●")
-   ;; '("◉")
-   '("○")
-   )
-  (org-superstar-item-bullet-alist
-   '(
-     (?- . ?•)
-     (?+ . ?➤)
-     ;; (?+ . ?▶)
-     ;; (?+ . ?▷)
-     ;; (?+ . ?▸)
-     ;; (?+ . ?▹)
-     ;; (?+ . ?►)
-     ;; (?+ . ?▻)
-     ;; (?+ . ?◉)
-     ;; (?+ . ?○)
-     ;; (?+ . ?◌)
-     ;; (?+ . ?◍)
-     ;; (?+ . ?◎)
-     ;; (?+ . ?●)
-     (?* . ?•)
-     )
-   )
-  )
-
-(setq org-startup-indented t)
-
-(use-package org-make-toc
-  :hook (org-mode . org-make-toc-mode))
-
-(use-package calfw-org)
-
-(add-to-list 'org-structure-template-alist '("sh"   . "src sh"))
-(add-to-list 'org-structure-template-alist '("el"   . "src emacs-lisp"))
-(add-to-list 'org-structure-template-alist '("sc"   . "src scheme"))
-(add-to-list 'org-structure-template-alist '("ts"   . "src typescript"))
-(add-to-list 'org-structure-template-alist '("py"   . "src python"))
-(add-to-list 'org-structure-template-alist '("yaml" . "src yaml"))
-(add-to-list 'org-structure-template-alist '("json" . "src json"))
-(add-to-list 'org-structure-template-alist '("go"   . "src go"))
-(add-to-list 'org-structure-template-alist '("rt"   . "src rust"))
-(add-to-list 'org-structure-template-alist '("dt"   . "src dart"))
-
-(use-package org-wild-notifier
-  :hook (org-mode . org-wild-notifier-mode)
-  :config
-  (setq
-    alert-default-style 'libnotify
-    org-wild-notifier-alert-times-property 'NOTIFY
-  )
-)
-
-(defun fb*org-mode-h ()
-  (fb*default-company-backends-h)
-  (company-mode)
-  )
-
-(add-hook 'org-mode-hook 'fb*org-mode-h)
-
 );;with-eval-end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project
@@ -2284,6 +2365,7 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (global-display-line-numbers-mode t)
 
 (dolist (mode '(
+                cfw:calendar-mode-hook
                 calendar-mode-hook
                 eshell-mode-hook
                 helpful-mode-hook
@@ -2460,7 +2542,9 @@ an argument, unconditionally call `org-insert-SUBheading'."
   ("-" evil-numbers/dec-at-pt)
   ("_" evil-numbers/dec-at-pt)
   ("l" evil-numbers/dec-at-pt)
-  ("q" nil :exit t))
+  ("q" nil :exit t)
+  :evil-leader "xi."
+  )
 
 (defun fb/inc-at-pt ()
   (interactive)
@@ -2468,6 +2552,20 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (defun fb/dec-at-pt ()
   (interactive)
   (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
+
+(defun fb/string-inflection-all-cycle ()
+"cycle inflectionsand enter fold-transient-state"
+  (interactive)
+  (spacemacs/string-inflection-transient-state/string-inflection-all-cycle))
+
+(defun fb/open-fold ()
+"open fold and enter fold-transient-state"
+  (interactive)
+  (spacemacs/fold-transient-state/origami-open-node))
+(defun fb/close-fold ()
+"close fold and enter fold-transient-state"
+  (interactive)
+  (spacemacs/fold-transient-state/origami-close-node))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-keybindings
 ;;;;
@@ -2509,6 +2607,37 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (general-define-key
  "C-'"  'avy-goto-word-0
  "C-\"" 'avy-goto-line
+ )
+
+(general-define-key
+ :keymaps '(
+            cfw:calendar-mode-map
+            )
+ ";"     'nil
+
+ "j"     'cfw:navi-previous-day-command
+ "k"     'cfw:navi-previous-week-command
+ "l"     'cfw:navi-next-week-command
+ ";"     'cfw:navi-next-day-command
+
+ "K"     'cfw:navi-previous-month-command
+ "L"     'cfw:navi-next-month-command
+
+ "S-TAB" 'cfw:navi-prev-item-command
+ "TAB"   'cfw:navi-next-item-command
+
+ "d"     'cfw:change-view-day
+ "w"     'cfw:change-view-week
+ "f"     'cfw:change-view-two-weeks
+ "m"     'cfw:change-view-month
+
+ "r"     'cfw:refresh-calendar-buffer
+ "h"     'cfw:org-goto-date
+ "x"     'cfw:org-clean-exit
+
+
+ "SPC"   'cfw:show-details-command            ;; show in agenda
+ "RET"   'cfw:org-onclick                     ;; jump
  )
 
 (general-define-key
@@ -2752,9 +2881,10 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "ct"  '(evilnc-quick-comment-or-uncomment-to-the-line              :which-key "quick-cmmnt-or-uncmnt-to-the-line")
   "cy"  '(evilnc-copy-and-comment-lines                              :which-key "cp-and-cmnt-lines"                )
 
-  "C"   '(                                                           :which-key "command-log-mode"                 :ignore t)
+  "C"   '(                                                           :which-key "command-log cal"                  :ignore t)
   "CA"  '(cfw:open-org-calendar                                      :which-key "org-cal"                          )
-  "CC"  '(command-log-mode                                           :which-key "toggle-local"                     )
+  "CC"  '(fb/open-calendar                                           :which-key "combined-cal"                     )
+  "CL"  '(command-log-mode                                           :which-key "toggle-local"                     )
   "CB"  '(clm/open-command-log-buffer                                :which-key "show-clm-buffer"                  )
   "CG"  '(global-command-log-mode                                    :which-key "toggle-global"                    )
 
@@ -2925,6 +3055,29 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "T"   '(                                                           :which-key "toggles"                          :ignore t)
   "TW"  '(fb/toggle-which-key-sort-order                             :which-key "whickKey-sort-order"              )
 
+  "u"   '(undo-tree-visualize                                        :which-key "undotree"                         )
+
+  "w"   '(                                                           :which-key "window"                           :ignore t)
+  "wa"  '(aw-show-dispatch-help                                      :which-key "ace-window"                       )
+  "wb"  '(balance-windows                                            :which-key "balance"                          )
+  "wd"  '(ace-delete-window                                          :which-key "ace-delete"                       )
+  "we"  '(:keymap evil-window-map :package evil                      :which-key "evil-window"                      )
+  "wf"  '(aw-flip-window                                             :which-key "flip"                             )
+  "wg"  '(hydra-window-frame/body                                    :which-key "frame"                            )
+  "wh"  '(fb/aw-split-window-horz                                    :which-key "split |"                          )
+  "wi"  '(winner-mode                                                :which-key "winner-mode"                      )
+  "wl"  '(hydra-window-size/body                                     :which-key "resize"                           )
+  "wm"  '(delete-other-windows                                       :which-key "maximize"                         )
+  "wo"  '(hydra-window-scroll/body                                   :which-key "scroll"                           )
+  "wp"  '(ace-swap-window                                            :which-key "ace-swap"                         )
+  "wr"  '(fb/winner-redo                                             :which-key "winner-redo"                      )
+  "ws"  '(ace-select-window                                          :which-key "ace-select"                       )
+  "wu"  '(fb/winner-undo                                             :which-key "winner-undo"                      )
+;;;; TODO harmonize with =SPW w e v= cf. RESULT vs ACTION
+  "wv"  '(fb/aw-split-window-vert                                    :which-key "split -"                          )
+  "ww"  '(writeroom-mode                                             :which-key "writeroom-toggle"                 )
+  "wx"  '(ace-delete-other-windows                                   :which-key "ace-delete-other"                 )
+
   "xa"   '(                                                          :which-key "align"                            :ignore t)
   "xa%"  '(spacemacs/align-repeat-percent                            :which-key "repeat-percent"                   )
   "xa&"  '(spacemacs/align-repeat-ampersand                          :which-key "repeat-ampersand"                 )
@@ -2955,16 +3108,16 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "xiC"  '(string-inflection-camelcase                               :which-key "camel-lower"                      )
   "xid"  '(fb/downcase-word                                          :which-key "down"                             )
   "xiD"  '(fb/upcase-word                                            :which-key "up"                               )
-  "xii"  '(spacemacs/string-inflection-transient-state/body          :which-key "transient"                        )                                                 
-  "xi."  '(spacemacs/string-inflection-transient-state/body          :which-key "transient"                        )                                                 
+  "xii"  '(fb/string-inflection-all-cycle                            :which-key "transient"                        )
+  "xi."  '(fb/string-inflection-all-cycle                            :which-key "transient"                        )
   "xi-"  '(string-inflection-kebab-case                              :which-key "kebab"                            )                             
   "xik"  '(string-inflection-kebab-case                              :which-key "kebab"                            )                             
   "xil"  '(downcase-region                                           :which-key "downcase-region"                  )
   "xi_"  '(string-inflection-underscore                              :which-key "snake"                            )                             
   "xis"  '(string-inflection-underscore                              :which-key "snake"                            )                             
   "xit"  '(fb/titlecase-word                                         :which-key "title"                            )                                           
-  "xiu"  '(string-inflection-capital-underscore                      :which-key "snake-upper"                      )                             
-  "xiU"  '(string-inflection-upcase                                  :which-key "upper"                            )                                           
+  "xiu"  '(string-inflection-capital-underscore                      :which-key "snake-upper"                      )
+  "xiU"  '(string-inflection-upcase                                  :which-key "upper"                            )
 
   "xj"   '(                                                          :which-key "justification"                    :ignore t)
   "xjc"  '(set-justification-center                                  :which-key "justification-center"             )
@@ -2993,28 +3146,9 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "yr"  '(yas-reload-all                                             :which-key "reload-all"                       )
   "yv"  '(yas-visit-snippet-file                                     :which-key "visit"                            )
 
-  "u"   '(undo-tree-visualize                                        :which-key "undotree"                         )
-
-  "w"   '(                                                           :which-key "window"                           :ignore t)
-  "wa"  '(aw-show-dispatch-help                                      :which-key "ace-window"                       )
-  "wb"  '(balance-windows                                            :which-key "balance"                          )
-  "wd"  '(ace-delete-window                                          :which-key "ace-delete"                       )
-  "we"  '(:keymap evil-window-map :package evil                      :which-key "evil-window"                      )
-  "wf"  '(aw-flip-window                                             :which-key "flip"                             )
-  "wg"  '(hydra-window-frame/body                                    :which-key "frame"                            )
-  "wh"  '(fb/aw-split-window-horz                                    :which-key "split |"                          )
-  "wi"  '(winner-mode                                                :which-key "winner-mode"                      )
-  "wl"  '(hydra-window-size/body                                     :which-key "resize"                           )
-  "wm"  '(delete-other-windows                                       :which-key "maximize"                         )
-  "wo"  '(hydra-window-scroll/body                                   :which-key "scroll"                           )
-  "wp"  '(ace-swap-window                                            :which-key "ace-swap"                         )
-  "wr"  '(fb/winner-redo                                             :which-key "winner-redo"                      )
-  "ws"  '(ace-select-window                                          :which-key "ace-select"                       )
-  "wu"  '(fb/winner-undo                                             :which-key "winner-undo"                      )
-;;;; TODO harmonize with =SPW w e v= cf. RESULT vs ACTION
-  "wv"  '(fb/aw-split-window-vert                                    :which-key "split -"                          )
-  "ww"  '(writeroom-mode                                            :which-key "writeroom-toggle"                 )
-  "wx"  '(ace-delete-other-windows                                   :which-key "ace-delete-other"                 )
+  "z"   '(                                                           :which-key "fold"                             :ignore t)
+  "zc"  '(fb/close-fold                                              :which-key "close"                            )
+  "zo"  '(fb/open-fold                                               :which-key "open"                             )
 
   ";"   '(counsel-switch-buffer                                      :which-key "switch-buffer"                    )
   )
@@ -3196,6 +3330,8 @@ an argument, unconditionally call `org-insert-SUBheading'."
   "l"      '(org-insert-last-stored-link                        :which-key "insert link"      )
 
   "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
+  "O"      '(                                                   :which-key "toggle"           :ignore t)
+  "OI"     '(org-toggle-inline-images                           :which-key "images"           )
 
   "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
 
@@ -3266,3 +3402,9 @@ an argument, unconditionally call `org-insert-SUBheading'."
 (define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
 
 (global-set-key "\M-o" cm-map)
+
+package main
+
+func main() {
+err := json.NewDecoder(r).Decode(&league)
+}
