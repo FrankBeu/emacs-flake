@@ -3,6 +3,6 @@
 #key : bsh
 #contributor : fb
 # --
-#+begin_src shell :results drawer$1
+#+begin_src shell :results drawer
   $0
 #+end_src

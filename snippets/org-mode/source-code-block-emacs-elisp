@@ -3,6 +3,6 @@
 #key : bemli
 #contributor : fb
 # --
-#+begin_src emacs-lisp :results drawer $1
+#+begin_src emacs-lisp :results drawer
 $>$0
 #+end_src

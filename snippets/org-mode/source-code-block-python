@@ -3,6 +3,6 @@
 #key : bpy
 #contributor : fb
 # --
-#+begin_src python :results drawer output $1
+#+begin_src python :results drawer output
 $>$0
 #+end_src

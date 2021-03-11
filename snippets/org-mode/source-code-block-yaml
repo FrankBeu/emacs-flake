@@ -3,6 +3,6 @@
 #key : byml
 #contributor : fb
 # --
-#+begin_src yaml $1
+#+begin_src yaml
 $0
 #+end_src

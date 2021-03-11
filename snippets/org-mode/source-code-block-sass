@@ -3,6 +3,6 @@
 #key : bsas
 #contributor : fb
 # --
-#+begin_src sass :results silent $1
+#+begin_src sass :results silent
 $0
 #+end_src
