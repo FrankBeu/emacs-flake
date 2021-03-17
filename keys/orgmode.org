@@ -140,8 +140,10 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     :keymaps 'org-mode-map
     :states  '(normal visual insert)
 
-    "a"     '(org-agenda                                          :which-key "agenda"           )
-    "b"     '(                                                    :which-key "table"            :ignore t)
+    "a"      '(org-agenda                                         :which-key "agenda"           )
+    "b"      '(                                                   :which-key "table"            :ignore t)
+    "bh"     '(org-table-hline-and-move                           :which-key "headline"         )
+    "tc"     '(org-comment-dwim                                   :which-key "comment"          )
 
     "c"      '(org-comment-dwim                                   :which-key "comment"          )
 
@@ -151,6 +153,7 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "O"      '(                                                   :which-key "toggle"           :ignore t)
     "OI"     '(org-toggle-inline-images                           :which-key "images"           )
 
+    "p"      '(org-set-property                                   :which-key "property"         )
     "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
 
     "s"      '(                                                   :which-key "subtree"          :ignore t)

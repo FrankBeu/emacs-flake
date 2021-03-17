@@ -33,6 +33,31 @@ accept {y,n} as answer
 #+begin_src elisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
+** calendar
+*** start week on monday
+#+begin_src elisp
+(setq calendar-week-start-day 1)
+#+end_src
+*** show weekNumber
+#+begin_src elisp
+  (copy-face font-lock-constant-face 'calendar-iso-week-face)
+  (set-face-attribute 'calendar-iso-week-face nil :height 1.0)
+  (setq calendar-intermonth-text
+        '(propertize
+          (format "%2d"
+                  (car
+                   (calendar-iso-from-absolute
+                    (calendar-absolute-from-gregorian (list month day year)))))
+          'font-lock-face 'calendar-iso-week-face))
+#+end_src
+*** display label in header
+#+begin_src elisp
+    (copy-face 'default 'calendar-iso-week-header-face)
+    (set-face-attribute 'calendar-iso-week-header-face nil :height 1.0)
+    (setq calendar-intermonth-header
+          (propertize "W"
+                      'font-lock-face 'calendar-iso-week-header-face))
+#+end_src
 ** misc
 #+begin_src elisp
 ;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
@@ -44,4 +69,10 @@ accept {y,n} as answer
 (setq coding-system-for-write 'utf-8 )
 (setq sentence-end-double-space nil)   ;;; sentence SHOULD end with only a point.
 (setq fill-column 80)                  ;;; toggle wrapping text at the 80th character
+#+end_src
+** personal
+#+begin_src elisp
+(defvar fb/domainName
+"thesym.site"
+  "my domain")
 #+end_src

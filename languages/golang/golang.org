@@ -11,11 +11,13 @@ https://github.com/golang/tools/blob/master/gopls/doc/emacs.md
 #+begin_src elisp
   (use-package go-mode
     :hook (
-           (go-mode . company-mode)
-           (go-mode . lsp-deferred)
-           (go-mode . fb*default-company-backends-h)
-           (go-mode . fb/lsp-go-install-save-hooks)
-           ))
+           (go-mode         . company-mode)
+           (go-mode         . lsp-deferred)
+           (go-mode         . fb*default-company-backends-h)
+           (go-mode         . fb/lsp-go-install-save-hooks)
+           (go-dot-mod-mode . fb*default-company-backends-h)
+           )
+    )
 #+end_src
 *** {format,import}-on-save
 Set up before-save hooks to format buffer and add/delete imports.

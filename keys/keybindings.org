@@ -15,6 +15,13 @@ https://github.com/noctuid/general.el#general-examples
 *** prefix will stack
 if a keymap is bound to a global-leader-key
 do not define a prefix in this keymap
+*** find leader-keybindings in Spacemacs
+#+begin_example shell
+rg 'spacemacs/set-leader-keys(.*\n){0,4}.*COMMAND' -UA3
+#+end_example
+*** visual
+in visual state always use evil-motion-bindings not the keymap-specific ones
+cf. [[*ivy-occur][ivy-occur]]
 ** general-relations
 *** ~evil-global-set-key~   ---   ~general-def~
 #+begin_example elisp
@@ -141,36 +148,39 @@ on prompts use:
 ** company
 *** company-mode-map
 #+begin_src elisp
-    (general-define-key
-     :keymaps '(
-                company-mode-map
-                )
-     "C-j" 'nil
-     "C-j" 'company-indent-or-complete-common
-     "C-k" 'nil
-     "C-k" 'company-select-previous
-     "C-l" 'nil
-     "C-l" 'company-select-next
-     "C-;" 'nil
-     "C-;" 'company-complete
-     )
+  (general-define-key
+   :keymaps '(
+              company-mode-map
+              )
+   "C-j" 'nil
+   "C-j" 'company-indent-or-complete-common
+   "C-k" 'nil
+   "C-k" 'company-select-previous
+   "C-l" 'nil
+   "C-l" 'company-select-next
+   "C-;" 'nil
+   "C-;" 'fb/company-complete-selection
+
+   "C-J" 'yas-prev-field
+   "C-:" 'yas-next-field-or-maybe-expand
+   )
 #+end_src
 *** company-active
 #+begin_src elisp
-    (general-define-key
-     :keymaps '(
-                company-active-map
-                ;; company-search-map
-                )
-     ;; "C-j" 'nil
-     ;; "C-j" 'company-complete-selection
-     "C-k" 'nil
-     "C-k" 'company-select-previous
-     "C-l" 'nil
-     "C-l" 'company-select-next
-     "C-;" 'nil
-     "C-;" 'company-complete
-     )
+  (general-define-key
+   :keymaps '(
+              company-active-map
+              ;; company-search-map
+              )
+   ;; "C-j" 'nil
+   ;; "C-j" 'company-complete-selection
+   "C-k" 'nil
+   "C-k" 'company-select-previous
+   "C-l" 'nil
+   "C-l" 'company-select-next
+   "C-;" 'nil
+   "C-;" 'fb/company-complete-selection
+   )
 #+end_src
 *** FUNDUS
   #+begin_src elisp :tangle no
@@ -184,6 +194,9 @@ on prompts use:
    "C-r"    'counsel-minibuffer-history
    )
 #+end_src
+** dap
+*** sessions
+https://emacs-lsp.github.io/dap-mode/page/how-to/#stop-and-delete-sessions
 ** dired
 #+begin_src elisp
   (general-define-key
@@ -262,6 +275,37 @@ on prompts use:
    "C-d" 'ivy-reverse-i-search-kill
    )
 #+end_src
+*** ivy-occur
+map for buffer opened to show all ivy candidates (=C-c C-o=)
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(
+              ivy-occur-grep-mode-map
+              ivy-occur-mode-map
+              )
+   :states  '(normal visual)
+   "j"     'nil
+   "k"     'nil
+   "l"     'nil
+   ";"     'nil
+   "j"     'evil-backward-char
+   "k"     'ivy-occur-previous-line
+   "l"     'ivy-occur-next-line
+   ";"     'evil-forward-char
+   )
+
+  (general-define-key
+   :keymaps '(
+              ivy-occur-grep-mode-map
+              ivy-occur-mode-map
+              )
+   :states  '(visual)
+   "k"     'nil
+   "l"     'nil
+   "k"     'evil-previous-visual-line
+   "l"     'evil-next-visual-line
+   )
+#+end_src
 ** lisp
 #+begin_src elisp
   (general-define-key
@@ -287,7 +331,7 @@ on prompts use:
    :keymaps '(
              lsp-mode-map
              )
-   "C-:" 'lsp-ui-doc-focus-frame
+   "C-S-k" 'lsp-ui-doc-focus-frame
     )
 #+end_src
 **** unfocus
@@ -296,7 +340,18 @@ on prompts use:
    :keymaps '(
              lsp-ui-doc-frame-mode-map
               )
-   "C-J" 'lsp-ui-doc-unfocus-frame
+   "C-L" 'lsp-ui-doc-unfocus-frame
+    )
+#+end_src
+** lsp-treemacs
+*** error-list
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(
+             lsp-treemacs-error-list-mode-map
+              )
+   "c" 'lsp-treemacs-cycle-severity
+   "x" 'lsp-treemacs-quick-fix
     )
 #+end_src
 ** magit
@@ -329,6 +384,7 @@ on prompts use:
    "J" 'magit-status-jump
    )
 #+end_src
+*** TODO spacemacs-keybindings
 ** orgmode-global
 #+begin_src elisp
   (general-define-key
@@ -337,6 +393,17 @@ on prompts use:
    ;; "l" 'org-store-link
    "a" 'org-agenda
    "c" 'org-capture
+   )
+#+end_src
+** origami
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(
+              go-mode-map
+	          json-mode-map
+	          yaml-mode-map
+              )
+   "TAB"   'origami-recursively-toggle-node
    )
 #+end_src
 ** swiper
@@ -423,6 +490,20 @@ on prompts use:
    )
 #+end_src
 *** TODO which-key not working
+** xref
+#+begin_src elisp
+   (general-define-key
+    :keymaps '(
+               xref--xref-buffer-mode-map
+               xref--button-map
+               )
+  ;; :states  'normal-state
+    "C-;" 'xref-goto-xref
+    )
+#+end_src
+xref--button-map
+xref--xref-buffer-mode-map
+
 ** global-leader =SPC=
 #+begin_src elisp
   (fb/leader-key
@@ -439,6 +520,7 @@ on prompts use:
     "C"   '(                                                           :which-key "command-log cal"                  :ignore t)
     "CA"  '(cfw:open-org-calendar                                      :which-key "org-cal"                          )
     "CC"  '(fb/open-calendar                                           :which-key "combined-cal"                     )
+    "CS"  '(calendar                                                   :which-key "show-cal"                         )
     "CL"  '(command-log-mode                                           :which-key "toggle-local"                     )
     "CB"  '(clm/open-command-log-buffer                                :which-key "show-clm-buffer"                  )
     "CG"  '(global-command-log-mode                                    :which-key "toggle-global"                    )
@@ -476,6 +558,7 @@ on prompts use:
 
     "dc"  '(dap-continue                                               :which-key "continue"                         )
     "di"  '(dap-step-in                                                :which-key "step-in"                          )
+    "dls" '(dap-tm-loaded-sources                                      :which-key "sources"                          )
     "do"  '(dap-step-out                                               :which-key "step-out"                         )
     "dr"  '(dap-restart-frame                                          :which-key "restart-frame"                    )
     "ds"  '(dap-next                                                   :which-key "next"                             )
@@ -492,12 +575,13 @@ on prompts use:
     "dws" '(dap-ui-sessions                                            :which-key "ui-sessions"                      )
     "dwb" '(dap-ui-breakpoints                                         :which-key "ui-breakpoints"                   )
 
+
     ;; "D"   '(                                                           :which-key "delete"                           :ignore t)
 
     "e"   '(                                                           :which-key "error"                            :ignore t)
     "e?"  '(flycheck-describe-checker                                  :which-key "describe-checker"                 )
     "eH"  '(display-local-help                                         :which-key "local-help"                       )
-    "eL"  '(spacemacs/goto-flycheck-error-list                         :which-key "goto-list"                        )
+    "el"  '(spacemacs/goto-flycheck-error-list                         :which-key "goto-list"                        )
     "eM"  '(flycheck-compile                                           :which-key "compile"                          )
     "eS"  '(flycheck-set-checker-executable                            :which-key "set-checker-executable"           )
     "eV"  '(flycheck-version                                           :which-key "version"                          )
@@ -505,7 +589,7 @@ on prompts use:
     "ec"  '(flycheck-clear                                             :which-key "clear"                            )
     "ee"  '(flycheck-explain-error-at-point                            :which-key "explain-at-point"                 )
     "ei"  '(flycheck-manual                                            :which-key "manual"                           )
-    "el"  '(fb/toggle-flycheck-error-buffer                            :which-key "toggle-list"                      )
+    "et"  '(fb/toggle-flycheck-error-buffer                            :which-key "toggle-list"                      )
     "en"  '(flycheck-next-error                                        :which-key "next"                             )
     "ep"  '(flycheck-previous-error                                    :which-key "previous"                         )
     "es"  '(flycheck-select-checker                                    :which-key "select-checker"                   )
@@ -520,8 +604,19 @@ on prompts use:
     "fS"  '(save-some-buffers                                          :which-key "save-some-buffer"                 )
 
     "g"   '(                                                           :which-key "git"                              :ignore t)
+    "gb"  '(spacemacs/git-blame-transient-state/body                   :which-key "blameTransient"                   )
+    "gc"  '(magit-clone                                                :which-key "clone"                            )
+    "gfl" '(magit-log-buffer-file                                      :which-key "logs"                             )
+    "gfd" '(magit-diff                                                 :which-key "diff"                             )
+    "gi"  '(magit-init                                                 :which-key "init"                             )
+    "gL"  '(magit-list-repositories                                    :which-key "repolist"                         )
+    "gm"  '(magit-dispatch                                             :which-key "dispatch"                         )
     "gs"  '(magit-status                                               :which-key "status"                           )
+    "gS"  '(magit-stage-file                                           :which-key "stage"                            )
+    "gU"  '(magit-unstage-file                                         :which-key "unstage"                          )
 
+    "G"   '(                                                           :which-key "go"                               :ignore t)
+    "GB"  '(browse-url                                                 :which-key "browser"                          )
 
     "i"   '(                                                           :which-key "imenu"                            :ignore t)
     "ii"  '(imenu-list                                                 :which-key "imenulist"                        )
@@ -542,6 +637,14 @@ on prompts use:
     "l"   '(:keymap lsp-command-map :package lsp-mode                  :which-key "lsp"                              )
     "li"  '(                                                           :which-key "ivy/imenu"                        :ignore t)
     "lt"  '(                                                           :which-key "treemacs"                         :ignore t)
+    "ltc" '(lsp-treemacs-call-hierarchy                                :which-key "call-hierarchy"                   )
+    "lte" '(lsp-treemacs-errors-list                                   :which-key "errors"                           )
+    "lti" '(lsp-treemacs-implementations                               :which-key "implementations"                  )
+    "ltr" '(lsp-treemacs-references                                    :which-key "references"                       )
+    "ltt" '(lsp-treemacs-type-hierarchy                                :which-key "type-hierarchy"                   )
+    "ltx" '(lsp-treemacs-quick-fix                                     :which-key "quickfix"                         )
+   ;"lts" '(lsp-treemacs-symbols                                       :which-key "symbols"                          ) ;; already implemented in lsp-mode-map
+
     "l="  '(                                                           :which-key "formatting"                       :ignore t)
     "la"  '(                                                           :which-key "code actions"                     :ignore t)
     "lF"  '(                                                           :which-key "folders"                          :ignore t)
@@ -551,6 +654,7 @@ on prompts use:
     "lr"  '(                                                           :which-key "refactor"                         :ignore t)
     "ls"  '(                                                           :which-key "sessions"                         :ignore t)
     "lT"  '(                                                           :which-key "toggle"                           :ignore t)
+    "lx"  '(lsp-execute-code-action                                    :which-key "action"                           )
 
     "n"   '(                                                           :which-key "numbers"                          :ignore t)
     "n+"  '(fb/inc-at-pt                                               :which-key "+"                                )

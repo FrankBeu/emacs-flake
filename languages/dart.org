@@ -9,7 +9,12 @@
 ** dart
 #+begin_src elisp
   (use-package dart-mode
-    :hook (dart-mode . flutter-test-mode)
+    :hook (
+           (dart-mode . flutter-test-mode)
+           (dart-mode . company-mode)
+           (dart-mode . lsp-deferred)
+           (dart-mode . fb*default-company-backends-h)
+           )
     )
 #+end_src
 ** flutter

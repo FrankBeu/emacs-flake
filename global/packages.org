@@ -97,6 +97,7 @@ display calendars from different sources
     :commands (dired dired-jump)
     :bind (("C-x C-j" . dired-jump))
     :custom ((dired-listing-switches "-agho --group-directories-first"))
+    :config (setq dired-dwim-target t)
     )
 #+end_src
 *** all-the-icons-dired
@@ -159,6 +160,14 @@ open file with rifle
     )
 #+end_src
 *** TODO icons are displayed twice
+*** INFO
+**** copying
+***** to other folder
+with ~dired-dwim-target~ set,
+open dired
+split window
+open another dired
+=C=
 ** helpful
 #+begin_src elisp
   (use-package helpful

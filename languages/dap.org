@@ -8,9 +8,17 @@
 ** INFO
 https://github.com/emacs-lsp/dap-mode
 https://emacs-lsp.github.io/dap-mode/page/features/
+https://code.visualstudio.com/docs/editor/debugging
+*** dap-launch launch.json
+**** add a launch.json file at the project root
+**** lsp must run in order to pickup the launch.json because of ~lsp-workspace-root~
+**** variables can be used
+https://code.visualstudio.com/docs/editor/variables-reference
 *** config
 https://emacs-lsp.github.io/dap-mode/
 https://emacs-lsp.github.io/dap-mode/page/configuration/
+*** protocol
+https://microsoft.github.io/debug-adapter-protocol/overview
 ** TODO dap-mode
 #+begin_src elisp
   (use-package dap-mode

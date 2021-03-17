@@ -12,13 +12,12 @@
     (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
     )
 #+end_src
-** evil-magit
-*** TODO integrated into evil-collection
-remove after switch to 27.x
-#+begin_src elisp
-  (use-package evil-magit
-    :after magit
-    )
+*** DEPRECATED evil-magit
+integrated into evil collection
+#+begin_src elisp :tangle no
+  ;; (use-package evil-magit
+    ;; :after magit
+    ;; )
 #+end_src
 ** orgit
 *** TODO implement
@@ -34,3 +33,5 @@ remove after switch to 27.x
 #+end_src
 ***  TODO currently gitea is only partially supported
   https://github.com/magit/forge/issues/254
+** TODO git-spacemacs-packages
+[[file:~/SRC/GITHUB/EMACS/spacemacs/layers/+source-control/git/packages.el::git-packages][list]]

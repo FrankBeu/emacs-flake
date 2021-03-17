@@ -35,15 +35,15 @@ use-package company-restclient
   '((company-tern company-css company-web-html company-files))))
 ** company
 #+begin_src elisp
-    (use-package company
-      :after lsp-mode
-      :hook (
-             (after-init . global-company-mode)
-           )
-      :custom
-      (company-minimum-prefix-length 1)
-      (company-idle-delay 0.0)
-    )
+  (use-package company
+    :after lsp-mode
+    :hook (
+           (after-init . global-company-mode)
+         )
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-delay 0.0)
+  )
 #+end_src
 **** default-backends
 #+begin_src elisp
@@ -74,6 +74,8 @@ use-package company-restclient
     :config (setq company-box-doc-enable t)
      )
 #+end_src
+**** icons
+https://code.visualstudio.com/docs/editor/intellisense#_types-of-completions
 **** FUNDUS
 ***** icons
 #+begin_src elisp :tangle no
@@ -96,6 +98,15 @@ https://github.com/tigersoldier/company-lsp
   ;;    ;; (push 'company-lsp company-backends)
   ;;    ;; (push '(company-lsp :with company-yasnippet) company-backends)
   ;;    )
+#+end_src
+*** complete even without selection
+#+begin_src elisp
+(defun fb/company-complete-selection ()
+  "Insert the selected candidate or the first if no one is selected."
+  (interactive)
+  (if company-selection
+      (company-complete-selection)
+    (company-complete-number 1)))
 #+end_src
 ** yasnippets
   https://joaotavora.github.io/yasnippet/snippet-expansion.html

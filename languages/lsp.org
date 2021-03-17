@@ -12,6 +12,8 @@ https://develop.spacemacs.org/layers/+tools/lsp/README.html
 https://microsoft.github.io/language-server-protocol/
 *** TODO performance
 https://emacs-lsp.github.io/lsp-mode/page/performance/
+*** feature-disabling
+https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
 ** lsp-mode
 *** setup-hook
 #+begin_src elisp
@@ -21,28 +23,32 @@ https://emacs-lsp.github.io/lsp-mode/page/performance/
 #+end_src
 *** lsp-mode
 #+begin_src elisp
-  (use-package lsp-mode
-    :commands (lsp lsp-deferred)
-    :hook ((lsp-mode . fb*lsp-mode-setup-h)
-           (lsp-mode . lsp-enable-which-key-integration)
-           )
-    ;; :init
-    ;; (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
-    ;; (setq lsp-keymap-prefix "SPC l")  ;; shows named-prefixes; prevent usage of "SPC"
-    :config
-    (setq lsp-enable-snippet t)
-    (setq lsp-prefer-flymake nil)
-    ;; (setq lsp-enable-snippet nil)
-    (setq lsp-completion-provider :none)
-    )
+    (use-package lsp-mode
+      :commands (lsp lsp-deferred)
+      :hook (
+             (lsp-mode              . fb*lsp-mode-setup-h)
+             (lsp-mode              . lsp-enable-which-key-integration)
+             (lsp-before-initialize . (lambda () (setq lsp-enable-snippet t)))
+             )
+      ;; :init
+      ;; (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
+      ;; (setq lsp-keymap-prefix "SPC l")  ;; shows named-prefixes; prevent usage of "SPC"
+      :config
+      (setq lsp-prefer-flymake nil)
+      (setq lsp-completion-provider :none)
+      ;; (setq lsp-eldoc-enble-hover t)
+      )
 #+end_src
 **** IMPORTANT
+***** completion backends
 #+begin_example elisp :tangle no
   ;; (setq lsp-completion-provider :none)
 #+end_example
 will prevent lsp from pushing a single ~company-capf~ into ~company-backends~
 and thus prevent grouping of backends
 use language-hook instead c.f. [[file:golang.org::*go-mode][./golang.org::go-mode]]
+***** arguments-template completion
+~lsp-enable-snippet t~
 ** lsp-ui
 https://emacs-lsp.github.io/lsp-ui/
 #+begin_src elisp
@@ -95,10 +101,12 @@ https://github.com/emacs-lsp/lsp-treemacs
   (use-package lsp-treemacs
     :commands lsp-treemacs-errors-list
     :after lsp
+    ;; :config (lsp-treemacs-sync-mode 1)
     )
 #+end_src
 ** TODO TODOS
 *** restart completion
-#+begin_src go :results drawer
+useCase:
+#+begin_example go :results drawer
 	err := json.NewDecoder(r).Decode(&league)
-#+end_src
+#+end_example

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : source-code-block-json
+#key : bjson
+#contributor : fb
+# --
+#+begin_src json
+$0
+#+end_src

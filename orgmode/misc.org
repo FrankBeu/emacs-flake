@@ -133,6 +133,7 @@ https://github.com/novoid/Memacs
 https://github.com/dmgerman/org-manage
 ** TODO org-hacks
 https://orgmode.org/worg/org-hacks.html
+** TODO enable .webp-display in org-mode-files
 ** hook
 *** hook-function
 #+begin_src elisp

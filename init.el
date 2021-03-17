@@ -564,6 +564,24 @@ byte-compiled from.")
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
+(setq calendar-week-start-day 1)
+
+(copy-face font-lock-constant-face 'calendar-iso-week-face)
+(set-face-attribute 'calendar-iso-week-face nil :height 1.0)
+(setq calendar-intermonth-text
+      '(propertize
+        (format "%2d"
+                (car
+                 (calendar-iso-from-absolute
+                  (calendar-absolute-from-gregorian (list month day year)))))
+        'font-lock-face 'calendar-iso-week-face))
+
+(copy-face 'default 'calendar-iso-week-header-face)
+(set-face-attribute 'calendar-iso-week-header-face nil :height 1.0)
+(setq calendar-intermonth-header
+      (propertize "W"
+                  'font-lock-face 'calendar-iso-week-header-face))
+
 ;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
 (setq inhibit-startup-message t )      ;;; inhibit startup message
 (setq initial-scratch-message "")      ;;; print a default message in the empty scratch buffer opened at startup
@@ -573,6 +591,10 @@ byte-compiled from.")
 (setq coding-system-for-write 'utf-8 )
 (setq sentence-end-double-space nil)   ;;; sentence SHOULD end with only a point.
 (setq fill-column 80)                  ;;; toggle wrapping text at the 80th character
+
+(defvar fb/domainName
+"thesym.site"
+  "my domain")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-packages
 ;;;;
@@ -640,6 +662,7 @@ byte-compiled from.")
   :commands (dired dired-jump)
   :bind (("C-x C-j" . dired-jump))
   :custom ((dired-listing-switches "-agho --group-directories-first"))
+  :config (setq dired-dwim-target t)
   )
 
 (use-package all-the-icons-dired
@@ -1143,6 +1166,13 @@ current buffer's, reload dir-locals."
 
 (kbd "M-h") #'company-box-doc-manually
 
+(defun fb/company-complete-selection ()
+  "Insert the selected candidate or the first if no one is selected."
+  (interactive)
+  (if company-selection
+      (company-complete-selection)
+    (company-complete-number 1)))
+
 (use-package yasnippet
   :init
   (yas-global-mode 1)
@@ -1214,17 +1244,18 @@ current buffer's, reload dir-locals."
 
 (use-package lsp-mode
   :commands (lsp lsp-deferred)
-  :hook ((lsp-mode . fb*lsp-mode-setup-h)
-         (lsp-mode . lsp-enable-which-key-integration)
+  :hook (
+         (lsp-mode              . fb*lsp-mode-setup-h)
+         (lsp-mode              . lsp-enable-which-key-integration)
+         (lsp-before-initialize . (lambda () (setq lsp-enable-snippet t)))
          )
   ;; :init
   ;; (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
   ;; (setq lsp-keymap-prefix "SPC l")  ;; shows named-prefixes; prevent usage of "SPC"
   :config
-  (setq lsp-enable-snippet t)
   (setq lsp-prefer-flymake nil)
-  ;; (setq lsp-enable-snippet nil)
   (setq lsp-completion-provider :none)
+  ;; (setq lsp-eldoc-enble-hover t)
   )
 
 (use-package lsp-ui
@@ -1266,6 +1297,7 @@ current buffer's, reload dir-locals."
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list
   :after lsp
+  ;; :config (lsp-treemacs-sync-mode 1)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dap
@@ -1320,7 +1352,12 @@ current buffer's, reload dir-locals."
 ;;
 
 (use-package dart-mode
-  :hook (dart-mode . flutter-test-mode)
+  :hook (
+         (dart-mode . flutter-test-mode)
+         (dart-mode . company-mode)
+         (dart-mode . lsp-deferred)
+         (dart-mode . fb*default-company-backends-h)
+         )
   )
 
 (use-package flutter
@@ -1347,11 +1384,14 @@ current buffer's, reload dir-locals."
 
 (use-package go-mode
   :hook (
-         (go-mode . company-mode)
-         (go-mode . lsp-deferred)
-         (go-mode . fb*default-company-backends-h)
-         (go-mode . fb/lsp-go-install-save-hooks)
-         ))
+         (go-mode         . company-mode)
+         (go-mode         . lsp-deferred)
+         (go-mode         . fb*default-company-backends-h)
+         (go-mode         . fb/lsp-go-install-save-hooks)
+         (go-dot-mod-mode . fb*default-company-backends-h)
+         )
+  ;; :config (add-hook 'go-dot-mod-mode-hook 'fb*default-company-backends-h)
+  )
 
 (defun fb/lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
@@ -1499,6 +1539,20 @@ current buffer's, reload dir-locals."
   (require 'dap-node)
   (dap-node-setup)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-web
+;;;;
+;;
+
+(dolist (fn '(
+              fb*default-company-backends-h
+              company-mode
+              lsp-deferred
+              ))
+  (progn
+    (add-hook 'mhtml-mode-hook fn)
+    (add-hook 'css-mode-hook fn)
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; modeline
 ;;;;
@@ -2185,10 +2239,6 @@ screenshotDir and insert a link to this file."
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   )
 
-(use-package evil-magit
-  :after magit
-  )
-
 
 
 
@@ -2651,7 +2701,10 @@ screenshotDir and insert a link to this file."
  "C-l" 'nil
  "C-l" 'company-select-next
  "C-;" 'nil
- "C-;" 'company-complete
+ "C-;" 'fb/company-complete-selection
+
+ "C-J" 'yas-prev-field
+ "C-:" 'yas-next-field-or-maybe-expand
  )
 
 (general-define-key
@@ -2666,7 +2719,7 @@ screenshotDir and insert a link to this file."
  "C-l" 'nil
  "C-l" 'company-select-next
  "C-;" 'nil
- "C-;" 'company-complete
+ "C-;" 'fb/company-complete-selection
  )
 
 (general-define-key
@@ -2748,6 +2801,34 @@ screenshotDir and insert a link to this file."
  )
 
 (general-define-key
+ :keymaps '(
+            ivy-occur-grep-mode-map
+            ivy-occur-mode-map
+            )
+ :states  '(normal visual)
+ "j"     'nil
+ "k"     'nil
+ "l"     'nil
+ ";"     'nil
+ "j"     'evil-backward-char
+ "k"     'ivy-occur-previous-line
+ "l"     'ivy-occur-next-line
+ ";"     'evil-forward-char
+ )
+
+(general-define-key
+ :keymaps '(
+            ivy-occur-grep-mode-map
+            ivy-occur-mode-map
+            )
+ :states  '(visual)
+ "k"     'nil
+ "l"     'nil
+ "k"     'evil-previous-visual-line
+ "l"     'evil-next-visual-line
+ )
+
+(general-define-key
  "C-M-x" 'eval-last-sexp
  )
 
@@ -2764,14 +2845,22 @@ screenshotDir and insert a link to this file."
  :keymaps '(
            lsp-mode-map
            )
- "C-:" 'lsp-ui-doc-focus-frame
+ "C-S-k" 'lsp-ui-doc-focus-frame
   )
 
 (general-define-key
  :keymaps '(
            lsp-ui-doc-frame-mode-map
             )
- "C-J" 'lsp-ui-doc-unfocus-frame
+ "C-L" 'lsp-ui-doc-unfocus-frame
+  )
+
+(general-define-key
+ :keymaps '(
+           lsp-treemacs-error-list-mode-map
+            )
+ "c" 'lsp-treemacs-cycle-severity
+ "x" 'lsp-treemacs-quick-fix
   )
 
 (general-define-key
@@ -2808,6 +2897,15 @@ screenshotDir and insert a link to this file."
  ;; "l" 'org-store-link
  "a" 'org-agenda
  "c" 'org-capture
+ )
+
+(general-define-key
+ :keymaps '(
+            go-mode-map
+	        json-mode-map
+	        yaml-mode-map
+            )
+ "TAB"   'origami-recursively-toggle-node
  )
 
 (general-define-key
@@ -2870,6 +2968,15 @@ screenshotDir and insert a link to this file."
  "C-M-=" '(writeroom-adjust-width :which-key "wr-with-=")
  )
 
+(general-define-key
+  :keymaps '(
+             xref--xref-buffer-mode-map
+             xref--button-map
+             )
+;; :states  'normal-state
+  "C-;" 'xref-goto-xref
+  )
+
 (fb/leader-key
 
   "c"   '(                                                           :which-key "comment"                          :ignore t)
@@ -2884,6 +2991,7 @@ screenshotDir and insert a link to this file."
   "C"   '(                                                           :which-key "command-log cal"                  :ignore t)
   "CA"  '(cfw:open-org-calendar                                      :which-key "org-cal"                          )
   "CC"  '(fb/open-calendar                                           :which-key "combined-cal"                     )
+  "CS"  '(calendar                                                   :which-key "show-cal"                         )
   "CL"  '(command-log-mode                                           :which-key "toggle-local"                     )
   "CB"  '(clm/open-command-log-buffer                                :which-key "show-clm-buffer"                  )
   "CG"  '(global-command-log-mode                                    :which-key "toggle-global"                    )
@@ -2921,6 +3029,7 @@ screenshotDir and insert a link to this file."
 
   "dc"  '(dap-continue                                               :which-key "continue"                         )
   "di"  '(dap-step-in                                                :which-key "step-in"                          )
+  "dls" '(dap-tm-loaded-sources                                      :which-key "sources"                          )
   "do"  '(dap-step-out                                               :which-key "step-out"                         )
   "dr"  '(dap-restart-frame                                          :which-key "restart-frame"                    )
   "ds"  '(dap-next                                                   :which-key "next"                             )
@@ -2937,12 +3046,13 @@ screenshotDir and insert a link to this file."
   "dws" '(dap-ui-sessions                                            :which-key "ui-sessions"                      )
   "dwb" '(dap-ui-breakpoints                                         :which-key "ui-breakpoints"                   )
 
+
   ;; "D"   '(                                                           :which-key "delete"                           :ignore t)
 
   "e"   '(                                                           :which-key "error"                            :ignore t)
   "e?"  '(flycheck-describe-checker                                  :which-key "describe-checker"                 )
   "eH"  '(display-local-help                                         :which-key "local-help"                       )
-  "eL"  '(spacemacs/goto-flycheck-error-list                         :which-key "goto-list"                        )
+  "el"  '(spacemacs/goto-flycheck-error-list                         :which-key "goto-list"                        )
   "eM"  '(flycheck-compile                                           :which-key "compile"                          )
   "eS"  '(flycheck-set-checker-executable                            :which-key "set-checker-executable"           )
   "eV"  '(flycheck-version                                           :which-key "version"                          )
@@ -2950,7 +3060,7 @@ screenshotDir and insert a link to this file."
   "ec"  '(flycheck-clear                                             :which-key "clear"                            )
   "ee"  '(flycheck-explain-error-at-point                            :which-key "explain-at-point"                 )
   "ei"  '(flycheck-manual                                            :which-key "manual"                           )
-  "el"  '(fb/toggle-flycheck-error-buffer                            :which-key "toggle-list"                      )
+  "et"  '(fb/toggle-flycheck-error-buffer                            :which-key "toggle-list"                      )
   "en"  '(flycheck-next-error                                        :which-key "next"                             )
   "ep"  '(flycheck-previous-error                                    :which-key "previous"                         )
   "es"  '(flycheck-select-checker                                    :which-key "select-checker"                   )
@@ -2965,8 +3075,19 @@ screenshotDir and insert a link to this file."
   "fS"  '(save-some-buffers                                          :which-key "save-some-buffer"                 )
 
   "g"   '(                                                           :which-key "git"                              :ignore t)
+  "gb"  '(spacemacs/git-blame-transient-state/body                   :which-key "blameTransient"                   )
+  "gc"  '(magit-clone                                                :which-key "clone"                            )
+  "gfl" '(magit-log-buffer-file                                      :which-key "logs"                             )
+  "gfd" '(magit-diff                                                 :which-key "diff"                             )
+  "gi"  '(magit-init                                                 :which-key "init"                             )
+  "gL"  '(magit-list-repositories                                    :which-key "repolist"                         )
+  "gm"  '(magit-dispatch                                             :which-key "dispatch"                         )
   "gs"  '(magit-status                                               :which-key "status"                           )
+  "gS"  '(magit-stage-file                                           :which-key "stage"                            )
+  "gU"  '(magit-unstage-file                                         :which-key "unstage"                          )
 
+  "G"   '(                                                           :which-key "go"                               :ignore t)
+  "GB"  '(browse-url                                                 :which-key "browser"                          )
 
   "i"   '(                                                           :which-key "imenu"                            :ignore t)
   "ii"  '(imenu-list                                                 :which-key "imenulist"                        )
@@ -2987,6 +3108,14 @@ screenshotDir and insert a link to this file."
   "l"   '(:keymap lsp-command-map :package lsp-mode                  :which-key "lsp"                              )
   "li"  '(                                                           :which-key "ivy/imenu"                        :ignore t)
   "lt"  '(                                                           :which-key "treemacs"                         :ignore t)
+  "ltc" '(lsp-treemacs-call-hierarchy                                :which-key "call-hierarchy"                   )
+  "lte" '(lsp-treemacs-errors-list                                   :which-key "errors"                           )
+  "lti" '(lsp-treemacs-implementations                               :which-key "implementations"                  )
+  "ltr" '(lsp-treemacs-references                                    :which-key "references"                       )
+  "ltt" '(lsp-treemacs-type-hierarchy                                :which-key "type-hierarchy"                   )
+  "ltx" '(lsp-treemacs-quick-fix                                     :which-key "quickfix"                         )
+ ;"lts" '(lsp-treemacs-symbols                                       :which-key "symbols"                          ) ;; already implemented in lsp-mode-map
+
   "l="  '(                                                           :which-key "formatting"                       :ignore t)
   "la"  '(                                                           :which-key "code actions"                     :ignore t)
   "lF"  '(                                                           :which-key "folders"                          :ignore t)
@@ -2996,6 +3125,7 @@ screenshotDir and insert a link to this file."
   "lr"  '(                                                           :which-key "refactor"                         :ignore t)
   "ls"  '(                                                           :which-key "sessions"                         :ignore t)
   "lT"  '(                                                           :which-key "toggle"                           :ignore t)
+  "lx"  '(lsp-execute-code-action                                    :which-key "action"                           )
 
   "n"   '(                                                           :which-key "numbers"                          :ignore t)
   "n+"  '(fb/inc-at-pt                                               :which-key "+"                                )
@@ -3322,8 +3452,10 @@ screenshotDir and insert a link to this file."
   :keymaps 'org-mode-map
   :states  '(normal visual insert)
 
-  "a"     '(org-agenda                                          :which-key "agenda"           )
-  "b"     '(                                                    :which-key "table"            :ignore t)
+  "a"      '(org-agenda                                         :which-key "agenda"           )
+  "b"      '(                                                   :which-key "table"            :ignore t)
+  "bh"     '(org-table-hline-and-move                           :which-key "headline"         )
+  "tc"     '(org-comment-dwim                                   :which-key "comment"          )
 
   "c"      '(org-comment-dwim                                   :which-key "comment"          )
 
@@ -3333,6 +3465,7 @@ screenshotDir and insert a link to this file."
   "O"      '(                                                   :which-key "toggle"           :ignore t)
   "OI"     '(org-toggle-inline-images                           :which-key "images"           )
 
+  "p"      '(org-set-property                                   :which-key "property"         )
   "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
 
   "s"      '(                                                   :which-key "subtree"          :ignore t)
@@ -3402,9 +3535,3 @@ screenshotDir and insert a link to this file."
 (define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
 
 (global-set-key "\M-o" cm-map)
-
-package main
-
-func main() {
-err := json.NewDecoder(r).Decode(&league)
-}

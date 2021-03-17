@@ -55,5 +55,7 @@ needs xclip
 xclip -selection clipboard -t image/png -o > PATH.png
 #+end_example
 **** mv newest screenshots
-*** TODO ask for location
-*** TODO ask for name
+*** TODO ask for location/name w/o extension
+**** TODO ask for location
+**** TODO ask for name
+

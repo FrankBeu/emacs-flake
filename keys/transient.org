@@ -116,3 +116,7 @@ others are disabled by :tangle no
 | SPC z f     | zoom frame size              |
 | SPC z x     | Font Scaling (x for text)    |
 | SPC n +/-   | Change the value of a number |
+** TODO [#A] magit-blame
+[[file:~/SRC/GITHUB/EMACS/spacemacs/layers/+source-control/git/packages.el::(spacemacs|define-transient-state git-blame][magit-blame-transient-definition]]
+[[file:~/SRC/GITHUB/EMACS/spacemacs/layers/+source-control/git/funcs.el::defun spacemacs//git-blame-ts-toggle-hint (][magit-blame-transient-hint]]
+
