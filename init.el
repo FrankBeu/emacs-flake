@@ -3388,15 +3388,22 @@ screenshotDir and insert a link to this file."
  :keymaps 'org-agenda-mode-map
  :states  'motion
 
- "f" 'org-agenda-follow-mode
+ "f"     'org-agenda-follow-mode
 
- "va" 'org-agenda-view-mode-dispatch
- "vr" 'org-agenda-reset-view
- "vd" 'org-agenda-day-view
- "vf" 'org-agenda-fortnight-view
- "vw" 'org-agenda-week-view
- "vm" 'org-agenda-month-view
- "vy" 'org-agenda-year-view
+ "C-M-j" 'org-agenda-date-earlier-minutes
+ "C-j"   'org-agenda-date-earlier-hours
+ "C-k"   'org-agenda-do-date-earlier
+ "C-l"   'org-agenda-do-date-later
+ "C-;"   'org-agenda-date-later-hours
+ "C-M-;" 'org-agenda-date-earlier-minutes
+
+ "va"    'org-agenda-view-mode-dispatch
+ "vr"    'org-agenda-reset-view
+ "vd"    'org-agenda-day-view
+ "vf"    'org-agenda-fortnight-view
+ "vw"    'org-agenda-week-view
+ "vm"    'org-agenda-month-view
+ "vy"    'org-agenda-year-view
  )
 
 (general-define-key
