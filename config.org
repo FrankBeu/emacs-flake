@@ -156,4 +156,15 @@ Reading at buffer position N
 #+INCLUDE: "./view/view.org"
 *** keys
 #+INCLUDE: "./keys/keys.org"
+* INFO
+** tramp
+*** WORKING
+#+begin_example
+C-x C-f /:HOST:/home/<USER>/TMP/t
+#+end_example
+needs entry with user and port in  =~/.ssh/config=
+*** NOT WORKING syntax with port
+=C-x C-f= /ssh:<USER>@<IP>#<PORT>:/<PATH>
+**** assumption:
+needs password; does not work with key
 
