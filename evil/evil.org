@@ -17,7 +17,6 @@ https://github.com/noctuid/evil-guide
                     eshell-mode
                     git-rebase-mode
                     term-mode
-                    ;; undo-tree-visualizer-mode
                     ))
       (add-to-list 'evil-emacs-state-modes mode)))
 #+end_src
@@ -41,7 +40,6 @@ https://github.com/noctuid/evil-guide
 ** evil-collection
 TEST: quit helpful buffer with q
 #+begin_src elisp
-
   (use-package evil-collection
     :after evil
     :init
@@ -78,13 +76,6 @@ deprecated cf. evil-nerd-commenter
 ** evil-numbers
 #+begin_src elisp
   (use-package evil-numbers)
-#+end_src
-** evil-surround
-#+begin_src elisp
-  (use-package evil-surround
-    :config
-    (global-evil-surround-mode 1)
-    )
 #+end_src
 ** evil-surround
 #+begin_src elisp

@@ -15,6 +15,8 @@
   (use-package kubernetes
     :commands (kubernetes-overview))
 #+end_src
+  (use-package kubernetes
+    :commands (kubernetes-overview))
 ** k8s-evil
 #+begin_src elisp
   (use-package kubernetes-evil

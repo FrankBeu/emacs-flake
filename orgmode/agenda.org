@@ -7,11 +7,11 @@
 #+end_src
 ** agenda
 *** files
+directory-bound
 #+begin_src elisp
   (setq org-agenda-files '(
                            "~/NOTES"
-                           ;; "~/NOTES/AKTUELLES.org"
-                           ;; "~/NOTES/〇"
+                           "~/NOTES/〇"
                            ;; "~/NOTES/PROJECTS"
                            ))
 #+end_src
@@ -126,14 +126,14 @@
 - State "TODO"       from              [2021-02-01 Mon 13:28]
 :END:
 #+begin_src elisp :tangle no
-(setq org-agenda-category-icon-alist
-      ;; `(("org" ,(list (all-the-icons-faicon "cogs")) nil nil :ascent center)))
-      `(
-        ("todo" ,(list (all-the-icons-material "check_box" :height 1.2)) nil nil :ascent center)
-        ("task" ,(list (all-the-icons-material "check_box" :height 1.2)) nil nil :ascent center)
-        ;; ("amazon" ,(list (all-the-icons-faicon "amazon" :height 1.2 :face 'all-the-icons-dorange)) nil nil :ascent center)
-        ("amazon" ,(list (all-the-icons-faicon "amazon" :height 1 :face 'all-the-icons-orange)) nil nil :ascent center)
-        ))
+;; (setq org-agenda-category-icon-alist
+;;       ;; `(("org" ,(list (all-the-icons-faicon "cogs")) nil nil :ascent center)))
+;;       `(
+;;         ("todo" ,(list (all-the-icons-material "check_box" :height 1.2)) nil nil :ascent center)
+;;         ("task" ,(list (all-the-icons-material "check_box" :height 1.2)) nil nil :ascent center)
+;;         ;; ("amazon" ,(list (all-the-icons-faicon "amazon" :height 1.2 :face 'all-the-icons-dorange)) nil nil :ascent center)
+;;         ("amazon" ,(list (all-the-icons-faicon "amazon" :height 1 :face 'all-the-icons-orange)) nil nil :ascent center)
+;;         ))
 #+end_src
 *** TODO IMPORTANCE
 :LOGBOOK:
@@ -141,39 +141,39 @@
 :END:
 (without temporal relation)
 #+begin_src elisp :tangle no
-(setq org-agenda-custom-commands
-      '(
-        ("1" "PRIORITY 1" tags "PRIORITY=\"1\"")
-        ("2" "PRIORITY 2" tags "PRIORITY=\"2\"")
-        ("3" "PRIORITY 3" tags "PRIORITY=\"3\"")
-        ("4" "PRIORITY 4" tags "PRIORITY=\"4\"")
-        ("5" "PRIORITY 5" tags "PRIORITY=\"5\"")
-        ("c" "Desk Work" tags-todo "computer" ;; (1) (2) (3) (4)
-         ((org-agenda-files '("~/org/widgets.org" "~/org/clients.org")) ;; (5)
-          (org-agenda-sorting-strategy '(priority-up effort-down))) ;; (5) cont.
-         ("~/computer.html")) ;; (6)
-        ))
-;; agenda view
-;; (setq org-agenda-start-day "-1d")
-(setq org-agenda-start-on-weekday nil)
-(setq org-agenda-span 14)
+;; (setq org-agenda-custom-commands
+;;       '(
+;;         ("1" "PRIORITY 1" tags "PRIORITY=\"1\"")
+;;         ("2" "PRIORITY 2" tags "PRIORITY=\"2\"")
+;;         ("3" "PRIORITY 3" tags "PRIORITY=\"3\"")
+;;         ("4" "PRIORITY 4" tags "PRIORITY=\"4\"")
+;;         ("5" "PRIORITY 5" tags "PRIORITY=\"5\"")
+;;         ("c" "Desk Work" tags-todo "computer" ;; (1) (2) (3) (4)
+;;          ((org-agenda-files '("~/org/widgets.org" "~/org/clients.org")) ;; (5)
+;;           (org-agenda-sorting-strategy '(priority-up effort-down))) ;; (5) cont.
+;;          ("~/computer.html")) ;; (6)
+;;         ))
+;; ;; agenda view
+;; ;; (setq org-agenda-start-day "-1d")
+;; (setq org-agenda-start-on-weekday nil)
+;; (setq org-agenda-span 14)
 #+end_src
 #+begin_src elisp :tangle no
-;;;; do not insert when state is changed to DONE:
-;;;; CLOSED: [2020-04-30 Thu 23:39]
-(setq org-log-done nil)
+;; ;;;; do not insert when state is changed to DONE:
+;; ;;;; CLOSED: [2020-04-30 Thu 23:39]
+;; (setq org-log-done nil)
 
-;;;; dependency between TODO-items
-(require 'org-depend)
+;; ;;;; dependency between TODO-items
+;; (require 'org-depend)
 
-(defun own-add-todo-cookie ()
-  "add a TODO-COOKIE to current line"
-  (interactive)
-  (goto-char (line-end-position))
-  (insert " [/]")
-  (beginning-of-line)
-  (org-update-statistics-cookies ())
-  )
+;; (defun own-add-todo-cookie ()
+;;   "add a TODO-COOKIE to current line"
+;;   (interactive)
+;;   (goto-char (line-end-position))
+;;   (insert " [/]")
+;;   (beginning-of-line)
+;;   (org-update-statistics-cookies ())
+;;   )
 #+end_src
 *** TODO urgency
 #+begin_src elisp
@@ -208,3 +208,4 @@
 - State "TODO"       from              [2021-02-01 Mon 06:38]
 :END:
 https://github.com/alphapapa/org-ql
+** TODO org-habit

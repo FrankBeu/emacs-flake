@@ -9,6 +9,11 @@
 #+begin_src elisp
   (use-package nix-mode
     :mode "\\.nix\\'"
+    :hook (
+           (nix-mode . company-mode)
+           (nix-mode . lsp-deferred)
+           (nix-mode . fb*default-company-backends-h)
+           )
     )
 #+end_src
 *** configuration

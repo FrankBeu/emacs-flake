@@ -71,6 +71,7 @@
     :hook (org-mode . org-make-toc-mode))
 #+end_src
 ** calfw-org
+calendar
 https://github.com/kiwanami/emacs-calfw#for-org-users
 #+begin_src elisp
   (use-package calfw-org
@@ -123,7 +124,6 @@ https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/org/config.el
 ** TODO packages
   toc-org
   valign
-  
 ** TODO org-drill
 flashcards (like anki)
 https://orgmode.org/worg/org-contrib/org-drill.html

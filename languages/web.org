@@ -18,3 +18,27 @@
       (add-hook 'css-mode-hook fn)
       ))
 #+end_src
+** sass
+https://github.com/nex3/sass-mode
+https://sass-lang.com/
+#+begin_src elisp
+  (use-package sass-mode)
+#+end_src
+*** alt
+**** ssass-mode
+https://github.com/AdamNiederer/ssass-mode
+***** with support for
+https://github.com/purcell/mmm-mode
+** web-mode
+https://github.com/fxbois/web-mode
+#+begin_src elisp
+  (use-package web-mode)
+#+end_src
+*** TODO go~/helm~templates
+=M-x= ~web-mode-set-engine~ =RET= go =RET=
+**** https://web-mode.org/
+Associate an engine
+**** polyMode
+https://www.masteringemacs.org/article/polymode-multiple-major-modes-how-to-use-sql-python-in-one-buffer
+**** mutli-web ??
+https://github.com/fgallina/multi-web-mode

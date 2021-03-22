@@ -7,18 +7,17 @@
 #+end_src
 ** general
 #+begin_src elisp
-  (use-package general
-    :config
-    (general-create-definer fb/leader-key
-      :keymaps '(normal insert visual emacs)
-      :prefix "SPC"
-      :global-prefix "C-SPC")
-    (general-create-definer fb/local-leader-key
-      :keymaps '(normal insert visual emacs)
-      :prefix "SPC k"
-      :global-prefix "C-SPC k"
+    (use-package general
+      :config
+      (general-create-definer fb/leader-key
+        :keymaps '(normal insert visual emacs)
+        :prefix "SPC"
+        :global-prefix "C-SPC")
+      (general-create-definer fb/local-leader-key
+        :keymaps '(normal insert visual emacs)
+        :prefix "SPC k"
+        :global-prefix "C-SPC k")
       )
-    )
 #+end_src
 *** leader
 leader keys must be located at the home-row

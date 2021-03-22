@@ -13,8 +13,8 @@ https://github.com/golang/tools/blob/master/gopls/doc/emacs.md
     :hook (
            (go-mode         . company-mode)
            (go-mode         . lsp-deferred)
-           (go-mode         . fb*default-company-backends-h)
            (go-mode         . fb/lsp-go-install-save-hooks)
+           (go-mode         . fb*default-company-backends-h)
            (go-dot-mod-mode . fb*default-company-backends-h)
            )
     )
