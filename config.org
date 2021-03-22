@@ -1,9 +1,20 @@
 #+TITLE: emacs Configuration
 * emacsConfiguration
-** styleGuide
-*** elisp
-*** naming
-**** doom
+** INFO
+*** tramp
+**** WORKING
+#+begin_example
+C-x C-f /:HOST:/home/<USER>/TMP/t
+#+end_example
+needs entry with user and port in  =~/.ssh/config=
+**** NOT WORKING syntax with port
+=C-x C-f= /ssh:<USER>@<IP>#<PORT>:/<PATH>
+***** assumption:
+needs password; does not work with key
+*** styleGuide
+**** elisp
+**** naming
+***** doom
 - ~doom/abc~ A public, interactive command, designed to be used via =M-x= or a keybinding.
 - ~doom:abc~ A public evil operator, motion or command.
 - ~doom|abc~ A public, non-interactive function meant to be used as a hook.
@@ -16,25 +27,25 @@
   Autodefs usually serve to configure Doom or a module. [and are usually syntactic sugar]
 - Functions prefixed with ~+abc...~ belong to a module, e.g. ~+emacs-lisp|init-hook~ is a hook function in the ~lang/emacs-lisp~ module.
 - ~=abc~ An interactive command that invokes an app module.
-**** spacemacs
+***** spacemacs
  https://develop.spacemacs.org/doc/CONVENTIONS.html
-**** TODO variables
-***** ??
-****** use ::
+***** TODO variables
+****** ??
+******* use ::
 cf. rust
-****** use .
-*** org-mode
-**** =verbatim=    ---   ~code~   ::    `=verbatim=' and `~code~'
+******* use .
+**** org-mode
+***** =verbatim=    ---   ~code~   ::    `=verbatim=' and `~code~'
 =●= == key-sequences and text, paths or file names - markup rather than code
 ~●~ ~~ functions and variables commands
-***** TODO check project
-*** function-naming
-**** keep names
+****** TODO check project
+**** function-naming
+***** keep names
 - doom
 - spacemacs
-**** disregarding the origin all other functions
+***** disregarding the origin all other functions
 are prefixed by =fb=
-**** don't touch packages
+***** don't touch packages
 ** TODO TODOS
 *** CRASH cannot open \*.el-buffer  after \*.org-buffer
 when \*.el-buffer is opened first then  \*.org-buffer then other \*.el-buffer can be opened
@@ -156,15 +167,3 @@ Reading at buffer position N
 #+INCLUDE: "./view/view.org"
 *** keys
 #+INCLUDE: "./keys/keys.org"
-* INFO
-** tramp
-*** WORKING
-#+begin_example
-C-x C-f /:HOST:/home/<USER>/TMP/t
-#+end_example
-needs entry with user and port in  =~/.ssh/config=
-*** NOT WORKING syntax with port
-=C-x C-f= /ssh:<USER>@<IP>#<PORT>:/<PATH>
-**** assumption:
-needs password; does not work with key
-

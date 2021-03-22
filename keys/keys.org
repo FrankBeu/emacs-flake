@@ -16,6 +16,8 @@
 #+INCLUDE: "./transient.org"
 ** keybindings
 #+INCLUDE: "./keybindings.org"
+** global-Leader
+#+INCLUDE: "./global-leader.org"
 ** go
 #+INCLUDE: "./golang.org"
 ** orgmode

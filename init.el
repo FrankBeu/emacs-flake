@@ -2667,6 +2667,18 @@ screenshotDir and insert a link to this file."
 
 (general-define-key
  :keymaps '(
+            bookmark-bmenu-mode-map
+            )
+ :states  '(normal visual)
+ "j" 'evil-backward-char
+ "k" 'evil-previous-visual-line
+ "l" 'evil-next-visual-line
+
+ "C-;" 'bookmark-bmenu-this-window
+ )
+
+(general-define-key
+ :keymaps '(
             cfw:calendar-mode-map
             )
  ";"     'nil
@@ -2983,7 +2995,16 @@ screenshotDir and insert a link to this file."
   "C-;" 'xref-goto-xref
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-global-leader
+;;;;
+;;
+
 (fb/leader-key
+
+  "b"   '(                                              :which-key "bookmars"                         :ignore t)
+  "bj"  '(counsel-bookmark                              :which-key "jump"                             )
+  "bs"  '(bookmark-set                                  :which-key "set"                              )
+  "bl"  '(bookmark-bmenu-list                           :which-key "list"                             )
 
   "c"   '(                                              :which-key "comment"                          :ignore t)
   "cc"  '(evilnc-comment-operator                       :which-key "cmnt-operator"                    )
