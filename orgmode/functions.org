@@ -58,4 +58,22 @@ xclip -selection clipboard -t image/png -o > PATH.png
 *** TODO ask for location/name w/o extension
 **** TODO ask for location
 **** TODO ask for name
-
+** links
+*** link-types
+#+begin_src elisp
+  (org-add-link-type "epub"  (lambda (path) (browse-url-xdg-open path)  ))
+  (org-add-link-type "pdf"   (lambda (path) (browse-url-xdg-open path)  ))
+  (org-add-link-type "video" (lambda (path) (browse-url-xdg-open path)  ))
+  (org-add-link-type "rifle" (lambda (path) (browse-url-rifle-open path)))
+#+end_src
+*** rifle
+#+begin_src elisp
+(defun browse-url-rifle-open (url &optional ignored)
+  "Pass the specified URL to the \"rifle\" command.
+rifle is a desktop utility that calls your preferred program.
+Configuration in ~/.config/ranger/rifle.conf
+rifle can use mimetype like xdg-open and additionally extensions (regexes)
+The optional argument IGNORED is not used."
+  (interactive (browse-url-interactive-arg "URL: "))
+  (call-process "rifle" nil 0 nil url))
+#+end_src

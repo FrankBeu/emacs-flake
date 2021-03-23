@@ -43,9 +43,9 @@ directory-bound
 ;;         "......" "----------------"))
 #+end_src
 *** log
-**** show log on start
+**** show agenda with activated log-mode
 #+begin_src elisp
-  (setq org-agenda-start-with-log-mode t)
+  (setq org-agenda-start-with-log-mode nil)
 #+end_src
 **** log-into-drawer
 #+begin_src elisp

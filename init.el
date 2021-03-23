@@ -1611,8 +1611,6 @@ current buffer's, reload dir-locals."
   ;; :hook (org-mode . (lambda () evil-org-mode))
   :hook (org-mode . evil-org-mode)
   :config
-  (require 'evil-org-agenda)
-  (evil-org-agenda-set-keys)
   (evil-org-set-key-theme)
   )
 
@@ -1740,6 +1738,20 @@ screenshotDir and insert a link to this file."
   (insert (concat "[[" filename "]]"))
   (org-display-inline-images))
 
+(org-add-link-type "epub"  (lambda (path) (browse-url-xdg-open path)  ))
+(org-add-link-type "pdf"   (lambda (path) (browse-url-xdg-open path)  ))
+(org-add-link-type "video" (lambda (path) (browse-url-xdg-open path)  ))
+(org-add-link-type "rifle" (lambda (path) (browse-url-rifle-open path)))
+
+(defun browse-url-rifle-open (url &optional ignored)
+  "Pass the specified URL to the \"rifle\" command.
+rifle is a desktop utility that calls your preferred program.
+Configuration in ~/.config/ranger/rifle.conf
+rifle can use mimetype like xdg-open and additionally extensions (regexes)
+The optional argument IGNORED is not used."
+  (interactive (browse-url-interactive-arg "URL: "))
+  (call-process "rifle" nil 0 nil url))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-agenda
 ;;;;
 ;;
@@ -1757,7 +1769,7 @@ screenshotDir and insert a link to this file."
         (0000 0200 0400 0600 0800 1000 1200 1400 1600 1800 2000 2200)
         "······" "────────────────"))
 
-(setq org-agenda-start-with-log-mode t)
+(setq org-agenda-start-with-log-mode nil)
 
 (setq org-log-into-drawer t)
 
@@ -3375,27 +3387,94 @@ screenshotDir and insert a link to this file."
 ;;;;
 ;;
 
-(general-define-key
- :keymaps 'org-agenda-mode-map
-
- "p" 'org-agenda-capture
- "n" 'org-agenda-log-mode
- "k" 'org-agenda-previous-line
- "l" 'org-agenda-next-line
- )
+(evil-set-initial-state 'org-agenda-mode 'motion)
 
 (general-define-key
  :keymaps 'org-agenda-mode-map
- :states  'motion
+ ;; :states  'motion
+ :states  '(normal visual motion)
 
- "f"     'org-agenda-follow-mode
+ "C-S-j" 'org-agenda-todo-previousset
+ "C-:"   'org-agenda-todo-nextset
 
  "C-M-j" 'org-agenda-date-earlier-minutes
  "C-j"   'org-agenda-date-earlier-hours
  "C-k"   'org-agenda-do-date-earlier
  "C-l"   'org-agenda-do-date-later
  "C-;"   'org-agenda-date-later-hours
- "C-M-;" 'org-agenda-date-earlier-minutes
+ "C-M-;" 'org-agenda-date-later-minutes
+
+ "M-k"   'org-agenda-drag-line-backward
+ "M-l"   'org-agenda-drag-line-forward
+
+ "C-M-K" 'org-agenda-priority-up
+ "C-M-L" 'org-agenda-priority-down
+
+ "gl"    'org-agenda-next-item
+ "gk"    'org-agenda-previous-item
+
+ "k"     'org-agenda-previous-line
+ "l"     'org-agenda-next-line
+
+ "a"     'org-agenda-append-agenda
+
+ "cc"    'org-agenda-clock-cancel
+ "cg"    'org-agenda-clock-goto
+ "cr"    'org-agenda-clockreport-mode
+ "ci"    'org-agenda-clock-in
+
+ "co"    'org-agenda-clock-out
+ "cI"    'org-agenda-show-clocking-issues
+
+ "ct"    'org-agenda-set-tags
+
+ "dd"    'org-agenda-kill
+ "da"    'org-agenda-toggle-archive-tag
+
+ "e"     'org-agenda-set-effort
+
+ "fa"    'org-agenda-filter-remove-all
+ "fc"    'org-agenda-filter-by-category
+ "fh"    'org-agenda-filter-by-top-headline
+ "fe"    'org-agenda-filter-by-effort
+ "ft"    'org-agenda-filter-by-tag
+ "fr"    'org-agenda-filter-by-regexp
+ "fs"    'org-agenda-limit-interactively
+
+ "gc"    'org-agenda-goto-calendar
+ "gd"    'org-agenda-goto-date
+ "gh"    'org-agenda-holidays
+ "gm"    'org-agenda-phases-of-moon
+ "gn"    'org-agenda-add-note
+ "gr"    'org-agenda-redo-all
+ "gs"    'org-agenda-sunrise-sunset
+ "gt"    'org-agenda-show-tags
+
+ "gC"    'org-agenda-convert-date
+ "gD"    'org-agenda-view-mode-dispatch
+
+ "gH"    'evil-window-top
+ "gM"    'evil-window-middle
+ "gL"    'evil-window-bottom
+
+ "i"     'org-agenda-diary-entry
+
+ "m"     'org-agenda-bulk-toggle
+ "MT"    'org-agenda-bulk-toggle-all
+ "MA"    'org-agenda-bulk-mark-all
+ "MR"    'org-agenda-bulk-mark-regexp
+ "MU"    'org-agenda-bulk-unmark-all
+ "x"     'org-agenda-bulk-action
+
+ "oc"    'org-agenda-capture
+ "p"     'org-agenda-date-prompt
+
+ "q"     'org-agenda-quit
+ "Q"     'org-agenda-exit
+
+ "r"     'org-agenda-redo
+ "t"     'org-agenda-todo
+ "u"     'org-agenda-undo
 
  "va"    'org-agenda-view-mode-dispatch
  "vr"    'org-agenda-reset-view
@@ -3404,6 +3483,33 @@ screenshotDir and insert a link to this file."
  "vw"    'org-agenda-week-view
  "vm"    'org-agenda-month-view
  "vy"    'org-agenda-year-view
+
+ "."     'org-agenda-goto-today
+
+ "[["    'org-agenda-earlier
+ "]]"    'org-agenda-later
+
+ "+"     'org-agenda-manipulate-query-add
+ "-"     'org-agenda-manipulate-query-subtract
+
+ "A"     'org-agenda-archives-mode
+ "F"     'org-agenda-follow-mode
+ "G"     'org-agenda-clock-goto
+ ;; "H"     '
+ ;; "J"     '
+ "D"     'org-agenda-toggle-diary
+ "I"     'org-agenda-clock-in
+ "L"     'org-agenda-log-mode
+ "O"     'org-agenda-clock-out
+ "P"     'org-agenda-show-the-flagging-note
+ "R"     'org-agenda-clockreport-mode
+ "T"     'org-timer-set-timer
+ "Z"     'org-agenda-dim-blocked-tasks
+
+ "TAB"        'org-agenda-goto
+ "RET"        'org-agenda-switch-to
+ "<backtab>"  'org-agenda-show
+ "<S-return>" 'org-agenda-show
  )
 
 (general-define-key
@@ -3505,11 +3611,18 @@ screenshotDir and insert a link to this file."
   :states  '(normal visual insert)
 
   "a"      '(org-agenda                                         :which-key "agenda"           )
+
   "b"      '(                                                   :which-key "table"            :ignore t)
   "bh"     '(org-table-hline-and-move                           :which-key "headline"         )
-  "tc"     '(org-comment-dwim                                   :which-key "comment"          )
 
   "c"      '(org-comment-dwim                                   :which-key "comment"          )
+
+  "C"      '(                                                   :which-key "clock"            :ignore t)
+  "CC"     '(org-clock-cancel                                   :which-key "cancel"           )
+  "CG"     '(org-clock-goto                                     :which-key "goto"             )
+  "CI"     '(org-clock-in                                       :which-key "in"               )
+  "CL"     '(org-clock-in-last                                  :which-key "last"             )
+  "CO"     '(org-clock-out                                      :which-key "out"              )
 
   "l"      '(org-insert-last-stored-link                        :which-key "insert link"      )
 
