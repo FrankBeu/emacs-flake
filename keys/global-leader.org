@@ -309,6 +309,9 @@
     "xU"  '(upcase-region                                 :which-key "upcase-region"                    )
     "xu"  '(downcase-region                               :which-key "downcase-region"                  )
 
+    "X"    '(                                             :which-key "insert"                           :ignore t)
+    "XI*"  '(insert-char                                  :which-key "insert unicode"                   )
+
     "y"   '(                                              :which-key "yasnippets"                       :ignore t)
     "yy"  '(yas-insert-snippet                            :which-key "insert"                           )
     "yr"  '(yas-reload-all                                :which-key "reload-all"                       )

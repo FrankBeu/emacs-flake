@@ -5,34 +5,6 @@
   ;;;;
   ;;
 #+end_src
-** safe local-vars
-#+begin_src elisp
-  (add-to-list 'safe-local-variable-values
-             '(eval org-content 2)
-             )
-#+end_src
-
-#+begin_src elisp
-  (add-to-list 'safe-local-eval-forms
-               '(org-content 3)
-               )
-#+end_src
-** serverMode
-always start emacs in server-mode
-#+begin_src elisp
-(server-start)
-#+end_src
-** window-splitting
-#+begin_src elisp
-;; (setq
-;;  split-width-threshold 0
-;;  split-height-threshold nil)
-#+end_src
-** yes-or-no to y-or-no
-accept {y,n} as answer
-#+begin_src elisp
-(defalias 'yes-or-no-p 'y-or-n-p)
-#+end_src
 ** calendar
 *** start week on monday
 #+begin_src elisp
@@ -58,6 +30,15 @@ accept {y,n} as answer
           (propertize "W"
                       'font-lock-face 'calendar-iso-week-header-face))
 #+end_src
+** ediff
+*** controlpanel
+#+begin_src elisp
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+#+end_src
+*** side-by-side
+#+begin_src elisp
+  (setq ediff-split-window-function (quote split-window-horizontally))
+#+end_src
 ** misc
 #+begin_src elisp
 ;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
@@ -75,4 +56,32 @@ accept {y,n} as answer
 (defvar fb/domainName
 "thesym.site"
   "my domain")
+#+end_src
+** safe local-vars
+#+begin_src elisp
+  (add-to-list 'safe-local-variable-values
+             '(eval org-content 2)
+             )
+#+end_src
+
+#+begin_src elisp
+  (add-to-list 'safe-local-eval-forms
+               '(org-content 3)
+               )
+#+end_src
+** serverMode
+always start emacs in server-mode
+#+begin_src elisp
+(server-start)
+#+end_src
+** yes-or-no to y-or-no
+accept {y,n} as answer
+#+begin_src elisp
+(defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
+** CANCELLED window-splitting
+#+begin_src elisp
+;; (setq
+;;  split-width-threshold 0
+;;  split-height-threshold nil)
 #+end_src

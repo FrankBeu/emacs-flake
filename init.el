@@ -542,22 +542,6 @@ byte-compiled from.")
 ;;;;
 ;;
 
-(add-to-list 'safe-local-variable-values
-           '(eval org-content 2)
-           )
-
-(add-to-list 'safe-local-eval-forms
-             '(org-content 3)
-             )
-
-(server-start)
-
-;; (setq
-;;  split-width-threshold 0
-;;  split-height-threshold nil)
-
-(defalias 'yes-or-no-p 'y-or-n-p)
-
 (setq calendar-week-start-day 1)
 
 (copy-face font-lock-constant-face 'calendar-iso-week-face)
@@ -576,6 +560,10 @@ byte-compiled from.")
       (propertize "W"
                   'font-lock-face 'calendar-iso-week-header-face))
 
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+(setq ediff-split-window-function (quote split-window-horizontally))
+
 ;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
 (setq inhibit-startup-message t )      ;;; inhibit startup message
 (setq initial-scratch-message "")      ;;; print a default message in the empty scratch buffer opened at startup
@@ -589,6 +577,22 @@ byte-compiled from.")
 (defvar fb/domainName
 "thesym.site"
   "my domain")
+
+(add-to-list 'safe-local-variable-values
+           '(eval org-content 2)
+           )
+
+(add-to-list 'safe-local-eval-forms
+             '(org-content 3)
+             )
+
+(server-start)
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; (setq
+;;  split-width-threshold 0
+;;  split-height-threshold nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-packages
 ;;;;
@@ -3312,6 +3316,9 @@ The optional argument IGNORED is not used."
   "xU"  '(upcase-region                                 :which-key "upcase-region"                    )
   "xu"  '(downcase-region                               :which-key "downcase-region"                  )
 
+  "X"    '(                                             :which-key "insert"                           :ignore t)
+  "XI*"  '(insert-char                                  :which-key "insert unicode"                   )
+
   "y"   '(                                              :which-key "yasnippets"                       :ignore t)
   "yy"  '(yas-insert-snippet                            :which-key "insert"                           )
   "yr"  '(yas-reload-all                                :which-key "reload-all"                       )
@@ -3624,7 +3631,8 @@ The optional argument IGNORED is not used."
   "CL"     '(org-clock-in-last                                  :which-key "last"             )
   "CO"     '(org-clock-out                                      :which-key "out"              )
 
-  "l"      '(org-insert-last-stored-link                        :which-key "insert link"      )
+  "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
+  "l"      '(org-insert-link                                    :which-key "insert link"      )
 
   "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
   "O"      '(                                                   :which-key "toggle"           :ignore t)

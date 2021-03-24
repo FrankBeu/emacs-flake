@@ -273,7 +273,8 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "CL"     '(org-clock-in-last                                  :which-key "last"             )
     "CO"     '(org-clock-out                                      :which-key "out"              )
 
-    "l"      '(org-insert-last-stored-link                        :which-key "insert link"      )
+    "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
+    "l"      '(org-insert-link                                    :which-key "insert link"      )
 
     "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
     "O"      '(                                                   :which-key "toggle"           :ignore t)
