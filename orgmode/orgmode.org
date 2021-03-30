@@ -25,12 +25,14 @@ https://github.com/marcinkoziej/org-pomodoro
 #+INCLUDE: "./functions.org"
 ** agenda
 #+INCLUDE: "./agenda.org"
-** TODO babel
+** babel
 #+INCLUDE: "./babel.org"
-** TODO capture
+** capture
 #+INCLUDE: "./capture.org"
-** TODO refile
+** refile
 #+INCLUDE: "./refile.org"
+** padmā
+#+INCLUDE: "./padma.org"
 ** TODO pomodoro
 ,#+INCLUDE: "./pomodoro.org"
 ** TODO verb

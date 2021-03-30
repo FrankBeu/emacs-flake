@@ -74,6 +74,28 @@ always start emacs in server-mode
 #+begin_src elisp
 (server-start)
 #+end_src
+** tramp
+https://www.emacswiki.org/emacs/TrampMode
+https://www.gnu.org/software/tramp/#Overview
+*** INFO
+**** needs a dumb prompt
+c.f. =.config/zsh/.preztorc=
+#+begin_example shell
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+#+end_example
+**** debugging
+#+begin_src elisp :tangle no
+;; (setq tramp-debug-buffer t)
+;; (setq tramp-verbose 10)
+#+end_src
+**** USAGE
+***** OR
+****** needs =~/.ssh/config=
+=C-x C-f= /ssh:HOSTNAME:/home/USER/TMP/t
+****** with full URL
+=C-x C-f= /ssh:USER@IP#PORT:/home/USER/TMP/t
+****** emacs-bookmarks
+=SPC b l= nuc =RET=
 ** yes-or-no to y-or-no
 accept {y,n} as answer
 #+begin_src elisp

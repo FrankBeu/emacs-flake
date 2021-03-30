@@ -119,11 +119,22 @@ https://github.com/akhramov/org-wild-notifier.el
 https://github.com/spegoraro/org-alert
 ** TODO doct 
 https://github.com/progfolio/doct
-** TODO babel
-https://github.com/hlissner/doom-emacs/blob/develop/modules/lang/org/config.el
-** TODO packages
-  toc-org
-  valign
+** DEPRECATED depend
+https://orgmode.org/worg/org-contrib/org-depend.html
+use [[file:padma.org::*orgmode-padmā][orgmode-padmā]]
+#+begin_src elisp :tangle no
+  ;; (require 'org-depend)
+
+  ;; (defun fb/org-insert-trigger ()
+  ;;   "Automatically insert chain-find-next trigger when entry becomes NEXT"
+  ;;   (cond ((equal org-state "NEXT")
+  ;;          (unless org-depend-doing-chain-find-next
+  ;;            (org-set-property "TRIGGER" "chain-find-next(NEXT,from-current,priority-up,effort-down)")))
+  ;;         ((not (member org-state org-done-keywords))
+  ;;          (org-delete-property "TRIGGER"))))
+
+  ;; (add-hook 'org-after-todo-state-change-hook 'fb/org-insert-trigger)
+#+end_src
 ** TODO org-drill
 flashcards (like anki)
 https://orgmode.org/worg/org-contrib/org-drill.html
@@ -133,7 +144,6 @@ https://github.com/novoid/Memacs
 https://github.com/dmgerman/org-manage
 ** TODO org-hacks
 https://orgmode.org/worg/org-hacks.html
-** TODO org-depend
 ** TODO enable .webp-display in org-mode-files
 ** hook
 *** hook-function

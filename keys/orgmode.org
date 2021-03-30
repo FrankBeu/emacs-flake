@@ -273,8 +273,29 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "CL"     '(org-clock-in-last                                  :which-key "last"             )
     "CO"     '(org-clock-out                                      :which-key "out"              )
 
+    "d"      '(                                                   :which-key "id-dependecy"     :ignore t)
+    "d"      '(                                                   :which-key "id"               :ignore t)
+    "dic"    '(org-id-copy                                        :which-key "id-copy"          )
+    "dif"    '(org-find-entry-with-id                             :which-key "id-find-entry"    )
+    "dig"    '(org-id-goto                                        :which-key "id-goto"          )
+    "dic"    '(org-id-get-create                                  :which-key "id-create"        )
+    "dil"    '(org-id-store-link                                  :which-key "id-store-link"    )
+
+    "dp"     '(                                                   :which-key "predecessor"      :ignore t)
+    "dpg"    '(fb/goto-predecessor                                :which-key "pre-goto"         )
+    "dpi"    '(fb/insert-predecessor-relation                     :which-key "pre-insert"       )
+    "dpr"    '(fb/remove-predecessor-relation                     :which-key "pre-remove"       )
+    "dps"    '(fb/store-as-predecessor                            :which-key "pre-store"        )
+    "ds"     '(                                                   :which-key "successor"        :ignore t)
+    "dsg"    '(fb/goto-successor                                  :which-key "suc-goto"         )
+    "dsi"    '(fb/insert-successor-relation                       :which-key "suc-insert"       )
+    "dsr"    '(fb/remove-successor-relation                       :which-key "suc-remove"       )
+    "dss"    '(fb/store-as-successor                              :which-key "suc-store"        )
+
     "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
     "l"      '(org-insert-link                                    :which-key "insert link"      )
+
+    "n"      '(org-add-note                                       :which-key "node"             )
 
     "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
     "O"      '(                                                   :which-key "toggle"           :ignore t)

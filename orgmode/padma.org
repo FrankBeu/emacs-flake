@@ -1,0 +1,103 @@
+* orgmode-padmā
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-padmā
+  ;;;;
+  ;;
+#+end_src
+** commands
+*** on successor
+#+begin_src elisp
+  (defun fb/store-as-successor ()
+    "store current element-id as successor"
+    (interactive)
+    (evil-set-register ?s (org-id-get-create))
+    (message "choose predecessor and call fb/insert-successor-relation")
+    )
+
+  (defun fb/insert-successor-relation ()
+    "insert a successor for current element"
+    (interactive)
+    (org-set-property "SUCCESSOR" (evil-get-register ?s))
+    (evil-set-register ?p (org-id-get-create))
+    (org-id-goto (evil-get-register ?s))
+    (org-set-property "PREDECESSOR" (evil-get-register ?p))
+    )
+
+  (defun fb/remove-predecessor-relation ()
+    "remove the predecessor relation from current element"
+    (interactive)
+    (evil-set-register ?s (org-id-get-create))
+
+    (org-id-goto  (org-entry-get (point) "PREDECESSOR"))
+    (org-entry-delete (point) "SUCCESSOR")
+
+    (org-id-goto  (evil-get-register ?s))
+    (org-entry-delete (point) "PREDECESSOR")
+    (evil-set-register ?s nil)
+    )
+
+  (defun fb/goto-predecessor ()
+    "go to the element specified by an org-id specified as value of the org-property: PREDECESSOR"
+    (interactive)
+    (org-id-goto  (org-entry-get (point) "PREDECESSOR"))
+    )
+
+#+end_src
+*** on predecessor
+#+begin_src elisp
+  (defun fb/store-as-predecessor ()
+    "store current element-id as predecessor"
+    (interactive)
+    (evil-set-register ?p (org-id-get-create))
+    (message "choose successor and call fb/insert-predecessor-relation")
+    )
+
+  (defun fb/insert-predecessor-relation ()
+    "insert a predecessor for current element"
+    (interactive)
+    (org-set-property "PREDECESSOR" (evil-get-register ?p))
+    (evil-set-register ?s (org-id-get-create))
+    (org-id-goto (evil-get-register ?p))
+    (org-set-property "SUCCESSOR" (evil-get-register ?s))
+    )
+
+  (defun fb/remove-successor-relation ()
+    "remove the successor relation from current element"
+    (interactive)
+    (evil-set-register ?p (org-id-get-create))
+
+    (org-id-goto  (org-entry-get (point) "SUCCESSOR"))
+    (org-entry-delete (point) "PREDECESSOR")
+
+    (org-id-goto  (evil-get-register ?p))
+    (org-entry-delete (point) "SUCCESSOR")
+    (evil-set-register ?p nil)
+    )
+
+  (defun fb/goto-successor ()
+    "go to the element specified by an org-id specified as value of the org-property: SUCCESSOR"
+    (interactive)
+    (org-id-goto  (org-entry-get (point) "SUCCESSOR"))
+    )
+#+end_src
+*** TODO automate States
+**** cf. org-depend
+**** BLOCKED
+**** READY
+** INFO
+*** PROPERTIES
+**** if a commented property is available ~org-entry-get~ return ~nil~
+#+begin_example org
+:PROPERTIES:
+:PREDECESSOR:  de618c35-0ca4-4c30-bed1-cbaa9c7273bb
+# :PREDECESSOR:  FAILS
+:END:
+#+end_example
+**** even if another invalid property is defined  ~org-entry-get~ return ~nil~
+#+begin_example org
+:PROPERTIES:
+:PREDECESSOR:  de618c35-0ca4-4c30-bed1-cbaa9c7273bb
+# :SUCCESSOR:  teetqwer
+:END:
+#+end_example

@@ -2247,6 +2247,80 @@ The optional argument IGNORED is not used."
                            ("e" . "〇/11 ERLEDIGTES.org"    )
                            ))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-padmā
+;;;;
+;;
+
+(defun fb/store-as-successor ()
+  "store current element-id as successor"
+  (interactive)
+  (evil-set-register ?s (org-id-get-create))
+  (message "choose predecessor and call fb/insert-successor-relation")
+  )
+
+(defun fb/insert-successor-relation ()
+  "insert a successor for current element"
+  (interactive)
+  (org-set-property "SUCCESSOR" (evil-get-register ?s))
+  (evil-set-register ?p (org-id-get-create))
+  (org-id-goto (evil-get-register ?s))
+  (org-set-property "PREDECESSOR" (evil-get-register ?p))
+  )
+
+(defun fb/remove-predecessor-relation ()
+  "remove the predecessor relation from current element"
+  (interactive)
+  (evil-set-register ?s (org-id-get-create))
+
+  (org-id-goto  (org-entry-get (point) "PREDECESSOR"))
+  (org-entry-delete (point) "SUCCESSOR")
+
+  (org-id-goto  (evil-get-register ?s))
+  (org-entry-delete (point) "PREDECESSOR")
+  (evil-set-register ?s nil)
+  )
+
+(defun fb/goto-predecessor ()
+  "go to the element specified by an org-id specified as value of the org-property: PREDECESSOR"
+  (interactive)
+  (org-id-goto  (org-entry-get (point) "PREDECESSOR"))
+  )
+
+(defun fb/store-as-predecessor ()
+  "store current element-id as predecessor"
+  (interactive)
+  (evil-set-register ?p (org-id-get-create))
+  (message "choose successor and call fb/insert-predecessor-relation")
+  )
+
+(defun fb/insert-predecessor-relation ()
+  "insert a predecessor for current element"
+  (interactive)
+  (org-set-property "PREDECESSOR" (evil-get-register ?p))
+  (evil-set-register ?s (org-id-get-create))
+  (org-id-goto (evil-get-register ?p))
+  (org-set-property "SUCCESSOR" (evil-get-register ?s))
+  )
+
+(defun fb/remove-successor-relation ()
+  "remove the successor relation from current element"
+  (interactive)
+  (evil-set-register ?p (org-id-get-create))
+
+  (org-id-goto  (org-entry-get (point) "SUCCESSOR"))
+  (org-entry-delete (point) "PREDECESSOR")
+
+  (org-id-goto  (evil-get-register ?p))
+  (org-entry-delete (point) "SUCCESSOR")
+  (evil-set-register ?p nil)
+  )
+
+(defun fb/goto-successor ()
+  "go to the element specified by an org-id specified as value of the org-property: SUCCESSOR"
+  (interactive)
+  (org-id-goto  (org-entry-get (point) "SUCCESSOR"))
+  )
+
 );;with-eval-end
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project
@@ -3631,8 +3705,29 @@ The optional argument IGNORED is not used."
   "CL"     '(org-clock-in-last                                  :which-key "last"             )
   "CO"     '(org-clock-out                                      :which-key "out"              )
 
+  "d"      '(                                                   :which-key "id-dependecy"     :ignore t)
+  "d"      '(                                                   :which-key "id"               :ignore t)
+  "dic"    '(org-id-copy                                        :which-key "id-copy"          )
+  "dif"    '(org-find-entry-with-id                             :which-key "id-find-entry"    )
+  "dig"    '(org-id-goto                                        :which-key "id-goto"          )
+  "dic"    '(org-id-get-create                                  :which-key "id-create"        )
+  "dil"    '(org-id-store-link                                  :which-key "id-store-link"    )
+
+  "dp"     '(                                                   :which-key "predecessor"      :ignore t)
+  "dpg"    '(fb/goto-predecessor                                :which-key "pre-goto"         )
+  "dpi"    '(fb/insert-predecessor-relation                     :which-key "pre-insert"       )
+  "dpr"    '(fb/remove-predecessor-relation                     :which-key "pre-remove"       )
+  "dps"    '(fb/store-as-predecessor                            :which-key "pre-store"        )
+  "ds"     '(                                                   :which-key "successor"        :ignore t)
+  "dsg"    '(fb/goto-successor                                  :which-key "suc-goto"         )
+  "dsi"    '(fb/insert-successor-relation                       :which-key "suc-insert"       )
+  "dsr"    '(fb/remove-successor-relation                       :which-key "suc-remove"       )
+  "dss"    '(fb/store-as-successor                              :which-key "suc-store"        )
+
   "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
   "l"      '(org-insert-link                                    :which-key "insert link"      )
+
+  "n"      '(org-add-note                                       :which-key "node"             )
 
   "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
   "O"      '(                                                   :which-key "toggle"           :ignore t)
