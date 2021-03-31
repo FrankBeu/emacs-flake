@@ -3000,6 +3000,23 @@ The optional argument IGNORED is not used."
  )
 
 (general-define-key
+ :keymaps 'magit-mode-map
+ :states  '(normal visual)
+ "gj" 'magit-section-up
+ "gk" 'magit-section-backward-sibling
+ "gl" 'magit-section-forward-sibling
+ "g;" 'magit-section-forward
+ "gvaj" 'magit-section-show-level-1-all
+ "gvak" 'magit-section-show-level-2-all
+ "gval" 'magit-section-show-level-3-all
+ "gva;" 'magit-section-show-level-4-all
+ "gvj" 'magit-section-show-level-1
+ "gvk" 'magit-section-show-level-2
+ "gvl" 'magit-section-show-level-3
+ "gv;" 'magit-section-show-level-4
+ )
+
+(general-define-key
  :prefix "C-c"
  "L" 'org-store-link
  ;; "l" 'org-store-link
@@ -3706,7 +3723,6 @@ The optional argument IGNORED is not used."
   "CO"     '(org-clock-out                                      :which-key "out"              )
 
   "d"      '(                                                   :which-key "id-dependecy"     :ignore t)
-  "d"      '(                                                   :which-key "id"               :ignore t)
   "dic"    '(org-id-copy                                        :which-key "id-copy"          )
   "dif"    '(org-find-entry-with-id                             :which-key "id-find-entry"    )
   "dig"    '(org-id-goto                                        :which-key "id-goto"          )
@@ -3717,12 +3733,12 @@ The optional argument IGNORED is not used."
   "dpg"    '(fb/goto-predecessor                                :which-key "pre-goto"         )
   "dpi"    '(fb/insert-predecessor-relation                     :which-key "pre-insert"       )
   "dpr"    '(fb/remove-predecessor-relation                     :which-key "pre-remove"       )
-  "dps"    '(fb/store-as-predecessor                            :which-key "pre-store"        )
+  "dps"    '(fb/store-as-predecessor                            :which-key "pre-store-as"     )
   "ds"     '(                                                   :which-key "successor"        :ignore t)
   "dsg"    '(fb/goto-successor                                  :which-key "suc-goto"         )
   "dsi"    '(fb/insert-successor-relation                       :which-key "suc-insert"       )
   "dsr"    '(fb/remove-successor-relation                       :which-key "suc-remove"       )
-  "dss"    '(fb/store-as-successor                              :which-key "suc-store"        )
+  "dss"    '(fb/store-as-successor                              :which-key "suc-store-as"     )
 
   "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
   "l"      '(org-insert-link                                    :which-key "insert link"      )
@@ -3743,12 +3759,7 @@ The optional argument IGNORED is not used."
 
   "r"      '(fb/org-refile-hydra-grouped/body                   :which-key "refile"           )
 
-  "t"      '(                                                   :which-key "todo"             :ignore t)
-  "tc"     '(org-todo                                           :which-key "cycle"            )
-  "t SPC"  '(org-todo                                           :which-key "cycle"            )
-  "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
-  "td"     '((lambda () (interactive)(org-todo 'done))          :which-key "done"             )
-  "tx"     '((lambda () (interactive)(org-todo 'none))          :which-key "none"             )
+  "t"      '(org-todo                                           :which-key "todo"             )
 
   "T"      '(                                                   :which-key "time"             :ignore t)
   "TC"     '(                                                   :which-key "check"            :ignore t)

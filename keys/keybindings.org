@@ -383,6 +383,7 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
     )
 #+end_src
 ** magit
+*** jkl;
 #+begin_src elisp
   (general-define-key
    :keymaps '(magit-mode-map)
@@ -410,6 +411,25 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
    "l" 'evil-next-visual-line
    ;; ";" 'evil-forward-char
    "J" 'magit-status-jump
+   )
+#+end_src
+*** navigation
+#+begin_src elisp
+  (general-define-key
+   :keymaps 'magit-mode-map
+   :states  '(normal visual)
+   "gj" 'magit-section-up
+   "gk" 'magit-section-backward-sibling
+   "gl" 'magit-section-forward-sibling
+   "g;" 'magit-section-forward
+   "gvaj" 'magit-section-show-level-1-all
+   "gvak" 'magit-section-show-level-2-all
+   "gval" 'magit-section-show-level-3-all
+   "gva;" 'magit-section-show-level-4-all
+   "gvj" 'magit-section-show-level-1
+   "gvk" 'magit-section-show-level-2
+   "gvl" 'magit-section-show-level-3
+   "gv;" 'magit-section-show-level-4
    )
 #+end_src
 *** TODO spacemacs-keybindings
