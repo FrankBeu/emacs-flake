@@ -33,8 +33,8 @@ https://github.com/marcinkoziej/org-pomodoro
 #+INCLUDE: "./refile.org"
 ** padmā
 #+INCLUDE: "./padma.org"
-** TODO pomodoro
-,#+INCLUDE: "./pomodoro.org"
+** pomodoro
+#+INCLUDE: "./pomodoro.org"
 ** TODO verb
 https://github.com/federicotdn/verb
 ** with-eval-end

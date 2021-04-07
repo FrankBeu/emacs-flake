@@ -272,6 +272,7 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "CI"     '(org-clock-in                                       :which-key "in"               )
     "CL"     '(org-clock-in-last                                  :which-key "last"             )
     "CO"     '(org-clock-out                                      :which-key "out"              )
+    "CP"     '(org-pomodoro                                       :which-key "pomodoro"         )
 
     "d"      '(                                                   :which-key "id-dependecy"     :ignore t)
     "dic"    '(org-id-copy                                        :which-key "id-copy"          )

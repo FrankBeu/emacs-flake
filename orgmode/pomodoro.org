@@ -6,47 +6,47 @@
   ;;
 #+end_src
 ** pomodoro
-*** files
 #+begin_src elisp
-#+end_src
-*** FUNDUS
-#+begin_src elisp :tangle no
-  (setq
-   org-pomodoro-manual-break t ;;;; dynamic pomodoro -> has to be finished with ,Cp
-   org-pomodoro-ticking-sound-p nil
+  (use-package org-pomodoro
+    :config
+    (setq
+     org-pomodoro-manual-break t
+     org-pomodoro-ticking-sound-p nil
 
-   org-pomodoro-length 25
-   org-pomodoro-start-sound-p t
-   org-pomodoro-start-sound (expand-file-name "ASSETS/sounds/ringHigh.wav" user-emacs-directory)
-   org-pomodoro-overtime-sound-p t
-   org-pomodoro-overtime-sound (expand-file-name "ASSETS/sounds/chimeTriple.wav" user-emacs-directory)
-   org-pomodoro-finished-sound-p t
-   org-pomodoro-finished-sound (expand-file-name "ASSETS/sounds/ringMiddle.wav" user-emacs-directory) ;;;; same as break-sound
+     org-pomodoro-length 25
+     ;; org-pomodoro-length 1
+     org-pomodoro-start-sound-p t
+     org-pomodoro-start-sound (expand-file-name "ASSETS/sounds/ringHigh.wav" user-emacs-directory)
+     org-pomodoro-overtime-sound-p t
+     org-pomodoro-overtime-sound (expand-file-name "ASSETS/sounds/chimeTriple.wav" user-emacs-directory)
+     org-pomodoro-finished-sound-p t
+     org-pomodoro-finished-sound (expand-file-name "ASSETS/sounds/ringMiddle.wav" user-emacs-directory)                 ;;;; same as break-sound
 
-   org-pomodoro-finished-before-long-break-sound-p t
-   org-pomodoro-finished-before-long-break-sound (expand-file-name "ASSETS/sounds/chimeLow.wav" user-emacs-directory) ;;;; same as long-break-sound
-   org-pomodoro-clock-break t ;;;; clock breaks, too
-   org-pomodoro-short-break-length 5
-   org-pomodoro-short-break-sound-p t
-   org-pomodoro-short-break-sound (expand-file-name "ASSETS/sounds/ringMiddle.wav" user-emacs-directory)
+     org-pomodoro-finished-before-long-break-sound-p t
+     org-pomodoro-finished-before-long-break-sound (expand-file-name "ASSETS/sounds/chimeLow.wav" user-emacs-directory) ;;;; same as long-break-sound
+     org-pomodoro-clock-break t                                                                                         ;;;; clock breaks, too
+     org-pomodoro-short-break-length 5
+     ;; org-pomodoro-short-break-length 1
+     org-pomodoro-short-break-sound-p t
+     org-pomodoro-short-break-sound (expand-file-name "ASSETS/sounds/ringMiddle.wav" user-emacs-directory)
 
-   org-pomodoro-long-break-frequency 4
-   org-pomodoro-long-break-length 35
-   org-pomodoro-long-break-sound-p t
-   org-pomodoro-long-break-sound (expand-file-name "ASSETS/sounds/chimeLow.wav" user-emacs-directory)
+     org-pomodoro-long-break-frequency 4
+     org-pomodoro-long-break-length 35
+ ;; org-pomodoro-long-break-length 1
+     org-pomodoro-long-break-sound-p t
+     org-pomodoro-long-break-sound (expand-file-name "ASSETS/sounds/chimeLow.wav" user-emacs-directory)
 
    ;;;; modeline
-   org-pomodoro-time-format "%.2m:%.2s"
-   org-pomodoro-format "P %s"
-   org-pomodoro-overtime-format "+ %s"
-   org-pomodoro-short-break-format "S %s"
-   org-pomodoro-long-break-format "L %s"
-   )
-
-   ;; org-pomodoro-start-sound (concat fb/spacemacsPrivateDirPath "sounds/ringHigh.wav")
-   ;; org-pomodoro-overtime-sound (concat fb/spacemacsPrivateDirPath "sounds/chimeTriple.wav")
-   ;; org-pomodoro-finished-sound (concat fb/spacemacsPrivateDirPath "sounds/ringMiddle.wav") ;;;; same as break-sound
-   ;; org-pomodoro-finished-before-long-break-sound (concat fb/spacemacsPrivateDirPath "sounds/chimeLow.wav")
-   ;; org-pomodoro-short-break-sound (concat fb/spacemacsPrivateDirPath "sounds/ringMiddle.wav")
-   ;; org-pomodoro-long-break-sound (concat fb/spacemacsPrivateDirPath "sounds/chimeLow.wav")
+     org-pomodoro-time-format "%.2m:%.2s"
+     org-pomodoro-format "P %s"
+     ;; org-pomodoro-format " %s"
+     org-pomodoro-overtime-format "+ %s"
+     org-pomodoro-short-break-format "S %s"
+     org-pomodoro-long-break-format "L %s"
+     )
+    )
 #+end_src
+*** TODO play right sound
+**** diff
+[[~/.emacs.d/IGNORE/emacs.dARCH/private/orgPomodoro/org-pomodoro.el]]
+[[~/.emacs.d/IGNORE/emacs.dARCH/private/orgPomodoro/org-pomodoroORIG.el]]

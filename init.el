@@ -1668,6 +1668,15 @@ current buffer's, reload dir-locals."
    )
   )
 
+(setq org-global-properties '(
+                              ("Effort_ALL". " 0:05 0:10 0:15 0:30 1:00 1:30 3:00 5:00 7:30 13:00 21:00")
+                           ;;;; pomodoro buildingBlocks 1    2    4    6    10   16   26
+                           ;; ("Effort_ALL". " 0:05 0:10 0:15 0:30 1:00 2:00 3:00 5:00 8:00 13:00")
+
+                              ("COOKIE_DATA". "todo recursive")                         ;;;; use todo instead of list; count all subtree entries
+                              ;; ("ORDERED". "t")
+                              ))
+
 (setq org-startup-indented t)
 
 (use-package org-make-toc
@@ -2320,6 +2329,49 @@ The optional argument IGNORED is not used."
   (interactive)
   (org-id-goto  (org-entry-get (point) "SUCCESSOR"))
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-pomodoro
+;;;;
+;;
+
+(use-package org-pomodoro
+   :config
+   (setq
+    org-pomodoro-manual-break t
+    org-pomodoro-ticking-sound-p nil
+
+    org-pomodoro-length 25
+    ;; org-pomodoro-length 1
+    org-pomodoro-start-sound-p t
+    org-pomodoro-start-sound (expand-file-name "ASSETS/sounds/ringHigh.wav" user-emacs-directory)
+    org-pomodoro-overtime-sound-p t
+    org-pomodoro-overtime-sound (expand-file-name "ASSETS/sounds/chimeTriple.wav" user-emacs-directory)
+    org-pomodoro-finished-sound-p t
+    org-pomodoro-finished-sound (expand-file-name "ASSETS/sounds/ringMiddle.wav" user-emacs-directory)                 ;;;; same as break-sound
+
+    org-pomodoro-finished-before-long-break-sound-p t
+    org-pomodoro-finished-before-long-break-sound (expand-file-name "ASSETS/sounds/chimeLow.wav" user-emacs-directory) ;;;; same as long-break-sound
+    org-pomodoro-clock-break t                                                                                         ;;;; clock breaks, too
+    org-pomodoro-short-break-length 5
+    ;; org-pomodoro-short-break-length 1
+    org-pomodoro-short-break-sound-p t
+    org-pomodoro-short-break-sound (expand-file-name "ASSETS/sounds/ringMiddle.wav" user-emacs-directory)
+
+    org-pomodoro-long-break-frequency 4
+    org-pomodoro-long-break-length 35
+;; org-pomodoro-long-break-length 1
+    org-pomodoro-long-break-sound-p t
+    org-pomodoro-long-break-sound (expand-file-name "ASSETS/sounds/chimeLow.wav" user-emacs-directory)
+
+  ;;;; modeline
+    org-pomodoro-time-format "%.2m:%.2s"
+    org-pomodoro-format "P %s"
+    ;; org-pomodoro-format " %s"
+    org-pomodoro-overtime-format "+ %s"
+    org-pomodoro-short-break-format "S %s"
+    org-pomodoro-long-break-format "L %s"
+    )
+   )
 
 );;with-eval-end
 
@@ -3721,6 +3773,7 @@ The optional argument IGNORED is not used."
   "CI"     '(org-clock-in                                       :which-key "in"               )
   "CL"     '(org-clock-in-last                                  :which-key "last"             )
   "CO"     '(org-clock-out                                      :which-key "out"              )
+  "CP"     '(org-pomodoro                                       :which-key "pomodoro"         )
 
   "d"      '(                                                   :which-key "id-dependecy"     :ignore t)
   "dic"    '(org-id-copy                                        :which-key "id-copy"          )

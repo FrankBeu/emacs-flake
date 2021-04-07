@@ -60,6 +60,37 @@
      )
     )
 #+end_src
+** global-properties
+efford
+#+begin_src elisp
+    (setq org-global-properties '(
+                                  ("Effort_ALL". " 0:05 0:10 0:15 0:30 1:00 1:30 3:00 5:00 7:30 13:00 21:00")
+                               ;;;; pomodoro buildingBlocks 1    2    4    6    10   16   26
+                               ;; ("Effort_ALL". " 0:05 0:10 0:15 0:30 1:00 2:00 3:00 5:00 8:00 13:00")
+
+                                  ("COOKIE_DATA". "todo recursive")                         ;;;; use todo instead of list; count all subtree entries
+                                  ;; ("ORDERED". "t")
+                                  ))
+
+#+end_src
+*** FUNDUS
+#+begin_src elisp :tangle no
+
+    ;;;;
+    ;;;; Effort and global properties
+    ;;
+
+    ;;;; stolen
+    ;; (setq org-global-properties '(("Effort_ALL". "0 0:10 0:20 0:30 1:00 2:00 3:00 4:00 6:00 8:00")))
+
+    ;;;; own
+    ;; (setq org-global-properties '(("Effort_ALL". "0:05 0:10 0:30 1:00 2:00 3:00 4:00 5:00 8:00 0")))
+
+    ;;;; pomodoro
+    ;;;; 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4
+    ;;;; |s|s|s| |s|s|s| |s|s|s| |s|s|s| |s|s|s| |s|s|s| |s|s|s| |s|s|s| |s|s
+    ;;;;                                           buildingBlocks 1    2    3    51L  8L2   13L3 21L5  34L8
+#+end_src
 ** indentation
    indent subtrees and text
 #+begin_src elisp
