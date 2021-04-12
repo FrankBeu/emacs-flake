@@ -35,3 +35,12 @@ integrated into evil collection
   https://github.com/magit/forge/issues/254
 ** TODO git-spacemacs-packages
 [[file:~/SRC/GITHUB/EMACS/spacemacs/layers/+source-control/git/packages.el::git-packages][list]]
+** TODO magit-gitflow
+https://github.com/jtatarik/magit-gitflow
+#+begin_src elisp :tangle no
+    (use-package magit-gitflow
+      :init (setq magit-gitflow-popup-key "C-f")
+      :hook (magit-mode . turn-on-magit-gitflow))
+#+end_src
+*** TODO import in nixconf
+magit-gitflow

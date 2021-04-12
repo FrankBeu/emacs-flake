@@ -168,6 +168,8 @@ open dired
 split window
 open another dired
 =C=
+** DEPRECATED flymd
+*** not working with firefox >68.0
 ** helpful
 #+begin_src elisp
   (use-package helpful

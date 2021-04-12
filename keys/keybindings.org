@@ -432,6 +432,15 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
    "gv;" 'magit-section-show-level-4
    )
 #+end_src
+*** rebase
+#+begin_src elisp
+  (general-define-key
+   :keymaps 'git-rebase-mode-map
+   :states  '(normal visual)
+   "L" 'git-rebase-label
+   "l" 'evil-next-line
+   )
+#+end_src
 *** TODO spacemacs-keybindings
 ** orgmode-global
 #+begin_src elisp

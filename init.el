@@ -3069,6 +3069,13 @@ The optional argument IGNORED is not used."
  )
 
 (general-define-key
+ :keymaps 'git-rebase-mode-map
+ :states  '(normal visual)
+ "L" 'git-rebase-label
+ "l" 'evil-next-line
+ )
+
+(general-define-key
  :prefix "C-c"
  "L" 'org-store-link
  ;; "l" 'org-store-link
