@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-source-code-html
+#key : bhtml
+#contributor : fb
+# --
+#+begin_src html
+$0
+#+end_src

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-example-shell
+#key :  BSH
+#contributor : fb
+# --
+#+begin_example shell
+  $0
+#+end_example

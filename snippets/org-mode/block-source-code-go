@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : source-code-block-go
+#name : block-source-code-go
 #key : bog
 #contributor : fb
 # --
-#+begin_src go :results drawer
+#+begin_src go
   $0
 #+end_src

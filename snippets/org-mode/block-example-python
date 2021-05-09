@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-example-python
+#key :  BPY
+#contributor : fb
+# --
+#+begin_example python
+$>$0
+#+end_example

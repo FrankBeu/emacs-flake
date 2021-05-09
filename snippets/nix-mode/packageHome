@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+#name : packageHome
+#key :  pkgho
+#contributor : fb
+#expand-env: ((yas-indent-line 'fixed))
+# --
+###
+##
+# * $1
+#
+{pkgs, ...}:
+{
+  home = {
+    packages = with pkgs; [
+      $1
+      $0
+    ];
+  };
+}

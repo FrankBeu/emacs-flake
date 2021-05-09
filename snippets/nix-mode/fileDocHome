@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : fileDocHome
+#key :  fidoho
+#contributor : fb
+# --
+
+home.file.".nixosInstallation/doc/${1:section}.org".text = pkgs.lib.mkDefault( pkgs.lib.mkAfter ''
+    \${(builtins.readFile ./doc.org)}
+  '');
+$0

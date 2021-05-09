@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : source-code-block-nix
-#key : bnx
+#name : block-source-code-elisp
+#key : bel
 #contributor : fb
 # --
-#+begin_src nix
+#+begin_src elisp
 $>$0
 #+end_src

@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+#name : package
+#key :  pkg
+#contributor : fb
+#expand-env: ((yas-indent-line 'fixed))
+# --
+###
+##
+# * $1
+#
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [
+    $1
+    $0
+  ];
+}
