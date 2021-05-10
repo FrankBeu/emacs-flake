@@ -20,6 +20,8 @@
 #+INCLUDE: "./global-leader.org"
 ** go
 #+INCLUDE: "./golang.org"
+** nix
+#+INCLUDE: "./nix.org"
 ** orgmode
 #+INCLUDE: "./orgmode.org"
 ** outline

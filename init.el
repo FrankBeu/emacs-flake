@@ -1505,11 +1505,11 @@ current buffer's, reload dir-locals."
          )
   )
 
-;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-;; (lsp-register-client
- ;; (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                  ;; :major-modes '(nix-mode)
-                  ;; :server-id 'nix))
+(add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+(lsp-register-client
+ (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                  :major-modes '(nix-mode)
+                  :server-id 'nix))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-protobuf
 ;;;;
@@ -3538,6 +3538,18 @@ The optional argument IGNORED is not used."
   "xx"     '(spacemacs/go-run-main                              :which-key "run-main"         )
 
   ;; "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; nix-keybindings
+;;;;
+;;
+
+(fb/local-leader-key
+  :keymaps 'nix-mode-map
+  :states  '(normal visual insert)
+
+  ;; "g"      '(                                                   :which-key "goto"             :ignore t)
+  "="      '(nix-mode-format                                    :which-key "format"           )
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-keybindings

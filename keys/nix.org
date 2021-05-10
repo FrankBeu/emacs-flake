@@ -1,0 +1,19 @@
+* nix-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; nix-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'nix-mode-map
+    :states  '(normal visual insert)
+
+    ;; "g"      '(                                                   :which-key "goto"             :ignore t)
+    "="      '(nix-mode-format                                    :which-key "format"           )
+    )
+#+end_src
+
