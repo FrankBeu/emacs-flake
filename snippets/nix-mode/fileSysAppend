@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : fileDocSysAppend
+#key :  fidosyap
+#contributor : fb
+#expand-env: ((yas-indent-line 'fixed))
+# --
+
+ environment.etc."nixos/doc/content/${1:CHOOSE-FROM-ECHO-AREA$$(yas-choose-value '("global" "system"))}/${2:section}.org".text = pkgs.lib.mkDefault( pkgs.lib.mkAfter ''
+ $0
+ '');

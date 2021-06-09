@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-#name : packageGo
-#key :  pkgo
+#name : buildPackageGo
+#key :  bpkgo
 #contributor : fb
 #expand-env: ((yas-indent-line 'fixed))
 # --
@@ -13,31 +13,36 @@
 , fetchgit
 # , fetchFromGitHub
 # , installShellFiles
+
+, version ? "$2"
+, sha256  ? "sha256:$3"
+, vendorSha256 ? "sha256:$4"
+, rev     ? "$5"
 }:
 $0
 buildGoModule rec {
-  pname = "$1";
-  version = "";
+  pname   = "$1";
+  inherit version;
 
   src = fetchgit {
-    url = "";
-    rev = "\${version}";
+    url    = "";
+    rev    = "\${version}";
     sha256 = lib.fakeSha256;
-    # sha256 = "";
+    # inherit sha256;
   };
 
 
   # src = fetchFromGitHub {
-  #   owner = "";
-  #   repo = "$1";
-  #   rev = "";
+  #   owner  = "";
+  #   repo   = "$1";
+  #   rev    = "";
   #   sha256 = lib.fakeSha256;
-  #   # sha256 = "";
+  #   inherit sha256;
   # };
 
 
   vendorSha256 = lib.fakeSha256;
-  # vendorSha256 = "";
+  # inherit vendorSha256;
   doCheck = false;
 
   # subPackages = [ "cmd/$1" ];
@@ -47,9 +52,9 @@ buildGoModule rec {
 
 
   meta = with lib; {
-    homepage = "";
+    homepage    = "";
     description = "";
-    license = licenses.mit;
+    license     = licenses.mit;
     maintainers = with maintainers; [ fb ];
   };
 }

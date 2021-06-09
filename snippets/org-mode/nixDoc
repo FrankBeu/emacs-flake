@@ -14,7 +14,7 @@ menu:
   sidebar:
     parent: "${4:$$(yas-choose-value '("global" "home-manager" "system"))}"
     name: "$1"
-    kdentifier: "$1"
+    identifier: "$1"
 draft: false
 toc: true
 ---
