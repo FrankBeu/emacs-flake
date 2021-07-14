@@ -1,0 +1,25 @@
+* languages-jsonnet
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-jsonnet
+  ;;;;
+  ;;
+#+end_src
+** jsonnet
+*** package
+#+begin_src elisp
+  (use-package jsonnet-mode )
+#+end_src
+*** completion
+#+begin_src elisp
+  (dolist (fn '(
+                fb*default-company-backends-h
+                company-mode
+                ;; lsp-deferred
+                ))
+    (progn
+      (add-hook 'jsonnet-mode-hook fn)
+      ))
+#+end_src
+** INFO
+https://github.com/tminor/jsonnet-mode

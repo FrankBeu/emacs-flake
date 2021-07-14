@@ -39,8 +39,8 @@ https://emacs-lsp.github.io/lsp-dart/#rundebug-tests
 ** TODO dap
 https://emacs-lsp.github.io/dap-mode/page/configuration/#dart
 #+begin_src elisp
-  (with-eval-after-load 'lsp-dart
-    (dap-dart-setup))
+  ;; (with-eval-after-load 'lsp-dart
+  ;;   (dap-dart-setup))
 #+end_src
 ** hover
 run app from desktop without emulator

@@ -19,6 +19,12 @@ integrated into evil collection
     ;; :after magit
     ;; )
 #+end_src
+** magit-delta
+https://github.com/dandavison/magit-delta
+#+begin_src elisp
+;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+#+end_src
+*** TODO fix uninteruptable display of current file
 ** orgit
 *** TODO implement
 #+begin_src elisp

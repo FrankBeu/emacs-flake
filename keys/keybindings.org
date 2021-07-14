@@ -334,6 +334,21 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
    "l"     'evil-next-visual-line
    )
 #+end_src
+** jsonnet
+#+begin_src elisp
+;; (general-define-key
+;;  :keymaps '(jsonnet-mode-map
+;;             )
+;;  "C-l" 'nil
+;;  )
+(fb/local-leader-key
+  :keymaps 'jsonnet-mode-map
+  :states  '(normal visual insert)
+
+  ;; "b"      '(                                                   :which-key "table"            :ignore t)
+  "="      '(jsonnet-reformat-buffer                            :which-key "format"           )
+  )
+#+end_src
 ** lisp
 #+begin_src elisp
   (general-define-key

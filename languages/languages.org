@@ -21,6 +21,10 @@
 #+INCLUDE: "./dockerfile.org"
 ** golang
 #+INCLUDE: "./golang/golang.org"
+** json
+#+INCLUDE: "./json.org"
+** jsonnet
+#+INCLUDE: "./jsonnet.org"
 ** k8s
 #+INCLUDE: "./k8s.org"
 ** kotlin

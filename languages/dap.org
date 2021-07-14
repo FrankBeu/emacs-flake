@@ -24,10 +24,24 @@ https://microsoft.github.io/debug-adapter-protocol/overview
   (use-package dap-mode
   ;;   :straight t
     :custom
-    (lsp-enable-dap-auto-configure t)
+    ;;;;;;
+    ;; (lsp-enable-dap-auto-configure t)
+    ;; (dap-auto-configure-features '(locals sessions tooltip))
+    ;; ;; (dap-auto-configure-features '(
+    ;;                                ;; breakpoints
+    ;;                                ;; controls
+    ;;                                ;; debugging
+    ;;                                ;; expressions
+    ;;                                ;; locals
+    ;;                                ;; repl
+    ;;                                ;; sessions
+    ;;                                ;; tooltip
+    ;;                                ;; ))
+    ;;;;;;
+    (lsp-enable-dap-auto-configure nil) ;;;; needs :config dap-ui-mode 1
     :config
-    ;;   (dap-ui-mode 1)
-  ;;   (dap-tooltip-mode 1)
+    (dap-ui-mode 1)                     ;;;; needs :custom lsp-enable.. nil
+    ;; (dap-tooltip-mode 1)
     )
 #+end_src
 *** automatically call dap-hydra

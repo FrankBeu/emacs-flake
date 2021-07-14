@@ -7,7 +7,6 @@
 #+end_src
 ** json
 #+begin_src elisp
-#+begin_src elisp
   (dolist (fn '(
                 fb*default-company-backends-h
                 company-mode
@@ -16,6 +15,5 @@
     (progn
       (add-hook 'json-mode-hook fn)
       ))
-#+end_src
 #+end_src
 ** INFO

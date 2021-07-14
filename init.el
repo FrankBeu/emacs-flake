@@ -1305,10 +1305,24 @@ current buffer's, reload dir-locals."
 (use-package dap-mode
 ;;   :straight t
   :custom
-  (lsp-enable-dap-auto-configure t)
+  ;;;;;;
+  ;; (lsp-enable-dap-auto-configure t)
+  ;; (dap-auto-configure-features '(locals sessions tooltip))
+  ;; ;; (dap-auto-configure-features '(
+  ;;                                ;; breakpoints
+  ;;                                ;; controls
+  ;;                                ;; debugging
+  ;;                                ;; expressions
+  ;;                                ;; locals
+  ;;                                ;; repl
+  ;;                                ;; sessions
+  ;;                                ;; tooltip
+  ;;                                ;; ))
+  ;;;;;;
+  (lsp-enable-dap-auto-configure nil) ;;;; needs :config dap-ui-mode 1
   :config
-  ;;   (dap-ui-mode 1)
-;;   (dap-tooltip-mode 1)
+  (dap-ui-mode 1)                     ;;;; needs :custom lsp-enable.. nil                  
+  ;; (dap-tooltip-mode 1)
   )
 
 (add-hook 'dap-stopped-hook
@@ -1371,8 +1385,8 @@ current buffer's, reload dir-locals."
   :hook (dart-mode . lsp)
   )
 
-(with-eval-after-load 'lsp-dart
-  (dap-dart-setup))
+;; (with-eval-after-load 'lsp-dart
+;;   (dap-dart-setup))
 
 (use-package hover)
 
@@ -1462,6 +1476,34 @@ current buffer's, reload dir-locals."
   :config
   (dap-go-setup)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-json
+;;;;
+;;
+
+(dolist (fn '(
+              fb*default-company-backends-h
+              company-mode
+              lsp-deferred
+              ))
+  (progn
+    (add-hook 'json-mode-hook fn)
+    ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-jsonnet
+;;;;
+;;
+
+(use-package jsonnet-mode )
+
+(dolist (fn '(
+              fb*default-company-backends-h
+              company-mode
+              ;; lsp-deferred
+              ))
+  (progn
+    (add-hook 'jsonnet-mode-hook fn)
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-k8s
 ;;;;
@@ -2388,6 +2430,8 @@ The optional argument IGNORED is not used."
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1)
   )
 
+;; (add-hook 'magit-mode-hook (lambda () (magit-delta-mode +1)))
+
 
 
 
@@ -2988,6 +3032,19 @@ The optional argument IGNORED is not used."
  "l"     'evil-next-visual-line
  )
 
+;; (general-define-key
+;;  :keymaps '(jsonnet-mode-map
+;;             )
+;;  "C-l" 'nil
+;;  )
+(fb/local-leader-key
+  :keymaps 'jsonnet-mode-map
+  :states  '(normal visual insert)
+
+  ;; "b"      '(                                                   :which-key "table"            :ignore t)
+  "="      '(jsonnet-reformat-buffer                            :which-key "format"           )
+  )
+
 (general-define-key
  "C-M-x" 'eval-last-sexp
  )
@@ -3224,6 +3281,7 @@ The optional argument IGNORED is not used."
   "dc"  '(dap-continue                                  :which-key "continue"                         )
   "di"  '(dap-step-in                                   :which-key "step-in"                          )
   "dls" '(dap-tm-loaded-sources                         :which-key "sources"                          )
+  "dlv" '(dap-ui-set-variable-value                     :which-key "set-variable-value"               )
   "do"  '(dap-step-out                                  :which-key "step-out"                         )
   "dr"  '(dap-restart-frame                             :which-key "restart-frame"                    )
   "ds"  '(dap-next                                      :which-key "next"                             )
@@ -3239,7 +3297,6 @@ The optional argument IGNORED is not used."
   "dwl" '(dap-ui-locals                                 :which-key "ui-locals"                        )
   "dws" '(dap-ui-sessions                               :which-key "ui-sessions"                      )
   "dwb" '(dap-ui-breakpoints                            :which-key "ui-breakpoints"                   )
-
 
   ;; "D"   '(                                              :which-key "delete"                           :ignore t)
 
@@ -3301,26 +3358,36 @@ The optional argument IGNORED is not used."
   "LL"  '(lsp                                           :which-key "start-lsp"                        )
 
   "l"   '(:keymap lsp-command-map :package lsp-mode     :which-key "lsp"                              )
-  "li"  '(                                              :which-key "ivy/imenu"                        :ignore t)
-  "lt"  '(                                              :which-key "treemacs"                         :ignore t)
-  "ltc" '(lsp-treemacs-call-hierarchy                   :which-key "call-hierarchy"                   )
-  "lte" '(lsp-treemacs-errors-list                      :which-key "errors"                           )
-  "lti" '(lsp-treemacs-implementations                  :which-key "implementations"                  )
-  "ltr" '(lsp-treemacs-references                       :which-key "references"                       )
-  "ltt" '(lsp-treemacs-type-hierarchy                   :which-key "type-hierarchy"                   )
-  "ltx" '(lsp-treemacs-quick-fix                        :which-key "quickfix"                         )
- ;"lts" '(lsp-treemacs-symbols                          :which-key "symbols"                          ) ;; already implemented in lsp-mode-map
-
   "l="  '(                                              :which-key "formatting"                       :ignore t)
-  "la"  '(                                              :which-key "code actions"                     :ignore t)
   "lF"  '(                                              :which-key "folders"                          :ignore t)
-  "lG"  '(                                              :which-key "peek"                             :ignore t)
+  "lG"  '(                                              :which-key "peeks"                            :ignore t)
+  "lT"  '(                                              :which-key "toggles"                          :ignore t)
+  "la"  '(                                              :which-key "actions"                          :ignore t)
   "lg"  '(                                              :which-key "goto"                             :ignore t)
+  "lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
   "lh"  '(                                              :which-key "help"                             :ignore t)
-  "lr"  '(                                              :which-key "refactor"                         :ignore t)
-  "ls"  '(                                              :which-key "sessions"                         :ignore t)
-  "lT"  '(                                              :which-key "toggle"                           :ignore t)
-  "lx"  '(lsp-execute-code-action                       :which-key "action"                           )
+  "lr"  '(                                              :which-key "refactoring"                      :ignore t)
+  "lw"  '(                                              :which-key "workspace"                        :ignore t)
+  ;; "li"  '(                                              :which-key "ivy/imenu"                        :ignore t)
+  ;; "lt"  '(                                              :which-key "treemacs"                         :ignore t)
+  ;; "ltc" '(lsp-treemacs-call-hierarchy                   :which-key "call-hierarchy"                   )
+  ;; "lte" '(lsp-treemacs-errors-list                      :which-key "errors"                           )
+  ;; "lti" '(lsp-treemacs-implementations                  :which-key "implementations"                  )
+  ;; "ltr" '(lsp-treemacs-references                       :which-key "references"                       )
+  ;; "ltt" '(lsp-treemacs-type-hierarchy                   :which-key "type-hierarchy"                   )
+  ;; "ltx" '(lsp-treemacs-quick-fix                        :which-key "quickfix"                         )
+  ;; ;; "lts" '(lsp-treemacs-symbols                          :which-key "symbols"                          ) ;; already implemented in lsp-mode-map
+
+  ;; "l="  '(                                              :which-key "formatting"                       :ignore t)
+  ;; "la"  '(                                              :which-key "code actions"                     :ignore t)
+  ;; "lF"  '(                                              :which-key "folders"                          :ignore t)
+  ;; "lG"  '(                                              :which-key "peek"                             :ignore t)
+  ;; "lg"  '(                                              :which-key "goto"                             :ignore t)
+  ;; "lh"  '(                                              :which-key "help"                             :ignore t)
+  ;; "lr"  '(                                              :which-key "refactor"                         :ignore t)
+  ;; "ls"  '(                                              :which-key "sessions"                         :ignore t)
+  ;; "lT"  '(                                              :which-key "toggle"                           :ignore t)
+  ;; "lx"  '(lsp-execute-code-action                       :which-key "action"                           )
 
   "n"   '(                                              :which-key "numbers"                          :ignore t)
   "n+"  '(fb/inc-at-pt                                  :which-key "+"                                )
@@ -3332,6 +3399,7 @@ The optional argument IGNORED is not used."
   "oa"  '(org-agenda                                    :which-key "agenda"                           )
   "oc"  '(org-capture                                   :which-key "capture"                          )
   "ol"  '(org-store-link                                :which-key "store-link"                       )
+  "ok"  '(org-open-at-point-global                      :which-key "follow-link"                      )
 
   "oi"  '(                                                                      :which-key "go2file"               :ignore t)
   "oiu" '((lambda()(interactive)(find-file "~/NOTES/AKTUELLES.org"           )) :which-key "AKTUELLES"             )
