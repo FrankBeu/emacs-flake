@@ -60,6 +60,14 @@ https://golangci-lint.run/usage/false-positives/#nolint
   (load-file (expand-file-name "languages/golang/config.el" user-emacs-directory))
   (load-file (expand-file-name "languages/golang/funcs.el" user-emacs-directory))
 #+end_src
+*** unused
+#+begin_src elisp
+  (defun fb/golangDashUnused ()
+    "copy word under cursor and prepend '_ = '"
+      (interactive)
+      (message (kill-new (concat "_ = " (thing-at-point 'word 'no-properties))))
+      )
+#+end_src
 ** testing
 *** go-gen-test
 https://github.com/s-kostyaev/go-gen-test

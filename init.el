@@ -1321,7 +1321,7 @@ current buffer's, reload dir-locals."
   ;;;;;;
   (lsp-enable-dap-auto-configure nil) ;;;; needs :config dap-ui-mode 1
   :config
-  (dap-ui-mode 1)                     ;;;; needs :custom lsp-enable.. nil                  
+  (dap-ui-mode 1)                     ;;;; needs :custom lsp-enable.. nil
   ;; (dap-tooltip-mode 1)
   )
 
@@ -1425,6 +1425,12 @@ current buffer's, reload dir-locals."
 
 (load-file (expand-file-name "languages/golang/config.el" user-emacs-directory))
 (load-file (expand-file-name "languages/golang/funcs.el" user-emacs-directory))
+
+(defun fb/golangDashUnused ()
+  "copy word under cursor and prepend '_ = '"
+    (interactive)
+    (message (kill-new (concat "_ = " (thing-at-point 'word 'no-properties))))
+    )
 
 (use-package go-gen-test)
 
@@ -3638,6 +3644,8 @@ The optional argument IGNORED is not used."
 
   "x"      '(                                                   :which-key "execute"          :ignore t)
   "xx"     '(spacemacs/go-run-main                              :which-key "run-main"         )
+
+  "_"      '(fb/golangDashUnused                                :which-key "dash-unused"      )
 
   ;; "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
   )

@@ -61,6 +61,8 @@
     "x"      '(                                                   :which-key "execute"          :ignore t)
     "xx"     '(spacemacs/go-run-main                              :which-key "run-main"         )
 
+    "_"      '(fb/golangDashUnused                                :which-key "dash-unused"      )
+
     ;; "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
     )
 #+end_src
