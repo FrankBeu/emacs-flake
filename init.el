@@ -1,16 +1,24 @@
 (require 'package)
 
+(setq comp-deferred-compilation nil)
+
 (setq package-archives nil)
 
 (setq package-enable-at-startup nil)
-;; (package-initialize 'no-activate)
-(package-initialize)
+(package-initialize 'no-activate)
 (eval-when-compile
   (require 'use-package))
+
+(let ((gc-cons-threshold (* 50 1000 1000))
+      (gc-cons-percentage 0.6)
+      (file-name-handler-alist nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; tangling
 ;;;;
 ;;
+
+(use-package ox)
+(use-package ob-tangle)
 
 (defmacro letf! (bindings &rest body)
   "Temporarily rebind function and macros in BODY.
@@ -283,7 +291,6 @@ byte-compiled from.")
 
 ;; (setq debug-on-error t)
 ;; (setq debug-ignored-error t)
-;;;; nixos-packages
 
 (defun fb*getPathToConfigFile (filename)
   "Returns concatenation of \"HOME\" , \".emacs.d/\" and the passed \"filename\"."
@@ -443,6 +450,12 @@ byte-compiled from.")
   (doom-themes-org-config)
   )
 
+;; (use-package base16-theme
+;;   :config
+;;   ;; (load-theme 'base16-default-dark t)
+;;   (load-theme 'base16-dracula t)
+;;   )
+
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/themes" user-emacs-directory))
 ;; (setq doom-theme 'fb-doom)
 (load-theme 'fb-doom t)
@@ -597,6 +610,8 @@ byte-compiled from.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-packages
 ;;;;
 ;;
+
+(use-package align)
 
 (use-package all-the-icons)
 
@@ -1298,50 +1313,6 @@ current buffer's, reload dir-locals."
   ;; :config (lsp-treemacs-sync-mode 1)
   )
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dap
-;;;;
-;;
-
-(use-package dap-mode
-;;   :straight t
-  :custom
-  ;;;;;;
-  ;; (lsp-enable-dap-auto-configure t)
-  ;; (dap-auto-configure-features '(locals sessions tooltip))
-  ;; ;; (dap-auto-configure-features '(
-  ;;                                ;; breakpoints
-  ;;                                ;; controls
-  ;;                                ;; debugging
-  ;;                                ;; expressions
-  ;;                                ;; locals
-  ;;                                ;; repl
-  ;;                                ;; sessions
-  ;;                                ;; tooltip
-  ;;                                ;; ))
-  ;;;;;;
-  (lsp-enable-dap-auto-configure nil) ;;;; needs :config dap-ui-mode 1
-  :config
-  (dap-ui-mode 1)                     ;;;; needs :custom lsp-enable.. nil
-  ;; (dap-tooltip-mode 1)
-  )
-
-(add-hook 'dap-stopped-hook
-          (lambda (arg) (call-interactively #'dap-hydra)))
-
-(defvar fb*dap-enable-mouse-support t
-  "If non-nil, enable `dap-mode''s mouse support.")
-
-(spacemacs|add-toggle dap-mouse
-  :status dap-tooltip-mode
-  :on (progn (dap-tooltip-mode)
-             (tooltip-mode))
-  :off (progn (dap-tooltip-mode -1)
-              (tooltip-mode -1))
-  :documentation "Enable mouse support in DAP mode.")
-
-(when fb*dap-enable-mouse-support
-  (spacemacs/toggle-dap-mouse-on))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-c#
 ;;;;
 ;;
@@ -1477,12 +1448,6 @@ current buffer's, reload dir-locals."
 
 (setq lsp-gopls-codelens nil)
 
-(use-package dap-go
-  ;; :after dap
-  :config
-  (dap-go-setup)
-  )
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-json
 ;;;;
 ;;
@@ -1540,25 +1505,6 @@ current buffer's, reload dir-locals."
 
 (use-package kotlin-mode)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-nix
-;;;;
-;;
-
-(use-package nix-mode
-  :mode "\\.nix\\'"
-  :hook (
-         (nix-mode . company-mode)
-         (nix-mode . lsp-deferred)
-         (nix-mode . fb*default-company-backends-h)
-         )
-  )
-
-(add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-(lsp-register-client
- (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                  :major-modes '(nix-mode)
-                  :server-id 'nix))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-protobuf
 ;;;;
 ;;
@@ -1592,7 +1538,8 @@ current buffer's, reload dir-locals."
   :hook (typescript-mode . lsp-deferred)
   :config
   (setq typescript-indent-level 2)
-  (require 'dap-node)
+  ;; (require 'dap-node)
+  (use-package dap-node)
   (dap-node-setup)
   )
 
@@ -1689,29 +1636,22 @@ current buffer's, reload dir-locals."
   :custom
   (org-superstar-remove-leading-stars t)
   (org-superstar-headline-bullets-list
-   ;; '("◉" "○" "●" "○" "●" "○" "●")
-   ;; '("●" "◉" "○" "●" "◉" "○" "●")
-   ;; '("●")
-   ;; '("◉")
    '("○")
+   ;; '("0x25CB")
+   ;; '("\u9675")
+
    )
   (org-superstar-item-bullet-alist
    '(
-     (?- . ?•)
-     (?+ . ?➤)
-     ;; (?+ . ?▶)
-     ;; (?+ . ?▷)
-     ;; (?+ . ?▸)
-     ;; (?+ . ?▹)
-     ;; (?+ . ?►)
-     ;; (?+ . ?▻)
-     ;; (?+ . ?◉)
-     ;; (?+ . ?○)
-     ;; (?+ . ?◌)
-     ;; (?+ . ?◍)
-     ;; (?+ . ?◎)
-     ;; (?+ . ?●)
-     (?* . ?•)
+     ;; (?- . ?•)
+     ;; (0x002D- . 0x2022)
+     (\u0045 . \u8226)
+     ;; (?+ . ?➤)
+     ;; (0x2B . 0x27A4)
+     (\u0043 . \u10148)
+     ;; (?* . ?•)
+     ;; (0x002D- . 0x2022)
+     (\u0045 . \u8226)
      )
    )
   )
@@ -2426,6 +2366,22 @@ The optional argument IGNORED is not used."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project
 ;;;;
 ;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project-direnv
+;;;;
+;;
+
+(use-package direnv
+  :config
+  (direnv-mode)
+  ;; (add-to-list 'warning-suppress-types '(direnv))
+  :custom
+  (setq direnv-always-show-summary t)
+  (setq direnv-always-show-summarydirenv-show-paths-in-summary t)
+  (setq direnv-use-faces-in-summary t)
+  ;; (setq  nil)
+  ;; (setq  t)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project-magit
 ;;;;
@@ -3370,7 +3326,7 @@ The optional argument IGNORED is not used."
   "lT"  '(                                              :which-key "toggles"                          :ignore t)
   "la"  '(                                              :which-key "actions"                          :ignore t)
   "lg"  '(                                              :which-key "goto"                             :ignore t)
-  "lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
+  ;;"lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
   "lh"  '(                                              :which-key "help"                             :ignore t)
   "lr"  '(                                              :which-key "refactoring"                      :ignore t)
   "lw"  '(                                              :which-key "workspace"                        :ignore t)
@@ -3423,6 +3379,12 @@ The optional argument IGNORED is not used."
   "oie" '((lambda()(interactive)(find-file "~/NOTES/〇/11 ERLEDIGTES.org"     )) :which-key "ERLEDIGTES"            )
 
   "p"   '(projectile-command-map                        :which-key "projectile"                       )
+
+  "P"   '(                                              :which-key "project"                          :ignore t)
+  "PD"  '(                                              :which-key "project-direnv"                   :ignore t)
+  "PDA" '(direnv-allow                                  :which-key "project-direnv-allow"             )
+  "PDF" '(direnv-update-environment                     :which-key "project-direnv-file"              )
+  "PDD" '(direnv-update-directory-environment           :which-key "project-direnv-dir"               )
 
   "r"   '(                                              :which-key "re-~"                             :ignore t)
   "rc"  '(fb/literate-recompile                         :which-key "recompile-emacs.d"                )

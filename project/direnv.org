@@ -1,0 +1,31 @@
+* project-direnv
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project-direnv
+  ;;;;
+  ;;
+#+end_src
+** direnv
+https://github.com/wbolster/emacs-direnv
+#+begin_src elisp
+  (use-package direnv
+    :config
+    (direnv-mode)
+    ;; (add-to-list 'warning-suppress-types '(direnv))
+    :custom
+    (setq direnv-always-show-summary t)
+    (setq direnv-always-show-summarydirenv-show-paths-in-summary t)
+    (setq direnv-use-faces-in-summary t)
+    ;; (setq  nil)
+    ;; (setq  t)
+    )
+#+end_src
+** suppress on other packages
+#+begin_example elisp
+(use-package foobar
+ :config
+ (add-to-list 'direnv-non-file-modes 'foobar-mode))
+#+end_example
+** INFO
+*** lorri
+https://github.com/nix-community/lorri/blob/canon/contrib/emacs.md#set-up-direnv-in-emacs-with-direnv-mode

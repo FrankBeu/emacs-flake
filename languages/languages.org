@@ -10,7 +10,8 @@
 ** lsp-mode
 #+INCLUDE: "./lsp.org"
 ** dap-mode
-#+INCLUDE: "./dap.org"
+*** TODO NEWEMACS
+-#+INCLUDE: "./dap.org"
 ** c#
 #+INCLUDE: "./cSharp.org"
 ** elisp
@@ -30,7 +31,8 @@
 ** kotlin
 #+INCLUDE: "./kotlin.org"
 ** nix
-#+INCLUDE: "./nix.org"
+*** TODO NEWEMACS
+-#+INCLUDE: "./nix.org"
 ** protobuf
 #+INCLUDE: "./protobuf.org"
 ** python

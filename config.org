@@ -91,21 +91,49 @@ https://github.com/rolandwalker/fixmee
 *** TODO byte-compile everything
 *** TODO which-key
 **** BUG cannot use paging
-** package-loading
-#+begin_src elisp
+** DISABLED NEWEMACS package-loading
+#+begin_src elisp :tangle no
   (require 'package)
 #+end_src
 *** optional. makes unpure packages archives unavailable
+#+begin_src elisp :tangle no
+  (setq package-archives nil)
+#+end_src
+*** use-package
+#+begin_src elisp :tangle no
+  (setq package-enable-at-startup nil)
+  ;; (package-initialize 'no-activate)
+  (package-initialize)
+  (eval-when-compile
+    (require 'use-package))
+#+end_src
+** NEWEMACS initialisation
+*** package-loading
+#+begin_src elisp
+  (require 'package)
+#+end_src
+*** disable deferred compilation
+all packages are precompiled
+#+begin_src elisp
+  (setq comp-deferred-compilation nil)
+#+end_src
+**** TODO localPackages / spacemacs
+*** make unpure packages archives unavailable
 #+begin_src elisp
   (setq package-archives nil)
 #+end_src
 *** use-package
 #+begin_src elisp
   (setq package-enable-at-startup nil)
-  ;; (package-initialize 'no-activate)
-  (package-initialize)
+  (package-initialize 'no-activate)
   (eval-when-compile
     (require 'use-package))
+#+end_src
+*** improve garbage-collection
+#+begin_src elisp
+(let ((gc-cons-threshold (* 50 1000 1000))
+      (gc-cons-percentage 0.6)
+      (file-name-handler-alist nil)))
 #+end_src
 ** tangling
 #+INCLUDE: "./tangling/tangling.org"
@@ -123,7 +151,6 @@ always use elisp instead of emacs-lisp
 #+begin_src elisp
   ;; (setq debug-on-error t)
   ;; (setq debug-ignored-error t)
-  ;;;; nixos-packages
 #+end_src
 *** INFO
 **** Errors
@@ -145,25 +172,27 @@ Reading at buffer position N
 *** TODO remove
 ** INCLUDES
 !! order matters !!
-*** completion
+numbers in parens are rebuildOrder in case of MCA
+*** completion (6)
 #+INCLUDE: "./completion/completion.org"
-*** themes
+*** themes (3)
 #+INCLUDE: "./themes/themes.org"
-*** evil
+*** evil (2)
 #+INCLUDE: "./evil/evil.org"
-*** global
+*** global (2)
 #+INCLUDE: "./global/global.org"
-*** languages
+*** languages (7)
 #+INCLUDE: "./languages/languages.org"
-*** modeline
+*** modeline (4)
 #+INCLUDE: "./modeline/modeline.org"
-*** orgmode
+*** orgmode (9)
 #+INCLUDE: "./orgmode/orgmode.org"
-*** project
+*** project (5)
 #+INCLUDE: "./project/project.org"
-*** tex
+*** tex (8)
+**** TODO move to langs
 #+INCLUDE: "./tex/tex.org"
-*** view
+*** view (3)
 #+INCLUDE: "./view/view.org"
-*** keys
+*** keys (1)
 #+INCLUDE: "./keys/keys.org"

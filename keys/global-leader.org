@@ -7,6 +7,8 @@
   ;;
 #+end_src
 ** global-leader =SPC=
+*** TODO NEWEMACS
+    lgG is disabled
 #+begin_src elisp
   (fb/leader-key
     "!"   '(shell-command                                 :which-key "shell-command"                    )
@@ -150,7 +152,7 @@
     "lT"  '(                                              :which-key "toggles"                          :ignore t)
     "la"  '(                                              :which-key "actions"                          :ignore t)
     "lg"  '(                                              :which-key "goto"                             :ignore t)
-    "lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
+    ;;"lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
     "lh"  '(                                              :which-key "help"                             :ignore t)
     "lr"  '(                                              :which-key "refactoring"                      :ignore t)
     "lw"  '(                                              :which-key "workspace"                        :ignore t)
@@ -203,6 +205,12 @@
     "oie" '((lambda()(interactive)(find-file "~/NOTES/〇/11 ERLEDIGTES.org"     )) :which-key "ERLEDIGTES"            )
 
     "p"   '(projectile-command-map                        :which-key "projectile"                       )
+
+    "P"   '(                                              :which-key "project"                          :ignore t)
+    "PD"  '(                                              :which-key "project-direnv"                   :ignore t)
+    "PDA" '(direnv-allow                                  :which-key "project-direnv-allow"             )
+    "PDF" '(direnv-update-environment                     :which-key "project-direnv-file"              )
+    "PDD" '(direnv-update-directory-environment           :which-key "project-direnv-dir"               )
 
     "r"   '(                                              :which-key "re-~"                             :ignore t)
     "rc"  '(fb/literate-recompile                         :which-key "recompile-emacs.d"                )

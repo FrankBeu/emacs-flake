@@ -164,8 +164,9 @@ https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-go.el
 *** visit site
 [[http://localhost:6060]]
 ** dap
+*** TODO NEWEMACS
 https://emacs-lsp.github.io/dap-mode/page/configuration/#go
-#+begin_src elisp
+#+begin_src elisp :tangle no
   (use-package dap-go
     ;; :after dap
     :config

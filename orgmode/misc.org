@@ -26,7 +26,10 @@
         )
 #+end_src
 ** org-superstar
-#+begin_src elisp
+*** TODO NEWEMACS
+**** nix ~emacsWithPackagesFromUsePackage~ cannot handle unicode with ?
+currently not used
+#+begin_src elisp :tangle no
   (use-package org-superstar
     :after org
     :hook (org-mode . org-superstar-mode)
@@ -60,6 +63,35 @@
      )
     )
 #+end_src
+**** unicode-workaround
+#+begin_src elisp
+  (use-package org-superstar
+    :after org
+    :hook (org-mode . org-superstar-mode)
+    :custom
+    (org-superstar-remove-leading-stars t)
+    (org-superstar-headline-bullets-list
+     '("○")
+     ;; '("0x25CB")
+     ;; '("\u9675")
+     )
+    (org-superstar-item-bullet-alist
+     '(
+       (?- . ?•)
+       ;; (0x002D- . 0x2022)
+       ;; (\u0045 . \u8226)
+       (?+ . ?➤)
+       ;; (0x2B . 0x27A4)
+       ;; (\u0043 . \u10148)
+       (?* . ?•)
+       ;; (0x002D- . 0x2022)
+       ;; (\u0045 . \u8226)
+       )
+     )
+    )
+#+end_src
+**** restart
+=M-x= ~org-superstar-restart~
 ** global-properties
 efford
 #+begin_src elisp

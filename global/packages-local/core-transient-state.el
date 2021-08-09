@@ -14,6 +14,34 @@
 (defun spacemacs/defer-until-after-user-config (func)
   "call FUNC on `emacs-startup-hook'. MISLEADING-NAME!"
     (add-hook 'emacs-startup-hook func))
+(defvar dotspacemacs-show-transient-state-title t
+    "If non nil show the titles of transient states.")
+
+(defvar dotspacemacs-show-transient-state-color-guide t
+    "If non nil show the color guide hint for transient state keys.")
+
+(defvar spacemacs-default-map (make-sparse-keymap)
+    "Base keymap for all spacemacs leader key commands.")
+
+(defun spacemacs/set-leader-keys (key def &rest bindings)
+    "Add KEY and DEF as key bindings under
+  `dotspacemacs-leader-key' and `dotspacemacs-emacs-leader-key'.
+  KEY should be a string suitable for passing to `kbd', and it
+  should not include the leaders. DEF is most likely a quoted
+  command. See `define-key' for more information about the possible
+  choices for DEF. This function simply uses `define-key' to add
+  the bindings.
+
+  For convenience, this function will accept additional KEY DEF
+  pairs. For example,
+
+  \(spacemacs/set-leader-keys
+     \"a\" 'command1
+        \"C-c\" 'command2
+	   \"bb\" 'command3\)"
+	     (while key
+		        (define-key spacemacs-default-map (kbd key) def)
+			    (setq key (pop bindings) def (pop bindings))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun spacemacs//transient-state-func-name (name)

@@ -5,6 +5,8 @@
   ;;;;
   ;;
 #+end_src
+** direnv
+#+INCLUDE: "./direnv.org"
 ** magit
 #+INCLUDE: "./magit.org"
 ** projectil

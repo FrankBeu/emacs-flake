@@ -10,6 +10,11 @@ https://github.com/hlissner/doom-emacs/blob/develop/docs/modules.org#config
 doom-emacs/modules/config/literate/autoload.el
 doom-emacs/core/autoload/output.el
 ** prerequisites
+*** packages
+#+begin_src elisp
+(use-package ox)
+(use-package ob-tangle)
+#+end_src
 *** letf!
 #+begin_src elisp
 (defmacro letf! (bindings &rest body)

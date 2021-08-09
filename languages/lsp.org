@@ -14,6 +14,8 @@ https://microsoft.github.io/language-server-protocol/
 https://emacs-lsp.github.io/lsp-mode/page/performance/
 *** feature-disabling
 https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+*** languageServer
+https://langserver.org/#implementations-server
 ** lsp-mode
 *** setup-hook
 #+begin_src elisp
