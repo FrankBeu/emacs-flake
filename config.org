@@ -91,23 +91,7 @@ https://github.com/rolandwalker/fixmee
 *** TODO byte-compile everything
 *** TODO which-key
 **** BUG cannot use paging
-** DISABLED NEWEMACS package-loading
-#+begin_src elisp :tangle no
-  (require 'package)
-#+end_src
-*** optional. makes unpure packages archives unavailable
-#+begin_src elisp :tangle no
-  (setq package-archives nil)
-#+end_src
-*** use-package
-#+begin_src elisp :tangle no
-  (setq package-enable-at-startup nil)
-  ;; (package-initialize 'no-activate)
-  (package-initialize)
-  (eval-when-compile
-    (require 'use-package))
-#+end_src
-** NEWEMACS initialisation
+** initialisation
 *** package-loading
 #+begin_src elisp
   (require 'package)

@@ -26,10 +26,7 @@
         )
 #+end_src
 ** org-superstar
-*** TODO NEWEMACS
-**** nix ~emacsWithPackagesFromUsePackage~ cannot handle unicode with ?
-currently not used
-#+begin_src elisp :tangle no
+#+begin_src elisp
   (use-package org-superstar
     :after org
     :hook (org-mode . org-superstar-mode)
@@ -44,8 +41,11 @@ currently not used
      )
     (org-superstar-item-bullet-alist
      '(
-       (?- . ?•)
-       (?+ . ?➤)
+       ;; (?- . ?•)
+       (?\u002D . ?\u2022)
+
+       ;; (?+ . ?➤)
+       (?\u002B . ?\u27A4)
        ;; (?+ . ?▶)
        ;; (?+ . ?▷)
        ;; (?+ . ?▸)
@@ -58,34 +58,9 @@ currently not used
        ;; (?+ . ?◍)
        ;; (?+ . ?◎)
        ;; (?+ . ?●)
-       (?* . ?•)
-       )
-     )
-    )
-#+end_src
-**** unicode-workaround
-#+begin_src elisp
-  (use-package org-superstar
-    :after org
-    :hook (org-mode . org-superstar-mode)
-    :custom
-    (org-superstar-remove-leading-stars t)
-    (org-superstar-headline-bullets-list
-     '("○")
-     ;; '("0x25CB")
-     ;; '("\u9675")
-     )
-    (org-superstar-item-bullet-alist
-     '(
-       (?- . ?•)
-       ;; (0x002D- . 0x2022)
-       ;; (\u0045 . \u8226)
-       (?+ . ?➤)
-       ;; (0x2B . 0x27A4)
-       ;; (\u0043 . \u10148)
-       (?* . ?•)
-       ;; (0x002D- . 0x2022)
-       ;; (\u0045 . \u8226)
+
+       ;; (?* . ?•)
+       (?\u002A . ?\u2022)
        )
      )
     )

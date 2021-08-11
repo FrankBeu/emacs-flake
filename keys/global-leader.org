@@ -7,8 +7,6 @@
   ;;
 #+end_src
 ** global-leader =SPC=
-*** TODO NEWEMACS
-    lgG is disabled
 #+begin_src elisp
   (fb/leader-key
     "!"   '(shell-command                                 :which-key "shell-command"                    )
@@ -152,7 +150,7 @@
     "lT"  '(                                              :which-key "toggles"                          :ignore t)
     "la"  '(                                              :which-key "actions"                          :ignore t)
     "lg"  '(                                              :which-key "goto"                             :ignore t)
-    ;;"lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
+    "lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
     "lh"  '(                                              :which-key "help"                             :ignore t)
     "lr"  '(                                              :which-key "refactoring"                      :ignore t)
     "lw"  '(                                              :which-key "workspace"                        :ignore t)

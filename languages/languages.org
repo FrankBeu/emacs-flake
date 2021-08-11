@@ -10,8 +10,7 @@
 ** lsp-mode
 #+INCLUDE: "./lsp.org"
 ** dap-mode
-*** TODO NEWEMACS
--#+INCLUDE: "./dap.org"
+#+INCLUDE: "./dap.org"
 ** c#
 #+INCLUDE: "./cSharp.org"
 ** elisp

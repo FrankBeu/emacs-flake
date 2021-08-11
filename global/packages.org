@@ -35,90 +35,55 @@ current: emacs26Packages
 ** calfw
 calendar-view
 https://github.com/kiwanami/emacs-calfw
-*** TODO NEWEMACS
-**** nix ~emacsWithPackagesFromUsePackage~ cannot handle unicode with ?
-currently not used
+=M-x= ~describe-char~
 #+begin_src elisp
-    (use-package calfw
-      :config
-      (custom-set-faces
-       `(cfw:face-title              ((t :foreground ,(fb*getDefaultColorValue :magenta)            :height 2.0                           :weight bold :inherit variable-pitch    )))
-       `(cfw:face-header             ((t :foreground ,(fb*getDefaultColorValue :base6)                                                    :weight bold                            )))
-       `(cfw:face-sunday             ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
-       `(cfw:face-saturday           ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
-       `(cfw:face-holiday            ((t :foreground ,(fb*getDefaultColorValue :base2)  :background ,(fb*getDefaultColorValue :orange)    :weight bold                            )))
-       `(cfw:face-grid               ((t :foreground ,(fb*getDefaultColorValue :fg)                                                                                               )))
-       `(cfw:face-default-content    ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
-       `(cfw:face-periods            ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
-       `(cfw:face-day-title          ((t                                                :background ,(fb*getDefaultColorValue :bg)                                                )))
-       `(cfw:face-default-day        ((t                                                                                                  :weight bold :inherit cfw:face-day-title)))
-       `(cfw:face-annotation         ((t :foreground ,(fb*getDefaultColorValue :bg-alt)                                                                :inherit cfw:face-day-title)))
-       `(cfw:face-disable            ((t :foreground ,(fb*getDefaultColorValue :blue)                                                                  :inherit cfw:face-day-title)))
-       `(cfw:face-today-title        ((t                                                :background ,(fb*getDefaultColorValue :dark-blue) :weight bold                            )))
-       `(cfw:face-today              ((t                                                :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
-       `(cfw:face-select             ((t                                                :background ,(fb*getDefaultColorValue :violet)                                            )))
-       `(cfw:face-toolbar            ((t :foreground ,(fb*getDefaultColorValue :bg)     :background ,(fb*getDefaultColorValue :bg)                                                )))
-       `(cfw:face-toolbar-button-off ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            )))
-       `(cfw:face-toolbar-button-on  ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            ))))
-      (setq cfw:fchar-junction ?╋
-            cfw:fchar-vertical-line ?│
-            cfw:fchar-horizontal-line ?━
-            cfw:fchar-left-junction ?┣
-            cfw:fchar-right-junction ?┫
-            cfw:fchar-top-junction ?┯
-            cfw:fchar-top-left-corner ?┏
-            cfw:fchar-top-right-corner ?┓)
-      )
-#+end_src
+  (use-package calfw
+    :config
+    (custom-set-faces
+     `(cfw:face-title              ((t :foreground ,(fb*getDefaultColorValue :magenta)            :height 2.0                           :weight bold :inherit variable-pitch    )))
+     `(cfw:face-header             ((t :foreground ,(fb*getDefaultColorValue :base6)                                                    :weight bold                            )))
+     `(cfw:face-sunday             ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+     `(cfw:face-saturday           ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+     `(cfw:face-holiday            ((t :foreground ,(fb*getDefaultColorValue :base2)  :background ,(fb*getDefaultColorValue :orange)    :weight bold                            )))
+     `(cfw:face-grid               ((t :foreground ,(fb*getDefaultColorValue :fg)                                                                                               )))
+     `(cfw:face-default-content    ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
+     `(cfw:face-periods            ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
+     `(cfw:face-day-title          ((t                                                :background ,(fb*getDefaultColorValue :bg)                                                )))
+     `(cfw:face-default-day        ((t                                                                                                  :weight bold :inherit cfw:face-day-title)))
+     `(cfw:face-annotation         ((t :foreground ,(fb*getDefaultColorValue :bg-alt)                                                                :inherit cfw:face-day-title)))
+     `(cfw:face-disable            ((t :foreground ,(fb*getDefaultColorValue :blue)                                                                  :inherit cfw:face-day-title)))
+     `(cfw:face-today-title        ((t                                                :background ,(fb*getDefaultColorValue :dark-blue) :weight bold                            )))
+     `(cfw:face-today              ((t                                                :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
+     `(cfw:face-select             ((t                                                :background ,(fb*getDefaultColorValue :violet)                                            )))
+     `(cfw:face-toolbar            ((t :foreground ,(fb*getDefaultColorValue :bg)     :background ,(fb*getDefaultColorValue :bg)                                                )))
+     `(cfw:face-toolbar-button-off ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            )))
+     `(cfw:face-toolbar-button-on  ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            ))))
+    (setq
+          ;; cfw:fchar-junction ?╋
+          cfw:fchar-junction ?\u254B
 
-**** unicode-workaround
-#+begin_src elisp :tangle no
-    (use-package calfw
-      :config
-      (custom-set-faces
-       `(cfw:face-title              ((t :foreground ,(fb*getDefaultColorValue :magenta)            :height 2.0                           :weight bold :inherit variable-pitch    )))
-       `(cfw:face-header             ((t :foreground ,(fb*getDefaultColorValue :base6)                                                    :weight bold                            )))
-       `(cfw:face-sunday             ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
-       `(cfw:face-saturday           ((t :foreground ,(fb*getDefaultColorValue :base6)  :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
-       `(cfw:face-holiday            ((t :foreground ,(fb*getDefaultColorValue :base2)  :background ,(fb*getDefaultColorValue :orange)    :weight bold                            )))
-       `(cfw:face-grid               ((t :foreground ,(fb*getDefaultColorValue :fg)                                                                                               )))
-       `(cfw:face-default-content    ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
-       `(cfw:face-periods            ((t :foreground ,(fb*getDefaultColorValue :red)                                                                                              )))
-       `(cfw:face-day-title          ((t                                                :background ,(fb*getDefaultColorValue :bg)                                                )))
-       `(cfw:face-default-day        ((t                                                                                                  :weight bold :inherit cfw:face-day-title)))
-       `(cfw:face-annotation         ((t :foreground ,(fb*getDefaultColorValue :bg-alt)                                                                :inherit cfw:face-day-title)))
-       `(cfw:face-disable            ((t :foreground ,(fb*getDefaultColorValue :blue)                                                                  :inherit cfw:face-day-title)))
-       `(cfw:face-today-title        ((t                                                :background ,(fb*getDefaultColorValue :dark-blue) :weight bold                            )))
-       `(cfw:face-today              ((t                                                :background ,(fb*getDefaultColorValue :bg)        :weight bold                            )))
-       `(cfw:face-select             ((t                                                :background ,(fb*getDefaultColorValue :violet)                                            )))
-       `(cfw:face-toolbar            ((t :foreground ,(fb*getDefaultColorValue :bg)     :background ,(fb*getDefaultColorValue :bg)                                                )))
-       `(cfw:face-toolbar-button-off ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            )))
-       `(cfw:face-toolbar-button-on  ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            ))))
-      ;; (setq cfw:fchar-junction ?╋
-      ;; (setq cfw:fchar-junction 0x254B
-      (setq cfw:fchar-junction "\u9547"
-            ;; cfw:fchar-vertical-line 0x254B
-            ;; cfw:fchar-vertical-line ?│
-            cfw:fchar-vertical-line "\u9547"
-            ;; cfw:fchar-horizontal-line ?━
-            ;; cfw:fchar-horizontal-line 0x2501
-            cfw:fchar-horizontal-line "\u9473"
-            ;; cfw:fchar-left-junction ?┣
-            ;; cfw:fchar-left-junction 0x2523
-            cfw:fchar-left-junction "\u9507"
-            ;; cfw:fchar-right-junction ?┫
-            ;; cfw:fchar-right-junction 0x252B
-            cfw:fchar-right-junction "\u9515"
-            ;; cfw:fchar-top-junction ?┯
-            ;; cfw:fchar-top-junction 0x252F
-            cfw:fchar-top-junction "\u9519"
-            ;; cfw:fchar-top-left-corner ?┏
-            ;; cfw:fchar-top-left-corner 0x250F
-            cfw:fchar-top-left-corner "\u9487"
-            ;; cfw:fchar-top-right-corner ?┓)
-            ;; cfw:fchar-top-right-corner 0x2513)
-            cfw:fchar-top-right-corner "\u9491")
-      )
+          ;; cfw:fchar-vertical-line ?┃
+          cfw:fchar-vertical-line ?\u2503
+  
+          ;; cfw:fchar-horizontal-line ?━
+          cfw:fchar-horizontal-line ?\u2501
+  
+          ;; cfw:fchar-left-junction ?┣
+          cfw:fchar-left-junction ?\u2523
+  
+          ;; cfw:fchar-right-junction ?┫
+          cfw:fchar-right-junction ?\u252B
+  
+          ;; cfw:fchar-top-junction ?┳
+          cfw:fchar-top-junction ?\u2533
+  
+          ;; cfw:fchar-top-left-corner ?┏
+          cfw:fchar-top-left-corner ?\u250F
+  
+          ;; cfw:fchar-top-right-corner ?┓
+          cfw:fchar-top-right-corner ?\u2513
+          )
+    )
 #+end_src
 *** cf. [[file:~/.emacs.d/orgmode/misc.org::calfw-org][calfw-org]]
 *** combined View

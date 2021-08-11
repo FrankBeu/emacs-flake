@@ -450,12 +450,6 @@ byte-compiled from.")
   (doom-themes-org-config)
   )
 
-;; (use-package base16-theme
-;;   :config
-;;   ;; (load-theme 'base16-default-dark t)
-;;   (load-theme 'base16-dracula t)
-;;   )
-
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/themes" user-emacs-directory))
 ;; (setq doom-theme 'fb-doom)
 (load-theme 'fb-doom t)
@@ -647,14 +641,31 @@ byte-compiled from.")
    `(cfw:face-toolbar            ((t :foreground ,(fb*getDefaultColorValue :bg)     :background ,(fb*getDefaultColorValue :bg)                                                )))
    `(cfw:face-toolbar-button-off ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            )))
    `(cfw:face-toolbar-button-on  ((t :foreground ,(fb*getDefaultColorValue :bg)                                                       :weight bold                            ))))
-  (setq cfw:fchar-junction ?╋
-        cfw:fchar-vertical-line ?│
-        cfw:fchar-horizontal-line ?━
-        cfw:fchar-left-junction ?┣
-        cfw:fchar-right-junction ?┫
-        cfw:fchar-top-junction ?┯
-        cfw:fchar-top-left-corner ?┏
-        cfw:fchar-top-right-corner ?┓)
+  (setq
+        ;; cfw:fchar-junction ?╋
+        cfw:fchar-junction ?\u254B
+
+        ;; cfw:fchar-vertical-line ?┃
+        cfw:fchar-vertical-line ?\u2503
+
+        ;; cfw:fchar-horizontal-line ?━
+        cfw:fchar-horizontal-line ?\u2501
+
+        ;; cfw:fchar-left-junction ?┣
+        cfw:fchar-left-junction ?\u2523
+
+        ;; cfw:fchar-right-junction ?┫
+        cfw:fchar-right-junction ?\u252B
+
+        ;; cfw:fchar-top-junction ?┳
+        cfw:fchar-top-junction ?\u2533
+
+        ;; cfw:fchar-top-left-corner ?┏
+        cfw:fchar-top-left-corner ?\u250F
+
+        ;; cfw:fchar-top-right-corner ?┓
+        cfw:fchar-top-right-corner ?\u2513
+        )
   )
 
 (defun fb/open-calendar ()
@@ -1313,6 +1324,50 @@ current buffer's, reload dir-locals."
   ;; :config (lsp-treemacs-sync-mode 1)
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dap
+;;;;
+;;
+
+(use-package dap-mode
+;;   :straight t
+  :custom
+  ;;;;;;
+  ;; (lsp-enable-dap-auto-configure t)
+  ;; (dap-auto-configure-features '(locals sessions tooltip))
+  ;; ;; (dap-auto-configure-features '(
+  ;;                                ;; breakpoints
+  ;;                                ;; controls
+  ;;                                ;; debugging
+  ;;                                ;; expressions
+  ;;                                ;; locals
+  ;;                                ;; repl
+  ;;                                ;; sessions
+  ;;                                ;; tooltip
+  ;;                                ;; ))
+  ;;;;;;
+  (lsp-enable-dap-auto-configure nil) ;;;; needs :config dap-ui-mode 1
+  :config
+  (dap-ui-mode 1)                     ;;;; needs :custom lsp-enable.. nil
+  ;; (dap-tooltip-mode 1)
+  )
+
+(add-hook 'dap-stopped-hook
+          (lambda (arg) (call-interactively #'dap-hydra)))
+
+(defvar fb*dap-enable-mouse-support t
+  "If non-nil, enable `dap-mode''s mouse support.")
+
+(spacemacs|add-toggle dap-mouse
+  :status dap-tooltip-mode
+  :on (progn (dap-tooltip-mode)
+             (tooltip-mode))
+  :off (progn (dap-tooltip-mode -1)
+              (tooltip-mode -1))
+  :documentation "Enable mouse support in DAP mode.")
+
+(when fb*dap-enable-mouse-support
+  (spacemacs/toggle-dap-mouse-on))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-c#
 ;;;;
 ;;
@@ -1447,6 +1502,12 @@ current buffer's, reload dir-locals."
       )))
 
 (setq lsp-gopls-codelens nil)
+
+(use-package dap-go
+  ;; :after dap
+  :config
+  (dap-go-setup)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-json
 ;;;;
@@ -1636,22 +1697,34 @@ current buffer's, reload dir-locals."
   :custom
   (org-superstar-remove-leading-stars t)
   (org-superstar-headline-bullets-list
+   ;; '("◉" "○" "●" "○" "●" "○" "●")
+   ;; '("●" "◉" "○" "●" "◉" "○" "●")
+   ;; '("●")
+   ;; '("◉")
    '("○")
-   ;; '("0x25CB")
-   ;; '("\u9675")
-
    )
   (org-superstar-item-bullet-alist
    '(
      ;; (?- . ?•)
-     ;; (0x002D- . 0x2022)
-     (\u0045 . \u8226)
+     (?\u002D . ?\u2022)
+
      ;; (?+ . ?➤)
-     ;; (0x2B . 0x27A4)
-     (\u0043 . \u10148)
+     (?\u002B . ?\u27A4)
+     ;; (?+ . ?▶)
+     ;; (?+ . ?▷)
+     ;; (?+ . ?▸)
+     ;; (?+ . ?▹)
+     ;; (?+ . ?►)
+     ;; (?+ . ?▻)
+     ;; (?+ . ?◉)
+     ;; (?+ . ?○)
+     ;; (?+ . ?◌)
+     ;; (?+ . ?◍)
+     ;; (?+ . ?◎)
+     ;; (?+ . ?●)
+
      ;; (?* . ?•)
-     ;; (0x002D- . 0x2022)
-     (\u0045 . \u8226)
+     (?\u002A . ?\u2022)
      )
    )
   )
@@ -3326,7 +3399,7 @@ The optional argument IGNORED is not used."
   "lT"  '(                                              :which-key "toggles"                          :ignore t)
   "la"  '(                                              :which-key "actions"                          :ignore t)
   "lg"  '(                                              :which-key "goto"                             :ignore t)
-  ;;"lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
+  "lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
   "lh"  '(                                              :which-key "help"                             :ignore t)
   "lr"  '(                                              :which-key "refactoring"                      :ignore t)
   "lw"  '(                                              :which-key "workspace"                        :ignore t)
