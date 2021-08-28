@@ -1,0 +1,70 @@
+* orgmode-reveal
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-reveal
+  ;;;;
+  ;;
+#+end_src
+** reveal
+https://gitlab.com/oer/org-re-reveal
+https://github.com/hakimel/reveal.js/
+https://revealjs.com/
+*** DEPRECATED https://github.com/yjwen/org-reveal
+package: ox-reveal
+*** package
+#+begin_src elisp
+(use-package org-re-reveal)
+#+end_src
+*** version
+#+begin_src elisp
+(setq org-re-reveal-revealjs-version "4")
+#+end_src
+*** root
+#+begin_src elisp
+  (setq org-re-reveal-root (concat "file://" "/run/current-system/sw/share/" "revealjs"))
+  ;; (setq org-re-reveal-root (concat "file://" "/home/frank/SRC/GITHUB/MISC/reveal.js"))
+#+end_src
+*** config
+#+begin_src elisp
+(setq org-reveal-hlevel 2)
+(setq org-reveal-previewLinks t)
+#+end_src
+*** theme
+#+begin_src elisp
+;; (setq org-reveal-theme "white")
+(setq org-reveal-theme "black")
+;; (setq org-reveal-theme "customTheme")
+;; (setq org-reveal-theme "iz")
+#+end_src
+*** loading
+do not load head.js.min
+#+begin_src elisp
+(setq org-re-reveal-script-files '("js/reveal.js" "js/revealjs.keybindings.js"))
+#+end_src
+*** qrcode
+#+begin_src elisp
+            (defun fb/org-re-reveal/create-qr-code (backend)
+              "create qrCode on org-export, if org-fb-re-reveal-talk-url is set"
+              (cond
+               ((boundp 'org-fb-re-reveal-talk-url) (shell-command (concat "qr --factory=svg-path " org-fb-re-reveal-talk-url " > qrCodeTalkURL.svg")))))
+            (add-hook 'org-export-before-processing-hook 'fb/org-re-reveal/create-qr-code)
+#+end_src
+*** [[file:~/.emacs.d/orgmode/export.org::*macros][macros]]
+*** END-OF-TALK
+#+begin_src elisp
+(defun fb/org-re-reveal/insert-end-of-talk ()
+  "remove previous set of end-of-talk and insert below cursor"
+  (interactive)
+  (setq-local current-cursor-position (point))
+  (let ((case-fold-search t)) ;; or nil
+    (goto-char (point-min))
+    (while (search-forward "{{{end-of-talk}}}\n" nil t)
+      (replace-match ""))
+    )
+  (goto-char current-cursor-position)
+  (evil-end-of-line)
+  (evil-unimpaired/insert-space-below 1)
+  (evil-next-line)
+  (insert "{{{end-of-talk}}}")
+  )
+#+end_src

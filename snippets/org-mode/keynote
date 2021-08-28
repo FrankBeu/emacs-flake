@@ -3,7 +3,7 @@
 #key : kn
 #contributor : fb
 # --
-#+SETUPFILE: ~/.config/spacemacs/orgMode/revealjs/revealjs.setup.org
+#+SETUPFILE: ~/.emacs.d/orgmode/revealjs/revealjs.setup.org
 # #+date: {{{time(%Y-%m-%d %H:%M)}}}
 #+date: {{{time(%Y-%m-%d)}}}
 {{{show-url-on-title-slide}}}
@@ -38,7 +38,7 @@
 #+END:
 * LOCAL VARIABLES                                                                                                                           :noexport:
 # local variables:
-# org-re-reveal-title-slide: "~/.config/spacemacs/orgMode/revealjs/revealjs.titleSlide.html"
+# org-re-reveal-title-slide: "~/.emacs.d/orgmode/revealjs/revealjs.titleSlide.html"
 # org-re-reveal-single-file: t
 # org-fb-re-reveal-talk-url: "https://keynotes.thesym.site/${3:TALK-PATH}"
 # org-fb-re-reveal-talk-url-show-anchor-on-title-slide: nil
@@ -46,11 +46,5 @@
 # org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide: t
 # end:
 *** Variable-Fundus
-# org-re-reveal-title-slide: "~/.config/spacemacs/orgMode/revealjs/revealjs.titleSlide.html"
-# org-re-reveal-single-file: nil
-# org-fb-re-reveal-talk-url: "https://keynotes.thesym.site/$3"
-# org-fb-re-reveal-talk-url-show-anchor-on-title-slide: t
-# org-fb-re-reveal-talk-url-show-qrCode-on-title-slide: t
-# org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide: nil
 # org-export-allow-bind-keywords: t
 # org-export-dispatch-use-expert-ui: t

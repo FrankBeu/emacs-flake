@@ -21,6 +21,8 @@ https://github.com/marcinkoziej/org-pomodoro
 #+INCLUDE: "./org.org"
 ** miscellaneous
 #+INCLUDE: "./misc.org"
+** export
+#+INCLUDE: "./export.org"
 ** functions
 #+INCLUDE: "./functions.org"
 ** agenda
@@ -31,6 +33,8 @@ https://github.com/marcinkoziej/org-pomodoro
 #+INCLUDE: "./capture.org"
 ** refile
 #+INCLUDE: "./refile.org"
+** reveal
+#+INCLUDE: "./revealjs/revealjs.org"
 ** padmā
 #+INCLUDE: "./padma.org"
 ** pomodoro

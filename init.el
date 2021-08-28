@@ -1775,6 +1775,51 @@ current buffer's, reload dir-locals."
 
 (add-hook 'org-mode-hook 'fb*org-mode-h)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-export
+;;;;
+;;
+
+(defun fb/ox/tags-preventing-export-of-subtree-according-to-export-back-end (backend)
+  "Remove all subtreees with the tags specified below.
+     BACKEND is the export back-end being used, as a symbol."
+  (cond
+   ((org-export-derived-backend-p backend 'md) (setq  org-export-exclude-tags '("noexport" "mdignore")))
+   ((org-export-derived-backend-p backend 're-reveal) (setq  org-export-exclude-tags '("noexport" "revealignore") ))))
+
+(add-hook 'org-export-before-parsing-hook 'fb/ox/tags-preventing-export-of-subtree-according-to-export-back-end)
+
+(setq org-export-global-macros '(
+;;;; REVEAL
+                                 ("toc-on-export" .
+                                  "(eval (format \"%s\"
+                                    (cond
+                                      ((org-export-derived-backend-p org-export-current-backend 'md) \"#+OPTIONS: toc:1\")
+                                      ((org-export-derived-backend-p org-export-current-backend 're-reveal) \"#+OPTIONS: toc:nil\")
+                                      )))")
+                                 ("tags-on-export" .
+                                  "(eval (format \"%s\"
+                                    (cond
+                                      ((org-export-derived-backend-p org-export-current-backend 'md) \"#+OPTIONS: tags:1\")
+                                      ((org-export-derived-backend-p org-export-current-backend 're-reveal) \"#+OPTIONS: tags:nil\")
+                                      )))")
+                                 ("show-url-on-title-slide" .
+                                  "(eval (format \"%s\"
+                                    (cond
+                                      ((not (bound-and-true-p org-fb-re-reveal-talk-url))                                                                                                                                         (concat \"                                                        #+HTML_HEAD: <style>#talkURL__titleSlide{display:none}</style>                                                \\n #+HTML_HEAD: <style>#qrCode__titleSlide{display:none}</style> \")) ;;;; ______ __                                                                                                                                                                                                                                                       ;;;; no URL
+                                      ((and (boundp 'org-fb-re-reveal-talk-url) (bound-and-true-p org-fb-re-reveal-talk-url-show-anchor-on-title-slide) (bound-and-true-p org-fb-re-reveal-talk-url-show-qrCode-on-title-slide) ) (concat \"#+REVEAL_TALK_URL: \" org-fb-re-reveal-talk-url  \"                                                                    \\n #+REVEAL_TALK_QR_CODE: ./qrCodeTalkURL.png                                                                   \")) ;;;; Anchor QR
+                                      ((and (boundp 'org-fb-re-reveal-talk-url) (bound-and-true-p org-fb-re-reveal-talk-url-show-anchor-on-title-slide)                                                                         ) (concat \"#+REVEAL_TALK_URL: \" org-fb-re-reveal-talk-url  \"                                                                                                                   \\n #+HTML_HEAD: <style>#qrCode__titleSlide{display:none}</style> \")) ;;;; Anchor
+                                      ((and (boundp 'org-fb-re-reveal-talk-url)                                                                         (bound-and-true-p org-fb-re-reveal-talk-url-show-qrCode-on-title-slide) ) (concat \"#+REVEAL_TALK_URL: \" org-fb-re-reveal-talk-url  \" \\n #+HTML_HEAD: <style>#talkURL__titleSlide{display:none}</style> \\n #+REVEAL_TALK_QR_CODE: ./qrCodeTalkURL.png                                                                   \")) ;;;;        QR
+                                      (     (boundp 'org-fb-re-reveal-talk-url)                                                                                                                                                   (concat \"#+REVEAL_TALK_URL: \" org-fb-re-reveal-talk-url  \" \\n #+HTML_HEAD: <style>#talkURL__titleSlide{display:none}</style>                                                \\n #+HTML_HEAD: <style>#qrCode__titleSlide{display:none}</style> \")) ;;;; ______ __
+                                      ))))")
+                                 ("end-of-talk" .
+                                  "(eval (format \"%s\"
+                                    (cond
+                                      ((not (bound-and-true-p org-fb-re-reveal-talk-url)) \"#+REVEAL: split \n#+REVEAL_HTML: <h2>END</h2> \n\")                                                                                                                                                                                                                                                                                                                                                   ;;;; END
+                                      ((and (boundp 'org-fb-re-reveal-talk-url) (bound-and-true-p org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide)) (concat \"#+REVEAL: split \n#+REVEAL_HTML: <h2>END</h2> \n#+REVEAL: split \n#+REVEAL_HTML: <div id='talkURL__titleSlide__svgContainer'> \n#+ATTR_HTML: :id qrCode__titleSlide__svg :alt qrCode :style width:25vh; height:25vh; \n[[file:qrCodeTalkURL.svg]] \n#+REVEAL_HTML: </div> \n#+REVEAL_HTML: <a id='talkURL__titleSlide__End' href='\" org-fb-re-reveal-talk-url \"'>\" org-fb-re-reveal-talk-url \"</a>\")) ;;;; END + QR and Anchor
+                                      (t \"#+REVEAL: split \n#+REVEAL_HTML: <h2>END</h2> \n\")                                                                                                                                                                                                                                                                                                                                                                                                    ;;;; END
+                                      )))")
+                                 ))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-functions
 ;;;;
 ;;
@@ -2316,6 +2361,49 @@ The optional argument IGNORED is not used."
                            ("0" . "〇/10 ERKENNTNISSE.org"  )
                            ("e" . "〇/11 ERLEDIGTES.org"    )
                            ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-reveal
+;;;;
+;;
+
+(use-package org-re-reveal)
+
+(setq org-re-reveal-revealjs-version "4")
+
+(setq org-re-reveal-root (concat "file://" "/run/current-system/sw/share/" "revealjs"))
+;; (setq org-re-reveal-root (concat "file://" "/home/frank/SRC/GITHUB/MISC/reveal.js"))
+
+(setq org-reveal-hlevel 2)
+(setq org-reveal-previewLinks t)
+
+;; (setq org-reveal-theme "white")
+(setq org-reveal-theme "black")
+;; (setq org-reveal-theme "customTheme")
+;; (setq org-reveal-theme "iz")
+
+(setq org-re-reveal-script-files '("js/reveal.js" "js/revealjs.keybindings.js"))
+
+(defun fb/org-re-reveal/create-qr-code (backend)
+  "create qrCode on org-export, if org-fb-re-reveal-talk-url is set"
+  (cond
+   ((boundp 'org-fb-re-reveal-talk-url) (shell-command (concat "qr --factory=svg-path " org-fb-re-reveal-talk-url " > qrCodeTalkURL.svg")))))
+(add-hook 'org-export-before-processing-hook 'fb/org-re-reveal/create-qr-code)
+
+(defun fb/org-re-reveal/insert-end-of-talk ()
+  "remove previous set of end-of-talk and insert below cursor"
+  (interactive)
+  (setq-local current-cursor-position (point))
+  (let ((case-fold-search t)) ;; or nil
+    (goto-char (point-min))
+    (while (search-forward "{{{end-of-talk}}}\n" nil t)
+      (replace-match ""))
+    )
+  (goto-char current-cursor-position)
+  (evil-end-of-line)
+  (evil-unimpaired/insert-space-below 1)
+  (evil-next-line)
+  (insert "{{{end-of-talk}}}")
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-padmā
 ;;;;

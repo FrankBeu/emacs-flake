@@ -1,0 +1,8 @@
+
+#+Author: fb
+#+STARTUP: nologdone
+#+TODO: TODO(t) | DONE(d) CANCELED(c)
+#+REVEAL_HLEVEL: 2
+#+OPTIONS: reveal_slide_number:c/t
+#+STARTUP: showall
+#+REVEAL_EXTRA_OPTIONS: keyboard: { 55: 'left', 74: 'left', 75: 'up', 76: 'down', 59: 'right', }, previewLinks: true
