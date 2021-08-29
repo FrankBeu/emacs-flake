@@ -255,90 +255,98 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
 ** TODO tables
 ** local-leader
 #+begin_src elisp
-  (fb/local-leader-key
-    :keymaps 'org-mode-map
-    :states  '(normal visual insert)
+   (fb/local-leader-key
+     :keymaps 'org-mode-map
+     :states  '(normal visual insert)
+  
+     "a"      '(org-agenda                                         :which-key "agenda"           )
+  
+     "b"      '(                                                   :which-key "table"            :ignore t)
+     "bh"     '(org-table-hline-and-move                           :which-key "headline"         )
+  
+     "c"      '(org-comment-dwim                                   :which-key "comment"          )
+  
+     "C"      '(                                                   :which-key "clock"            :ignore t)
+     "CC"     '(org-clock-cancel                                   :which-key "cancel"           )
+     "CG"     '(org-clock-goto                                     :which-key "goto"             )
+     "CI"     '(org-clock-in                                       :which-key "in"               )
+     "CL"     '(org-clock-in-last                                  :which-key "last"             )
+     "CO"     '(org-clock-out                                      :which-key "out"              )
+     "CP"     '(org-pomodoro                                       :which-key "pomodoro"         )
+  
+     "d"      '(                                                   :which-key "id-dependecy"     :ignore t)
+     "dic"    '(org-id-copy                                        :which-key "id-copy"          )
+     "dif"    '(org-find-entry-with-id                             :which-key "id-find-entry"    )
+     "dig"    '(org-id-goto                                        :which-key "id-goto"          )
+     "dic"    '(org-id-get-create                                  :which-key "id-create"        )
+     "dil"    '(org-id-store-link                                  :which-key "id-store-link"    )
+  
+     "dp"     '(                                                   :which-key "predecessor"      :ignore t)
+     "dpg"    '(fb/goto-predecessor                                :which-key "pre-goto"         )
+     "dpi"    '(fb/insert-predecessor-relation                     :which-key "pre-insert"       )
+     "dpr"    '(fb/remove-predecessor-relation                     :which-key "pre-remove"       )
+     "dps"    '(fb/store-as-predecessor                            :which-key "pre-store-as"     )
+     "ds"     '(                                                   :which-key "successor"        :ignore t)
+     "dsg"    '(fb/goto-successor                                  :which-key "suc-goto"         )
+     "dsi"    '(fb/insert-successor-relation                       :which-key "suc-insert"       )
+     "dsr"    '(fb/remove-successor-relation                       :which-key "suc-remove"       )
+     "dss"    '(fb/store-as-successor                              :which-key "suc-store-as"     )
+  
+     "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
+     "l"      '(org-insert-link                                    :which-key "insert link"      )
+  
+     "n"      '(org-add-note                                       :which-key "node"             )
+  
+     "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
+     "O"      '(                                                   :which-key "toggle"           :ignore t)
+     "OI"     '(org-toggle-inline-images                           :which-key "images"           )
+  
+     "p"      '(org-set-property                                   :which-key "property"         )
+     "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
+  
+     "s"      '(                                                   :which-key "subtree"          :ignore t)
+     "sn"     '(org-narrow-to-subtree                              :which-key "narrow"           )
+     "so"     '(org-sort                                           :which-key "sort"             )
+     "sw"     '(widen                                              :which-key "widen"            )
+  
+     "r"      '(fb/org-refile-hydra-grouped/body                   :which-key "refile"           )
 
-    "a"      '(org-agenda                                         :which-key "agenda"           )
-
-    "b"      '(                                                   :which-key "table"            :ignore t)
-    "bh"     '(org-table-hline-and-move                           :which-key "headline"         )
-
-    "c"      '(org-comment-dwim                                   :which-key "comment"          )
-
-    "C"      '(                                                   :which-key "clock"            :ignore t)
-    "CC"     '(org-clock-cancel                                   :which-key "cancel"           )
-    "CG"     '(org-clock-goto                                     :which-key "goto"             )
-    "CI"     '(org-clock-in                                       :which-key "in"               )
-    "CL"     '(org-clock-in-last                                  :which-key "last"             )
-    "CO"     '(org-clock-out                                      :which-key "out"              )
-    "CP"     '(org-pomodoro                                       :which-key "pomodoro"         )
-
-    "d"      '(                                                   :which-key "id-dependecy"     :ignore t)
-    "dic"    '(org-id-copy                                        :which-key "id-copy"          )
-    "dif"    '(org-find-entry-with-id                             :which-key "id-find-entry"    )
-    "dig"    '(org-id-goto                                        :which-key "id-goto"          )
-    "dic"    '(org-id-get-create                                  :which-key "id-create"        )
-    "dil"    '(org-id-store-link                                  :which-key "id-store-link"    )
-
-    "dp"     '(                                                   :which-key "predecessor"      :ignore t)
-    "dpg"    '(fb/goto-predecessor                                :which-key "pre-goto"         )
-    "dpi"    '(fb/insert-predecessor-relation                     :which-key "pre-insert"       )
-    "dpr"    '(fb/remove-predecessor-relation                     :which-key "pre-remove"       )
-    "dps"    '(fb/store-as-predecessor                            :which-key "pre-store-as"     )
-    "ds"     '(                                                   :which-key "successor"        :ignore t)
-    "dsg"    '(fb/goto-successor                                  :which-key "suc-goto"         )
-    "dsi"    '(fb/insert-successor-relation                       :which-key "suc-insert"       )
-    "dsr"    '(fb/remove-successor-relation                       :which-key "suc-remove"       )
-    "dss"    '(fb/store-as-successor                              :which-key "suc-store-as"     )
-
-    "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
-    "l"      '(org-insert-link                                    :which-key "insert link"      )
-
-    "n"      '(org-add-note                                       :which-key "node"             )
-
-    "o"      '(org-open-at-point                                  :which-key "C-c C-o"          )
-    "O"      '(                                                   :which-key "toggle"           :ignore t)
-    "OI"     '(org-toggle-inline-images                           :which-key "images"           )
-
-    "p"      '(org-set-property                                   :which-key "property"         )
-    "S"      '(org-insert-structure-template 'elisp               :which-key "struc-temp"       )
-
-    "s"      '(                                                   :which-key "subtree"          :ignore t)
-    "sn"     '(org-narrow-to-subtree                              :which-key "narrow"           )
-    "so"     '(org-sort                                           :which-key "sort"             )
-    "sw"     '(widen                                              :which-key "widen"            )
-
-    "r"      '(fb/org-refile-hydra-grouped/body                   :which-key "refile"           )
-
-    "t"      '(org-todo                                           :which-key "todo"             )
-
-    "T"      '(                                                   :which-key "time"             :ignore t)
-    "TC"     '(                                                   :which-key "check"            :ignore t)
-    "TCA"    '(org-check-after-date                               :which-key "check-after"      )
-    "TCB"    '(org-check-before-date                              :which-key "check-before"     )
-    "TCC"    '(org-goto-calendar                                  :which-key "calendar"         )
-    "TCD"    '(org-check-deadlines                                :which-key "check-deadline"   )
-    "TD"     '(org-time-stamp                                     :which-key "date"             )
-    "TE"     '(org-evaluate-time-range                            :which-key "evaluate"         )
-    "TF"     '(org-date-from-calendar                             :which-key "date from cal"    )
-    "TV"     '((lambda()(interactive)(org-evaluate-time-range 0)) :which-key "evaluate+ins"     )
-    "TI"     '(org-time-stamp-inactive                            :which-key "inact"            )
-    "TO"     '((lambda()(interactive)(org-time-stamp-inactive 0)) :which-key "inact+time"       )
-    "TL"     '(org-deadline                                       :which-key "deadline"         )
-    "TS"     '(org-schedule                                       :which-key "schedule"         )
-    "TT"     '((lambda()(interactive)(org-time-stamp 0))          :which-key "date+time"        )
-
-    "x"      '(                                                   :which-key "text"             :ignore t)
-    "xb"     '((lambda () (interactive)(org-emphasize ?\*))       :which-key "bold"             )
-    "xc"     '((lambda () (interactive)(org-emphasize ?\~))       :which-key "code"             )
-    "xi"     '((lambda () (interactive)(org-emphasize ?\/))       :which-key "italic"           )
-    "xr"     '((lambda () (interactive)(org-emphasize ?\ ))       :which-key "clear"            )
-    "xR"     '((lambda () (interactive)(org-emphasize ?\s))       :which-key "clear"            )
-    "xs"     '((lambda () (interactive)(org-emphasize ?\+))       :which-key "strike-through"   )
-    "xu"     '((lambda () (interactive)(org-emphasize ?\_))       :which-key "underline"        )
-    "xv"     '((lambda () (interactive)(org-emphasize ?\=))       :which-key "verbatim"         )
-    )
+     "R"      '(                                                   :which-key "reveal"           :ignore t)
+     "RF"     '(fb/org-re-reveal/fragments                         :which-key "fragments"        )
+     "RC"     '((lambda()(interactive)(fb/org-re-reveal/extra-attribut "class=''")) :which-key "class" )
+     "RH"     '(fb/org-re-reveal/add-html                          :which-key "html"             )
+     "RE"     '(fb/org-re-reveal/insert-end-of-talk                :which-key "endOfTalk"        )
+     "RB"     '(fb/org-re-reveal/insert-line-break                 :which-key "lineBreak"        )
+     "RS"     '(fb/org-re-reveal/insert-slide-split                :which-key "split"            )
+  
+     "t"      '(org-todo                                           :which-key "todo"             )
+  
+     "T"      '(                                                   :which-key "time"             :ignore t)
+     "TC"     '(                                                   :which-key "check"            :ignore t)
+     "TCA"    '(org-check-after-date                               :which-key "check-after"      )
+     "TCB"    '(org-check-before-date                              :which-key "check-before"     )
+     "TCC"    '(org-goto-calendar                                  :which-key "calendar"         )
+     "TCD"    '(org-check-deadlines                                :which-key "check-deadline"   )
+     "TD"     '(org-time-stamp                                     :which-key "date"             )
+     "TE"     '(org-evaluate-time-range                            :which-key "evaluate"         )
+     "TF"     '(org-date-from-calendar                             :which-key "date from cal"    )
+     "TV"     '((lambda()(interactive)(org-evaluate-time-range 0)) :which-key "evaluate+ins"     )
+     "TI"     '(org-time-stamp-inactive                            :which-key "inact"            )
+     "TO"     '((lambda()(interactive)(org-time-stamp-inactive 0)) :which-key "inact+time"       )
+     "TL"     '(org-deadline                                       :which-key "deadline"         )
+     "TS"     '(org-schedule                                       :which-key "schedule"         )
+     "TT"     '((lambda()(interactive)(org-time-stamp 0))          :which-key "date+time"        )
+  
+     "x"      '(                                                   :which-key "text"             :ignore t)
+     "xb"     '((lambda () (interactive)(org-emphasize ?\*))       :which-key "bold"             )
+     "xc"     '((lambda () (interactive)(org-emphasize ?\~))       :which-key "code"             )
+     "xi"     '((lambda () (interactive)(org-emphasize ?\/))       :which-key "italic"           )
+     "xr"     '((lambda () (interactive)(org-emphasize ?\ ))       :which-key "clear"            )
+     "xR"     '((lambda () (interactive)(org-emphasize ?\s))       :which-key "clear"            )
+     "xs"     '((lambda () (interactive)(org-emphasize ?\+))       :which-key "strike-through"   )
+     "xu"     '((lambda () (interactive)(org-emphasize ?\_))       :which-key "underline"        )
+     "xv"     '((lambda () (interactive)(org-emphasize ?\=))       :which-key "verbatim"         )
+     )
 #+end_src
 *** TODO clock
 #+begin_example elisp

@@ -2379,15 +2379,72 @@ The optional argument IGNORED is not used."
 ;; (setq org-reveal-theme "white")
 (setq org-reveal-theme "black")
 ;; (setq org-reveal-theme "customTheme")
-;; (setq org-reveal-theme "iz")
 
 (setq org-re-reveal-script-files '("js/reveal.js" "js/revealjs.keybindings.js"))
 
-(defun fb/org-re-reveal/create-qr-code (backend)
-  "create qrCode on org-export, if org-fb-re-reveal-talk-url is set"
-  (cond
-   ((boundp 'org-fb-re-reveal-talk-url) (shell-command (concat "qr --factory=svg-path " org-fb-re-reveal-talk-url " > qrCodeTalkURL.svg")))))
-(add-hook 'org-export-before-processing-hook 'fb/org-re-reveal/create-qr-code)
+(defun fb/org-re-reveal/insert (insertion)
+  "enable fragments on current slide"
+  (interactive)
+  (evil-collection-unimpaired-insert-newline-below 1)
+  (evil-next-line)
+  (insert insertion)
+  )
+
+(defun fb/org-re-reveal/fragments ()
+  "enable fragments on current slide"
+  (interactive)
+  (fb/org-re-reveal/insert "#+ATTR_REVEAL: :frag (appear)")
+  )
+
+(defun fb/org-re-reveal/insert-slide-split ()
+  "split the current slide"
+  (interactive)
+  (fb/org-re-reveal/insert "#+REVEAL: split")
+  )
+
+(defun fb/org-re-reveal/fragments ()
+  "enable fragments on current slide"
+  (interactive)
+  (evil-collection-unimpaired-insert-newline-below 1)
+  (evil-next-line)
+  (insert "#+ATTR_REVEAL: :frag (appear)")
+  )
+
+(defun fb/org-re-reveal/insert-slide-split ()
+  "split the current slide"
+  (interactive)
+  (evil-collection-unimpaired-insert-newline-below 1)
+  (evil-next-line)
+  (insert "#+REVEAL: split")
+  )
+
+(defun fb/org-re-reveal/insert-line-break ()
+  "insert a line break"
+  (interactive)
+  (end-of-line)
+  (insert " \\\\")
+  )
+
+(defun fb/org-re-reveal/add-html ()
+  "add raw html to slide"
+  (interactive)
+  (evil-collection-unimpaired-insert-newline-below 1)
+  (evil-next-line)
+  (insert "#+REVEAL_HTML: ")
+  (evil-org-append-line 1)
+  )
+
+(defun fb/org-re-reveal/extra-attribut (attribute)
+  "Add an attribute like a class.
+   The attribute has to be set at binding definition."
+  (interactive)
+  (evil-collection-unimpaired-insert-newline-below 1)
+  (evil-next-line)
+  (insert (concat "#+REVEAL_EXTRA_ATTR: " attribute))
+  (evil-backward-char)
+  (evil-forward-char)
+  (evil-insert 1)
+  )
 
 (defun fb/org-re-reveal/insert-end-of-talk ()
   "remove previous set of end-of-talk and insert below cursor"
@@ -2400,10 +2457,16 @@ The optional argument IGNORED is not used."
     )
   (goto-char current-cursor-position)
   (evil-end-of-line)
-  (evil-unimpaired/insert-space-below 1)
+  (evil-collection-unimpaired-insert-newline-below 1)
   (evil-next-line)
   (insert "{{{end-of-talk}}}")
   )
+
+(defun fb|org-re-reveal|create-qr-code (backend)
+  "create qrCode on org-export, if org-fb-re-reveal-talk-url is set"
+  (cond
+   ((boundp 'org-fb-re-reveal-talk-url) (shell-command (concat "qr --factory=svg-path " org-fb-re-reveal-talk-url " > qrCodeTalkURL.svg")))))
+(add-hook 'org-export-before-processing-hook 'fb|org-re-reveal|create-qr-code)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-padmā
 ;;;;
@@ -4063,6 +4126,14 @@ The optional argument IGNORED is not used."
   "sw"     '(widen                                              :which-key "widen"            )
 
   "r"      '(fb/org-refile-hydra-grouped/body                   :which-key "refile"           )
+
+  "R"      '(                                                   :which-key "reveal"           :ignore t)
+  "RF"     '(fb/org-re-reveal/fragments                         :which-key "fragments"        )
+  "RC"     '((lambda()(interactive)(fb/org-re-reveal/extra-attribut "class=''")) :which-key "class" )
+  "RH"     '(fb/org-re-reveal/add-html                          :which-key "html"             )
+  "RE"     '(fb/org-re-reveal/insert-end-of-talk                :which-key "endOfTalk"        )
+  "RB"     '(fb/org-re-reveal/insert-line-break                 :which-key "lineBreak"        )
+  "RS"     '(fb/org-re-reveal/insert-slide-split                :which-key "split"            )
 
   "t"      '(org-todo                                           :which-key "todo"             )
 

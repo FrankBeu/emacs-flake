@@ -34,37 +34,120 @@ package: ox-reveal
 ;; (setq org-reveal-theme "white")
 (setq org-reveal-theme "black")
 ;; (setq org-reveal-theme "customTheme")
-;; (setq org-reveal-theme "iz")
 #+end_src
-*** loading
+*** loading ??
 do not load head.js.min
 #+begin_src elisp
 (setq org-re-reveal-script-files '("js/reveal.js" "js/revealjs.keybindings.js"))
 #+end_src
-*** qrcode
+*** functions/commands
+**** commands
+cf. snippets starting with reveal
+***** fragments
 #+begin_src elisp
-            (defun fb/org-re-reveal/create-qr-code (backend)
-              "create qrCode on org-export, if org-fb-re-reveal-talk-url is set"
-              (cond
-               ((boundp 'org-fb-re-reveal-talk-url) (shell-command (concat "qr --factory=svg-path " org-fb-re-reveal-talk-url " > qrCodeTalkURL.svg")))))
-            (add-hook 'org-export-before-processing-hook 'fb/org-re-reveal/create-qr-code)
+  (defun fb/org-re-reveal/insert (insertion)
+    "enable fragments on current slide"
+    (interactive)
+    (evil-collection-unimpaired-insert-newline-below 1)
+    (evil-next-line)
+    (insert insertion)
+    )
+#+end_src
+***** fragments
+#+begin_src elisp
+  (defun fb/org-re-reveal/fragments ()
+    "enable fragments on current slide"
+    (interactive)
+    (fb/org-re-reveal/insert "#+ATTR_REVEAL: :frag (appear)")
+    )
+#+end_src
+***** slide-split
+#+begin_src elisp
+  (defun fb/org-re-reveal/insert-slide-split ()
+    "split the current slide"
+    (interactive)
+    (fb/org-re-reveal/insert "#+REVEAL: split")
+    )
+#+end_src
+***** fragmentsBAK
+#+begin_src elisp
+  (defun fb/org-re-reveal/fragments ()
+    "enable fragments on current slide"
+    (interactive)
+    (evil-collection-unimpaired-insert-newline-below 1)
+    (evil-next-line)
+    (insert "#+ATTR_REVEAL: :frag (appear)")
+    )
+#+end_src
+***** slide-splitBAK
+#+begin_src elisp
+  (defun fb/org-re-reveal/insert-slide-split ()
+    "split the current slide"
+    (interactive)
+    (evil-collection-unimpaired-insert-newline-below 1)
+    (evil-next-line)
+    (insert "#+REVEAL: split")
+    )
+#+end_src
+***** line-break
+#+begin_src elisp
+  (defun fb/org-re-reveal/insert-line-break ()
+    "insert a line break"
+    (interactive)
+    (end-of-line)
+    (insert " \\\\")
+    )
+#+end_src
+***** add-html
+#+begin_src elisp
+  (defun fb/org-re-reveal/add-html ()
+    "add raw html to slide"
+    (interactive)
+    (evil-collection-unimpaired-insert-newline-below 1)
+    (evil-next-line)
+    (insert "#+REVEAL_HTML: ")
+    (evil-org-append-line 1)
+    )
+#+end_src
+***** add-extra-attribute
+#+begin_src elisp
+  (defun fb/org-re-reveal/extra-attribut (attribute)
+    "Add an attribute like a class.
+     The attribute has to be set at binding definition."
+    (interactive)
+    (evil-collection-unimpaired-insert-newline-below 1)
+    (evil-next-line)
+    (insert (concat "#+REVEAL_EXTRA_ATTR: " attribute))
+    (evil-backward-char)
+    (evil-forward-char)
+    (evil-insert 1)
+    )
+#+end_src
+***** end-of-talk
+#+begin_src elisp
+  (defun fb/org-re-reveal/insert-end-of-talk ()
+    "remove previous set of end-of-talk and insert below cursor"
+    (interactive)
+    (setq-local current-cursor-position (point))
+    (let ((case-fold-search t)) ;; or nil
+      (goto-char (point-min))
+      (while (search-forward "{{{end-of-talk}}}\n" nil t)
+        (replace-match ""))
+      )
+    (goto-char current-cursor-position)
+    (evil-end-of-line)
+    (evil-collection-unimpaired-insert-newline-below 1)
+    (evil-next-line)
+    (insert "{{{end-of-talk}}}")
+    )
+#+end_src
+**** functions
+***** qrcode
+#+begin_src elisp
+  (defun fb|org-re-reveal|create-qr-code (backend)
+    "create qrCode on org-export, if org-fb-re-reveal-talk-url is set"
+    (cond
+     ((boundp 'org-fb-re-reveal-talk-url) (shell-command (concat "qr --factory=svg-path " org-fb-re-reveal-talk-url " > qrCodeTalkURL.svg")))))
+  (add-hook 'org-export-before-processing-hook 'fb|org-re-reveal|create-qr-code)
 #+end_src
 *** [[file:~/.emacs.d/orgmode/export.org::*macros][macros]]
-*** END-OF-TALK
-#+begin_src elisp
-(defun fb/org-re-reveal/insert-end-of-talk ()
-  "remove previous set of end-of-talk and insert below cursor"
-  (interactive)
-  (setq-local current-cursor-position (point))
-  (let ((case-fold-search t)) ;; or nil
-    (goto-char (point-min))
-    (while (search-forward "{{{end-of-talk}}}\n" nil t)
-      (replace-match ""))
-    )
-  (goto-char current-cursor-position)
-  (evil-end-of-line)
-  (evil-unimpaired/insert-space-below 1)
-  (evil-next-line)
-  (insert "{{{end-of-talk}}}")
-  )
-#+end_src

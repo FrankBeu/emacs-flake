@@ -4,7 +4,6 @@
 #contributor : fb
 # --
 #+SETUPFILE: ~/.emacs.d/orgmode/revealjs/revealjs.setup.org
-# #+date: {{{time(%Y-%m-%d %H:%M)}}}
 #+date: {{{time(%Y-%m-%d)}}}
 {{{show-url-on-title-slide}}}
 
@@ -44,6 +43,8 @@
 # org-fb-re-reveal-talk-url-show-anchor-on-title-slide: nil
 # org-fb-re-reveal-talk-url-show-qrCode-on-title-slide: nil
 # org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide: t
+# org-export-with-toc: nil
+# org-export-with-section-numbers: nil
 # end:
 *** Variable-Fundus
 # org-export-allow-bind-keywords: t
