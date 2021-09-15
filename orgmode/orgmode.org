@@ -31,6 +31,8 @@ https://github.com/marcinkoziej/org-pomodoro
 #+INCLUDE: "./babel.org"
 ** capture
 #+INCLUDE: "./capture.org"
+** drill
+#+INCLUDE: "./drill.org"
 ** refile
 #+INCLUDE: "./refile.org"
 ** reveal

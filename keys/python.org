@@ -1,0 +1,41 @@
+* python-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; python-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** python
+*** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'python-mode-map
+    :states  '(normal visual insert)
+  
+    "r"      '(run-python                                         :which-key "run"              )
+  
+    "i"      '(python-skeleton-import                             :which-key "import"            )
+    
+    "s"      '(                                                   :which-key "shell"            :ignore t)
+    "sd"     '(python-shell-send-defun                            :which-key "defun"            )
+    "sb"     '(python-shell-send-buffer                           :which-key "buffer"           )
+    "ss"     '(python-shell-send-string                           :which-key "string"           )
+    "sr"     '(python-shell-send-region                           :which-key "region"           )
+    "sm"     '(python-shell-send-statement                        :which-key "statement"        )
+    "sf"     '(python-shell-send-file                             :which-key "file"             )
+    )
+#+end_src
+** shell
+*** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'inferior-python-mode-map
+    :states  '(normal visual insert)
+  
+    "c"      '(comint-clear-buffer                                :which-key "clear"            )
+  
+    )
+#+end_src
+
+

@@ -1,0 +1,28 @@
+* orgmode-drill
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-drill
+  ;;;;
+  ;;
+#+end_src
+** package
+#+begin_src elisp
+  (use-package org-drill
+    :config
+    (setq org-drill-scope 'file)
+    ;; (setq org-drill-scope 'tree)
+    ;; (setq org-drill-scope 'agenda)
+    ;; (setq org-drill-scope 'directory)
+    )
+#+end_src
+** configuration
+#+begin_src elisp
+
+#+end_src
+** INFO
+https://gitlab.com/phillord/org-drill/
+https://orgmode.org/worg/org-contrib/org-drill.html
+*** alternative
+**** fc
+https://github.com/l3kn/org-fc
+https://www.leonrische.me/fc/installation.html

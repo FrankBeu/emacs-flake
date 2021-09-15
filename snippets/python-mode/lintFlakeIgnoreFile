@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lintFlakeIgnoreFile
+# key: lfif
+# --
+# flake8: noqa

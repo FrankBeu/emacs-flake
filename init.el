@@ -1409,12 +1409,33 @@ current buffer's, reload dir-locals."
 (use-package lsp-dart
   :after lsp
   :hook (dart-mode . lsp)
+  :config
+  (when-let (dart-exec (executable-find "dart"))
+    (let ((dart-sdk-path (-> dart-exec
+                             file-chase-links
+                             file-name-directory
+                             directory-file-name
+                             file-name-directory)))
+      (setq lsp-dart-dap-flutter-hot-reload-on-save t)
+      (if use-local-dart
+          (setq lsp-dart-sdk-dir "/home/frank/flutter/bin/cache/dart-sdk"
+              lsp-dart-flutter-sdk-dir "/home/frank/flutter")
+        (setq lsp-dart-sdk-dir dart-sdk-path))))
   )
 
 ;; (with-eval-after-load 'lsp-dart
 ;;   (dap-dart-setup))
 
 (use-package hover)
+
+(use-package dart-server
+  :config
+  (setq
+   ;; dart-server-sdk-path "/path/to/flutter/bin/cache/dart-sdk/"
+   ;; dart-server-sdk-path "/nix/store/hiiapmm5f9qr8si2k182v5rq3ix2q64i-flutter-stable-1.17.5/bin/flutter/bin/cache/dart-sdk"  ;;;; testHardcode: from nix-shell
+        ;; dart-server-enable-analysis-server t
+   /run/current-system/sw/bin/dartanalyzer
+        ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dockerfile
 ;;;;
@@ -1576,7 +1597,12 @@ current buffer's, reload dir-locals."
 ;;;;
 ;;
 
-(use-package python-mode)
+(use-package python-mode
+  :hook (
+         (python-mode         . company-mode)
+         (python-mode         . lsp-deferred)
+         (python-mode         . fb*default-company-backends-h)
+         ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-rust
 ;;;;
@@ -2148,6 +2174,20 @@ The optional argument IGNORED is not used."
   ;; "\n\n** %?\n<%<%Y-%m-%d %a %T>>"
   ;; :empty-lines 1)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-drill
+;;;;
+;;
+
+(use-package org-drill
+  :config
+  (setq org-drill-scope 'file)
+  ;; (setq org-drill-scope 'tree)
+  ;; (setq org-drill-scope 'agenda)
+  ;; (setq org-drill-scope 'directory)
+  )
+
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-refile
 ;;;;
 ;;
@@ -2595,16 +2635,9 @@ The optional argument IGNORED is not used."
 ;;;;
 ;;
 
-(use-package direnv
+(use-package envrc
   :config
-  (direnv-mode)
-  ;; (add-to-list 'warning-suppress-types '(direnv))
-  :custom
-  (setq direnv-always-show-summary t)
-  (setq direnv-always-show-summarydirenv-show-paths-in-summary t)
-  (setq direnv-use-faces-in-summary t)
-  ;; (setq  nil)
-  ;; (setq  t)
+  (envrc-global-mode)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project-magit
@@ -3505,6 +3538,8 @@ The optional argument IGNORED is not used."
   "ex"  '(flycheck-disable-checker                      :which-key "disable"                          )
   "ey"  '(flycheck-copy-errors-as-kill                  :which-key "copy-errors"                      )
 
+  "E"   '(:keymap envrc-command-map :package envrc-mode :which-key "envrc"                            )
+
   "f"   '(                                              :which-key "fast/file"                        :ignore t)
   "fy"  '(fb/yank-buffer-filename                       :which-key "yank-name"                        )
   "ff"  '(counsel-find-file                             :which-key "find"                             )
@@ -4108,6 +4143,18 @@ The optional argument IGNORED is not used."
   "dsr"    '(fb/remove-successor-relation                       :which-key "suc-remove"       )
   "dss"    '(fb/store-as-successor                              :which-key "suc-store-as"     )
 
+  "D"      '(                                                   :which-key "drill"            :ignore t)
+  "DA"     '(org-drill-again                                    :which-key "again"            )
+  "DC"     '(org-drill-cram                                     :which-key "cram"             )
+  "DD"     '(org-drill                                          :which-key "drill"            )
+  "DI"     '(org-drill-relearn-item                             :which-key "relear-item"      )
+  "DL"     '(org-drill-leitner                                  :which-key "leitner"          )
+  "DR"     '(org-drill-resume                                   :which-key "resume"           )
+  "DT"     '(org-drill-tree                                     :which-key "tree"             )
+  "DM "    '(                                                   :which-key "meta"             :ignore t)
+  "DMM"    '(org-drill-merge-buffers                            :which-key "merge-buffer"     )
+  "DMS"    '(org-drill-strip-all-data                           :which-key "strip-data"       )
+
   "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
   "l"      '(org-insert-link                                    :which-key "insert link"      )
 
@@ -4190,3 +4237,32 @@ The optional argument IGNORED is not used."
 (define-key cm-map "\M-b" 'outline-backward-same-level)       ;;; Backward - same level
 
 (global-set-key "\M-o" cm-map)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; python-keybindings
+;;;;
+;;
+
+(fb/local-leader-key
+  :keymaps 'python-mode-map
+  :states  '(normal visual insert)
+
+  "r"      '(run-python                                         :which-key "run"              )
+
+  "i"      '(python-skeleton-import                             :which-key "import"            )
+
+  "s"      '(                                                   :which-key "shell"            :ignore t)
+  "sd"     '(python-shell-send-defun                            :which-key "defun"            )
+  "sb"     '(python-shell-send-buffer                           :which-key "buffer"           )
+  "ss"     '(python-shell-send-string                           :which-key "string"           )
+  "sr"     '(python-shell-send-region                           :which-key "region"           )
+  "sm"     '(python-shell-send-statement                        :which-key "statement"        )
+  "sf"     '(python-shell-send-file                             :which-key "file"             )
+  )
+
+(fb/local-leader-key
+  :keymaps 'inferior-python-mode-map
+  :states  '(normal visual insert)
+
+  "c"      '(comint-clear-buffer                                :which-key "clear"            )
+
+  )

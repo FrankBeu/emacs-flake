@@ -49,3 +49,4 @@
 *** Variable-Fundus
 # org-export-allow-bind-keywords: t
 # org-export-dispatch-use-expert-ui: t
+# org-re-reveal-extra-css: "./additional.css"

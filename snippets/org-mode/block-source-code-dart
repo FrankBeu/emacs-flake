@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-source-code-dart
+#key : bdt
+#contributor : fb
+# --
+#+begin_src dart
+$>$0
+#+end_src

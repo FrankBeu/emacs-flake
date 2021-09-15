@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: lintFlakeIgnoreLineSpecific
+# key: lfils
+# --
+# noqa: E${1:NUMBER}

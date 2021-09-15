@@ -8,7 +8,12 @@
 ** python-mode
 https://gitlab.com/python-mode-devs/python-mode/
 #+begin_src elisp
-  (use-package python-mode)
+  (use-package python-mode
+    :hook (
+           (python-mode         . company-mode)
+           (python-mode         . lsp-deferred)
+           (python-mode         . fb*default-company-backends-h)
+           ))
 #+end_src
 ** TODO dap
 https://emacs-lsp.github.io/dap-mode/page/configuration/#python

@@ -34,6 +34,18 @@ https://emacs-lsp.github.io/lsp-dart/#rundebug-tests
   (use-package lsp-dart
     :after lsp
     :hook (dart-mode . lsp)
+    :config
+    (when-let (dart-exec (executable-find "dart"))
+      (let ((dart-sdk-path (-> dart-exec
+                               file-chase-links
+                               file-name-directory
+                               directory-file-name
+                               file-name-directory)))
+        (setq lsp-dart-dap-flutter-hot-reload-on-save t)
+        (if use-local-dart
+            (setq lsp-dart-sdk-dir "/home/frank/flutter/bin/cache/dart-sdk"
+                lsp-dart-flutter-sdk-dir "/home/frank/flutter")
+          (setq lsp-dart-sdk-dir dart-sdk-path))))
     )
 #+end_src
 ** TODO dap
@@ -48,4 +60,15 @@ run app from desktop without emulator
   (use-package hover)
 #+end_src
 )
+** dart-server
+#+begin_src elisp
+  (use-package dart-server
+    :config
+    (setq
+     ;; dart-server-sdk-path "/path/to/flutter/bin/cache/dart-sdk/"
+     ;; dart-server-sdk-path "/nix/store/hiiapmm5f9qr8si2k182v5rq3ix2q64i-flutter-stable-1.17.5/bin/flutter/bin/cache/dart-sdk"  ;;;; testHardcode: from nix-shell
+          ;; dart-server-enable-analysis-server t
+     /run/current-system/sw/bin/dartanalyzer
+          ))
+#+end_src
 ** INFO

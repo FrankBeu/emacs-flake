@@ -105,6 +105,8 @@
     "ex"  '(flycheck-disable-checker                      :which-key "disable"                          )
     "ey"  '(flycheck-copy-errors-as-kill                  :which-key "copy-errors"                      )
 
+    "E"   '(:keymap envrc-command-map :package envrc-mode :which-key "envrc"                            )
+
     "f"   '(                                              :which-key "fast/file"                        :ignore t)
     "fy"  '(fb/yank-buffer-filename                       :which-key "yank-name"                        )
     "ff"  '(counsel-find-file                             :which-key "find"                             )

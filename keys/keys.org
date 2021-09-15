@@ -1,5 +1,15 @@
 * keys
-!! order matters !!
+** INFO
+*** !! ORDER MATTERS !!
+*** unset keybinding
+#+begin_example elisp
+  (fb/local-leader-key
+    :keymaps 'python-mode-map
+    :states  '(normal visual insert)
+
+    "r"      '(nil    :which-key "run"  )
+    )
+#+end_example
 ** marker
 #+begin_src elisp
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys
@@ -26,3 +36,7 @@
 #+INCLUDE: "./orgmode.org"
 ** outline
 #+INCLUDE: "./outline.org"
+
+
+** python
+#+INCLUDE: "./python.org"
