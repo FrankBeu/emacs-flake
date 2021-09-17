@@ -1604,6 +1604,11 @@ current buffer's, reload dir-locals."
          (python-mode         . fb*default-company-backends-h)
          ))
 
+(use-package yapfify
+  :hook (
+         (python-mode         . yapf-mode)
+         ))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-rust
 ;;;;
 ;;

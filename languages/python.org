@@ -17,5 +17,14 @@ https://gitlab.com/python-mode-devs/python-mode/
 #+end_src
 ** TODO dap
 https://emacs-lsp.github.io/dap-mode/page/configuration/#python
+** yapfify
+https://github.com/JorisE/yapfify
+https://github.com/google/yapf
+#+begin_src elisp
+  (use-package yapfify
+    :hook (
+           (python-mode         . yapf-mode)
+           ))
+#+end_src
 ** INFO
 
