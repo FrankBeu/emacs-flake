@@ -12,30 +12,59 @@
   (fb/local-leader-key
     :keymaps 'python-mode-map
     :states  '(normal visual insert)
-  
-    "r"      '(run-python                                         :which-key "run"              )
-  
-    "i"      '(python-skeleton-import                             :which-key "import"            )
-    
-    "s"      '(                                                   :which-key "shell"            :ignore t)
-    "sd"     '(python-shell-send-defun                            :which-key "defun"            )
-    "sb"     '(python-shell-send-buffer                           :which-key "buffer"           )
-    "ss"     '(python-shell-send-string                           :which-key "string"           )
-    "sr"     '(python-shell-send-region                           :which-key "region"           )
-    "sm"     '(python-shell-send-statement                        :which-key "statement"        )
-    "sf"     '(python-shell-send-file                             :which-key "file"             )
+
+
+    "i"      '(                                                   :which-key "import/indent"    :ignore t)
+    "ii"     '(python-skeleton-import                             :which-key "import"           )
+    "il"     '(python-indent-shift-left                           :which-key "shift-left"       )
+    "ir"     '(python-indent-shift-right                          :which-key "shift-right"      )
+    "id"     '(python-indent-dedent-line                          :which-key "in/de~line"       )
+    "ib"     '(python-indent-dedent-line-backspace                :which-key "backspace"        )
+
+    "n"      '(                                                   :which-key "nav"              :ignore t)
+    "nl"     '(python-nav-backward-up-list                        :which-key "nav-list"         )
+    "nb"     '(python-nav-backward-block                          :which-key "backward-block"   )
+    "nf"     '(python-nav-forward-block                           :which-key "forward-block"    )
+
+    "r"      '(                                                   :which-key "run"              :ignore t)
+    "ro"     '(run-python                                         :which-key "open"             )
+    "rb"     '(python-shell-send-buffer                           :which-key "buffer"           )
+    "rd"     '(python-shell-send-defun                            :which-key "defun"            )
+    "rf"     '(python-shell-send-file                             :which-key "file"             )
+    "rm"     '(python-shell-send-statement                        :which-key "statement"        )
+    "rs"     '(python-shell-switch-to-shell                       :which-key "switch"           )
+    "rr"     '(python-shell-send-region                           :which-key "region"           )
+    "rt"     '(python-shell-send-string                           :which-key "string"           )
+
+    "s"      '(                                                   :which-key "sceleton"         :ignore t)
+    "sc"     '(python-skeleton-class                              :which-key "class"            )
+    "sd"     '(python-skeleton-def                                :which-key "def"              )
+    "sf"     '(python-skeleton-for                                :which-key "for"              )
+    "si"     '(python-skeleton-if                                 :which-key "if"               )
+    "sm"     '(python-skeleton-import                             :which-key "import"           )
+    "st"     '(python-skeleton-try                                :which-key "try"              )
+    "sw"     '(python-skeleton-while                              :which-key "while"            )
+
+    "t"      '(python-pytest-dispatch                             :which-key "test"         )
+
+    ;; ""      '(completion-at-point                            :which-key ""                 )
+    ;; ""      '(imenu                                          :which-key ""                 )
+    ;; ""      '(prog-indent-sexp                               :which-key ""                 )
+    ;; ""      '(python-check                                   :which-key ""                 )
+    ;; ""      '(python-describe-at-point                       :which-key ""                 )
+    ;; ""      '(python-eldoc-at-point                          :which-key ""                 )
+    ;; ""      '(python-mark-defun                              :which-key ""                 )
     )
 #+end_src
+
 ** shell
 *** local-leader
 #+begin_src elisp
   (fb/local-leader-key
     :keymaps 'inferior-python-mode-map
     :states  '(normal visual insert)
-  
+
     "c"      '(comint-clear-buffer                                :which-key "clear"            )
-  
+
     )
 #+end_src
-
-

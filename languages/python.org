@@ -9,22 +9,114 @@
 https://gitlab.com/python-mode-devs/python-mode/
 #+begin_src elisp
   (use-package python-mode
-    :hook (
-           (python-mode         . company-mode)
-           (python-mode         . lsp-deferred)
-           (python-mode         . fb*default-company-backends-h)
-           ))
+    )
 #+end_src
-** TODO dap
+** lsp
+*** INFO
+used packages have to be made available in =/etc/nixos/config/services/emacs/overlayConfig.nix=
+python-ls-server is successor of palantir/python-language-server
+pyright (+ nonfree pylance) is successor of microsoft/python-language-server
+**** config
+https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+*** XOR
+**** python-lsp-server
+https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/
+https://github.com/python-lsp/python-lsp-server
+***** configuration
+#+begin_src elisp
+  (add-hook 'python-mode-hook 'company-mode)
+  (add-hook 'python-mode-hook 'lsp-deferred)
+  (add-hook 'python-mode-hook 'fb*default-company-backends-h)
+  (add-hook 'python-mode-hook (lambda ()
+                                (lsp-register-custom-settings
+                                 '(
+                                   ("pyls.plugins.pyls_black.enabled" t t)
+                                   ("pyls.plugins.pyls_isort.enabled" t t)
+                                   ;; ("pyls.plugins.pyls_mypy.enabled" t t)
+                                   ;; ("pyls.plugins.pyls_mypy.live_mode" nil t)
+
+                                   ("pyls.plugins.flake8.enabled" t t)
+                                   ;;;; Disable these as they're duplicated by flake8
+                                   ("pyls.plugins.mccabe.enabled" nil t)
+                                   ("pyls.plugins.pycodestyle.enabled" nil t)
+                                   ("pyls.plugins.pyflakes.enabled" nil t)
+                                   )
+                                 )))
+#+end_src
+**** pyright
+https://github.com/emacs-lsp/lsp-pyright
+~gotoDefinition~ only shows stubs
+***** configuration
+#+begin_src elisp :tangle no
+  (use-package lsp-pyright
+    :hook (
+           (python-mode . company-mode)
+           (python-mode . (lambda () (require 'lsp-pyright) (lsp-deferred)))
+           (python-mode . fb*default-company-backends-h)
+           )
+    ;; :config (setq lsp-pyright-use-library-code-for-types t)
+    )
+#+end_src
+** dap
 https://emacs-lsp.github.io/dap-mode/page/configuration/#python
-** yapfify
+#+begin_src elisp
+  (use-package dap-python
+    ;; :after dap
+    :custom (dap-python-debugger 'debugpy)
+    )
+#+end_src
+** formatting
+*** blacken
+**** XOR
+***** blacken
+https://github.com/pythonic-emacs/blacken
+https://github.com/psf/black
+#+begin_src elisp
+  (use-package blacken
+    :hook (
+           (python-mode . blacken-mode)
+           )
+    :config (setq
+             blacken-only-if-project-is-blackened t  ;;;; only blacken if pyproject.toml contains [tool.black]
+             blacken-allow-py36                   t  ;;;; Allow using Python 3.6-only syntax on all input files.
+             blacken-line-length               80 ;;;; Max line length enforced by blacken.
+             ;; blacken-skip-string-normalization    ;;;; Don't normalize string quotes or prefixes.
+             ;; blacken-fast-unsafe                  ;;;; Skips temporary sanity checks.
+             )
+    )
+#+end_src
+***** ALT UNUSED python-black
+#+begin_src elisp :tangle no
+  (use-package python-black
+    :demand t
+    :after python
+    :hook (python-mode . python-black-on-save-mode-enable-dwim)
+    )
+#+end_src
+*** UNUSED yapfify
 https://github.com/JorisE/yapfify
 https://github.com/google/yapf
-#+begin_src elisp
+#+begin_src elisp :tangle no
   (use-package yapfify
     :hook (
-           (python-mode         . yapf-mode)
+           (python-mode . yapf-mode)
            ))
 #+end_src
+** isort
+#+begin_src elisp
+  (use-package py-isort
+    :after python
+    :hook (
+           (before-save . py-isort-before-save)
+           ))
+#+end_src
+** pytest
+https://github.com/wbolster/emacs-python-pytest
+ needs a projectile-project, to find test and executable from direnv
+#+begin_src elisp
+  (use-package python-pytest
+    :after python
+    )
+#+end_src
 ** INFO
-
+https://www.mattduck.com/lsp-python-getting-started.html

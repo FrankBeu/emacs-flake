@@ -1451,13 +1451,13 @@ current buffer's, reload dir-locals."
   :hook (
          (go-mode         . company-mode)
          (go-mode         . lsp-deferred)
-         (go-mode         . fb/lsp-go-install-save-hooks)
+         (go-mode         . fb|lsp-go-install-save-hooks)
          (go-mode         . fb*default-company-backends-h)
          (go-dot-mod-mode . fb*default-company-backends-h)
          )
   )
 
-(defun fb/lsp-go-install-save-hooks ()
+(defun fb|lsp-go-install-save-hooks ()
   (add-hook 'before-save-hook #'lsp-format-buffer t t)
   (add-hook 'before-save-hook #'lsp-organize-imports t t))
 
@@ -1598,16 +1598,54 @@ current buffer's, reload dir-locals."
 ;;
 
 (use-package python-mode
+  )
+
+(add-hook 'python-mode-hook 'company-mode)
+(add-hook 'python-mode-hook 'lsp-deferred)
+(add-hook 'python-mode-hook 'fb*default-company-backends-h)
+(add-hook 'python-mode-hook (lambda ()
+                              (lsp-register-custom-settings
+                               '(
+                                 ("pyls.plugins.pyls_black.enabled" t t)
+                                 ("pyls.plugins.pyls_isort.enabled" t t)
+                                 ("pyls.plugins.pyls_mypy.enabled" t t)
+                                 ("pyls.plugins.pyls_mypy.live_mode" nil t)
+
+                                 ("pyls.plugins.flake8.enabled" t t)
+                                 ;;;; Disable these as they're duplicated by flake8
+                                 ("pyls.plugins.mccabe.enabled" nil t)
+                                 ("pyls.plugins.pycodestyle.enabled" nil t)
+                                 ("pyls.plugins.pyflakes.enabled" nil t)
+                                 )
+                               )))
+
+(use-package dap-python
+  ;; :after dap
+  :custom (dap-python-debugger 'debugpy)
+  )
+
+(use-package blacken
   :hook (
-         (python-mode         . company-mode)
-         (python-mode         . lsp-deferred)
-         (python-mode         . fb*default-company-backends-h)
+         (python-mode . blacken-mode)
+         )
+  :config (setq
+           blacken-only-if-project-is-blackened t  ;;;; only blacken if pyproject.toml contains [tool.black]
+           blacken-allow-py36                   t  ;;;; Allow using Python 3.6-only syntax on all input files.
+           blacken-line-length               80 ;;;; Max line length enforced by blacken.
+           ;; blacken-skip-string-normalization    ;;;; Don't normalize string quotes or prefixes.
+           ;; blacken-fast-unsafe                  ;;;; Skips temporary sanity checks.
+           )
+  )
+
+(use-package py-isort
+  :after python
+  :hook (
+         (before-save . py-isort-before-save)
          ))
 
-(use-package yapfify
-  :hook (
-         (python-mode         . yapf-mode)
-         ))
+(use-package python-pytest
+  :after python
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-rust
 ;;;;
@@ -4251,17 +4289,47 @@ The optional argument IGNORED is not used."
   :keymaps 'python-mode-map
   :states  '(normal visual insert)
 
-  "r"      '(run-python                                         :which-key "run"              )
 
-  "i"      '(python-skeleton-import                             :which-key "import"            )
+  "i"      '(                                                   :which-key "import/indent"    :ignore t)
+  "ii"     '(python-skeleton-import                             :which-key "import"           )
+  "il"     '(python-indent-shift-left                           :which-key "shift-left"       )
+  "ir"     '(python-indent-shift-right                          :which-key "shift-right"      )
+  "id"     '(python-indent-dedent-line                          :which-key "in/de~line"       )
+  "ib"     '(python-indent-dedent-line-backspace                :which-key "backspace"        )
 
-  "s"      '(                                                   :which-key "shell"            :ignore t)
-  "sd"     '(python-shell-send-defun                            :which-key "defun"            )
-  "sb"     '(python-shell-send-buffer                           :which-key "buffer"           )
-  "ss"     '(python-shell-send-string                           :which-key "string"           )
-  "sr"     '(python-shell-send-region                           :which-key "region"           )
-  "sm"     '(python-shell-send-statement                        :which-key "statement"        )
-  "sf"     '(python-shell-send-file                             :which-key "file"             )
+  "n"      '(                                                   :which-key "nav"              :ignore t)
+  "nl"     '(python-nav-backward-up-list                        :which-key "nav-list"         )
+  "nb"     '(python-nav-backward-block                          :which-key "backward-block"   )
+  "nf"     '(python-nav-forward-block                           :which-key "forward-block"    )
+
+  "r"      '(                                                   :which-key "run"              :ignore t)
+  "ro"     '(run-python                                         :which-key "open"             )
+  "rb"     '(python-shell-send-buffer                           :which-key "buffer"           )
+  "rd"     '(python-shell-send-defun                            :which-key "defun"            )
+  "rf"     '(python-shell-send-file                             :which-key "file"             )
+  "rm"     '(python-shell-send-statement                        :which-key "statement"        )
+  "rs"     '(python-shell-switch-to-shell                       :which-key "switch"           )
+  "rr"     '(python-shell-send-region                           :which-key "region"           )
+  "rt"     '(python-shell-send-string                           :which-key "string"           )
+
+  "s"      '(                                                   :which-key "sceleton"         :ignore t)
+  "sc"     '(python-skeleton-class                              :which-key "class"            )
+  "sd"     '(python-skeleton-def                                :which-key "def"              )
+  "sf"     '(python-skeleton-for                                :which-key "for"              )
+  "si"     '(python-skeleton-if                                 :which-key "if"               )
+  "sm"     '(python-skeleton-import                             :which-key "import"           )
+  "st"     '(python-skeleton-try                                :which-key "try"              )
+  "sw"     '(python-skeleton-while                              :which-key "while"            )
+
+  "t"      '(python-pytest-dispatch                             :which-key "test"         )
+
+  ;; ""      '(completion-at-point                            :which-key ""                 )
+  ;; ""      '(imenu                                          :which-key ""                 )
+  ;; ""      '(prog-indent-sexp                               :which-key ""                 )
+  ;; ""      '(python-check                                   :which-key ""                 )
+  ;; ""      '(python-describe-at-point                       :which-key ""                 )
+  ;; ""      '(python-eldoc-at-point                          :which-key ""                 )
+  ;; ""      '(python-mark-defun                              :which-key ""                 )
   )
 
 (fb/local-leader-key
