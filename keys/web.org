@@ -1,0 +1,100 @@
+* web-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; web-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** web
+*** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'web-mode-map
+    :states  '(normal visual insert)
+
+
+    "a"      '(                                                   :which-key "attribute"              :ignore t)
+    "ab"     '(web-mode-attribute-beginning                       :which-key "beginning"              )
+    "ae"     '(web-mode-attribute-end                             :which-key "end"                    )
+    "ai"     '(web-mode-attribute-insert                          :which-key "insert"                 )
+    "ak"     '(web-mode-attribute-kill                            :which-key "kill"                   )
+    "an"     '(web-mode-attribute-next                            :which-key "next"                   )
+    "ap"     '(web-mode-attribute-previous                        :which-key "previous"               )
+    "as"     '(web-mode-attribute-select                          :which-key "select"                 )
+    "at"     '(web-mode-attribute-transpose                       :which-key "transpose"              )
+
+    "b"      '(                                                   :which-key "block"                  :ignore t)
+    "bb"     '(web-mode-block-beginning                           :which-key "beginning"              )
+    "bc"     '(web-mode-block-close                               :which-key "close"                  )
+    "be"     '(web-mode-block-end                                 :which-key "end"                    )
+    "bk"     '(web-mode-block-kill                                :which-key "kill"                   )
+    "bn"     '(web-mode-block-next                                :which-key "next"                   )
+    "bp"     '(web-mode-block-previous                            :which-key "previous"               )
+    "bs"     '(web-mode-block-select                              :which-key "select"                 )
+
+    "c"      '(web-mode-comment-or-uncomment                      :which-key "{un}comment"            )
+
+    "d"      '(                                                   :which-key "dom"                    :ignore t)
+    "da"     '(web-mode-dom-apostrophes-replace                   :which-key "apostrophes-replace"    )
+    "dd"     '(web-mode-dom-errors-show                           :which-key "errors-show"            )
+    "de"     '(web-mode-dom-entities-replace                      :which-key "entities-replace"       )
+    "dn"     '(web-mode-dom-normalize                             :which-key "normalize"              )
+    "dq"     '(web-mode-dom-quotes-replace                        :which-key "quotes-replace"         )
+    "dt"     '(web-mode-dom-traverse                              :which-key "traverse"               )
+    "dx"     '(web-mode-dom-xpath                                 :which-key "xpath"                  )
+
+    "e"      '(                                                   :which-key "element"                :ignore t)
+    "e+"     '(web-mode-element-extract                           :which-key "extract"                )
+    "e-"     '(web-mode-element-contract                          :which-key "contract"               )
+    "e/"     '(web-mode-element-close                             :which-key "close"                  )
+    "eI"     '(web-mode-element-insert-at-point                   :which-key "insert-at-point"        )
+    "ea"     '(web-mode-element-content-select                    :which-key "content-select"         )
+    "eb"     '(web-mode-element-beginning                         :which-key "beginning"              )
+    "ec"     '(web-mode-element-clone                             :which-key "clone"                  )
+    "ed"     '(web-mode-element-child                             :which-key "child"                  )
+    "ee"     '(web-mode-element-end                               :which-key "end"                    )
+    "ef"     '(web-mode-element-children-fold-or-unfold           :which-key "children-fold-or-unfold")
+    "ei"     '(web-mode-element-insert                            :which-key "insert"                 )
+    "ek"     '(web-mode-element-kill                              :which-key "kill"                   )
+    "em"     '(web-mode-element-mute-blanks                       :which-key "mute-blanks"            )
+    "en"     '(web-mode-element-next                              :which-key "next"                   )
+    "ep"     '(web-mode-element-previous                          :which-key "previous"               )
+    "er"     '(web-mode-element-rename                            :which-key "rename"                 )
+    "es"     '(web-mode-element-select                            :which-key "select"                 )
+    "et"     '(web-mode-element-transpose                         :which-key "transpose"              )
+    "eu"     '(web-mode-element-parent                            :which-key "parent"                 )
+    "ev"     '(web-mode-element-vanish                            :which-key "vanish"                 )
+    "ew"     '(web-mode-element-wrap                              :which-key "wrap"                   )
+
+    "f"      '(web-mode-fold-or-unfold                            :which-key "fold-or-unfold"         )
+
+    "h"      '(web-mode-buffer-fontify                            :which-key "buffer-fontify"         )
+
+    "i"      '(prog-indent-sexp                                   :which-key "prog-indent-sexp"       )
+
+    "j"      '(web-mode-jshint                                    :which-key "jshint"                 )
+
+    "l"      '(web-mode-file-link                                 :which-key "file-link"              )
+
+    "n"      '(web-mode-navigate                                  :which-key "navigate"               )
+
+    "r"      '(web-mode-reload                                    :which-key "reload"                 )
+
+    "s"      '(web-mode-snippet-insert                            :which-key "snippet-insert"         )
+
+    "t"      '(                                                   :which-key "tag"                    :ignore t)
+    "ta"     '(web-mode-tag-attributes-sort                       :which-key "attributes-sort"        )
+    "tb"     '(web-mode-tag-beginning                             :which-key "beginning"              )
+    "te"     '(web-mode-tag-end                                   :which-key "end"                    )
+    "tm"     '(web-mode-tag-match                                 :which-key "match"                  )
+    "tn"     '(web-mode-tag-next                                  :which-key "next"                   )
+    "tp"     '(web-mode-tag-previous                              :which-key "previous"               )
+    "ts"     '(web-mode-tag-select                                :which-key "select"                 )
+
+    "w"      '(web-mode-whitespaces-show                          :which-key "whitespaces-show"       )
+
+    "RET"    '(web-mode-mark-and-expand                           :which-key "mark-expand"            )
+    "TAB"    '(web-mode-buffer-indent                             :which-key "indent"                 )
+    )
+#+end_src

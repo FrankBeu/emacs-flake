@@ -23,7 +23,7 @@ https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
 https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/
 https://github.com/python-lsp/python-lsp-server
 ***** configuration
-#+begin_src elisp
+#+begin_src elisp :tangle no
   (add-hook 'python-mode-hook 'company-mode)
   (add-hook 'python-mode-hook 'lsp-deferred)
   (add-hook 'python-mode-hook 'fb*default-company-backends-h)
@@ -43,12 +43,47 @@ https://github.com/python-lsp/python-lsp-server
                                    )
                                  )))
 #+end_src
+***** isort
+pyright has (lsp-pyright-disable-organize-imports nil)
+#+begin_src elisp :tangle no
+  (use-package py-isort
+    :after python
+    :hook (
+           (before-save . py-isort-before-save)
+           ))
+#+end_src
 **** pyright
 https://github.com/emacs-lsp/lsp-pyright
 ~gotoDefinition~ only shows stubs
+imports need an entry in =pyproject.toml=
+#+begin_src toml
+[tool.pyright]
+include = ["FOLDER"]
+executionEnvironments = [
+  { root = "FOLDER" }
+]
+#+end_src
 ***** configuration
-#+begin_src elisp :tangle no
+https://github.com/microsoft/pyright/blob/main/docs/settings.md
+#+begin_src elisp
   (use-package lsp-pyright
+    :custom
+    (lsp-pyright-auto-import-completions nil)
+    :config
+    (lsp-pyright-auto-search-paths t)
+    ;; (lsp-pyright-diagnostic-mode "openFilesOnly")
+    (lsp-pyright-diagnostic-mode "workspace")
+    (lsp-pyright-disable-language-services nil)
+    (lsp-pyright-disable-organize-imports nil)
+    ;; (lsp-pyright-extra-paths)
+    ;; (lsp-pyright-log-level)
+    (lsp-pyright-typechecking-mode "off")
+    ;; (lsp-pyright-typechecking-mode "basic")
+    ;; (lsp-pyright-typechecking-mode "strict")
+    ;; (lsp-pyright-typeshed-paths)
+    (lsp-pyright-use-library-code-for-types nil)
+    ;; (lsp-pyright-venv-path)
+
     :hook (
            (python-mode . company-mode)
            (python-mode . (lambda () (require 'lsp-pyright) (lsp-deferred)))
@@ -102,14 +137,6 @@ https://github.com/google/yapf
            (python-mode . yapf-mode)
            ))
 #+end_src
-** isort
-#+begin_src elisp
-  (use-package py-isort
-    :after python
-    :hook (
-           (before-save . py-isort-before-save)
-           ))
-#+end_src
 ** pytest
 https://github.com/wbolster/emacs-python-pytest
  needs a projectile-project, to find test and executable from direnv
@@ -117,6 +144,11 @@ https://github.com/wbolster/emacs-python-pytest
   (use-package python-pytest
     :after python
     )
+#+end_src
+*** TODO executable installed globally - fix
+** vyper
+#+begin_src elisp
+  (use-package vyper-mode)
 #+end_src
 ** INFO
 https://www.mattduck.com/lsp-python-getting-started.html

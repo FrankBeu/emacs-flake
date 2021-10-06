@@ -14,8 +14,9 @@
                 lsp-deferred
                 ))
     (progn
+      (add-hook 'css-mode-hook   fn)
       (add-hook 'mhtml-mode-hook fn)
-      (add-hook 'css-mode-hook fn)
+      (add-hook 'web-mode-hook   fn)
       ))
 #+end_src
 ** sass
@@ -32,13 +33,21 @@ https://github.com/purcell/mmm-mode
 ** web-mode
 https://github.com/fxbois/web-mode
 #+begin_src elisp
-  (use-package web-mode)
+  (use-package web-mode
+    :mode "\\.html\\'"
+    )
 #+end_src
-*** TODO go~/helm~templates
+** TODO go~/helm~templates
 =M-x= ~web-mode-set-engine~ =RET= go =RET=
-**** https://web-mode.org/
+*** https://web-mode.org/
 Associate an engine
-**** polyMode
+*** polyMode
 https://www.masteringemacs.org/article/polymode-multiple-major-modes-how-to-use-sql-python-in-one-buffer
-**** mutli-web ??
+*** mutli-web ??
 https://github.com/fgallina/multi-web-mode
+** functions
+*** TODO select element-whole-lines
+:LOGBOOK:
+- State "TODO"       from              [2021-10-02 Sat 14:44]
+:END:
+=SPC-k-e-s= + ~evil-visual-line~

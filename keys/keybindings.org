@@ -111,6 +111,11 @@ if the keybinding defined is shadowed by an evil-keybinding try
   (evil-set-initial-state 'messages-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal)
 #+end_src
+*** digraphs
+after *r* use  =C-K=
+everywhere else digraphs are bound to =M-K=
+because company completion will conflict with =C-K=
+[[*remap interfering insert-digraph][remap interfering insert-digraph]]
 ** ESC
 on prompts use:
 =ESC= like =C-g=
@@ -183,6 +188,7 @@ on prompts use:
    "C-j" 'nil
    "C-j" 'company-indent-or-complete-common
    "C-k" 'nil
+   "C-K" 'nil
    "C-k" 'company-select-previous
    "C-l" 'nil
    "C-l" 'company-select-next
@@ -193,7 +199,17 @@ on prompts use:
    "C-:" 'yas-next-field-or-maybe-expand
    )
 #+end_src
-*** company-active
+**** remap interfering insert-digraph
+=C-k= -> =M-k=
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(evil-insert-state-map)
+   ;;;; :states  '(normal visual) WILL not work with states
+   "C-k" 'nil
+   "M-k" 'evil-insert-digraph
+   )
+#+end_src
+** company-active
 #+begin_src elisp
   (general-define-key
    :keymaps '(
@@ -478,6 +494,16 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
    "TAB"   'origami-recursively-toggle-node
    )
 #+end_src
+** solidity
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'solidity-mode-map
+    :states  '(normal visual insert)
+
+    "g"      '(solidity-estimate-gas-at-point :which-key "estimate-gas" )
+    )
+#+end_src
+#+end_src
 ** swiper
 #+begin_src elisp
   (general-define-key
@@ -575,4 +601,3 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
 #+end_src
 xref--button-map
 xref--xref-buffer-mode-map
-

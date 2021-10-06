@@ -40,3 +40,6 @@
 
 ** python
 #+INCLUDE: "./python.org"
+
+** web
+#+INCLUDE: "./web.org"

@@ -1,0 +1,38 @@
+* languages-solidity
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-solidity
+  ;;;;
+  ;;
+#+end_src
+** solidity-mode
+#+begin_src elisp
+  (use-package solidity-mode
+    :hook
+           (solidity-mode         . fb*solidity-company-backends-h)
+    )
+#+end_src
+** company
+#+begin_src elisp
+(use-package company-solidity)
+#+end_src
+#+begin_src elisp
+    (defun fb*solidity-company-backends-h ()
+      "set solidity company-backends"
+      (set (make-local-variable 'company-backends)
+           '((company-solidity company-files company-capf company-yasnippet)
+             (company-dabbrev-code company-keywords)
+              company-dabbrev
+              )))
+#+end_src
+** flycheck
+#+begin_src elisp
+    (use-package solidity-flycheck
+      :config
+      (setq solidity-flycheck-solc-checker-active t
+            ;; solidity-flycheck-solium-checker-active t
+            )
+      )
+#+end_src
+** INFO
+https://github.com/ethereum/emacs-solidity

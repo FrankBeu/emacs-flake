@@ -185,6 +185,7 @@
 
     "o"   '(                                              :which-key "org"                              :ignore t)
     "oa"  '(org-agenda                                    :which-key "agenda"                           )
+    "od"  '(evil-ex-show-digraphs                         :which-key "digraphs"                         )
     "oc"  '(org-capture                                   :which-key "capture"                          )
     "ol"  '(org-store-link                                :which-key "store-link"                       )
     "ok"  '(org-open-at-point-global                      :which-key "follow-link"                      )

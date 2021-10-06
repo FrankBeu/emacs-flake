@@ -1600,24 +1600,31 @@ current buffer's, reload dir-locals."
 (use-package python-mode
   )
 
-(add-hook 'python-mode-hook 'company-mode)
-(add-hook 'python-mode-hook 'lsp-deferred)
-(add-hook 'python-mode-hook 'fb*default-company-backends-h)
-(add-hook 'python-mode-hook (lambda ()
-                              (lsp-register-custom-settings
-                               '(
-                                 ("pyls.plugins.pyls_black.enabled" t t)
-                                 ("pyls.plugins.pyls_isort.enabled" t t)
-                                 ("pyls.plugins.pyls_mypy.enabled" t t)
-                                 ("pyls.plugins.pyls_mypy.live_mode" nil t)
+(use-package lsp-pyright
+  :custom
+  (lsp-pyright-auto-import-completions nil)
+  :config
+  (lsp-pyright-auto-search-paths t)
+  ;; (lsp-pyright-diagnostic-mode "openFilesOnly")
+  (lsp-pyright-diagnostic-mode "workspace")
+  (lsp-pyright-disable-language-services nil)
+  (lsp-pyright-disable-organize-imports nil)
+  ;; (lsp-pyright-extra-paths)
+  ;; (lsp-pyright-log-level)
+  (lsp-pyright-typechecking-mode "off")
+  ;; (lsp-pyright-typechecking-mode "basic")
+  ;; (lsp-pyright-typechecking-mode "strict")
+  ;; (lsp-pyright-typeshed-paths)
+  (lsp-pyright-use-library-code-for-types nil)
+  ;; (lsp-pyright-venv-path)
 
-                                 ("pyls.plugins.flake8.enabled" t t)
-                                 ;;;; Disable these as they're duplicated by flake8
-                                 ("pyls.plugins.mccabe.enabled" nil t)
-                                 ("pyls.plugins.pycodestyle.enabled" nil t)
-                                 ("pyls.plugins.pyflakes.enabled" nil t)
-                                 )
-                               )))
+  :hook (
+         (python-mode . company-mode)
+         (python-mode . (lambda () (require 'lsp-pyright) (lsp-deferred)))
+         (python-mode . fb*default-company-backends-h)
+         )
+  ;; :config (setq lsp-pyright-use-library-code-for-types t)
+  )
 
 (use-package dap-python
   ;; :after dap
@@ -1637,21 +1644,43 @@ current buffer's, reload dir-locals."
            )
   )
 
-(use-package py-isort
-  :after python
-  :hook (
-         (before-save . py-isort-before-save)
-         ))
-
 (use-package python-pytest
   :after python
   )
+
+(use-package vyper-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-rust
 ;;;;
 ;;
 
 (use-package rust-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-solidity
+;;;;
+;;
+
+(use-package solidity-mode
+  :hook
+         (solidity-mode         . fb*solidity-company-backends-h)
+  )
+
+(use-package company-solidity)
+
+(defun fb*solidity-company-backends-h ()
+  "set solidity company-backends"
+  (set (make-local-variable 'company-backends)
+       '((company-solidity company-files company-capf company-yasnippet)
+         (company-dabbrev-code company-keywords)
+          company-dabbrev
+          )))
+
+(use-package solidity-flycheck
+  :config
+  (setq solidity-flycheck-solc-checker-active t
+        ;; solidity-flycheck-solium-checker-active t
+        )
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-swift
 ;;;;
@@ -1683,13 +1712,16 @@ current buffer's, reload dir-locals."
               lsp-deferred
               ))
   (progn
+    (add-hook 'css-mode-hook   fn)
     (add-hook 'mhtml-mode-hook fn)
-    (add-hook 'css-mode-hook fn)
+    (add-hook 'web-mode-hook   fn)
     ))
 
 (use-package sass-mode)
 
-(use-package web-mode)
+(use-package web-mode
+  :mode "\\.html\\'"
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; modeline
 ;;;;
@@ -3163,6 +3195,7 @@ The optional argument IGNORED is not used."
  "C-j" 'nil
  "C-j" 'company-indent-or-complete-common
  "C-k" 'nil
+ "C-K" 'nil
  "C-k" 'company-select-previous
  "C-l" 'nil
  "C-l" 'company-select-next
@@ -3171,6 +3204,13 @@ The optional argument IGNORED is not used."
 
  "C-J" 'yas-prev-field
  "C-:" 'yas-next-field-or-maybe-expand
+ )
+
+(general-define-key
+ :keymaps '(evil-insert-state-map)
+ ;;;; :states  '(normal visual) WILL not work with states
+ "C-k" 'nil
+ "M-k" 'evil-insert-digraph
  )
 
 (general-define-key
@@ -3410,6 +3450,13 @@ The optional argument IGNORED is not used."
             )
  "TAB"   'origami-recursively-toggle-node
  )
+
+(fb/local-leader-key
+  :keymaps 'solidity-mode-map
+  :states  '(normal visual insert)
+
+  "g"      '(solidity-estimate-gas-at-point :which-key "estimate-gas" )
+  )
 
 (general-define-key
  "C-s" 'swiper
@@ -3661,6 +3708,7 @@ The optional argument IGNORED is not used."
 
   "o"   '(                                              :which-key "org"                              :ignore t)
   "oa"  '(org-agenda                                    :which-key "agenda"                           )
+  "od"  '(evil-ex-show-digraphs                         :which-key "digraphs"                         )
   "oc"  '(org-capture                                   :which-key "capture"                          )
   "ol"  '(org-store-link                                :which-key "store-link"                       )
   "ok"  '(org-open-at-point-global                      :which-key "follow-link"                      )
@@ -4338,4 +4386,133 @@ The optional argument IGNORED is not used."
 
   "c"      '(comint-clear-buffer                                :which-key "clear"            )
 
+  "pn"     '(comint-next-prompt                                 :which-key "next"             )
+  "pp"     '(comint-previous-prompt                             :which-key "previous"         )
+
+  ;; ""      '(backward-kill-word                                 :which-key ""        )
+  ;; ""      '(comint-accumulate                                  :which-key ""        )
+  ;; ""      '(comint-bol-or-process-mark                         :which-key ""        )
+  ;; ""      '(comint-copy-old-input                              :which-key ""        )
+  ;; ""      '(comint-delchar-or-maybe-eof                        :which-key ""        )
+  ;; ""      '(comint-delete-output                               :which-key ""        )
+  ;; ""      '(comint-dynamic-list-input-ring                     :which-key ""        )
+  ;; ""      '(comint-get-next-from-history                       :which-key ""        )
+  ;; ""      '(comint-history-isearch-backward-regexp             :which-key ""        )
+  ;; ""      '(comint-insert-input                                :which-key ""        )
+  ;; ""      '(comint-insert-previous-argument                    :which-key ""        )
+  ;; ""      '(comint-interrupt-subjob                            :which-key ""        )
+  ;; ""      '(comint-kill-input                                  :which-key ""        )
+  ;; ""      '(comint-next-input                                  :which-key ""        )
+  ;; ""      '(comint-next-matching-input-from-input              :which-key ""        )
+  ;; ""      '(comint-previous-input                              :which-key ""        )
+  ;; ""      '(comint-previous-matching-input-from-input          :which-key ""        )
+  ;; ""      '(comint-quit-subjob                                 :which-key ""        )
+  ;; ""      '(comint-send-eof                                    :which-key ""        )
+  ;; ""      '(comint-send-input                                  :which-key ""        )
+  ;; ""      '(comint-show-maximum-output                         :which-key ""        )
+  ;; ""      '(comint-show-output                                 :which-key ""        )
+  ;; ""      '(comint-stop-subjob                                 :which-key ""        )
+  ;; ""      '(comint-write-output                                :which-key ""        )
+  ;; ""      '(delete-forward-char                                :which-key ""        )
+  ;; ""      '(evil-scroll-down                                   :which-key ""        )
+  ;; ""      '(python-shell-completion-complete-or-indent         :which-key ""        )
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; web-keybindings
+;;;;
+;;
+
+(fb/local-leader-key
+  :keymaps 'web-mode-map
+  :states  '(normal visual insert)
+
+
+  "a"      '(                                                   :which-key "attribute"              :ignore t)
+  "ab"     '(web-mode-attribute-beginning                       :which-key "beginning"              )
+  "ae"     '(web-mode-attribute-end                             :which-key "end"                    )
+  "ai"     '(web-mode-attribute-insert                          :which-key "insert"                 )
+  "ak"     '(web-mode-attribute-kill                            :which-key "kill"                   )
+  "an"     '(web-mode-attribute-next                            :which-key "next"                   )
+  "ap"     '(web-mode-attribute-previous                        :which-key "previous"               )
+  "as"     '(web-mode-attribute-select                          :which-key "select"                 )
+  "at"     '(web-mode-attribute-transpose                       :which-key "transpose"              )
+
+  "b"      '(                                                   :which-key "block"                  :ignore t)
+  "bb"     '(web-mode-block-beginning                           :which-key "beginning"              )
+  "bc"     '(web-mode-block-close                               :which-key "close"                  )
+  "be"     '(web-mode-block-end                                 :which-key "end"                    )
+  "bk"     '(web-mode-block-kill                                :which-key "kill"                   )
+  "bn"     '(web-mode-block-next                                :which-key "next"                   )
+  "bp"     '(web-mode-block-previous                            :which-key "previous"               )
+  "bs"     '(web-mode-block-select                              :which-key "select"                 )
+
+  "c"      '(web-mode-comment-or-uncomment                      :which-key "{un}comment"            )
+
+  "d"      '(                                                   :which-key "dom"                    :ignore t)
+  "da"     '(web-mode-dom-apostrophes-replace                   :which-key "apostrophes-replace"    )
+  "dd"     '(web-mode-dom-errors-show                           :which-key "errors-show"            )
+  "de"     '(web-mode-dom-entities-replace                      :which-key "entities-replace"       )
+  "dn"     '(web-mode-dom-normalize                             :which-key "normalize"              )
+  "dq"     '(web-mode-dom-quotes-replace                        :which-key "quotes-replace"         )
+  "dt"     '(web-mode-dom-traverse                              :which-key "traverse"               )
+  "dx"     '(web-mode-dom-xpath                                 :which-key "xpath"                  )
+
+  "e"      '(                                                   :which-key "element"                :ignore t)
+  "e+"     '(web-mode-element-extract                           :which-key "extract"                )
+  "e-"     '(web-mode-element-contract                          :which-key "contract"               )
+  "e/"     '(web-mode-element-close                             :which-key "close"                  )
+  "eI"     '(web-mode-element-insert-at-point                   :which-key "insert-at-point"        )
+  "ea"     '(web-mode-element-content-select                    :which-key "content-select"         )
+  "eb"     '(web-mode-element-beginning                         :which-key "beginning"              )
+  "ec"     '(web-mode-element-clone                             :which-key "clone"                  )
+  "ed"     '(web-mode-element-child                             :which-key "child"                  )
+  "ee"     '(web-mode-element-end                               :which-key "end"                    )
+  "ef"     '(web-mode-element-children-fold-or-unfold           :which-key "children-fold-or-unfold")
+  "ei"     '(web-mode-element-insert                            :which-key "insert"                 )
+  "ek"     '(web-mode-element-kill                              :which-key "kill"                   )
+  "em"     '(web-mode-element-mute-blanks                       :which-key "mute-blanks"            )
+  "en"     '(web-mode-element-next                              :which-key "next"                   )
+  "ep"     '(web-mode-element-previous                          :which-key "previous"               )
+  "er"     '(web-mode-element-rename                            :which-key "rename"                 )
+  "es"     '(web-mode-element-select                            :which-key "select"                 )
+  "et"     '(web-mode-element-transpose                         :which-key "transpose"              )
+  "eu"     '(web-mode-element-parent                            :which-key "parent"                 )
+  "ev"     '(web-mode-element-vanish                            :which-key "vanish"                 )
+  "ew"     '(web-mode-element-wrap                              :which-key "wrap"                   )
+
+  "f"      '(web-mode-fold-or-unfold                            :which-key "fold-or-unfold"         )
+
+  "h"      '(web-mode-buffer-fontify                            :which-key "buffer-fontify"         )
+
+  "i"      '(prog-indent-sexp                                   :which-key "prog-indent-sexp"       )
+
+  "j"      '(web-mode-jshint                                    :which-key "jshint"                 )
+
+  "l"      '(web-mode-file-link                                 :which-key "file-link"              )
+
+  "n"      '(web-mode-navigate                                  :which-key "navigate"               )
+
+  "r"      '(web-mode-reload                                    :which-key "reload"                 )
+
+  "s"      '(web-mode-snippet-insert                            :which-key "snippet-insert"         )
+
+  "t"      '(                                                   :which-key "tag"                    :ignore t)
+  "ta"     '(web-mode-tag-attributes-sort                       :which-key "attributes-sort"        )
+  "tb"     '(web-mode-tag-beginning                             :which-key "beginning"              )
+  "te"     '(web-mode-tag-end                                   :which-key "end"                    )
+  "tm"     '(web-mode-tag-match                                 :which-key "match"                  )
+  "tn"     '(web-mode-tag-next                                  :which-key "next"                   )
+  "tp"     '(web-mode-tag-previous                              :which-key "previous"               )
+  "ts"     '(web-mode-tag-select                                :which-key "select"                 )
+
+  "w"      '(web-mode-whitespaces-show                          :which-key "whitespaces-show"       )
+
+  "RET"    '(web-mode-mark-and-expand                           :which-key "mark-expand"            )
+  "TAB"    '(web-mode-buffer-indent                             :which-key "indent"                 )
+  )
+
+[tool.pyright]
+include = ["FOLDER"]
+executionEnvironments = [
+  { root = "FOLDER" }
+]

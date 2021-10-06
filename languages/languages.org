@@ -38,6 +38,8 @@
 #+INCLUDE: "./python.org"
 ** rust
 #+INCLUDE: "./rust.org"
+** solidity
+#+INCLUDE: "./solidity.org"
 ** swift
 #+INCLUDE: "./swift.org"
 ** typeScript
