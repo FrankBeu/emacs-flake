@@ -1654,7 +1654,7 @@ current buffer's, reload dir-locals."
 ;;;;
 ;;
 
-(use-package rust-mode)
+(use-package rustic)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-solidity
 ;;;;

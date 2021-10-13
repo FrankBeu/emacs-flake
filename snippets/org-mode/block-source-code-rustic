@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : block-source-code-rustic
+#key : brs
+#contributor : fb
+# --
+
+#+begin_src rustic :crates '((${1:CRATES} . "${2:VERSION}"))  extern crate $1;
+  $0
+#+end_src

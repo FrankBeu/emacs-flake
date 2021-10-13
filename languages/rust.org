@@ -5,9 +5,16 @@
   ;;;;
   ;;
 #+end_src
-** rust-mode
-https://github.com/rust-lang/rust-mode
+** rustic
+https://github.com/brotzeit/rustic
+https://github.com/brotzeit/rustic#org-babel
 #+begin_src elisp
+  (use-package rustic)
+#+end_src
+** DEPRECATED rust-mode
+use rustic instead
+https://github.com/rust-lang/rust-mode
+#+begin_src elisp :tangle no
   (use-package rust-mode)
 #+end_src
 ** dap
