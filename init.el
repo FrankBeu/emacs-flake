@@ -4246,8 +4246,13 @@ The optional argument IGNORED is not used."
   "DMM"    '(org-drill-merge-buffers                            :which-key "merge-buffer"     )
   "DMS"    '(org-drill-strip-all-data                           :which-key "strip-data"       )
 
-  "il"     '(org-insert-last-stored-link                        :which-key "insert last link" )
-  "l"      '(org-insert-link                                    :which-key "insert link"      )
+
+  "l"      '(                                                   :which-key "link"             )
+  "li"     '(org-insert-link                                    :which-key "insert link"      )
+  "lls"    '(org-store-link                                     :which-key "store link"       )
+  "lli"    '(org-insert-last-stored-link                        :which-key "insert last link" )
+
+  "L"      '(lsp-org                                            :which-key "lsp-org"          )
 
   "n"      '(org-add-note                                       :which-key "node"             )
 
