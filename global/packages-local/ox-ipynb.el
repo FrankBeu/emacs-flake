@@ -1,0 +1,1 @@
+/nix/store/4fadri2nlxhiwsk7c2q5hqhgn1pg313s-home-manager-files/.emacs.d/global/packages-local/ox-ipynb.el

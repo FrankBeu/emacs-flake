@@ -20,6 +20,13 @@ dependency for core-transient-state
 #+begin_src elisp
   (require 'core-toggle)
 #+end_src
+** ox-ipynb
+https://github.com/jkitchin/ox-ipynb
+#+begin_src elisp
+(use-package ox-ipynb
+  ;; :straight (:host github :repo "jkitchin/ox-ipynb")
+  :after ox)
+#+end_src
 ** transient
 #+begin_src elisp
   (require 'core-transient-state)

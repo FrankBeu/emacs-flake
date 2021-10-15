@@ -543,6 +543,10 @@ byte-compiled from.")
 
 (require 'core-toggle)
 
+(use-package ox-ipynb
+  ;; :straight (:host github :repo "jkitchin/ox-ipynb")
+  :after ox)
+
 (require 'core-transient-state)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-misc
@@ -4205,6 +4209,9 @@ The optional argument IGNORED is not used."
 
   "b"      '(                                                   :which-key "table"            :ignore t)
   "bh"     '(org-table-hline-and-move                           :which-key "headline"         )
+
+  "B"      '(                                                   :which-key "babel"            :ignore t)
+  "BS"     '(org-babel-pop-to-session                           :which-key "session"          )
 
   "c"      '(org-comment-dwim                                   :which-key "comment"          )
 

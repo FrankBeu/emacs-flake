@@ -264,6 +264,9 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "b"      '(                                                   :which-key "table"            :ignore t)
     "bh"     '(org-table-hline-and-move                           :which-key "headline"         )
 
+    "B"      '(                                                   :which-key "babel"            :ignore t)
+    "BS"     '(org-babel-pop-to-session                           :which-key "session"          )
+
     "c"      '(org-comment-dwim                                   :which-key "comment"          )
 
     "C"      '(                                                   :which-key "clock"            :ignore t)
@@ -303,7 +306,6 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "DM "    '(                                                   :which-key "meta"             :ignore t)
     "DMM"    '(org-drill-merge-buffers                            :which-key "merge-buffer"     )
     "DMS"    '(org-drill-strip-all-data                           :which-key "strip-data"       )
-
 
     "l"      '(                                                   :which-key "link"             )
     "li"     '(org-insert-link                                    :which-key "insert link"      )
