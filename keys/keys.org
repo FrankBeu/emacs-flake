@@ -32,6 +32,8 @@
 #+INCLUDE: "./golang.org"
 ** json
 #+INCLUDE: "./json.org"
+** mermaid
+#+INCLUDE: "./mermaid.org"
 ** nix
 #+INCLUDE: "./nix.org"
 ** orgmode

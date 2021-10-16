@@ -1,0 +1,13 @@
+* language-mermaid
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-mermaid
+  ;;;;
+  ;;
+#+end_src
+** mermaid-mode
+#+begin_src elisp
+  (use-package mermaid-mode
+    :mode "\\.mmd\\'"
+    )
+#+end_src

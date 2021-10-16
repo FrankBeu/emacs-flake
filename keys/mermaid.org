@@ -1,0 +1,24 @@
+* mermaid-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; mermaid-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'mermaid-mode-map
+    :states  '(normal visual insert)
+  
+    "c"      '(                                                   :which-key "compile"          :ignore t)
+    "cc"     '(mermaid-compile                                    :which-key "compile"          )
+    "cf"     '(mermaid-compile-file                               :which-key "file"             )
+    "cb"     '(mermaid-compile-buffer                             :which-key "buffer"           )
+    "cr"     '(mermaid-compile-region                             :which-key "region"           )
+    "b"      '(mermaid-open-browser                               :which-key "browser"          )
+    "d"      '(mermaid-open-doc                                   :which-key "doc"              )
+    )
+#+end_src
+

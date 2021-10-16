@@ -29,6 +29,8 @@
 #+INCLUDE: "./k8s.org"
 ** kotlin
 #+INCLUDE: "./kotlin.org"
+** mermaid
+#+INCLUDE: "./mermaid.org"
 ** nix
 *** TODO NEWEMACS
 -#+INCLUDE: "./nix.org"
