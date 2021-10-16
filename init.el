@@ -3966,6 +3966,75 @@ The optional argument IGNORED is not used."
   ;; "tt"     '((lambda () (interactive)(org-todo 'todo))          :which-key "todo"             )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; json-keybindings
+;;;;
+;;
+
+(fb/local-leader-key
+  :keymaps 'json-mode-map
+  :states  '(normal visual insert)
+
+
+  "b"     '(json-mode-beautify                                 :which-key "beautify"          )
+
+  "n"      '(                                                   :which-key "number/null"      :ignore t)
+  "nk"     '(json-decrement-number-at-point                     :which-key "dec"              )
+  "nl"     '(json-increment-number-at-point                     :which-key "inc"              )
+  "nn"     '(json-nullify-sexp                                  :which-key "nullify"          )
+
+  "p"      '(                                                   :which-key "pretty"           :ignore t)
+  "ppp"    '(json-pretty-print                                  :which-key "region"           )
+  "ppo"    '(json-pretty-print-ordered                          :which-key "region-ordered"   )
+  "pbb"    '(json-pretty-print-buffer                           :which-key "buffer"           )
+  "pbo"    '(json-pretty-print-buffer-ordered                   :which-key "buffer-ordered"   )
+
+  "P"      '(                                                   :which-key "path"             :ignore t)
+  "PS"     '(json-mode-show-path                                :which-key "show"             )
+  "PP"     '(json-mode-kill-path                                :which-key "kill"             )
+
+  "r"      '(json-reformat-region                               :which-key "reformat-region"  )
+
+  "t"      '(json-toggle-boolean                                :which-key "toggle-bool"      )
+  )
+
+(fb/local-leader-key
+  :keymaps 'inferior-python-mode-map
+  :states  '(normal visual insert)
+
+  "c"      '(comint-clear-buffer                                :which-key "clear"            )
+
+  "pn"     '(comint-next-prompt                                 :which-key "next"             )
+  "pp"     '(comint-previous-prompt                             :which-key "previous"         )
+
+  ;; ""      '(backward-kill-word                                 :which-key ""        )
+  ;; ""      '(comint-accumulate                                  :which-key ""        )
+  ;; ""      '(comint-bol-or-process-mark                         :which-key ""        )
+  ;; ""      '(comint-copy-old-input                              :which-key ""        )
+  ;; ""      '(comint-delchar-or-maybe-eof                        :which-key ""        )
+  ;; ""      '(comint-delete-output                               :which-key ""        )
+  ;; ""      '(comint-dynamic-list-input-ring                     :which-key ""        )
+  ;; ""      '(comint-get-next-from-history                       :which-key ""        )
+  ;; ""      '(comint-history-isearch-backward-regexp             :which-key ""        )
+  ;; ""      '(comint-insert-input                                :which-key ""        )
+  ;; ""      '(comint-insert-previous-argument                    :which-key ""        )
+  ;; ""      '(comint-interrupt-subjob                            :which-key ""        )
+  ;; ""      '(comint-kill-input                                  :which-key ""        )
+  ;; ""      '(comint-next-input                                  :which-key ""        )
+  ;; ""      '(comint-next-matching-input-from-input              :which-key ""        )
+  ;; ""      '(comint-previous-input                              :which-key ""        )
+  ;; ""      '(comint-previous-matching-input-from-input          :which-key ""        )
+  ;; ""      '(comint-quit-subjob                                 :which-key ""        )
+  ;; ""      '(comint-send-eof                                    :which-key ""        )
+  ;; ""      '(comint-send-input                                  :which-key ""        )
+  ;; ""      '(comint-show-maximum-output                         :which-key ""        )
+  ;; ""      '(comint-show-output                                 :which-key ""        )
+  ;; ""      '(comint-stop-subjob                                 :which-key ""        )
+  ;; ""      '(comint-write-output                                :which-key ""        )
+  ;; ""      '(delete-forward-char                                :which-key ""        )
+  ;; ""      '(evil-scroll-down                                   :which-key ""        )
+  ;; ""      '(python-shell-completion-complete-or-indent         :which-key ""        )
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; nix-keybindings
 ;;;;
 ;;
@@ -4252,7 +4321,6 @@ The optional argument IGNORED is not used."
   "DM "    '(                                                   :which-key "meta"             :ignore t)
   "DMM"    '(org-drill-merge-buffers                            :which-key "merge-buffer"     )
   "DMS"    '(org-drill-strip-all-data                           :which-key "strip-data"       )
-
 
   "l"      '(                                                   :which-key "link"             )
   "li"     '(org-insert-link                                    :which-key "insert link"      )
