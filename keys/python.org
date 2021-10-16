@@ -13,6 +13,16 @@
     :keymaps 'python-mode-map
     :states  '(normal visual insert)
 
+    ;;;; prefix-r is not as ergonomical as c
+    "c"      '(                                                   :which-key "run"              :ignore t)
+    "co"     '(run-python                                         :which-key "open"             )
+    "cb"     '(python-shell-send-buffer                           :which-key "buffer"           )
+    "cd"     '(python-shell-send-defun                            :which-key "defun"            )
+    "cf"     '(python-shell-send-file                             :which-key "file"             )
+    "cm"     '(python-shell-send-statement                        :which-key "statement"        )
+    "cs"     '(python-shell-switch-to-shell                       :which-key "switch"           )
+    "cr"     '(python-shell-send-region                           :which-key "region"           )
+    "ct"     '(python-shell-send-string                           :which-key "string"           )
 
     "i"      '(                                                   :which-key "import/indent"    :ignore t)
     "ii"     '(python-skeleton-import                             :which-key "import"           )
@@ -26,16 +36,6 @@
     "nb"     '(python-nav-backward-block                          :which-key "backward-block"   )
     "nf"     '(python-nav-forward-block                           :which-key "forward-block"    )
 
-    "r"      '(                                                   :which-key "run"              :ignore t)
-    "ro"     '(run-python                                         :which-key "open"             )
-    "rb"     '(python-shell-send-buffer                           :which-key "buffer"           )
-    "rd"     '(python-shell-send-defun                            :which-key "defun"            )
-    "rf"     '(python-shell-send-file                             :which-key "file"             )
-    "rm"     '(python-shell-send-statement                        :which-key "statement"        )
-    "rs"     '(python-shell-switch-to-shell                       :which-key "switch"           )
-    "rr"     '(python-shell-send-region                           :which-key "region"           )
-    "rt"     '(python-shell-send-string                           :which-key "string"           )
-
     "s"      '(                                                   :which-key "sceleton"         :ignore t)
     "sc"     '(python-skeleton-class                              :which-key "class"            )
     "sd"     '(python-skeleton-def                                :which-key "def"              )
@@ -45,7 +45,7 @@
     "st"     '(python-skeleton-try                                :which-key "try"              )
     "sw"     '(python-skeleton-while                              :which-key "while"            )
 
-    "t"      '(python-pytest-dispatch                             :which-key "test"         )
+    "t"      '(python-pytest-dispatch                             :which-key "test"             )
 
     ;; ""      '(completion-at-point                            :which-key ""                 )
     ;; ""      '(imenu                                          :which-key ""                 )
