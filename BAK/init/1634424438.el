@@ -255,6 +255,10 @@ byte-compiled from.")
          (print-group!
           (unwind-protect
               (with-temp-file backup
+
+                ;;;; make a bakup of current initFile
+                (copy-file user-init-file (concat user-emacs-directory "/BAK/init/" (format-time-string "%s") ".el") t)
+
                 (insert-file-contents target)
                 (let ((buffer-file-name backup)
                       ;; Prevent unwanted entries in recentf, or formatters, or
@@ -1591,6 +1595,34 @@ current buffer's, reload dir-locals."
 
 (use-package kotlin-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-mermaid
+;;;;
+;;
+
+(use-package mermaid-mode
+  :mode "\\.mmd\\'"
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-nix
+;;;;
+;;
+
+(use-package nix-mode
+  :mode "\\.nix\\'"
+  :hook (
+         (nix-mode . company-mode)
+         (nix-mode . lsp-deferred)
+         (nix-mode . fb*default-company-backends-h)
+         )
+  )
+
+(add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+(lsp-register-client
+ (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                  :major-modes '(nix-mode)
+                  :server-id 'nix)
+ )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-protobuf
 ;;;;
 ;;
@@ -2048,38 +2080,149 @@ The optional argument IGNORED is not used."
 ;;;;
 ;;
 
-(use-package ob-csharp)
-(add-to-list 'org-babel-load-languages  '(csharp . t))
+(use-package ob-arduino
+  :config
+  (add-to-list 'org-babel-load-languages  '(arduino . t))
+  )
 
-(use-package ob-C)
-(add-to-list 'org-babel-load-languages  '(cpp . t))
+(use-package ob-browser
+  :config
+  (add-to-list 'org-babel-load-languages  '(browser . t))
+  )
 
-(use-package ob-dart)
-(add-to-list 'org-babel-load-languages  '(dart . t))
+(use-package ob-csharp
+  :config
+  (add-to-list 'org-babel-load-languages  '(csharp . t))
+  )
+
+(use-package ob-C
+  :config
+  (add-to-list 'org-babel-load-languages  '(cpp . t))
+  )
+
+(use-package ob-css
+  :config
+  (add-to-list 'org-babel-load-languages  '(css . t))
+  )
+
+(use-package ob-dart
+  :config
+  (add-to-list 'org-babel-load-languages  '(dart . t))
+  )
 
 (use-package ob-go)
 (add-to-list 'org-babel-load-languages  '(go . t))
 
-(use-package ob-java)
-(add-to-list 'org-babel-load-languages  '(java . t))
+(use-package ob-graphql
+  :config
+  (add-to-list 'org-babel-load-languages  '(graphql . t))
+  )
 
-(use-package ob-js)
-(add-to-list 'org-babel-load-languages  '(js . t))
+(use-package ob-haskell
+  :config
+  (add-to-list 'org-babel-load-languages  '(haskell . t))
+  )
 
-(use-package ob-kotlin)
-(add-to-list 'org-babel-load-languages  '(kotlin . t))
+(use-package ob-http
+  :config
+  (add-to-list 'org-babel-load-languages  '(http  . t))
+)
 
-(use-package ob-python)
-(add-to-list 'org-babel-load-languages  '(python . t))
+(use-package ob-java
+  :config
+  (add-to-list 'org-babel-load-languages  '(java . t))
+  )
 
-(use-package ob-rust)
-(add-to-list 'org-babel-load-languages  '(rust . t))
+(use-package ob-js
+  :config
+  (add-to-list 'org-babel-load-languages  '(js . t))
+  )
 
-(use-package ob-swift)
-(add-to-list 'org-babel-load-languages  '(swift . t))
+(use-package ob-kotlin
+  :config
+  (add-to-list 'org-babel-load-languages  '(kotlin . t))
+  )
 
-(use-package ob-typescript)
-(add-to-list 'org-babel-load-languages  '(typescript  . t))
+(use-package ob-latex
+  :config
+  (add-to-list 'org-babel-load-languages  '(latex . t))
+  )
+
+(use-package 
+  :config
+  (add-to-list 'org-babel-load-languages  '(make . t))
+  )
+
+(use-package ob-mermaid
+  :config
+  (add-to-list 'org-babel-load-languages  '(mermaid . t))
+  )
+
+(use-package ob-mongo
+  :config
+  (add-to-list 'org-babel-load-languages  '(mongo  . t))
+  )
+
+(use-package ob-plantuml
+  :config 
+  (setq org-plantuml-jar-path "/run/current-system/sw/lib/plantuml.jar")
+  (add-to-list 'org-babel-load-languages  '(plantuml . t))
+  )
+
+(use-package ob-python
+  :config
+  (add-to-list 'org-babel-load-languages  '(python . t))
+  )
+
+(use-package ob-redis
+  :config
+  (add-to-list 'org-babel-load-languages  '(redis . t))
+  )
+
+(use-package ob-restclient
+  :config
+  (add-to-list 'org-babel-load-languages  '(restclient . t))
+  )
+
+(use-package ob-rust
+  :config
+  (add-to-list 'org-babel-load-languages  '(rust . t))
+  )
+
+(use-package ob-sass
+  :config
+  (add-to-list 'org-babel-load-languages  '(sass . t))
+  )
+
+(use-package ob-swift
+  :config
+  (add-to-list 'org-babel-load-languages  '(swift . t))
+  )
+
+(use-package ob-shell
+  :config
+  (add-to-list 'org-babel-load-languages  '(shell . t))
+  )
+
+(use-package ob-sqlite
+  :config 
+  (add-to-list 'org-babel-load-languages  '(sqlite . t))
+  )
+
+(use-package ob-translate
+  :config 
+  (add-to-list 'org-babel-load-languages  '(translate  . t))
+  )
+(use-package google-translate
+  :config
+  (setq google-translate-backend-method 'curl)
+  (defun google-translate--search-tkk () "Search TKK." (list 430675 2721866130))
+  )
+
+(use-package ob-typescript
+  :config 
+  (add-to-list 'org-babel-load-languages  '(typescript  . t))
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-capture
 ;;;;
@@ -4035,6 +4178,23 @@ The optional argument IGNORED is not used."
   ;; ""      '(python-shell-completion-complete-or-indent         :which-key ""        )
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; mermaid-keybindings
+;;;;
+;;
+
+(fb/local-leader-key
+  :keymaps 'mermaid-mode-map
+  :states  '(normal visual insert)
+
+  "c"      '(                                                   :which-key "compile"          :ignore t)
+  "cc"     '(mermaid-compile                                    :which-key "compile"          )
+  "cf"     '(mermaid-compile-file                               :which-key "file"             )
+  "cb"     '(mermaid-compile-buffer                             :which-key "buffer"           )
+  "cr"     '(mermaid-compile-region                             :which-key "region"           )
+  "b"      '(mermaid-open-browser                               :which-key "browser"          )
+  "d"      '(mermaid-open-doc                                   :which-key "doc"              )
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; nix-keybindings
 ;;;;
 ;;
@@ -4323,9 +4483,9 @@ The optional argument IGNORED is not used."
   "DMS"    '(org-drill-strip-all-data                           :which-key "strip-data"       )
 
   "l"      '(                                                   :which-key "link"             )
-  "li"     '(org-insert-link                                    :which-key "insert link"      )
-  "lls"    '(org-store-link                                     :which-key "store link"       )
-  "lli"    '(org-insert-last-stored-link                        :which-key "insert last link" )
+  "ll"     '(org-insert-link                                    :which-key "insert link"      )
+  "ls"     '(org-store-link                                     :which-key "store link"       )
+  "li"     '(org-insert-last-stored-link                        :which-key "insert last link" )
 
   "L"      '(lsp-org                                            :which-key "lsp-org"          )
 
@@ -4417,6 +4577,16 @@ The optional argument IGNORED is not used."
   :keymaps 'python-mode-map
   :states  '(normal visual insert)
 
+  ;;;; prefix-r is not as ergonomical as c
+  "c"      '(                                                   :which-key "run"              :ignore t)
+  "co"     '(run-python                                         :which-key "open"             )
+  "cb"     '(python-shell-send-buffer                           :which-key "buffer"           )
+  "cd"     '(python-shell-send-defun                            :which-key "defun"            )
+  "cf"     '(python-shell-send-file                             :which-key "file"             )
+  "cm"     '(python-shell-send-statement                        :which-key "statement"        )
+  "cs"     '(python-shell-switch-to-shell                       :which-key "switch"           )
+  "cr"     '(python-shell-send-region                           :which-key "region"           )
+  "ct"     '(python-shell-send-string                           :which-key "string"           )
 
   "i"      '(                                                   :which-key "import/indent"    :ignore t)
   "ii"     '(python-skeleton-import                             :which-key "import"           )
@@ -4430,16 +4600,6 @@ The optional argument IGNORED is not used."
   "nb"     '(python-nav-backward-block                          :which-key "backward-block"   )
   "nf"     '(python-nav-forward-block                           :which-key "forward-block"    )
 
-  "r"      '(                                                   :which-key "run"              :ignore t)
-  "ro"     '(run-python                                         :which-key "open"             )
-  "rb"     '(python-shell-send-buffer                           :which-key "buffer"           )
-  "rd"     '(python-shell-send-defun                            :which-key "defun"            )
-  "rf"     '(python-shell-send-file                             :which-key "file"             )
-  "rm"     '(python-shell-send-statement                        :which-key "statement"        )
-  "rs"     '(python-shell-switch-to-shell                       :which-key "switch"           )
-  "rr"     '(python-shell-send-region                           :which-key "region"           )
-  "rt"     '(python-shell-send-string                           :which-key "string"           )
-
   "s"      '(                                                   :which-key "sceleton"         :ignore t)
   "sc"     '(python-skeleton-class                              :which-key "class"            )
   "sd"     '(python-skeleton-def                                :which-key "def"              )
@@ -4449,7 +4609,7 @@ The optional argument IGNORED is not used."
   "st"     '(python-skeleton-try                                :which-key "try"              )
   "sw"     '(python-skeleton-while                              :which-key "while"            )
 
-  "t"      '(python-pytest-dispatch                             :which-key "test"         )
+  "t"      '(python-pytest-dispatch                             :which-key "test"             )
 
   ;; ""      '(completion-at-point                            :which-key ""                 )
   ;; ""      '(imenu                                          :which-key ""                 )
@@ -4596,3 +4756,17 @@ include = ["FOLDER"]
 executionEnvironments = [
   { root = "FOLDER" }
 ]
+
+// the setup function runs once when you press reset or power the board
+void setup() {
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+// the loop function runs over and over again forever
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(100);                       // wait for 0.1 second
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(100);                       // wait for 0.1 second
+}

@@ -296,6 +296,8 @@ transformative logic."
            (print-group!
             (unwind-protect
                 (with-temp-file backup
+                  ;;;; make a bakup of the current initFile
+                  (copy-file user-init-file (concat user-emacs-directory "/BAK/init/" (format-time-string "%s") ".el") t)
                   (insert-file-contents target)
                   (let ((buffer-file-name backup)
                         ;; Prevent unwanted entries in recentf, or formatters, or

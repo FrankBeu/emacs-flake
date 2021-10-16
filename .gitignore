@@ -7,3 +7,4 @@ IGNORE
 !/**/.gitkeep
 /.log/
 /tramp
+init.el
