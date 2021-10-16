@@ -308,9 +308,9 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "DMS"    '(org-drill-strip-all-data                           :which-key "strip-data"       )
 
     "l"      '(                                                   :which-key "link"             )
-    "li"     '(org-insert-link                                    :which-key "insert link"      )
-    "lls"    '(org-store-link                                     :which-key "store link"       )
-    "lli"    '(org-insert-last-stored-link                        :which-key "insert last link" )
+    "ll"     '(org-insert-link                                    :which-key "insert link"      )
+    "ls"     '(org-store-link                                     :which-key "store link"       )
+    "li"     '(org-insert-last-stored-link                        :which-key "insert last link" )
 
     "L"      '(lsp-org                                            :which-key "lsp-org"          )
 
