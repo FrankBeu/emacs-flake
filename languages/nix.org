@@ -22,7 +22,8 @@
   (lsp-register-client
    (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
                     :major-modes '(nix-mode)
-                    :server-id 'nix))
+                    :server-id 'nix)
+   )
 #+end_src
 ** INFO
 *** debug

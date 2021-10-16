@@ -32,8 +32,7 @@
 ** mermaid
 #+INCLUDE: "./mermaid.org"
 ** nix
-*** TODO NEWEMACS
--#+INCLUDE: "./nix.org"
+#+INCLUDE: "./nix.org"
 ** protobuf
 #+INCLUDE: "./protobuf.org"
 ** python
