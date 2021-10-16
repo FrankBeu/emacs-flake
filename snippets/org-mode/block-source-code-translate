@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#name : block-source-code-translate
+#key : btr
+#contributor : fb
+#cf. https://translate.google.com/ for langs (execute search and use parameter)
+# --
+#+BEGIN_SRC translate :src auto :dest ${1:en,de,fr,ar,ja,tr,hi,ru,zh-CN,zh-TW,iw,ka}
+$>$0
+#+END_SRC

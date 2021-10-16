@@ -3,6 +3,6 @@
 #key : bpy
 #contributor : fb
 # --
-#+begin_src python :results drawer output
+#+BEGIN_SRC python :results ${1:$$(yas-choose-value '("output" "value"))} pp drawer :session ${2:`(buffer-name)`}
 $>$0
-#+end_src
+#+END_SRC

@@ -3,6 +3,6 @@
 #key :  BPY
 #contributor : fb
 # --
-#+begin_example python
+#+BEGIN_EXAMPLE python
 $>$0
-#+end_example
+#+END_EXAMPLE

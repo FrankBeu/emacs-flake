@@ -4,6 +4,6 @@
 #contributor : fb
 # --
 
-#+begin_src rustic :crates '((${1:CRATES} . "${2:VERSION}"))  extern crate $1;
+#+BEGIN_SRC rustic :crates '((${1:CRATES} . "${2:VERSION}"))  extern crate $1;
   $0
-#+end_src
+#+END_SRC

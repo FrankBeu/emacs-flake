@@ -3,6 +3,6 @@
 #key : bgo
 #contributor : fb
 # --
-#+begin_src go :results drawer :imports "${1:IMPORTS}" $2
+#+BEGIN_SRC go :results drawer :imports "${1:IMPORTS}" $2
   $0
-#+end_src
+#+END_SRC

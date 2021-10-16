@@ -3,6 +3,6 @@
 #key :  BHTML
 #contributor : fb
 # --
-#+begin_example html
+#+BEGIN_EXAMPLE html
 $0
-#+end_example
+#+END_EXAMPLE

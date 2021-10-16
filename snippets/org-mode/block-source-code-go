@@ -3,6 +3,6 @@
 #key : bog
 #contributor : fb
 # --
-#+begin_src go
+#+BEGIN_SRC go
   $0
-#+end_src
+#+END_SRC

@@ -3,6 +3,6 @@
 #key : BJSON
 #contributor : fb
 # --
-#+begin_example json
+#+BEGIN_EXAMPLE json
 $0
-#+end_example
+#+END_EXAMPLE

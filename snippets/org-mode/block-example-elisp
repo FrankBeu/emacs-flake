@@ -3,6 +3,6 @@
 #key :  BEL
 #contributor : fb
 # --
-#+begin_example elisp
+#+BEGIN_EXAMPLE elisp
 $>$0
-#+end_example
+#+END_EXAMPLE

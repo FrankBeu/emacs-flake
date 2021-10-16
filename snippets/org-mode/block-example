@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : block-example-yaml
-#key :  BYML
+#name : block-example
+#key :  BE
 #contributor : fb
 # --
-#+BEGIN_EXAMPLE yaml
+#+BEGIN_EXAMPLE
 $0
 #+END_EXAMPLE

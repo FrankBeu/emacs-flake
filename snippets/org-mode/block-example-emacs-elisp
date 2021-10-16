@@ -3,6 +3,6 @@
 #key :  BEMLI
 #contributor : fb
 # --
-#+begin_example emacs-lisp
+#+BEGIN_EXAMPLE emacs-lisp
 $>$0
-#+end_example
+#+END_EXAMPLE

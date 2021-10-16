@@ -3,6 +3,6 @@
 #key :  BGO
 #contributor : fb
 # --
-#+begin_example go
+#+BEGIN_EXAMPLE go
   $0
-#+end_example
+#+END_EXAMPLE

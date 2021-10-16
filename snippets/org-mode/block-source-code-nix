@@ -3,6 +3,6 @@
 #key : bnx
 #contributor : fb
 # --
-#+begin_src nix
+#+BEGIN_SRC nix
 $>$0
-#+end_src
+#+END_SRC

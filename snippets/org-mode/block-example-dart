@@ -3,6 +3,6 @@
 #key :  BDT
 #contributor : fb
 # --
-#+begin_example dart
+#+BEGIN_EXAMPLE dart
 $0
-#+end_example
+#+END_EXAMPLE

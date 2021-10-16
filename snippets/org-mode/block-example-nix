@@ -3,6 +3,6 @@
 #key :  BNX
 #contributor : fb
 # --
-#+begin_example nix
+#+BEGIN_EXAMPLE nix
 $>$0
-#+end_example
+#+END_EXAMPLE

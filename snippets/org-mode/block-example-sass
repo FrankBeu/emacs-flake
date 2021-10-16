@@ -3,6 +3,6 @@
 #key :  BSAS
 #contributor : fb
 # --
-#+begin_example sass
+#+BEGIN_EXAMPLE sass
 $0
-#+end_example
+#+END_EXAMPLE

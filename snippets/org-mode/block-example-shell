@@ -3,6 +3,6 @@
 #key :  BSH
 #contributor : fb
 # --
-#+begin_example shell
+#+BEGIN_EXAMPLE shell
   $0
-#+end_example
+#+END_EXAMPLE
