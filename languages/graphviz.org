@@ -1,0 +1,19 @@
+* language-graphviz
+** marker
+#+BEGIN_SRC elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; graphviz-mermaid
+  ;;;;
+  ;;
+#+END_SRC
+** graphviz-mode
+https://github.com/ppareit/graphviz-dot-mode
+file-extension: .gv
+#+BEGIN_SRC elisp
+  (use-package graphviz-dot-mode
+    )
+#+END_SRC
+** company 
+#+BEGIN_SRC elisp
+(use-package company-graphviz-dot
+  )
+#+END_SRC

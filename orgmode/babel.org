@@ -76,6 +76,16 @@ https://github.com/jdormit/ob-graphql
 #+END_SRC
 **** TODO also needs
 https://github.com/davazp/graphql-mode
+*** graphviz
+https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-dot.html
+#+BEGIN_SRC elisp
+  (use-package ob-dot
+    :config
+    (add-to-list 'org-babel-load-languages  '(dot . t))
+    )
+#+END_SRC
+**** TODO also needs
+https://github.com/davazp/graphql-mode
 *** haskell
 #+BEGIN_SRC elisp
   (use-package ob-haskell
@@ -284,8 +294,6 @@ https://github.com/ljos/ob-prolog
   (org-babel-do-load-languages 'org-babel-load-languages)
 #+END_SRC
 
-** INFO
-https://orgmode.org/worg/org-contrib/babel/languages/index.html
 ** examples
 *** arduino
 will upload the block to arduino
@@ -311,7 +319,7 @@ will upload the block to arduino
 https://github.com/krisajenkins/ob-browser
 phantomjs crashes
 phantomjs is deprecated
-#+BEGIN_SRC browser :out demo.png :tangle no
+#+BEGIN_SRC browser :out (concat user-emacs-directory "OUTPUT/babel/browser.png") :tangle no
   <!DOCTYPE html>
   <html>
       <head>
@@ -329,7 +337,7 @@ phantomjs is deprecated
   </html>
 #+END_SRC
 #+RESULTS:
-[[file:demo.png]]
+[[file:~/.emacs.d/OUTPUT/babel/browser.png]]
 
 *** c#
 #+BEGIN_SRC csharp :tangle no
@@ -434,6 +442,33 @@ Hello World!
 
 #+BEGIN_SRC elisp :tangle no
 #+END_SRC
+*** grapviz
+   #+BEGIN_SRC dot :file (concat user-emacs-directory "OUTPUT/babel/graphviz.png") :exports both
+     digraph {
+         label="How to make sure 'input' is valid"
+
+         start[shape="box", style=rounded];
+         end[shape="box", style=rounded];
+         if_valid[shape="diamond", style=""];
+         message[shape="parallelogram", style=""]
+         input[shape="parallelogram", style=""]
+
+         start -> input;
+         input -> if_valid;
+         if_valid -> message[label="no"];
+         if_valid -> end[label="yes"];
+         message -> input;
+
+         if_valid[label="Is input\nvalid?"]
+         message[label="Show\nmessage"]
+         input[label="Prompt\nfor input"]
+
+         {rank=same; message input}
+     }
+   #+END_SRC
+
+   #+RESULTS:
+   [[file:~/.emacs.d/OUTPUT/babel/graphviz.png]]
 *** haskell
 #+BEGIN_SRC haskell :tangle no
   :{
@@ -529,7 +564,7 @@ hello:
  db.inventory.find( {} )
 #+END_SRC
 *** plantuml
-#+BEGIN_SRC plantuml :file test :tangle no
+#+BEGIN_SRC plantuml :file (concat user-emacs-directory "OUTPUT/babel/plantuml.png") :tangle no
 @startuml
 Alice -> Bob: Authentication Request
 Bob --> Alice: Authentication Response
@@ -540,7 +575,7 @@ Alice <-- Bob: Another authentication Response
 #+END_SRC
 
 #+RESULTS:
-[[file:test]]
+[[file:~/.emacs.d/OUTPUT/babel/plantuml.png]]
 *** python
 https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html
 #+BEGIN_SRC python :results output :tangle no
@@ -564,7 +599,7 @@ GET myname
 #+END_SRC
 
 #+RESULTS:
-#+begin_example
+#+begin_example html
 ,#+BEGIN_SRC html
 <!doctype html>
 <html>
@@ -774,6 +809,6 @@ console.log(message);
 #+RESULTS:
 : Hello, World!
 
-** TODO TEMPLATES
-create all templates uppercase
-
+** INFO
+https://orgmode.org/worg/org-contrib/babel/languages/index.html
+https://github.com/dfeich/org-babel-examples/tree/master

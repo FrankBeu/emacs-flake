@@ -21,6 +21,8 @@
 #+INCLUDE: "./dockerfile.org"
 ** golang
 #+INCLUDE: "./golang/golang.org"
+** graphviz
+#+INCLUDE: "./graphviz.org"
 ** json
 #+INCLUDE: "./json.org"
 ** jsonnet
