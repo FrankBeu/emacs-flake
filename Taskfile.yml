@@ -1,0 +1,140 @@
+###
+##
+# * TASKFILE
+#   https://taskfile.dev
+#
+version: 3
+
+
+vars:
+
+  red:           "\e[31m"
+  redLight:      "\e[91m"
+  green:         "\e[32m"
+  greenLight:    "\e[92m"
+  yellow:        "\e[33m"
+  yellowLight:   "\e[93m"
+  blue:          "\e[34m"
+  blueLight:     "\e[94m"
+  magenta:       "\e[35m"
+  magentaLight:  "\e[95m"
+  cyan:          "\e[36m"
+  cyanLight:     "\e[96m"
+
+  black:         "\e[30m"
+  grayDark:      "\e[90m"
+  grayLight:     "\e[37m"
+  white:         "\e[97m"
+
+  reset:         "\e[0m"
+
+
+tasks:
+
+  taskDebug:
+    desc: show all variables in Taskfile
+    cmds:
+      - |
+        echo -e \
+        "\n{{range $key, $value := .}} {{$key }}:  \e[92m{{$value}}\e[0m\n {{end}}\n"
+    silent: true
+
+
+  default:
+    desc: display info
+    cmds:
+      - |
+        echo -e \
+        "\n{{.message}}\n"
+      - |
+        go-task -l
+    silent: true
+
+
+###
+##
+# ** SEQUENCE
+#
+#
+  1:
+    desc: ( restart emacs )
+    cmds:
+      - task: restart
+    silent: true
+
+  c:
+    desc: ( colorDisplay )
+    cmds:
+      - task:  colorDisplay
+    silent: true
+
+
+###
+##
+# ** ALPHABETICAL
+#
+#
+  restart:
+    desc: kill emacs and restart the service
+    cmds:
+      - |
+        pkill emacs && systemctl start emacs --user
+    silent: true
+
+
+
+
+
+###
+##
+# ** colorDisplay
+#
+#
+  colorDisplay:
+    desc: show all defined colors and their emacs-register
+    cmds:
+      - |
+        echo -e ""
+        echo -e "  {{.red}}r red{{.reset}}"
+        echo -e "  {{.redLight}}e redLight{{.reset}}"
+        echo -e "  {{.green}}g green{{.reset}}"
+        echo -e "  {{.greenLight}}f greenLight{{.reset}}"
+        echo -e "  {{.yellow}}y yellow{{.reset}}"
+        echo -e "  {{.yellowLight}}t yellowLight{{.reset}}"
+        echo -e "  {{.blue}}u blue{{.reset}}"
+        echo -e "  {{.blueLight}}i blueLight{{.reset}}"
+        echo -e "  {{.magenta}}m magenta{{.reset}}"
+        echo -e "  {{.magentaLight}}j magentaLight{{.reset}}"
+        echo -e "  {{.cyan}}c cyan{{.reset}}"
+        echo -e "  {{.cyanLight}}d cyanLight{{.reset}}"
+        echo -e "  {{.black}}b black{{.reset}}"
+        echo -e "  {{.grayDark}}a grayDark{{.reset}}"
+        echo -e "  {{.grayLight}}q grayLight{{.reset}}"
+        echo -e "  {{.white}}w white{{.reset}}"
+        echo -e ""
+        echo -e "  x reset"
+        echo -e ""
+    silent: true
+
+
+
+
+# Local Variables:
+# eval: (evil-set-register  97 "{{.grayDark}}"    )  ;; a
+# eval: (evil-set-register  98 "{{.black}}"       )  ;; b
+# eval: (evil-set-register  99 "{{.cyan}}"        )  ;; c
+# eval: (evil-set-register 100 "{{.cyanLight}}"   )  ;; d
+# eval: (evil-set-register 101 "{{.redLight}}"    )  ;; e
+# eval: (evil-set-register 102 "{{.greenLight}}"  )  ;; f
+# eval: (evil-set-register 103 "{{.green}}"       )  ;; g
+# eval: (evil-set-register 105 "{{.blueLight}}"   )  ;; i
+# eval: (evil-set-register 106 "{{.magentaLight}}")  ;; j
+# eval: (evil-set-register 109 "{{.magenta}}"     )  ;; m
+# eval: (evil-set-register 113 "{{.grayLight}}"   )  ;; q
+# eval: (evil-set-register 114 "{{.red}}"         )  ;; r
+# eval: (evil-set-register 116 "{{.yellowLight}}" )  ;; t
+# eval: (evil-set-register 117 "{{.blue}}"        )  ;; u
+# eval: (evil-set-register 119 "{{.white}}"       )  ;; w
+# eval: (evil-set-register 121 "{{.yellow}}"      )  ;; y
+# eval: (evil-set-register 120 "{{.reset}}"       )  ;; x
+# End:
