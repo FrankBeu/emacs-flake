@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : babel-python-header
+#key : bpyh
+#contributor : fb
+# --
+#+PROPERTY: header-args  :session `(file-name-nondirectory (file-name-sans-extension buffer-file-name))`
+$0
