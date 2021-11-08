@@ -9,3 +9,4 @@ IGNORE
 /tramp
 init.el
 /OUTPUT/
+/custom.el
