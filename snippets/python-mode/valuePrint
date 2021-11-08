@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: valuePrint
+# key: pv
+# --
+$>print(f"{${1:VARIABLE}=}")
+$> $0
