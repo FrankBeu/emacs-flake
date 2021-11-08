@@ -180,3 +180,11 @@ numbers in parens are rebuildOrder in case of MCA
 #+INCLUDE: "./view/view.org"
 *** keys (1)
 #+INCLUDE: "./keys/keys.org"
+*** tail
+**** message about accidentally tangled blocks
+#+BEGIN_SRC elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;; all non-lisp-code after this message shouldn't be there
+  ;;;; find the org-babel-block in the sources and add a :tangle no
+
+#+END_SRC
