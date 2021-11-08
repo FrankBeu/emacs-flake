@@ -521,6 +521,15 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
    "C-S-L" 'swiper-recenter-top-bottom
    )
 #+end_src
+*** TeX
+#+BEGIN_SRC elisp
+  (fb/local-leader-key
+    :keymaps 'TeX-mode-map
+    :states  '(normal visual insert)
+
+    "c"      '(TeX-clean :which-key "clean")
+    )
+#+END_SRC
 ** treemacs
 #+begin_src elisp
   (eval-after-load "treemacs-evil"
