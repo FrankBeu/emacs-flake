@@ -63,7 +63,7 @@ https://golangci-lint.run/usage/false-positives/#nolint
 *** unused
 #+begin_src elisp
   (defun fb/golangDashUnused ()
-    "copy word under cursor and prepend '_ = '"
+    "copy word under cursor and prepend '_ = ' - yanking has to be done MANUALLY afterwards"
       (interactive)
       (message (kill-new (concat "_ = " (thing-at-point 'word 'no-properties))))
       )
