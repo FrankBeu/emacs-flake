@@ -9,6 +9,10 @@
 https://gitlab.com/python-mode-devs/python-mode/
 #+begin_src elisp
   (use-package python-mode
+    :config
+    (setq python-indent-guess-indent-offset t
+          python-indent-guess-indent-offset-verbose nil ;;;; prevent warning on opening a python-buffer
+          )
     )
 #+end_src
 ** lsp
@@ -56,7 +60,7 @@ pyright has (lsp-pyright-disable-organize-imports nil)
 https://github.com/emacs-lsp/lsp-pyright
 ~gotoDefinition~ only shows stubs
 imports need an entry in =pyproject.toml=
-#+begin_src toml
+#+begin_src toml :tangle no
 [tool.pyright]
 include = ["FOLDER"]
 executionEnvironments = [
