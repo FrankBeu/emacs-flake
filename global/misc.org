@@ -101,6 +101,16 @@ accept {y,n} as answer
 #+begin_src elisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+end_src
+** wrap-region
+https://github.com/rejeep/wrap-region.el
+#+BEGIN_SRC elisp
+  (use-package wrap-region
+    :config
+    (wrap-region-global-mode t)
+    )
+#+END_SRC
+*** keybinding
+[[file:~/.emacs.d/keys/global-leader.org::*global-leader =SPC=][global-leader =SPC=]] ::W
 ** CANCELLED window-splitting
 #+begin_src elisp
 ;; (setq
