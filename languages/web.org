@@ -32,11 +32,61 @@ https://github.com/AdamNiederer/ssass-mode
 https://github.com/purcell/mmm-mode
 ** web-mode
 https://github.com/fxbois/web-mode
+https://web-mode.org/
 #+begin_src elisp
   (use-package web-mode
-    :mode "\\.html\\'"
+     :mode (
+            "\\.html\\'"
+            "\\.tpl\\'"                                     ;;;; gotemplate
+            )
+    :init (emmet-mode)
+    :config (setq
+             web-mode-enable-auto-expanding t               ;;;; enable d/ expanding
+             web-mode-engines-alist '(("go" . "\\.tpl\\'")) ;;;; enable go rendering in tpl
+             )
     )
 #+end_src
+*** hook for engine detection via ~dir-locals~
+#+BEGIN_SRC elisp
+(defun fb|web-mode-hook ()
+  "Hooks for Web mode. Add a local hook which set the engine to the one specified by
+   `fb-web-mode-engine` local variable."
+  (add-hook
+   'hack-local-variables-hook
+   (lambda ()
+     (if (boundp 'fb-web-mode-engine)
+         (progn
+           (message "web-mode-engine is %s" fb-web-mode-engine)
+           (web-mode-set-engine fb-web-mode-engine))
+       (progn
+         (message "no web-mode-engine settled")
+         (web-mode-set-engine "none"))))))
+(add-hook 'web-mode-hook  'fb|web-mode-hook nil nil)
+#+END_SRC
+**** set web-mode-engine in =dir-locals=
+#+BEGIN_EXAMPLE elisp
+ (web-mode . (
+	      (fb-web-mode-engine . "django")
+		 ))
+#+END_EXAMPLE
+** emmet-mode
+https://docs.emmet.io/cheat-sheet/
+https://github.com/smihica/emmet-mode
+
+#+BEGIN_SRC elisp
+  (use-package emmet-mode
+    :hook ((html-mode sgml-mode css-mode web-mode) . emmet-preview-mode)
+    :commands (emmet-mode emmet-expand-line yas/insert-snippet yas-insert-snippet company-complete)
+    :config
+    (setq emmet-move-cursor-between-quotes t
+          emmet-preview-default nil
+          ;; emmet-preview-default t
+          )
+    (add-hook 'rjsx-mode-hook
+              (lambda ()
+                (setq-local emmet-expand-jsx-className? t)))
+    )
+#+END_SRC
 ** TODO go~/helm~templates
 =M-x= ~web-mode-set-engine~ =RET= go =RET=
 *** https://web-mode.org/
