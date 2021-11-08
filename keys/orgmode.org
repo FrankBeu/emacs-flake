@@ -266,6 +266,7 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
 
     "B"      '(                                                   :which-key "babel"            :ignore t)
     "BS"     '(org-babel-pop-to-session                           :which-key "session"          )
+    "BE"     '(org-babel-execute-buffer                           :which-key "exec-buffer"      )
 
     "c"      '(org-comment-dwim                                   :which-key "comment"          )
 
