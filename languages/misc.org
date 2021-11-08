@@ -130,6 +130,12 @@ https://github.com/tigersoldier/company-lsp
     (yas-reload-all)
     )
 #+end_src
+*** fundamental-mode
+#+BEGIN_SRC elisp
+(add-hook 'yas-minor-mode-hook
+          (lambda ()
+            (yas-activate-extra-mode 'fundamental-mode)))
+#+END_SRC
 *** TODO expand yas-snippets with the same keypress as company
 **** ACTUAL
 - tab: ~yas-expand~
