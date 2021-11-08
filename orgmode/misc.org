@@ -103,6 +103,20 @@ efford
 #+begin_src elisp
   (setq org-startup-indented t)
 #+end_src
+** images
+*** set width of images displayed in org-files
+
+#+BEGIN_SRC elisp
+(setq org-image-actual-width (list 650))
+#+END_SRC
+
+**** can be overridden with
+#+BEGIN_EXAMPLE org
+#+ATTR_ORG: :width 300
+#+ATTR_HTML: :width 300px
+#+ATTR_LATEX: :width 300px
+#+END_EXAMPLE
+
 ** TOC
 #+begin_src elisp
   (use-package org-make-toc
@@ -155,7 +169,7 @@ https://github.com/akhramov/org-wild-notifier.el
 #+end_src
 **** org-alert
 https://github.com/spegoraro/org-alert
-** TODO doct 
+** TODO doct
 https://github.com/progfolio/doct
 ** DEPRECATED depend
 https://orgmode.org/worg/org-contrib/org-depend.html
