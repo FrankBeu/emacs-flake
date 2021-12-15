@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : fatArrow
+#key : fta
+#contributor : fb
+# --
+
+$>${1:Type} ${2:Name}(${3:Params}) => ${4:Expr};
+$>$0

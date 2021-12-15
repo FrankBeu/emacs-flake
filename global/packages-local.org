@@ -20,6 +20,11 @@ dependency for core-transient-state
 #+begin_src elisp
   (require 'core-toggle)
 #+end_src
+** dart-snippets
+https://github.com/Davoodeh/dart-snippets
+#+BEGIN_SRC elisp
+  (use-package dart-snippets)
+#+END_SRC
 ** ox-ipynb
 https://github.com/jkitchin/ox-ipynb
 #+begin_src elisp

@@ -28,6 +28,9 @@
 #+INCLUDE: "./keybindings.org"
 ** global-Leader
 #+INCLUDE: "./global-leader.org"
+** INCLUDE NEW LANGS BELOW
+** dart
+#+INCLUDE: "./dart.org"
 ** go
 #+INCLUDE: "./golang.org"
 ** json
@@ -40,10 +43,7 @@
 #+INCLUDE: "./orgmode.org"
 ** outline
 #+INCLUDE: "./outline.org"
-
-
 ** python
 #+INCLUDE: "./python.org"
-
 ** web
 #+INCLUDE: "./web.org"

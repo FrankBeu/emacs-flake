@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+#name : aaaTest
+#key : aaa
+#contributor : fb
+# --
+test(
+  'should ${1:description}',
+  () async {
+  // arrange
+  $>$0
+  // act
+
+  // assert
+
+  }, tags: [${2:tags}],
+);

@@ -1,0 +1,50 @@
+* dart-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; dart-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** dart
+*** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'dart-mode-map
+    :states  '(normal visual insert)
+
+
+    "d"      '(lsp-dart-dap-open-devtools                         :which-key "devtools"               )
+
+    "h"      '(                                                   :which-key "hot"                    :ignore t)
+    "hs"     '(lsp-dart-flutter-hot-restart                       :which-key "restart"                )
+    "hl"     '(lsp-dart-flutter-hot-reload                        :which-key "reload"                 )
+
+    "o"      '(                                                   :which-key "outline"                :ignore t)
+    "od"     '(lsp-dart-show-outline                              :which-key "dart"                   )
+    "of"     '(lsp-dart-show-flutter-outline                      :which-key "flutter"                )
+
+    "p"      '(                                                   :which-key "pub"                    :ignore t)
+    "pg"     '(lsp-dart-pub-get                                   :which-key "get"                    )
+    "pu"     '(lsp-dart-pub-upgrade                               :which-key "upgrade"                )
+    "pg"     '(lsp-dart-pub-outdated                              :which-key "outdated"               )
+
+    "r"      '(lsp-dart-run                                       :which-key "run"                    )
+
+    "t"      '(                                                   :which-key "test"                   :ignore t)
+    "td"     '(                                                   :which-key "debug"                  :ignore t)
+    "tdl"    '(lsp-dart-debug-last-test                           :which-key "last"                   )
+    "tdp"    '(lsp-dart-debug-test-at-point                       :which-key "point"                  )
+    "tr"     '(                                                   :which-key "run"                    :ignore t)
+    "tra"    '(lsp-dart-run-all-tests                             :which-key "all"                    )
+    "trl"    '(lsp-dart-run-last-test                             :which-key "last"                   )
+    "trp"    '(lsp-dart-run-test-at-point                         :which-key "point"                  )
+    "trf"    '(lsp-dart-run-test-file                             :which-key "file"                   )
+
+    "tt"     '(lsp-dart-test-show-tree                            :which-key "tree"                   )
+    "tv"     '(lsp-dart-visit-last-test                           :which-key "visit"                  )
+
+
+
+    )
+#+end_src
