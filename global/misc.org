@@ -58,17 +58,35 @@
   "my domain")
 #+end_src
 ** safe local-vars
-#+begin_src elisp
-  (add-to-list 'safe-local-variable-values
-             '(eval org-content 2)
-             )
-#+end_src
+*** enable safe-usage
+#+BEGIN_SRC elisp
+(setq enable-local-variables :safe)
+#+END_SRC
+*** set safe-variables
+#+BEGIN_SRC elisp
+  (setf safe-local-variable-values (cl-list*
+                                    '(org-content . 2)
+                                    '(org-content . 3)
+                                    '(org-export-with-section-numbers . nil)
+                                    '(org-export-with-toc . nil)
+                                    '(org-fb-re-reveal-talk-url . "https://keynotes.thesym.site/dartflutter")
+                                    '(org-fb-re-reveal-talk-url-show-anchor-on-title-slide . nil)
+                                    '(org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide . t)
+                                    '(org-fb-re-reveal-talk-url-show-qrCode-on-title-slide . nil)
+                                    '(org-re-reveal-single-file . t)
+                                    '(org-re-reveal-title-slide . "~/.emacs.d/orgmode/revealjs/revealjs.titleSlide.html")
+                                    safe-local-variable-values))
+#+END_SRC
+**** FUNDUS
+#+BEGIN_SRC elisp :tangle no
+  ;; (add-to-list 'safe-local-variable-values
+  ;;            '(eval org-content 2)
+  ;;            )
 
-#+begin_src elisp
-  (add-to-list 'safe-local-eval-forms
-               '(org-content 3)
-               )
-#+end_src
+  ;; (add-to-list 'safe-local-eval-forms
+  ;;              '(org-content 3)
+  ;;              )
+#+END_SRC
 *** custom
 #+BEGIN_SRC elisp
 (setq custom-file (concat user-emacs-directory "custom.el"))
@@ -115,7 +133,9 @@ https://github.com/rejeep/wrap-region.el
     )
 #+END_SRC
 *** keybinding
-[[file:~/.emacs.d/keys/global-leader.org::*global-leader =SPC=][global-leader =SPC=]] ::W
+[[file:~/.emacs.d/keys/global-leader.org::*keys-global-leader][keys-global-leader]]
+=SPC W=
+*** org: [[file:~/.emacs.d/orgmode/babel.org::*wrapping][wrapping]]
 ** CANCELLED window-splitting
 #+begin_src elisp
 ;; (setq
