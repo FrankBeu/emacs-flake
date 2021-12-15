@@ -79,6 +79,8 @@
 
     "n"      '(web-mode-navigate                                  :which-key "navigate"               )
 
+    "p"      '(sgml-pretty-print                                  :which-key "pretty"                 )
+
     "r"      '(web-mode-reload                                    :which-key "reload"                 )
 
     "s"      '(web-mode-snippet-insert                            :which-key "snippet-insert"         )
