@@ -5,6 +5,10 @@
   ;;;;
   ;;
 #+END_SRC
+** indentation
+#+BEGIN_SRC elisp
+(setq org-src-tab-acts-natively t)
+#+END_SRC
 ** languages
 *** arduino
 https://github.com/stardiviner/arduino-mode
@@ -318,7 +322,6 @@ https://github.com/ljos/ob-prolog
 #+BEGIN_SRC elisp :tangle no
   (org-babel-do-load-languages 'org-babel-load-languages)
 #+END_SRC
-
 ** examples
 *** arduino
 will upload the block to arduino
@@ -438,7 +441,7 @@ int main() {
 : test
 *** ein
 ,#+BEGIN_SRC ein-python :session localhost :tangle no
-#+BEGIN_SRC ein-python :session localhost:8888
+#+BEGIN_SRC ein-python :session localhost:8888 :tangle no
   import numpy, math, matplotlib.pyplot as plt
   %matplotlib inline
   x = numpy.linspace(0, 2*math.pi)
@@ -853,8 +856,10 @@ console.log(message);
 ** wrapping
 [[file:~/.emacs.d/global/misc.org::*wrap-region][wrap-region]]
 #+BEGIN_SRC elisp
-  (wrap-region-add-wrapper "#+BEGIN_SRC go :results drawer\n"    "#+END_SRC\n" "G" 'org-mode)
-  (wrap-region-add-wrapper "#+BEGIN_SRC shell :results drawer\n" "#+END_SRC\n" "S" 'org-mode)
+  (wrap-region-add-wrapper "#+BEGIN_SRC dart :results output\n"  "#+END_SRC\n"     "D" 'org-mode)
+  (wrap-region-add-wrapper "#+BEGIN_EXAMPLE\n"                   "#+END_EXAMPLE\n" "E" 'org-mode)
+  (wrap-region-add-wrapper "#+BEGIN_SRC go :results drawer\n"    "#+END_SRC\n"     "G" 'org-mode)
+  (wrap-region-add-wrapper "#+BEGIN_SRC shell :results drawer\n" "#+END_SRC\n"     "S" 'org-mode)
 #+END_SRC
 
 ** INFO
