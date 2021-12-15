@@ -68,8 +68,10 @@ do not define a prefix in this keymap
 in visual state always use evil-motion-bindings not the keymap-specific ones
 cf. [[*ivy-occur][ivy-occur]]
 *** evil-shadow
-if the keybinding defined is shadowed by an evil-keybinding try
+**** if the keybinding defined is shadowed by an evil-keybinding try
    ~:states  'motion~
+**** try a restart with the compiled configuration
+not all changes can be loaded 'inPlace' with =C-X C-E=
 ** evil
 *** jkl;
 **** ; -> h
@@ -276,6 +278,15 @@ https://emacs-lsp.github.io/dap-mode/page/how-to/#stop-and-delete-sessions
    "e"      'epa-dired-do-encrypt
    "s"      'epa-dired-do-sign
    "v"      'epa-dired-do-verify
+   )
+#+end_src
+** emoji
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(emoji-list-mode-map)
+   :states  'motion
+   "RET"    'nil
+   "RET"    'emoji-list-select
    )
 #+end_src
 ** imenu

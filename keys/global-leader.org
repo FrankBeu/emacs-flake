@@ -137,6 +137,13 @@
 
     "j"   '(dired-jump                                    :which-key "dired"                            )
 
+    "J"   '(                                              :which-key "emoji"                            :ignore t)
+    "JD"  '(emoji-describe                                :which-key "describe"                         )
+    "JI"  '(emoji-insert                                  :which-key "insert"                           )
+    "JL"  '(emoji-list                                    :which-key "list"                             )
+    "JR"  '(emoji-recent                                  :which-key "recent"                           )
+    "JS"  '(emoji-search                                  :which-key "search"                           )
+
     "L"   '(                                              :which-key "lsp"                              :ignore t)
     "LD"  '(xref-find-definitions                         :which-key "find-def"                         )
     "LR"  '(xref-find-references                          :which-key "find-ref"                         )
@@ -381,5 +388,5 @@
     "zo"  '(fb/open-fold                                  :which-key "open"                             )
 
     ";"   '(counsel-switch-buffer                         :which-key "switch-buffer"                    )
-    )
+  )
 #+end_src
