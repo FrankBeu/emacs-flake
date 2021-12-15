@@ -195,8 +195,9 @@ on prompts use:
    "C-;" 'nil
    "C-;" 'fb/company-complete-selection
 
-   "C-J" 'yas-prev-field
-   "C-:" 'yas-next-field-or-maybe-expand
+   "C-J"   'yas-prev-field
+   "C-:"   'yas-next-field-or-maybe-expand
+   "C-M-:" 'yas-expand-from-trigger-key
    )
 #+end_src
 **** remap interfering insert-digraph
