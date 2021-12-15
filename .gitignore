@@ -10,3 +10,8 @@ IGNORE
 init.el
 /OUTPUT/
 /custom.el
+
+
+### ignore nix-store controlled code
+**/ox-ipynb.el
+**/dart-snippets.el
