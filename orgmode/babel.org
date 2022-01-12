@@ -222,6 +222,7 @@ https://github.com/alf/ob-restclient.el
   (use-package ob-restclient
     :config
     (add-to-list 'org-babel-load-languages  '(restclient . t))
+    :mode (("\\.http\\'" . restclient-mode))
     )
 #+END_SRC
 *** rust
