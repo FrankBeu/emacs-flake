@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-quote
+#key :  BQ
+#contributor : fb
+# --
+#+BEGIN_QUOTE
+$0
+#+END_QUOTE

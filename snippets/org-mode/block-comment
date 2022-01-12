@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-comment
+#key :  BCO
+#contributor : fb
+# --
+#+BEGIN_COMMENT
+$0
+#+END_COMMENT

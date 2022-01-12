@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-center
+#key :  BCE
+#contributor : fb
+# --
+#+BEGIN_CENTER
+$0
+#+END_CENTER

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-notes
+#key :  BNO
+#contributor : fb
+# --
+#+BEGIN_NOTES
+$0
+#+END_NOTES

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-example-restclient
+#key :  BRC
+#contributor : fb
+# --
+#+BEGIN_EXAMPLE restclient
+$0
+#+END_EXAMPLE

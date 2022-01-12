@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : block-example-http
+#key  : BHTTP
+#contributor : fb
+# --
+#+BEGIN_EXAMPLE http ${1:$$(yas-choose-value '(":pretty" ""))}
+$0
+#+END_EXAMPLE
