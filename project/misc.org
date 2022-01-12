@@ -1,0 +1,23 @@
+* project-misc
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; project-misc
+  ;;;;
+  ;;
+#+end_src
+** hl-todo
+https://github.com/tarsius/hl-todo
+#+begin_src elisp
+  (use-package hl-todo
+    :config
+    (global-hl-todo-mode t)
+    (setq hl-todo-keyword-faces
+      '(("TODO"   . "#FF0000")
+        ("FIXME"  . "#FF0000")
+        ("DEBUG"  . "#A020F0")
+        ("GOTCHA" . "#FF4500")
+        ("STUB"   . "#1E90FF")))
+    )
+#+end_src
+*** TODO hl-todo
+specify colors

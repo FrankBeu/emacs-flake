@@ -9,5 +9,7 @@
 #+INCLUDE: "./direnv.org"
 ** magit
 #+INCLUDE: "./magit.org"
+** misc
+#+INCLUDE: "./misc.org"
 ** projectil
 #+INCLUDE: "./projectile.org"

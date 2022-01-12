@@ -274,6 +274,11 @@
     "SOM" '(smerge-mode                                   :which-key "mode"                             )
 
     "t"   '(                                              :which-key "toggles"                          :ignore t)
+    "td"  '(                                              :which-key "todo"                             :ignore t)
+    "tdi" '(hl-todo-insert                                :which-key "insert"                           )
+    "tdn" '(hl-todo-next                                  :which-key "next"                             )
+    "tdo" '(hl-todo-occur                                 :which-key "occur"                            )
+    "tdp" '(hl-todo-previous                              :which-key "prev"                             )
     "ti"  '(imenu-list-smart-toggle                       :which-key "imenu"                            )
     "tl"  '(toggle-truncate-lines                         :which-key "truncate-lines"                   )
     "tm"  '(treemacs                                      :which-key "treemacs"                         )

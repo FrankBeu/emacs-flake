@@ -29,6 +29,14 @@ https://github.com/dandavison/magit-delta
 *** TODO implement
 #+begin_src elisp
 #+end_src
+** magit-todo
+https://github.com/alphapapa/magit-todos
+#+BEGIN_SRC elisp
+  (use-package magit-todos
+    :after magit
+    :hook (magit-mode . magit-todos-mode)
+    )
+#+END_SRC
 ** orgit-forge
 *** TODO implement
 #+begin_src elisp
