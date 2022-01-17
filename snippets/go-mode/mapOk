@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#name : mapOk
+#key : mok
+#contributor : fb
+# --
+if  ${3:value}, ok := ${1:map}[${2:key}]; ok {
+    return $3 
+}
+$0
+
