@@ -13,5 +13,6 @@ init.el
 
 
 ### ignore nix-store controlled code
-**/ox-ipynb.el
-**/dart-snippets.el
+/global/packages-local/ox-ipynb.el
+/global/packages-local/dart-snippets.el
+/global/packages-local/snippets/dart-mode
