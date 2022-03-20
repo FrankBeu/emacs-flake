@@ -5,6 +5,19 @@
   ;;;;
   ;;
 #+END_SRC
+** coloring
+render ansi-color-codes
+#+BEGIN_SRC elisp
+(defun LOCAL/babel-ansi ()
+  (when-let ((beg (org-babel-where-is-src-block-result nil nil)))
+    (save-excursion
+      (goto-char beg)
+      (when (looking-at org-babel-result-regexp)
+        (let ((end (org-babel-result-end))
+              (ansi-color-context-region nil))
+          (ansi-color-apply-on-region beg end))))))
+(add-hook 'org-babel-after-execute-hook 'LOCAL/babel-ansi)
+#+END_SRC
 ** indentation
 #+BEGIN_SRC elisp
 (setq org-src-tab-acts-natively t)
@@ -190,6 +203,8 @@ https://github.com/krisajenkins/ob-mongo
     (add-to-list 'org-babel-load-languages  '(mongo  . t))
     )
 #+END_SRC
+*** TODO nix
+https://github.com/shadowrylander/.emacs.d/blob/656cfeb0e7f9da7c083fc1a933f5c2066fbbf0f8/README.org#nix-mode
 *** plantuml
 #+BEGIN_SRC elisp
   (use-package ob-plantuml
