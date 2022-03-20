@@ -44,3 +44,5 @@ from =core-spacemacs.el=
 ***** misleading name
 **** changed hook: ~spacemacs|transient-state-format-hint~ :100
  ~spacemacs-post-user-config-hook~  ->  ~emacs-startup-hook~
+** tridactyl
+cf. =~/.emacs.d/languages/tridactyl.org=

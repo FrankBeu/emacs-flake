@@ -1,0 +1,14 @@
+* tridactyl
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; tridactyl
+  ;;;;
+  ;;
+#+end_src
+** tridactyl-mode
+#+begin_src elisp
+(use-package tridactyl-mode
+  :mode "tridactylrc\\'")
+#+end_src
+** INFO
+https://github.com/Fuco1/tridactyl-mode

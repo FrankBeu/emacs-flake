@@ -45,6 +45,8 @@
 #+INCLUDE: "./solidity.org"
 ** swift
 #+INCLUDE: "./swift.org"
+** tridactyl
+#+INCLUDE: "./tridactyl.org"
 ** typeScript
 #+INCLUDE: "./typeScript.org"
 ** web
