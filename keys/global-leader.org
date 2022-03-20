@@ -15,9 +15,12 @@
     "BJ"  '(counsel-bookmark                              :which-key "jump"                             )
     "BS"  '(bookmark-set                                  :which-key "set"                              )
     "BL"  '(bookmark-bmenu-list                           :which-key "list"                             )
+    "BF"  '(bookmark-bmenu-save                           :which-key "file"                             )
+
 
     "b"   '(                                              :which-key "buffer"                           :ignore t)
     "br"  '(revert-buffer                                 :which-key "revert"                           )
+    "bs"  '(mark-whole-buffer                             :which-key "select-whole"                     )
 
     "c"   '(                                              :which-key "comment"                          :ignore t)
     "cc"  '(evilnc-comment-operator                       :which-key "cmnt-operator"                    )
@@ -106,7 +109,8 @@
     "es"  '(flycheck-select-checker                       :which-key "select-checker"                   )
     "ev"  '(flycheck-verify-setup                         :which-key "verify-setup"                     )
     "ex"  '(flycheck-disable-checker                      :which-key "disable"                          )
-    "ey"  '(flycheck-copy-errors-as-kill                  :which-key "copy-errors"                      )
+    "eyy" '(flycheck-copy-errors-as-kill                  :which-key "copy-errors"                      )
+    "eyi" '((lambda()(interactive)(let ((current-prefix-arg 4))(call-interactively #'flycheck-copy-errors-as-kill))) :which-key "copy-error-ID") ;;;; call with C-U
 
     "E"   '(:keymap envrc-command-map :package envrc-mode :which-key "envrc"                            )
 
@@ -214,6 +218,7 @@
     "oi9" '((lambda()(interactive)(find-file "~/NOTES/〇/9  ROUTINEN.org"       )) :which-key "ROUTINEN"              )
     "oi0" '((lambda()(interactive)(find-file "~/NOTES/〇/10 ERKENNTNISSE.org"   )) :which-key "ERKENNTNISSE"          )
     "oie" '((lambda()(interactive)(find-file "~/NOTES/〇/11 ERLEDIGTES.org"     )) :which-key "ERLEDIGTES"            )
+    "oij" '((lambda()(interactive)(find-file "~/NOTES/ROUTINES.org"             )) :which-key "ROUTINES"             )
 
     "p"   '(projectile-command-map                        :which-key "projectile"                       )
 
