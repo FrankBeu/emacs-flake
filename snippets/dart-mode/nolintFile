@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#name : nolintFile
+#key : nlf
+#contributor : fb
+#hint: use with SPC e y i (yanks error-id)
+# --
+// ignore_for_file: `(current-kill 0)`$0

@@ -2,6 +2,7 @@
 # name: constructor
 # key: ctor
 # group: flutter
+# contributor : fb
 # --
 const ${1:Name}({Key? key}) : super(key: key);
 $0

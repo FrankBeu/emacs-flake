@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+#name : docComment
+#key : dc
+#contributor : fb
+# --
+###
+##
+# ${1:COMMENT}
+#
+
+$0

@@ -1,0 +1,31 @@
+# -*- mode: snippet -*-
+# name: StatelessWidget
+# key: slw
+# group: flutter
+# contributor : fb
+# --
+class ${1:`(let ((fn (capitalize (file-name-nondirectory
+                                 (file-name-sans-extension
+				 (or (buffer-file-name)
+				     (buffer-name (current-buffer))))))))
+             (replace-regexp-in-string "_" "" fn t t))`} extends StatelessWidget {
+  ${2:FIELDS}
+
+  const $1({
+    Key? key,
+     ${2:$(with-temp-buffer
+		(insert (yas-text))
+		(goto-char (point-min))
+		(while (re-search-forward "\\\\(.* \\\\)\\\\(.*\\\\)\\\\(;\\\\)" nil t)
+		(replace-match "this.\\\\2,")
+		)
+	    (buffer-string))}
+    }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return $3(
+      $>$0
+    );
+  }
+}

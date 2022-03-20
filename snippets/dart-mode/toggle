@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : toggle
+#key : tgl
+#contributor : fb
+# --
+
+$>${1:Property} = !$1;
+$>$0

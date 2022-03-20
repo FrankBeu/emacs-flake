@@ -1,0 +1,29 @@
+# -*- mode: snippet -*-
+# name: class
+# key: cls
+# contributor : fb
+# --
+
+class ${1:`(let ((fn (capitalize (file-name-nondirectory
+                                 (file-name-sans-extension
+				 (or (buffer-file-name)
+				     (buffer-name (current-buffer))))))))
+             (replace-regexp-in-string "_" "" fn t t))`} {
+  ${2:FIELDS}
+
+  ${3:GETTERS/SETTERS}
+
+  const $1({
+    Key? key,
+     ${2:$(with-temp-buffer
+		(insert (yas-text))
+		(goto-char (point-min))
+		(while (re-search-forward "\\\\(.* \\\\)\\\\(.*\\\\)\\\\(;\\\\)" nil t)
+		(replace-match "this.\\\\2,")
+		)
+	    (buffer-string))}
+    }) : super(key: key);
+
+  ${4:FUNCTIONS}
+  $0
+}
