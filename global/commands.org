@@ -78,7 +78,7 @@
       (dolist (buffer (buffer-list))
         (with-current-buffer buffer
           (when (equal default-directory dir))
-          (my-reload-dir-locals-for-current-buffer)))))
+          (fb/reload-dir-locals-current-buffer)))))
 #+end_src
 ** inflection
 *** capitalize-word
