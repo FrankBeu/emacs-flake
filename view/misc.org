@@ -107,7 +107,7 @@ neotree-mode-hook
   (setq org-startup-indented t)
 #+end_src
 ** cursor
-Set the cursor color based on the evil state
+*** Set the cursor color based on the evil state
 #+begin_src elisp
     (setq
           evil-emacs-state-cursor   `( box      ,(fb*getDefaultColorValue :orange ))
@@ -117,6 +117,10 @@ Set the cursor color based on the evil state
           evil-replace-state-cursor `( box      ,(fb*getDefaultColorValue :red    ))
           evil-visual-state-cursor  `( box      ,(fb*getDefaultColorValue :yellow )))
           ;; evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :green  ))
+#+end_src
+*** stop blinking cursor
+#+begin_src elisp
+  (blink-cursor-mode 0)
 #+end_src
 *** alt
 #+begin_src elisp :tangle no
