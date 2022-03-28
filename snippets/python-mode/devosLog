@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: devosLog
+# key: devl
+# --
+machine.log(${1:output})
+$0

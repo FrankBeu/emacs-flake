@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#name : sha
+#key :  sha
+#contributor : fb
+# --
+
+sha256 = lib.fakeSha256;
+$> $0

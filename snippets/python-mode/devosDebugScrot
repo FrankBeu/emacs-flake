@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: devosDebugScrot
+# key: devdes
+# --
+machine.sleep(${1:DURATION})
+machine.send_chars("${2:COMMAND}\n")
+machine.sleep($1)
+machine.screenshot("${3:SCROT-NAME}")
+machine.sleep($1)
+$0

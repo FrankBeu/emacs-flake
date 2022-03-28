@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: devosSleep
+# key: devsl
+# --
+machine.sleep(${1:DURATION})
+$0

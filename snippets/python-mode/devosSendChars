@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: devosSendchars
+# key: devchar
+# --
+machine.send_chars("${1:COMMAND}\n")
+$0

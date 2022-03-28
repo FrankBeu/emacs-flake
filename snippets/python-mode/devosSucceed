@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: devosSucceed
+# key: devsuc
+# --
+machine.succeed('${1:COMMAND}')
+# output = machine.succeed('$1')
+# machine.log(output)
+$0

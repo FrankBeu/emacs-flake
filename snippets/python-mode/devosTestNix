@@ -1,0 +1,59 @@
+# -*- mode: snippet -*-
+# name: devosTestNix
+# key: devtn
+# contributor : fb
+# --
+{ ${3:VARIABLE-NAME} }:
+''
+machine.wait_for_unit("${1:$$(yas-choose-value '(
+			"multi-user.target"
+			   "default.target"
+			 "graphical.target"
+			      "data.mount"
+			      	  ".service"
+			))}")
+
+
+with subtest("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ ${2:TEST-NAME}"):
+    ### GOLDEN
+    # prepare_console_for_scrot()
+    # machine.send_chars("COMMAND\n")
+    # check_golden_scrot("NAMETarget.png", "NAMEActual")
+    # restore_console_after_scrot()
+
+
+    ### CHECK TEXT
+    # check_screen_text("COMMAND", ["NEEDLE1", "NEEDLE2"])
+
+
+    ### SYSTEMCTL
+    # _, status = machine.systemctl("status SERVICE --no-pager")
+    # machine.log(status)
+
+
+    ### ASSERTION
+    # output = machine.succeed("COMMAND")
+    # assert_contains(output, "NEEDLE")
+
+
+    ### ASSERT
+    # assert "NEEDLE" in machine.succeed("COMMAND | grep NEEDLE")
+
+
+    ### COMMAND
+    # output = machine.succeed("COMMAND")
+    # machine.log(output)
+
+
+    ### COMMAND WITH (STATUS, STDOUT)
+    # output = machine.execute("COMMAND")
+    # machine.log(print(output))
+    # _, stdout = machine.execute("COMMAND")
+    # machine.log(stdout)
+''
+
+
+# Local Variables:
+# mode: python
+# End:
+
