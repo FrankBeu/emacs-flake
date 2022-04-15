@@ -1,0 +1,59 @@
+* orgmode-org
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-org
+  ;;;;
+  ;;
+#+end_src
+** TODO TODOS
+*** mark variables as save
+*** font-face monotype: text
+** org-mode
+#+begin_src elisp
+  (use-package org
+    ;; :hook
+    ;; :config
+    ;; :custom
+    )
+#+end_src
+** evil-org
+https://github.com/Somelauw/evil-org-mode
+#+begin_src elisp
+    (use-package evil-org
+      :after org
+      :init
+      (setq evil-org-use-additional-insert t
+      evil-org-key-theme '(
+                                ;; additional
+                                ;; calendar
+                                ;; heading
+                                ;; insert
+                                ;; navigation
+                                ;; return
+                                ;; shift
+                                textobjects
+                                ;; todo
+                                )
+      )
+      ;; :hook (org-mode . (lambda () evil-org-mode))
+      :hook (org-mode . evil-org-mode)
+      :config
+      (evil-org-set-key-theme)
+      )
+#+end_src
+*** DEPRECATED evil-org-agenda
+CLOSED: [2021-03-23 Tue 21:29]
+:LOGBOOK:
+- State "WIP"        from "NEXT"       [2021-03-23 Tue 21:29]
+- State "NEXT"       from "PENDING"    [2021-03-23 Tue 21:29]
+- State "PENDING"    from "TODO"       [2021-03-23 Tue 21:29]
+- State "TODO"       from              [2021-03-23 Tue 21:29]
+:END:
+all bindings are set by hand in [[file:~/.emacs.d/keys/orgmode.org::*misc][misc]]
+#+begin_src elisp :tangle no :exports none
+  ;;;; set in use-package evil-org
+  ;; :config
+  ;; (require 'evil-org-agenda)
+  ;; (evil-org-agenda-set-keys)
+#+end_src
+

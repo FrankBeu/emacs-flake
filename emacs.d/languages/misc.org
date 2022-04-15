@@ -1,0 +1,215 @@
+* languages-misc
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-misc
+  ;;;;
+  ;;
+#+end_src
+** INFO
+*** completion
+first search for lsp-server
+then for alternative company-backend
+*** TODO compAnies
+**** elasticsearch
+(spacemacs|add-company-backends :backends es-company-backend :modes es-mode)
+**** html
+:backends (company-web-html company-css)
+:backends company-web-jade
+:backends company-web-slim
+**** json
+'company-json` is the default backend unless `lsp' layer is used")
+**** markdown
+:backends company-capf
+:backends company-emoji
+**** nginx
+emacs-company-nginx
+**** nixos
+[[com/travisbhartwell/nix-emacs/blob/master/company-nixos-options.el][company-nixos-options]]
+use-package company-nixos-options
+emacs-company-nixos-options
+**** restclient
+use-package company-restclient
+**** sql
+'company-sql` is the default backend unless `lsp' layer is used")
+**** web-mode
+  '((company-tern company-css company-web-html company-files))))
+** company
+#+begin_src elisp
+  (use-package company
+    :after lsp-mode
+    :hook (
+           (after-init . global-company-mode)
+         )
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-delay 0.0)
+  )
+#+end_src
+**** default-backends
+#+begin_src elisp
+  (defun fb*default-company-backends-h ()
+    "set default company-backends"
+    (set (make-local-variable 'company-backends)
+         '((company-files company-capf company-yasnippet)
+           (company-dabbrev-code company-keywords)
+            company-dabbrev
+            )))
+#+end_src
+***** FUNDUS
+****** different sort
+#+begin_src elisp :tangle no :exports none
+  ;; (set (make-local-variable 'company-backends)
+      ;; '((company-capf
+          ;; :with
+          ;; company-yasnippet
+          ;; company-files
+          ;; company-dabbrev-code)))
+#+end_src
+*** company-box
+#+begin_src elisp
+  (use-package company-box
+    :init
+    (setq company-box-icons-alist 'company-box-icons-all-the-icons)
+    :hook (company-mode . company-box-mode)
+    :config (setq company-box-doc-enable t)
+     )
+#+end_src
+**** icons
+https://code.visualstudio.com/docs/editor/intellisense#_types-of-completions
+**** FUNDUS
+***** icons
+#+begin_src elisp :tangle no :exports none
+  ;; (setq company-box-icons-all-the-icons ....)
+  ;; (setq company-box-icons-yasnippet     ....)
+#+end_src
+***** bindings
+#+begin_src elisp
+  (kbd "M-h") #'company-box-doc-manually
+#+end_src
+*** TODO company-wordfreq
+https://github.com/johannes-mueller/company-wordfreq.el
+**** TODO create nix-package
+*** DEPRECATED company-lsp
+Comapny-lsp is no longer supported. Delete that package and lsp-mode will pick company-capf.
+https://github.com/tigersoldier/company-lsp
+#+begin_src elisp :tangle no :exports none
+  ;; (use-package company-lsp
+  ;;   :config
+  ;;    ;; (push 'company-lsp company-backends)
+  ;;    ;; (push '(company-lsp :with company-yasnippet) company-backends)
+  ;;    )
+#+end_src
+*** complete even without selection
+#+begin_src elisp
+(defun fb/company-complete-selection ()
+  "Insert the selected candidate or the first if no one is selected."
+  (interactive)
+  (if company-selection
+      (company-complete-selection)
+    (company-complete-number 1)))
+#+end_src
+** yasnippets
+  https://joaotavora.github.io/yasnippet/snippet-expansion.html
+#+begin_src elisp
+  (use-package yasnippet
+    :init
+    (yas-global-mode 1)
+    :config
+    (setq yas-snippet-dirs
+          '(
+            "~/.emacs.d/snippets"
+            )
+          ))
+#+end_src
+*** yasnippets-snippets
+#+begin_src elisp
+  (use-package yasnippet-snippets
+  :after yasnippet
+  :config
+    (yasnippet-snippets-initialize)
+    (yas-reload-all)
+    )
+#+end_src
+*** fundamental-mode
+#+BEGIN_SRC elisp
+(add-hook 'yas-minor-mode-hook
+          (lambda ()
+            (yas-activate-extra-mode 'fundamental-mode)))
+#+END_SRC
+*** TODO expand yas-snippets with the same keypress as company
+**** ACTUAL
+- tab: ~yas-expand~
+- C-l: ~company-complete~
+**** TARGET
+- C-l: ~company-complete~ + ~yas-expand~
+  depending on context
+*** TODO inside expanded snippet move to next stop with other keybinding
+*** TODO Change current keybinding moving cursor to next stop inside expanded snippet
+**** ACTUAL
+- tab
+**** TARGET
+- ????
+** TODO [#A] flycheck
+#+begin_src elisp
+  (use-package flycheck
+    :hook (prog-mode . flycheck-mode)
+    ;; :defer t
+    ;; :commands flycheck-list-errors
+    :after lsp-mode
+    ;; :init
+    ;; (global-flycheck-mode)
+    )
+#+end_src
+*** TODO [#A] IMPORTANT
+:LOGBOOK:
+- State "TODO"       from              [2021-02-11 Thu 09:23]
+:END:
+#+begin_example elisp
+    :after lsp-mode
+#+end_example
+prevents emacs from crashing
+on crash: no messages were sent
+cf. journalctl
+lsp has to be started to get flycheck working
+*** buffer-functions
+#+begin_src elisp
+  ;; toggle flycheck window
+  (defun fb/toggle-flycheck-error-buffer ()
+    "toggle a flycheck error buffer."
+    (interactive)
+    (if (string-match-p "Flycheck errors" (format "%s" (window-list)))
+        (dolist (w (window-list))
+          (when (string-match-p "*Flycheck errors*" (buffer-name (window-buffer w)))
+            (delete-window w)
+            ))
+      (flycheck-list-errors)
+      )
+    )
+  (defun spacemacs/goto-flycheck-error-list ()
+    "Open and go to the error list buffer."
+    (interactive)
+    (if (flycheck-get-error-list-window)
+        (switch-to-buffer flycheck-error-list-buffer)
+      (progn
+        (flycheck-list-errors)
+        (switch-to-buffer-other-window flycheck-error-list-buffer))))
+#+end_src
+*** checker-chaining
+https://github.com/flycheck/flycheck/issues/1762
+#+begin_src elisp
+  (defvar-local fb*flycheck-local-cache nil)
+
+  (defun fb*flycheck-checker-get (fn checker property)
+    (or (alist-get property (alist-get checker fb*flycheck-local-cache))
+        (funcall fn checker property)))
+
+  (advice-add 'flycheck-checker-get :around 'fb*flycheck-checker-get)
+#+end_src
+*** window-height
+#+begin_src elisp
+(defadvice flycheck-error-list-refresh (around shrink-error-list activate)
+  ad-do-it
+  (-when-let (window (flycheck-get-error-list-window t))
+    (with-selected-window window
+      (fit-window-to-buffer window 30))))
+#+end_src

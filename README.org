@@ -1,0 +1,14 @@
+* emacsFlake
+A flake for a configured emacs-daemon
+** example of usage
+cf. ~devos~ 'next-door'
+- =flake.nix=
+-  =home/profiles/editor/emacs=
+- =nixos/profiles/editor/emacs=
+** TODO TODOS
+*** TODO create ~lib~
+- for all functions *not* included in the =init.el= via tangling
+*** TODO create mechanism for importing packages not provided by ~emacs-overlay~
+- replace packagesLocal
+*** TODO rename =packagesLocal= -> =localPackages=
+

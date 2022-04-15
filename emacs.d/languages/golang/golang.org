@@ -1,0 +1,189 @@
+* language-golang
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-golang
+  ;;;;
+  ;;
+#+end_src
+** INFO
+https://github.com/golang/tools/blob/master/gopls/doc/emacs.md
+** go-mode
+#+begin_src elisp
+  (use-package go-mode
+    :hook (
+           (go-mode         . company-mode)
+           (go-mode         . lsp-deferred)
+           (go-mode         . fb|lsp-go-install-save-hooks)
+           (go-mode         . fb*default-company-backends-h)
+           (go-dot-mod-mode . fb*default-company-backends-h)
+           )
+    )
+#+end_src
+*** {format,import}-on-save
+Set up before-save hooks to format buffer and add/delete imports.
+Make sure you don't have other gofmt/goimports hooks enabled.
+#+begin_src elisp
+  (defun fb|lsp-go-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t)
+    (add-hook 'before-save-hook #'lsp-organize-imports t t))
+#+end_src
+** golangci-lint
+https://golangci-lint.run/
+https://github.com/weijiangan/flycheck-golangci-lint
+#+begin_src elisp
+  (use-package flycheck-golangci-lint
+    :hook (go-mode . flycheck-golangci-lint-setup)
+    )
+#+end_src
+*** add checker
+cf. [[file:~/.emacs.d/languages/misc.org::*checker-chaining][checker-chaining]]
+golangci-lint is a linterRunner - will run all the available linters - no need to add them one by one
+#+begin_src elisp
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'go-mode)
+              (setq fb*flycheck-local-cache '((lsp . ((next-checkers . (golangci-lint)))))))))
+#+end_src
+*** TODO create nix-package
+*** INFO
+**** disable linting
+https://golangci-lint.run/usage/false-positives/#nolint
+#+begin_example go
+  // yasnip nl
+
+  // nolint
+  // nolint:govet
+#+end_example
+** functions
+*** spacemacs
+#+begin_src elisp
+  (load-file (expand-file-name "languages/golang/config.el" user-emacs-directory))
+  (load-file (expand-file-name "languages/golang/funcs.el" user-emacs-directory))
+#+end_src
+*** unused
+#+begin_src elisp
+  (defun fb/golangDashUnused ()
+    "copy word under cursor and prepend '_ = ' - yanking has to be done MANUALLY afterwards"
+      (interactive)
+      (message (kill-new (concat "_ = " (thing-at-point 'word 'no-properties))))
+      )
+#+end_src
+** testing
+*** go-gen-test
+https://github.com/s-kostyaev/go-gen-test
+https://github.com/cweill/gotests
+#+begin_src elisp
+  (use-package go-gen-test)
+#+end_src
+**** alternative
+https://github.com/damienlevin/GoTests-Emacs
+*** gotest
+https://github.com/nlamirault/gotest.el
+#+begin_src elisp
+  (use-package gotest)
+#+end_src
+*** toggles
+**** go-use-testify-toggle
+#+begin_src elisp
+    (spacemacs|add-toggle go-test-testify-for-testing
+      :documentation "Enable testify-test."
+      :status go-use-testify-for-testing
+      :on  (setq go-use-testify-for-testing t)
+      :off (setq go-use-testify-for-testing nil)
+      )
+#+end_src
+**** go-test-verbose-toggle
+#+begin_src elisp
+    (spacemacs|add-toggle go-test-verbose
+      :documentation "Enable verbose test output."
+      :status go-test-verbose
+      :on (setq go-test-verbose t)
+      :off (setq go-test-verbose nil)
+      )
+#+end_src
+**** go-test-benchmark-toggle
+#+begin_src elisp
+  (defvar fb*go-test-benchmark-p nil
+  "Provide the status of go-test-Benchmark.")
+  (spacemacs|add-toggle go-test-benchmark
+    :documentation "Enable benchmark-tests."
+    :status fb*go-test-benchmark-p
+    :on  (progn (setq go-use-test-args "-bench=.") (setq fb*go-test-benchmark-p t  ))
+    :off (progn (setq go-use-test-args ""        ) (setq fb*go-test-benchmark-p nil))
+    )
+#+end_src
+**** go-test-coverage-toggle
+https://blog.golang.org/cover
+#+begin_src elisp
+  (defvar fb*go-test-coverage-p nil
+  "Provide the status of go-test-coverage.")
+  (spacemacs|add-toggle go-test-coverage
+    :documentation "Enable test coverage."
+    :status fb*go-test-coverage-p
+    :on  (progn (setq go-use-test-args "-cover") (setq fb*go-test-coverage-p t  ))
+    :off (progn (setq go-use-test-args ""      ) (setq fb*go-test-coverage-p nil))
+    )
+#+end_src
+****** TODO coverage-html-output
+1. create coverage.out
+2. open browser
+go test -coverprofile=coverage.out
+% go tool cover -html=count.out
+** gopls-settings
+https://emacs-lsp.github.io/lsp-mode/page/lsp-gopls/
+**** experimental 
+https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+#+begin_src elisp
+  (with-eval-after-load 'lsp-mode
+     (lsp-register-custom-settings '(
+        ("gopls.completeUnimported" t t)
+        ("gopls.staticcheck" t t)
+        ("gopls.gofumpt" t t)
+        )))
+#+end_src
+**** stable
+https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-go.el
+*** restart after change
+=SPC l s r=
+** TODO TODOS
+*** codelenses
+#+begin_src elisp
+  (setq lsp-gopls-codelens nil)
+#+end_src
+** lsp-debugging
+*** enabling
+#+begin_src elisp :tangle no :exports none
+(setq lsp-go-gopls-server-args '("serve" "--debug=localhost:6060"))
+#+end_src
+*** disabling
+#+begin_src elisp :tangle no :exports none
+(setq lsp-go-gopls-server-args nil)
+#+end_src
+*** restart after change
+=SPC l s r=
+*** visit site
+[[http://localhost:6060]]
+** dap
+https://emacs-lsp.github.io/dap-mode/page/configuration/#go
+#+begin_src elisp
+  (use-package dap-go
+    ;; :after dap
+    :config
+    (dap-go-setup)
+    )
+#+end_src
+*** INFO
+**** debugging
+https://github.com/golang/vscode-go/blob/master/docs/debugging.md
+https://github.com/golang/vscode-go/blob/master/docs/debugging.md#check-your-launch-configuration
+**** ~dap-go-setup~
+will install to
+#+begin_example elisp
+dap-go-debug-path
+#+end_example
+**** delve
+https://github.com/go-delve/delve
+**** templates
+https://github.com/emacs-lsp/dap-mode/blob/master/dap-go.el
+**** configuration
+https://github.com/syl20bnr/spacemacs/tree/develop/layers/%2Btools/dap#key-bindings

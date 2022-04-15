@@ -1,0 +1,128 @@
+* view-misc
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view-misc
+  ;;;;
+  ;;
+#+end_src
+** minimal interface
+disable multiple bars
+#+begin_src elisp
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (set-fringe-mode 10)
+  (tool-bar-mode -1)
+  (tooltip-mode -1)
+#+end_src
+** line-numbers
+#+begin_src elisp
+  (column-number-mode)
+  (global-display-line-numbers-mode t)
+#+end_src
+*** Disable display of line numbers in some modes
+#+begin_src elisp
+  (dolist (mode '(
+                  cfw:calendar-mode-hook
+                  calendar-mode-hook
+                  eshell-mode-hook
+                  helpful-mode-hook
+                  org-mode-hook
+                  shell-mode-hook
+                  term-mode-hook
+                  treemacs-mode-hook
+                  ))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+****  FUNDUS
+#+begin_example elisp
+neotree-mode-hook
+
+#+end_example
+***  line-number-toggles
+**** absolute
+#+begin_src elisp
+    (spacemacs|add-toggle absolute-line-numbers
+          :status (and (featurep 'display-line-numbers)
+                       display-line-numbers-mode
+                       (eq display-line-numbers t))
+          :on (prog1 (display-line-numbers-mode)
+                (setq display-line-numbers t))
+          :off (display-line-numbers-mode -1)
+          :on-message "Absolute line numbers enabled."
+          :off-message "Line numbers disabled."
+          :documentation "Show the line numbers."
+          )
+
+    ;; (spacemacs|add-toggle line-numbers
+      ;; :status (and (featurep 'display-line-numbers)
+                   ;; display-line-numbers-mode
+                   ;; (eq display-line-numbers t))
+      ;; :on (prog1 (display-line-numbers-mode)
+            ;; (setq display-line-numbers t))
+      ;; :off (display-line-numbers-mode -1)
+      ;; :(or )n-message "Absolute line numbers enabled."
+      ;; :off-message "Line numbers disabled."
+      ;; :documentation "Show the line numbers.")
+#+end_src
+**** visual
+#+begin_src elisp
+      (spacemacs|add-toggle visual-line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode
+                     (eq display-line-numbers 'visual))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers 'visual))
+        :off (display-line-numbers-mode -1)
+        :documentation "Show relative visual line numbers."
+        :on-message "Visual line numbers enabled."
+        :off-message "Line numbers disabled."
+        ;; :evil-leader "tnv"
+        )
+#+end_src
+**** relative
+#+begin_src elisp
+      (spacemacs|add-toggle relative-line-numbers
+        :status (and (featurep 'display-line-numbers)
+                     display-line-numbers-mode
+                     (eq display-line-numbers 'relative))
+        :on (prog1 (display-line-numbers-mode)
+              (setq display-line-numbers 'relative))
+        :off (display-line-numbers-mode -1)
+        :documentation "Show relative line numbers."
+        :on-message "Relative line numbers enabled."
+        :off-message "Line numbers disabled."
+        )
+#+end_src
+** parenthesis
+#+begin_src elisp
+  (show-paren-mode 1)
+#+end_src
+** highlight-current-line
+#+begin_src elisp
+(global-hl-line-mode 1)
+#+end_src
+** orgmode
+*** startup-indentation
+#+begin_src elisp
+  (setq org-startup-indented t)
+#+end_src
+** cursor
+*** Set the cursor color based on the evil state
+#+begin_src elisp
+    (setq
+          evil-emacs-state-cursor   `( box      ,(fb*getDefaultColorValue :orange ))
+          evil-insert-state-cursor  `((bar . 3) ,(fb*getDefaultColorValue :magenta))
+          evil-motion-state-cursor  `( box      ,(fb*getDefaultColorValue :base5  ))
+          evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :violet ))
+          evil-replace-state-cursor `( box      ,(fb*getDefaultColorValue :red    ))
+          evil-visual-state-cursor  `( box      ,(fb*getDefaultColorValue :yellow )))
+          ;; evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :green  ))
+#+end_src
+*** stop blinking cursor
+#+begin_src elisp
+  (blink-cursor-mode 0)
+#+end_src
+*** alt
+#+begin_src elisp :tangle no :exports none
+  ;; evil-normal-state-cursor  `( box      ,(fb*getDefaultColorValue :green  ))
+#+end_src

@@ -1,0 +1,216 @@
+* languages-dart
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-dart
+  ;;;;
+  ;;
+#+end_src
+** dart
+#+begin_src elisp
+    (use-package dart-mode
+      :hook (
+             (dart-mode . flutter-test-mode             )
+             (dart-mode . company-mode                  )
+             (dart-mode . lsp-deferred                  )
+             (dart-mode . fb*default-company-backends-h )
+             (dart-mode . fb*set-flutter-sdk-dir        )
+             (dart-mode . fb|lsp-dart-install-save-hooks)
+             )
+      :config (setq
+               lsp-dart-dap-flutter-hot-reload-on-save  t
+               lsp-dart-dap-flutter-hot-restart-on-save t
+               )
+      )
+#+end_src
+*** set sdk for direnv
+https://github.com/emacs-lsp/lsp-dart/issues/90#issuecomment-759831455
+**** hook-functions
+***** flutter-sdk-dir
+#+BEGIN_SRC elisp
+  (defun fb*set-flutter-sdk-dir ()
+    (direnv-update-environment)
+    (setq lsp-dart-flutter-sdk-dir
+          (string-trim-right (shell-command-to-string "echo $FLUTTER_SDK")))
+    )
+#+END_SRC
+***** format-on-save
+#+begin_src elisp
+  (defun fb|lsp-dart-install-save-hooks ()
+    (add-hook 'before-save-hook #'lsp-format-buffer t t))
+#+end_src
+** dir-locals-examples
+#+BEGIN_EXAMPLE elisp
+ (dart-mode . (
+	       (eval . (setq dart-exec (executable-find "dart")))
+	       (eval . (setq lsp-dart-sdk-dir (-> dart-exec
+                               file-chase-links
+                               file-name-directory
+                               directory-file-name
+                               file-name-directory)))
+	       (eval . (setq lsp-dart-flutter-sdk-dir (getenv "FLUTTER_SDK")))
+		 ))
+#+END_EXAMPLE
+*** local - not working
+#+BEGIN_EXAMPLE elisp
+(dart-mode . (
+    (eval . (setq lsp-dart-sdk-dir (concat (file-name-as-directory (getenv "FLUTTER_SDK"))  "bin/cache/dart-sdk")))
+    (eval . (setq lsp-dart-flutter-sdk-dir (getenv "FLUTTER_SDK")))
+    ))
+#+END_EXAMPLE
+** debug
+#+BEGIN_SRC elisp :tangle no :exports none
+  (message (concat lsp-dart-flutter-sdk-dir "\n" lsp-dart-sdk-dir "\n" dart-exec))
+#+END_SRC
+
+#+RESULTS:
+: /home/frank/.flutter-sdk
+: /nix/store/z1sraraxyzpw6wr0d7h0aaxcr6q2f10c-dart-2.14.3/
+: /run/current-system/sw/bin/dart
+*** working
+: /home/frank/.flutter-sdk
+: /nix/store/z1sraraxyzpw6wr0d7h0aaxcr6q2f10c-dart-2.14.3/
+: /run/current-system/sw/bin/dart
+*** change directory-locals
+**** revert-buffer
+~revert-buffer~
+=SPC b r=
+**** restartf lsp
+~lsp~
+=SPC l w s=
+*** FUNDUS
+#+BEGIN_SRC elisp :tangle no :exports none
+  (executable-find "flutter")
+
+  (string= (getenv "FLUTTER_SDK")(string-trim-right (shell-command-to-string "echo $FLUTTER_SDK")))
+
+  (message (concat lsp-dart-flutter-sdk-dir "\n" lsp-dart-sdk-dir "\n" dart-exec))
+  (message (concat lsp-dart-flutter-sdk-dir))
+  (message (concat lsp-dart-sdk-dir))
+
+  (eval . (setq lsp-dart-sdk-dir (getenv "FLUTTER_SDK")))
+  (setq lsp-dart-sdk-dir "/home/frank/flutter/bin/cache/dart-sdk"
+  lsp-dart-flutter-sdk-dir "/home/frank/flutter")
+#+END_SRC
+** flutter
+#+begin_src elisp
+  (use-package flutter
+    :after dart-mode
+    :bind (:map dart-mode-map
+                ("C-M-x" . #'flutter-run-or-hot-reload))
+    ;; :custom
+    ;; (flutter-sdk-path "/run/current-system/sw/bin/flutter")
+    )
+#+end_src
+** lsp
+https://github.com/emacs-lsp/lsp-dart
+https://emacs-lsp.github.io/lsp-dart/#rundebug-tests
+#+begin_src elisp
+  (use-package lsp-dart
+    :after lsp
+    :hook (dart-mode . lsp)
+    :config (setq
+             lsp-dart-dap-flutter-hot-reload-on-save t
+             lsp-dart-show-todos t                      ;;;; Whether to show TODOs in the Problems list.
+             )
+    )
+#+end_src
+*** INFO
+**** ericdallo
+uses global flutter
+https://github.com/ericdallo/dotfiles/blob/master/.doom.d/config.el#L141-L146
+#+BEGIN_SRC elisp :tangle no :exports none
+  (use-package lsp-dart
+    :after lsp
+    :hook (dart-mode . lsp)
+    :config
+    (when-let (dart-exec (executable-find "dart"))
+      (let ((dart-sdk-path (-> dart-exec
+                               file-chase-links
+                               file-name-directory
+                               directory-file-name
+                               file-name-directory)))
+        (setq lsp-dart-dap-flutter-hot-reload-on-save t)
+        (if use-local-dart
+            (setq lsp-dart-sdk-dir "/home/frank/flutter/bin/cache/dart-sdk"
+                lsp-dart-flutter-sdk-dir "/home/frank/flutter")
+          (setq lsp-dart-sdk-dir dart-sdk-path))
+        )
+      )
+#+end_src
+** TODO dap
+https://emacs-lsp.github.io/dap-mode/page/configuration/#dart
+#+begin_src elisp
+  ;; (with-eval-after-load 'lsp-dart
+  ;;   (dap-dart-setup))
+#+end_src
+*** ~lsp-dart-dap-setup~ has to be run manually
+** hover
+run app from desktop without emulator
+#+begin_src elisp
+  (use-package hover)
+#+end_src
+)
+** DEPRECATED dart-server
+CLOSED: [2021-11-09 Tue 11:17]
+:LOGBOOK:
+- State "DEPRECATED" from              [2021-11-09 Tue 11:17] \\
+  all functionality is provided by lsp
+:END:
+#+BEGIN_SRC elisp :tangle no :exports none
+  ;; (use-package dart-server
+  ;;   :config
+  ;;   (setq
+  ;;    ;; dart-server-sdk-path "/path/to/flutter/bin/cache/dart-sdk/"
+  ;;    ;; dart-server-sdk-path "/nix/store/hiiapmm5f9qr8si2k182v5rq3ix2q64i-flutter-stable-1.17.5/bin/flutter/bin/cache/dart-sdk"  ;;;; testHardcode: from nix-shell
+  ;;         ;; dart-server-enable-analysis-server t
+  ;;    /run/current-system/sw/bin/dartanalyzer
+  ;;         ))
+#+end_src
+*** use lsp instead
+https://github.com/bradyt/dart-mode/wiki/Recent-Changes#why-was-the-project-split
+Another is that there are alternatives to all the components in dart-server, like LSP, etc. They may even provide formatters.
+** yasnippets
+[[file:~/.emacs.d/global/packages-local.org::*dart-snippets][dart-snippets]]
+* DUMPSTER
+** TODO setup - current state: prevent dap-loading-error
+** dart
+#+BEGIN_SRC elisp :tangle no :exports none
+  (defun set-flutter-sdk-dir ()
+    (direnv-update-environment)
+    (setq lsp-dart-flutter-sdk-dir
+          (string-trim-right (shell-command-to-string "echo $FLUTTER_SDK")))
+    )
+
+  (use-package dart-mode
+    :hook (
+           (dart-mode . flutter-test-mode)
+           (dart-mode . company-mode)
+           (dart-mode . lsp-deferred)
+           )
+    :init
+    (add-hook 'dart-mode-hook 'set-flutter-sdk-dir)
+    )
+
+#+END_SRC
+** dart-mode
+#+BEGIN_SRC elisp :tangle no :exports none
+  ;; (use-package dart-mode
+  ;;   :hook (
+  ;;          (dart-mode . flutter-test-mode)
+  ;;          (dart-mode . company-mode)
+  ;;          (dart-mode . lsp-deferred)
+  ;;          (dart-mode . fb*default-company-backends-h)
+  ;;          )
+  ;;   :init
+  ;;   (add-hook 'dart-mode-hook 'fb*set-flutter-sdk-dir)
+  ;;   )
+  (use-package dart-mode
+    :hook (
+           (dart-mode . flutter-test-mode            )
+           (dart-mode . company-mode                 )
+           (dart-mode . lsp-deferred                 )
+           (dart-mode . fb*default-company-backends-h)
+           (dart-mode . fb*set-flutter-sdk-dir       )
+           )
+    )
+#+END_SRC

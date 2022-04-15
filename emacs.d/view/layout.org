@@ -1,0 +1,129 @@
+* view-layout
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; view-layout
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** ace-window
+#+begin_src elisp
+  (use-package ace-window
+    :config
+    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l ?\;))
+    (set-face-attribute 'aw-leading-char-face nil  :weight 'bold  :height 2.0     :foreground "deep sky blue")
+    (set-face-attribute 'aw-mode-line-face    nil  :inherit 'mode-line-buffer-id  :foreground "lawn green")
+    (ace-window-display-mode t)
+    ;; (setq aw-dispatch-always t)
+    (setq winner-mode 1)
+    (setq aw-dispatch-alist
+      '((?x aw-delete-window "delete")
+        (?c aw-swap-window "swap")
+        (?n aw-flip-window "flip")
+        (?v aw-split-window-vert "split -")
+        (?h aw-split-window-horz "split |")
+        (?m delete-other-windows "maximize")
+        (?g delete-other-windows)
+        (?b balance-windows "=")
+        ))
+  )
+#+end_src
+*** FUNDUS
+#+begin_src elisp :tangle no :exports none
+(use-package ace-window
+    :defer 1
+    :config
+    (set-face-attribute
+     'aw-leading-char-face nil
+     :foreground "deep sky blue"
+     :weight 'bold
+     :height 3.0)
+    (set-face-attribute
+     'aw-mode-line-face nil
+     :inherit 'mode-line-buffer-id
+     :foreground "lawn green")
+    (setq aw-keys '(?a ?s ?d ?f ?j ?k ?l)
+          aw-dispatch-always t
+          aw-dispatch-alist
+          '((?x aw-delete-window "Ace - Delete Window")
+            (?c aw-swap-window "Ace - Swap Window")
+            (?n aw-flip-window)
+            (?v aw-split-window-vert "Ace - Split Vert Window")
+            (?h aw-split-window-horz "Ace - Split Horz Window")
+            (?m delete-other-windows "Ace - Maximize Window")
+            (?g delete-other-windows)
+            (?b balance-windows)
+            (?u (lambda ()
+                  (progn
+                    (winner-undo)
+                    (setq this-command 'winner-undo))))
+            (?r winner-redo)))
+
+    (when (package-installed-p 'hydra)
+      (defhydra hydra-window-size (:color red)
+        "Windows size"
+        ("h" shrink-window-horizontally "shrink horizontal")
+        ("j" shrink-window "shrink vertical")
+        ("k" enlarge-window "enlarge vertical")
+        ("l" enlarge-window-horizontally "enlarge horizontal"))
+      (defhydra hydra-window-frame (:color red)
+        "Frame"
+        ("f" make-frame "new frame")
+        ("x" delete-frame "delete frame"))
+      (defhydra hydra-window-scroll (:color red)
+        "Scroll other window"
+        ("n" joe-scroll-other-window "scroll")
+        ("p" joe-scroll-other-window-down "scroll down"))
+      (add-to-list 'aw-dispatch-alist '(?w hydra-window-size/body) t)
+      (add-to-list 'aw-dispatch-alist '(?o hydra-window-scroll/body) t)
+      (add-to-list 'aw-dispatch-alist '(?\; hydra-window-frame/body) t))
+    (ace-window-display-mode t))
+#+end_src
+*** FUNDUS
+    #+begin_src emacs-lisp :tangle no :exports none
+    (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+    #+end_src
+*** functions
+**** split horizontal
+#+begin_src elisp
+  (defun fb/aw-split-window-horz ()
+    "interactive aw-split-window-horz"
+  (interactive)
+  (aw-select "split |" 'aw-split-window-horz))
+    ;; "av" '((lambda () (interactive) (ace-window ?h))      :which-key "split vert"                       )
+#+end_src
+**** split vertical
+#+begin_src elisp
+  (defun fb/aw-split-window-vert ()
+    "interactive aw-split-window-vert"
+    (interactive)
+    (aw-select "split -" 'aw-split-window-vert))
+#+end_src
+**** winner redo
+#+begin_src elisp
+  (defun fb/winner-redo ()
+    "interactive winner-redo"
+    (interactive)
+    (winner-redo))
+#+end_src
+**** winner-undo
+#+begin_src elisp
+  (defun fb/winner-undo ()
+    "interactive winner-undo"
+    (interactive)
+    (progn
+      (winner-undo)
+      (setq this-command 'winner-undo)))
+#+end_src
+** TODO eyebrowse
+~/SRC/GITHUB/EMACS/spacemacs/layers/+spacemacs/spacemacs-layouts/packages.el
+#+begin_src elisp :tangle no :exports none
+  (use-package eyebrowse
+    :config (eyebrowse-mode t)
+    )
+#+end_src
+*** TODO transient state
+** TODO persp-mode
+#+begin_src elisp
+  (use-package persp-mode)
+#+end_src

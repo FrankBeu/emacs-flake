@@ -1,0 +1,122 @@
+* keys-transient
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; keys-transient
+  ;;;;
+  ;;
+#+end_src
+** INFO
+*** [#A] DEVELOPMENT
+transient-states are defined on ~emacs-start-hook~ - they cannot be tested with =C-x C-e=
+*** in order to enter the transient-state
+**** a transient-function has to be executed
+**** and thus a command / keybinding has to be defined
+** BUG [#A] currently only ONE! transient state can be defined
+others are disabled by :tangle no :exports none
+** evil-numbers
+#+begin_src elisp
+  (spacemacs|define-transient-state evil-numbers
+    :title "Evil Numbers Transient State"
+    :doc
+    "\n[_+_/_=_/_k_] increase number  [_-_/___/_l_] decrease  [0..9] prefix  [_q_] quit"
+    :foreign-keys run
+    :bindings
+    ("+" evil-numbers/inc-at-pt)
+    ("=" evil-numbers/inc-at-pt)
+    ("k" evil-numbers/inc-at-pt)
+    ("-" evil-numbers/dec-at-pt)
+    ("_" evil-numbers/dec-at-pt)
+    ("l" evil-numbers/dec-at-pt)
+    ("q" nil :exit t)
+    :evil-leader "xi."
+    )
+#+end_src
+*** commands
+#+begin_src elisp
+  (defun fb/inc-at-pt ()
+    (interactive)
+    (spacemacs/evil-numbers-transient-state/evil-numbers/inc-at-pt))
+  (defun fb/dec-at-pt ()
+    (interactive)
+    (spacemacs/evil-numbers-transient-state/evil-numbers/dec-at-pt))
+#+end_src
+** string-inflection
+#+begin_src elisp :tangle no :exports none
+    (spacemacs|define-transient-state string-inflection
+      :title "String Inflection Transient State"
+      :doc "\n [_i_] cycle"
+      :bindings
+      ("i" string-inflection-all-cycle)
+      )
+#+end_src
+*** commands
+#+begin_src elisp
+    (defun fb/string-inflection-all-cycle ()
+    "cycle inflectionsand enter fold-transient-state"
+      (interactive)
+      (spacemacs/string-inflection-transient-state/string-inflection-all-cycle))
+#+end_src
+  fb/string-inflection-all-cycle
+                                                string-inflection-all-cycle
+** origami
+#+begin_src elisp :tangle no :exports none
+       (spacemacs|define-transient-state fold
+         :title "Code Fold Transient State"
+         :doc "
+  Close^^            Open^^             Toggle^^         Goto^^         Other^^
+  ───────^^───────── ─────^^─────────── ─────^^───────── ──────^^────── ─────^^─────────
+  [_c_] at point     [_o_] at point     [_a_] at point   [_n_] next     [_s_] single out
+  [_C_] recursively  [_O_] recursively  [_A_] all        [_p_] previous [_R_] reset
+  [_m_] all          [_r_] all          [_TAB_] like org ^^             [_q_] quit"
+         :foreign-keys run
+         :on-enter (unless (bound-and-true-p origami-mode) (origami-mode 1))
+         :bindings
+         ("a" origami-forward-toggle-node)
+         ("A" origami-toggle-all-nodes)
+         ("c" origami-close-node)
+         ("C" origami-close-node-recursively)
+         ("o" origami-open-node)
+         ("O" origami-open-node-recursively)
+         ("r" origami-open-all-nodes)
+         ("m" origami-close-all-nodes)
+         ("n" origami-next-fold)
+         ("p" origami-previous-fold)
+         ("s" origami-show-only-node)
+         ("R" origami-reset)
+         ("TAB" origami-recursively-toggle-node)
+         ("<tab>" origami-recursively-toggle-node)
+         ("q" nil :exit t)
+         ("C-g" nil :exit t)
+         ("<SPC>" nil :exit t)
+         ;; :evil-leader "z." ;;;; not implemented??
+         )
+#+end_src
+*** commands
+#+begin_src elisp
+  (defun fb/open-fold ()
+  "open fold and enter fold-transient-state"
+    (interactive)
+    (spacemacs/fold-transient-state/origami-open-node))
+  (defun fb/close-fold ()
+  "close fold and enter fold-transient-state"
+    (interactive)
+    (spacemacs/fold-transient-state/origami-close-node))
+#+end_src
+** TODO errors
+[[file:~/SRC/GITHUB/EMACS/spacemacs/layers/+spacemacs/spacemacs-defaults/keybindings.el::(spacemacs|define-transient-state error][spacemacs]]
+** TODO other
+*** Examples of transient state menus
+| Keybindings | Transient state description  |
+|-------------+------------------------------|
+| SPC b .     | buffer management            |
+| SPC e .     | errors                       |
+| SPC k .     | lisp state                   |
+| SPC w .     | window management            |
+| SPC z .     | code folding                 |
+| SPC z f     | zoom frame size              |
+| SPC z x     | Font Scaling (x for text)    |
+| SPC n +/-   | Change the value of a number |
+** TODO [#A] magit-blame
+[[file:~/SRC/GITHUB/EMACS/spacemacs/layers/+source-control/git/packages.el::(spacemacs|define-transient-state git-blame][magit-blame-transient-definition]]
+[[file:~/SRC/GITHUB/EMACS/spacemacs/layers/+source-control/git/funcs.el::defun spacemacs//git-blame-ts-toggle-hint (][magit-blame-transient-hint]]
+

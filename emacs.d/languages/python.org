@@ -1,0 +1,158 @@
+* languages-python
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-python
+  ;;;;
+  ;;
+#+end_src
+** python-mode
+https://gitlab.com/python-mode-devs/python-mode/
+#+begin_src elisp
+  (use-package python-mode
+    :config
+    (setq python-indent-guess-indent-offset t
+          python-indent-guess-indent-offset-verbose nil ;;;; prevent warning on opening a python-buffer
+          )
+    )
+#+end_src
+** lsp
+*** INFO
+used packages have to be made available in =/etc/nixos/config/services/emacs/overlayConfig.nix=
+python-ls-server is successor of palantir/python-language-server
+pyright (+ nonfree pylance) is successor of microsoft/python-language-server
+**** config
+https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+*** XOR
+**** python-lsp-server
+https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/
+https://github.com/python-lsp/python-lsp-server
+***** configuration
+#+begin_src elisp :tangle no :exports none
+  (add-hook 'python-mode-hook 'company-mode)
+  (add-hook 'python-mode-hook 'lsp-deferred)
+  (add-hook 'python-mode-hook 'fb*default-company-backends-h)
+  (add-hook 'python-mode-hook (lambda ()
+                                (lsp-register-custom-settings
+                                 '(
+                                   ("pyls.plugins.pyls_black.enabled" t t)
+                                   ("pyls.plugins.pyls_isort.enabled" t t)
+                                   ;; ("pyls.plugins.pyls_mypy.enabled" t t)
+                                   ;; ("pyls.plugins.pyls_mypy.live_mode" nil t)
+
+                                   ("pyls.plugins.flake8.enabled" t t)
+                                   ;;;; Disable these as they're duplicated by flake8
+                                   ("pyls.plugins.mccabe.enabled" nil t)
+                                   ("pyls.plugins.pycodestyle.enabled" nil t)
+                                   ("pyls.plugins.pyflakes.enabled" nil t)
+                                   )
+                                 )))
+#+end_src
+***** isort
+pyright has (lsp-pyright-disable-organize-imports nil)
+#+begin_src elisp :tangle no :exports none
+  (use-package py-isort
+    :after python
+    :hook (
+           (before-save . py-isort-before-save)
+           ))
+#+end_src
+**** pyright
+https://github.com/emacs-lsp/lsp-pyright
+~gotoDefinition~ only shows stubs
+imports need an entry in =pyproject.toml=
+#+begin_src toml :tangle no :exports none
+[tool.pyright]
+include = ["FOLDER"]
+executionEnvironments = [
+  { root = "FOLDER" }
+]
+#+end_src
+***** configuration
+https://github.com/microsoft/pyright/blob/main/docs/settings.md
+#+begin_src elisp
+  (use-package lsp-pyright
+    :custom
+    (lsp-pyright-auto-import-completions nil)
+    :config
+    (lsp-pyright-auto-search-paths t)
+    ;; (lsp-pyright-diagnostic-mode "openFilesOnly")
+    (lsp-pyright-diagnostic-mode "workspace")
+    (lsp-pyright-disable-language-services nil)
+    (lsp-pyright-disable-organize-imports nil)
+    ;; (lsp-pyright-extra-paths)
+    ;; (lsp-pyright-log-level)
+    (lsp-pyright-typechecking-mode "off")
+    ;; (lsp-pyright-typechecking-mode "basic")
+    ;; (lsp-pyright-typechecking-mode "strict")
+    ;; (lsp-pyright-typeshed-paths)
+    (lsp-pyright-use-library-code-for-types nil)
+    ;; (lsp-pyright-venv-path)
+
+    :hook (
+           (python-mode . company-mode)
+           (python-mode . (lambda () (require 'lsp-pyright) (lsp-deferred)))
+           (python-mode . fb*default-company-backends-h)
+           )
+    ;; :config (setq lsp-pyright-use-library-code-for-types t)
+    )
+#+end_src
+** dap
+https://emacs-lsp.github.io/dap-mode/page/configuration/#python
+#+begin_src elisp
+  (use-package dap-python
+    ;; :after dap
+    :custom (dap-python-debugger 'debugpy)
+    )
+#+end_src
+** formatting
+*** blacken
+**** XOR
+***** blacken
+https://github.com/pythonic-emacs/blacken
+https://github.com/psf/black
+#+begin_src elisp
+  (use-package blacken
+    :hook (
+           (python-mode . blacken-mode)
+           )
+    :config (setq
+             blacken-only-if-project-is-blackened t  ;;;; only blacken if pyproject.toml contains [tool.black]
+             blacken-allow-py36                   t  ;;;; Allow using Python 3.6-only syntax on all input files.
+             blacken-line-length               80 ;;;; Max line length enforced by blacken.
+             ;; blacken-skip-string-normalization    ;;;; Don't normalize string quotes or prefixes.
+             ;; blacken-fast-unsafe                  ;;;; Skips temporary sanity checks.
+             )
+    )
+#+end_src
+***** ALT UNUSED python-black
+#+begin_src elisp :tangle no :exports none
+  (use-package python-black
+    :demand t
+    :after python
+    :hook (python-mode . python-black-on-save-mode-enable-dwim)
+    )
+#+end_src
+*** UNUSED yapfify
+https://github.com/JorisE/yapfify
+https://github.com/google/yapf
+#+begin_src elisp :tangle no :exports none
+  (use-package yapfify
+    :hook (
+           (python-mode . yapf-mode)
+           ))
+#+end_src
+** pytest
+https://github.com/wbolster/emacs-python-pytest
+ needs a projectile-project, to find test and executable from direnv
+#+begin_src elisp
+  (use-package python-pytest
+    :after python
+    )
+#+end_src
+*** TODO executable installed globally - fix
+** vyper
+#+begin_src elisp
+  (use-package vyper-mode)
+#+end_src
+** INFO
+https://www.mattduck.com/lsp-python-getting-started.html
