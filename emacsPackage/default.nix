@@ -13,7 +13,8 @@ let emacsPackage =
 
       ### Package is optional, defaults to pkgs.emacs
       # package = pkgs.emacsGit;
-      package = pkgs.emacsNativeComp;
+      # package = pkgs.emacsNativeComp;  ### latestTag
+      package = pkgs.emacsGitNativeComp; ### master
 
       ### By default emacsWithPackagesFromUsePackage will only pull in
       ### packages with `:ensure`, `:ensure t` or `:ensure <package name>`.

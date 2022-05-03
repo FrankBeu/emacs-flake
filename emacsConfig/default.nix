@@ -1,7 +1,8 @@
 { nixpkgs, emacs-overlay, ... }:
 let emacsConfig = with import nixpkgs { system = "x86_64-linux"; overlays = [ emacs-overlay.overlay ]; }; stdenv.mkDerivation {
       name = "emacs-config";
-      buildInputs = [ emacsNativeComp ];
+      # buildInputs = [ emacsNativeComp ];   ### latestTag
+      buildInputs = [ emacsGitNativeComp ];  ### master     TODO make configurable from outside or from flake.nix
       src = ../emacs.d;
 
       unpackPhase = ''
