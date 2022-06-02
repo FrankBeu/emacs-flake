@@ -4,7 +4,5 @@
 #contributor : fb
 # --
 
-home.file.".nixosInstallation/doc/${1:section}.org".text = pkgs.lib.mkDefault( pkgs.lib.mkAfter ''
-    \${(builtins.readFile ./doc.org)}
-  '');
+home.file.".docLocal/content/homemanager/${1:NAME}.org".source = ./$1.org;
 $0

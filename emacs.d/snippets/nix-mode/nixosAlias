@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name : nixosAlias
+# key :  nial
+# contributor : fb
+# --
+environment = {
+  shellAliases = 
+    let ifSudo = lib.mkIf config.security.sudo.enable;
+    in
+    {
+      ${1:ALIAS} = ''${2:COMMAND} '';  ### ${1:HINT}
+      $0
+    };
+};

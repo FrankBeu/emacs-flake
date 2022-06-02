@@ -4,10 +4,6 @@
 #contributor : fb
 #expand-env: ((yas-indent-line 'fixed))
 # --
-###
-##
-# * $1
-#
 { lib
 , buildGoModule
 , fetchgit

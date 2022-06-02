@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-#name : fileDocSys
-#key :  fidosy
-#contributor : fb
-# --
-
- environment.etc."/nixos/doc/content/${1:$$(yas-choose-value '("global" "system"))}/${2:section}.org".source = ./doc.org;
- $0

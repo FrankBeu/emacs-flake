@@ -5,7 +5,8 @@
 #expand-env: ((yas-indent-line 'fixed))
 # --
 {variables, ...}:
-let content = (import ./$1 { inherit variables; }).content;
+let
+  content = (import ./$1 { inherit variables; }).content;
 in
 {
   xdg.configFile."$1".text = content;

@@ -4,5 +4,5 @@
 #contributor : fb
 # --
 
-  environment.etc."/nixos/doc/content/${1:$$(yas-choose-value '("global" "system"))}/${2:section}.org".source = ./doc.org;
+  environment.etc."/docLocal/content/${1:$$(yas-choose-value '("global" "system"))}/${2:SECTION}.org".source = ./$2.org;
   $0
