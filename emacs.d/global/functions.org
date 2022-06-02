@@ -21,14 +21,83 @@ switch order (alphabetical)
   (setq which-key-sort-order
 	(if (eq which-key-sort-order 'which-key-key-order-alpha) 'which-key-description-order 'which-key-key-order-alpha)))
 #+end_src
-** copy filename
-src: doom-emacs
+** copy file-names
+https://www.gnu.org/software/emacs/manual/html_node/elisp/File-Name-Components.html
+*** path
+=/foo/bar/bas.el= -> =/foo/bar/bas.el=
 #+begin_src elisp
-(defun fb*yank-buffer-filename ()
-  "Copy the current buffer's path to the kill ring."
-  (if-let (filename (or buffer-file-name (bound-and-true-p list-buffers-directory)))
-      (message (kill-new (abbreviate-file-name filename)))
-    (error "Couldn't find filename in current buffer")))
+  (defun fb*yank-file-path ()
+    "Copy the current buffer's path to the kill ring."
+    (let ((path (abbreviate-file-name buffer-file-name)))
+      (kill-new path)
+      (message path))
+    )
+#+end_src
+*** path-with-cursor
+=/foo/bar/bas.el=; cursor on 15:15 -> =/foo/bar/bas.el:15:15=
+#+begin_src elisp
+  (defun fb*yank-file-path-with-cursor-position ()
+    "Copy the current buffer's path with cursor-position to the kill ring."
+    (let ((path (abbreviate-file-name buffer-file-name))
+          (cursor-position (concat (number-to-string (line-number-at-pos)) ":" (number-to-string (current-column))))
+          )
+      (let ((path-with-cursor-position (concat path ":" cursor-position))
+            )
+        (kill-new path-with-cursor-position)
+        (message path-with-cursor-position)
+        )
+      )
+    )
+#+end_src
+*** directory-path
+=/foo/bar/bas.el= -> =/foo/bar/=
+#+begin_src elisp
+  (defun fb*yank-file-directory-path ()
+    "Copy the current buffer's directory-path to the kill ring."
+    (let ((dirpath (file-name-directory buffer-file-name)))
+      (kill-new dirpath)
+      (message dirpath))
+    )
+#+end_src
+*** filename
+=/foo/bar/bas.el= -> =bas.el=
+#+begin_src elisp
+  (defun fb*yank-file-filename ()
+    "Copy the current buffer's filename to the kill ring."
+    (let ((filename (file-name-nondirectory buffer-file-name)))
+      (kill-new filename)
+      (message filename))
+    )
+#+end_src
+*** basename
+=/foo/bar/bas.el= -> =bas=
+#+begin_src elisp
+  (defun fb*yank-file-basename ()
+    "Copy the current buffer's basename to the kill ring."
+    (let ((basename (file-name-base buffer-file-name)))
+      (kill-new basename)
+      (message basename))
+    )
+#+end_src
+*** extension
+=/foo/bar/bas.el= -> =el=
+#+begin_src elisp
+  (defun fb*yank-file-extension ()
+    "Copy the current buffer's extension to the kill ring."
+    (let ((extension (replace-regexp-in-string ".*\\." "" (file-name-nondirectory buffer-file-name))))
+      (kill-new extension)
+      (message extension))
+    )
+#+end_src
+*** dirname
+=/foo/bar/bas.el= -> =bar=
+#+begin_src elisp
+  (defun fb*yank-file-dirname ()
+    "Copy the current buffer's dirname to the kill ring."
+    (let ((dirname (file-name-nondirectory (directory-file-name (file-name-directory buffer-file-name)))))
+      (kill-new dirname)
+      (message dirname))
+    )
 #+end_src
 ** alignment
 #+begin_src elisp

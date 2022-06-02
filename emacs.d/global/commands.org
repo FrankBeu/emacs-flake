@@ -5,12 +5,69 @@
   ;;;;
   ;;
 #+end_src
-** copy filename
+** copy buffer-names
+*** path
+=/foo/bar/bas.el= -> =/foo/bar/bas.el=
 #+begin_src elisp
-  (defun fb/yank-buffer-filename ()
+  (defun fb/yank-file-path ()
     "Copy the current buffer's path to the kill ring."
     (interactive)
-    (fb*yank-buffer-filename))
+    (fb*yank-file-path)
+    )
+#+end_src
+*** path-with-cursor
+=/foo/bar/bas.el=; cursor on 15:15 -> =/foo/bar/bas.el:15:15=
+#+begin_src elisp
+  (defun fb/yank-file-path-with-cursor-position ()
+    "Copy the current buffer's path with cursor-position to the kill ring."
+    (interactive)
+    (fb*yank-file-path-with-cursor-position)
+    )
+#+end_src
+*** directory-path
+=/foo/bar/bas.el= -> =/foo/bar/=
+#+begin_src elisp
+  (defun fb/yank-file-directory-path ()
+    "Copy the current buffer's directory-path to the kill ring."
+    (interactive)
+    (fb*yank-file-directory-path)
+    )
+#+end_src
+*** filename
+=/foo/bar/bas.el= -> =bas.el=
+#+begin_src elisp
+  (defun fb/yank-file-filename ()
+    "Copy the current buffer's filename to the kill ring."
+    (interactive)
+    (fb*yank-file-filename)
+    )
+#+end_src
+*** basename
+=/foo/bar/bas.el= -> =bas=
+#+begin_src elisp
+  (defun fb/yank-file-basename ()
+    "Copy the current buffer's basename to the kill ring."
+    (interactive)
+    (fb*yank-file-basename)
+    )
+#+end_src
+*** extension
+=/foo/bar/bas.el= -> =el=
+#+begin_src elisp
+  (defun fb/yank-file-extension ()
+    "Copy the current buffer's extension to the kill ring."
+    (interactive)
+    (fb*yank-file-extension)
+    )
+#+end_src
+*** dirname
+=/foo/bar/bas.el= -> =bar=
+#+begin_src elisp
+  (defun fb/yank-file-dirname ()
+    "Copy the current buffer's dirname to the kill ring."
+    (interactive)
+    (fb*yank-file-dirname)
+    )
 #+end_src
 ** reformatting
 *** break-*
