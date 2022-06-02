@@ -12,6 +12,7 @@
     (texlive.combine { inherit (texlive) scheme-full graphics; })
     ripgrep                                                       ### https://github.com/BurntSushi/ripgrep
     yamllint                                                      ### https://github.com/adrienverge/yamllint
+    emacs-all-the-icons-fonts                                     ### https://github.com/domtronn/all-the-icons.el
 
     ###
     ##
