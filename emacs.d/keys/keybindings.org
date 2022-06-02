@@ -72,8 +72,30 @@ cf. [[*ivy-occur][ivy-occur]]
    ~:states  'motion~
 **** try a restart with the compiled configuration
 not all changes can be loaded 'inPlace' with =C-X C-E=
+*** force keybinding
+#+begin_src elisp
+  (general-define-key
+   ;; :keymaps '(evil-normal-state-map)
+   ;;▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+   :keymaps 'override
+   ;;▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+   :states  '(normal visual)
+   "gf"   'evil-find-file-at-point-with-line
+   "gF"   'find-file-at-point
+   )
+#+end_src
 ** evil
-*** jkl;
+*** switch =gf= / =gF=
+#+begin_src elisp
+  (general-define-key
+   ;; :keymaps '(evil-normal-state-map)
+   :keymaps 'override
+   :states  '(normal visual)
+   "gf"   'evil-find-file-at-point-with-line
+   "gF"   'find-file-at-point
+   )
+#+end_src
+*** =jkl;=
 **** ; -> h
 #+begin_src elisp
   (general-define-key
@@ -118,7 +140,7 @@ after *r* use  =C-K=
 everywhere else digraphs are bound to =M-K=
 because company completion will conflict with =C-K=
 [[*remap interfering insert-digraph][remap interfering insert-digraph]]
-** ESC
+** =ESC=
 on prompts use:
 =ESC= like =C-g=
 #+begin_src elisp
@@ -289,6 +311,9 @@ https://emacs-lsp.github.io/dap-mode/page/how-to/#stop-and-delete-sessions
    "RET"    'emoji-list-select
    )
 #+end_src
+** fundamental
+there is no ~fundamental-mode-map~ and no ~fundamental-mode-hook~
+use more specific modes instead
 ** imenu
 #+begin_src elisp
   (general-define-key
