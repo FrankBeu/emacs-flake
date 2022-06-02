@@ -51,6 +51,8 @@
 #+INCLUDE: "./typeScript.org"
 ** web
 #+INCLUDE: "./web.org"
+** zsh
+#+INCLUDE: "./zsh.org"
 ** TODO TODOS
 *** XOR
 **** autocomplete

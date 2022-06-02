@@ -1,0 +1,13 @@
+* language-zsh
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-zsh
+  ;;;;
+  ;;
+#+end_src
+** edit-command-line
+set mode if emacs is called as *command-line-editor*
+files are always like like =/tmp/zshq3uH76=
+#+begin_src elisp
+(add-to-list 'auto-mode-alist '("\\/tmp\\/.\\{9\\}$" . shell-script-mode))
+#+end_src
