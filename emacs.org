@@ -1,0 +1,89 @@
+---
+title: emacs
+linktitle: emacs
+description: documentation for emacs
+categories:
+keywords: [ editor, emacs ]
+menu:
+  sidebar:
+    parent: "home-manager"
+    name: "emacs"
+    identifier: "emacs"
+draft: false
+toc: true
+---
+* emacs
+** update emacs
+depends on implementation
+*** on DEVOS
+#+BEGIN_SRC shell
+  nix flake lock --update-input emacsFlake
+  bud rebuild `hostname` switch
+#+END_SRC
+#+BEGIN_EXAMPLE shell
+  beu  ### Bud-Emacs-Update
+  bs   ### Bud-Switch
+#+END_EXAMPLE
+* TODO 2-SORT
+** SOURCES
+   https://github.com/nix-community/emacs-overlay
+   https://nixos.org/manual/nixpkgs/stable/#sec-emacs
+   https://nixos.wiki/wiki/Emacs
+   https://nixos.org/manual/nixos/stable/index.html#module-services-emacs
+   https://www.emacswiki.org/emacs/GccEmacs
+** architecture
+*** overlay
+=emacsOverlay.nix=
+    version using emacsOverlay
+    configuration included in =/etc/nixos=
+** update
+   overlay is fixed in =/etc/nixos/config/overlays/overlays.nix=
+   use a new git-commit-hash to update emacs and packages
+** build
+*** some packages can take a realy long time to compile
+just let it run
+cf. dap-mode
+process emacs will show up in monitor
+lsp-dap 3h+
+** configuration
+*** ~emacsWithPackagesFromUsePackage~
+**** cannot handle unicode-chars in emacs-config (strings are fine)
+#+BEGIN_SRC shell
+error: Unrecognized token on line 1727: ?•
+#+END_SRC
+***** NoNo
+#+BEGIN_SRC elisp
+       (?- . ?•)
+#+END_SRC
+***** use ~?\uCODEPOINT~ instead
+https://www.gnu.org/software/emacs/manual/html_node/elisp/Character-Type.html
+https://www.gnu.org/software/emacs/manual/html_node/elisp/General-Escape-Syntax.html
+The only issue is when you use unicode characters together with the char specifier ?.
+E.g. ?λ.
+When I either put the numeric representation of the char instead it worked,
+or wrapped the char in a string.
+#+BEGIN_SRC elisp
+  (org-superstar-item-bullet-alist
+   '(
+     ;; (?- . ?•)
+     (?\u002D . ?\u2022)
+     ;; (?+ . ?➤)
+     (?\u002B . ?\u27A4)
+     ;; (?* . ?•)
+     (?\u002A . ?\u2022)
+     )
+   )
+#+END_SRC
+***** get unicode value of char
+=M-x= ~describe-char~
+** use packages not available from overlay
+1. clone into =/etc/nixos/src/emacs/=
+2. add required sources to =/etc/nixos/config/users/config/homemanager/emacs/default.nix=
+3. import in =~/.emacs.d/global/packages-local.org=
+** TODO TODOS
+*** TODO color
+*** TODO configuration
+**** use org-babel directly
+*** TODO ~emacsWithPackagesFromUsePackage~
+currently only elpa-Packages are available to emacsGcc ??
+*** TODO create configuration with homemanager

@@ -15,6 +15,7 @@
 
   outputs = { self, nixpkgs, emacs-overlay }: {
     aliases            = ./aliases;
+    emacsDocumentation = ./emacs.org;
 
     emacsConfig        = import ./emacsConfig   { inherit      nixpkgs emacs-overlay; };
     emacsPackage       = import ./emacsPackage  { inherit self nixpkgs emacs-overlay; };
