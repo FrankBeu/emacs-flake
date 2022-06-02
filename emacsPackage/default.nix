@@ -103,7 +103,7 @@ let emacsPackage =
 
       epkgs.melpaPackages.ecukes                  ### https://github.com/ecukes/ecukes                                                                      # TODO
       epkgs.melpaPackages.edit-server             ### https://github.com/stsquad/emacs_chrome                                                               # TODO
-      epkgs.melpaPackages.ein                     ### https://github.com/millejoh/emacs-ipython-notebook#ob-ein
+      epkgs.melpaPackages.ein                     ### https://github.com/millejoh/emacs-ipython-notebook#ob-ein   TODO
       epkgs.melpaPackages.evil                    ### https://github.com/emacs-evil/evil                   vim-keybindings
       epkgs.melpaPackages.emmet-mode              ### https://github.com/smihica/emmet-mode
       epkgs.melpaPackages.envrc                   ### https://github.com/purcell/envrc

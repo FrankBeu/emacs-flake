@@ -24,6 +24,15 @@ depends on implementation
   beu  ### Bud-Emacs-Update
   bs   ### Bud-Switch
 #+END_EXAMPLE
+** update emacs-overlay
+*** newest version of emacs-overlay
+#+BEGIN_SRC shell :results drawer
+nix flake lock --update-input emacs-overlay
+#+END_SRC
+*** use a specific revision of emacs-overlay
+#+BEGIN_SRC shell :results drawer
+  nix flake update --override-input emacs-overlay github:nix-community/emacs-overlay/c04830e91ab27bb98f66d936f36137275804a6e3
+#+END_SRC
 * TODO 2-SORT
 ** SOURCES
    https://github.com/nix-community/emacs-overlay
