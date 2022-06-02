@@ -14,10 +14,12 @@
   };
 
   outputs = { self, nixpkgs, emacs-overlay }: {
-    aliases        = ./aliases;
-    emacsConfig    = import ./emacsConfig   { inherit      nixpkgs emacs-overlay; };
-    emacsPackage   = import ./emacsPackage  { inherit self nixpkgs emacs-overlay; };
-    packagesLocal  = import ./packagesLocal { inherit      nixpkgs              ; };
-    systemPackages = ./systemPackages;
+    aliases            = ./aliases;
+
+    emacsConfig        = import ./emacsConfig   { inherit      nixpkgs emacs-overlay; };
+    emacsPackage       = import ./emacsPackage  { inherit self nixpkgs emacs-overlay; };
+
+    localPackages      = import ./localPackages { inherit      nixpkgs              ; };
+    systemPackages     = ./systemPackages;
   };
 }

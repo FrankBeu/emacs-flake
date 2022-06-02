@@ -1,5 +1,5 @@
 { nixpkgs, ... }:
-let packagesLocal = with import nixpkgs { system = "x86_64-linux"; }; stdenv.mkDerivation {
+let localPackages = with import nixpkgs { system = "x86_64-linux"; }; stdenv.mkDerivation {
   name = "packagesLocal";
   src = ./src;
 
@@ -19,4 +19,4 @@ let packagesLocal = with import nixpkgs { system = "x86_64-linux"; }; stdenv.mkD
   '';
 };
 in
-packagesLocal
+localPackages
