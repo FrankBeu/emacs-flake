@@ -5,6 +5,14 @@
   ;;;;
   ;;
 #+end_src
+** editorconfig
+  https://github.com/editorconfig/editorconfig-emacs
+#+begin_src elisp
+  (use-package editorconfig
+    :config (editorconfig-mode 1)
+    )
+#+end_src
+trims trailing-whitespace on saving automatically if specified in =.editorconfig=
 ** hl-todo
 https://github.com/tarsius/hl-todo
 #+begin_src elisp

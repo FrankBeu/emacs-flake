@@ -13,12 +13,12 @@
 #+INCLUDE: "./dap.org"
 ** c#
 #+INCLUDE: "./cSharp.org"
-** elisp
-#+INCLUDE: "./elisp.org"
 ** dart
 #+INCLUDE: "./dart.org"
 ** dockerfile
 #+INCLUDE: "./dockerfile.org"
+** elisp
+#+INCLUDE: "./elisp.org"
 ** golang
 #+INCLUDE: "./golang/golang.org"
 ** graphviz
