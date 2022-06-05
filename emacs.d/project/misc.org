@@ -16,17 +16,19 @@ trims trailing-whitespace on saving automatically if specified in =.editorconfig
 ** hl-todo
 https://github.com/tarsius/hl-todo
 #+begin_src elisp
-  (use-package hl-todo
-    :config
-    (global-hl-todo-mode t)
-    (setq hl-todo-keyword-faces
-      '(("TODO"   . "#FF0000")
-        ("FIXME"  . "#FF0000")
-        ("KEEP"   . "#FF0000")
-        ("DEBUG"  . "#A020F0")
-        ("GOTCHA" . "#FF4500")
-        ("STUB"   . "#1E90FF")))
-    )
+    (use-package hl-todo
+      :config
+      (global-hl-todo-mode t)
+      (setq hl-todo-keyword-faces
+        '(("TODO"       . "#FF0000")
+          ("FIXME"      . "#FF0000")
+          ("DEBUG"      . "#A020F0")
+          ("KEEP"       . "#FF4500")
+          ("WORKAROUND" . "#FF4500")
+          ("GOTCHA"     . "#FF4500")
+          ("STUB"       . "#1E90FF")
+          ))
+      )
 #+end_src
 *** TODO hl-todo
 specify colors
