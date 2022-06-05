@@ -395,6 +395,7 @@
     "ye"  '(fb/yank-file-extension                        :which-key "yank-extension"                   )
     "yf"  '(fb/yank-file-filename                         :which-key "yank-filename"                    )
     "yp"  '(fb/yank-file-path                             :which-key "yank-path"                        )
+    "yt"  '(fb/yank-file-attribute-chain                  :which-key "yank-attribute-chain"             )
     "yr"  '(yas-reload-all                                :which-key "yas-reload-all"                   )
     "yv"  '(yas-visit-snippet-file                        :which-key "yas-visit"                        )
     "yy"  '(yas-insert-snippet                            :which-key "yas-insert"                       )

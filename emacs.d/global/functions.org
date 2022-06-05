@@ -99,6 +99,27 @@ https://www.gnu.org/software/emacs/manual/html_node/elisp/File-Name-Components.h
       (message dirname))
     )
 #+end_src
+*** attribute-chain
+=/segments/test/foo/bar/default.nix= -> =test.foo.bar=
+used for DEVOS tests
+#+BEGIN_SRC elisp
+  (defun fb*yank-file-attribute-chain ()
+    "Copy the current buffer's path as attribut-chain to the kill ring."
+    (let* (
+           (regexes '(
+                      ("\/" . ".")
+                      ("\.$" . "")
+                      (".*tests" . "tests")
+                      ))
+           (attribute-chain (seq-reduce
+                             (lambda (string regexp-replacement-pair)
+                               (replace-regexp-in-string (car regexp-replacement-pair) (cdr regexp-replacement-pair) string nil 'literal))
+                             regexes
+                             (file-name-directory buffer-file-name))))
+      (kill-new attribute-chain)
+      (message attribute-chain))
+    )
+#+END_SRC
 ** alignment
 #+begin_src elisp
 ;; modified function from http://emacswiki.org/emacs/AlignCommands

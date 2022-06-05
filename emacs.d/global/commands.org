@@ -69,6 +69,16 @@
     (fb*yank-file-dirname)
     )
 #+end_src
+*** attribute-chain
+=/segments/test/foo/bar/default.nix= -> =test.foo.bar=
+used for DEVOS tests
+#+begin_src elisp
+  (defun fb/yank-file-attribute-chain ()
+    "Copy the current buffer's path as attribut-chain to the kill ring."
+    (interactive)
+    (fb*yank-file-attribute-chain)
+    )
+#+end_src
 ** reformatting
 *** break-*
 **** break-here
