@@ -69,7 +69,7 @@
       ("s" fb/org-refile-hydra-s/body "Schrift Search Security Sprachen"                                   :exit t)
       ("t" fb/org-refile-hydra-t/body "Technology Testing Tools"                                           :exit t)
       ;; ("u" fb/org-refile-hydra-u/body "" :exit t)
-      ("v" fb/org-refile-hydra-v/body "Virtualisierung VirtualReality"                                     :exit t)
+      ("v" fb/org-refile-hydra-v/body "Virtualisation VirtualReality"                                     :exit t)
       ("w" fb/org-refile-hydra-w/body "Web Welt"                                                           :exit t)
       ;; ("x" fb/org-refile-hydra-x/body "" :exit t)
       ("y" fb/org-refile-hydra-y/body "Yoga"                                                               :exit t)
@@ -197,7 +197,7 @@
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-v
                             (
-                             ("i" . "PROJECTS/Virtualisierung.org")
+                             ("i" . "PROJECTS/Virtualisation.org")
                              ("r" . "PROJECTS/VirtualReality.org" )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-w
