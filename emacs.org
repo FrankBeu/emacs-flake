@@ -13,6 +13,14 @@ draft: false
 toc: true
 ---
 * emacs
+** ATTENTION
+*** Disabling of elisp-block
+because org mode is first exported and then tangled \\
+'commenting out' a block has to be done with:
+#+BEGIN_SRC org
+,#+BEGIN_SRC elisp :tangle no :exports none
+,#+END_SRC
+#+END_SRC
 ** update emacs
 depends on implementation
 *** on DEVOS
@@ -33,6 +41,9 @@ nix flake lock --update-input emacs-overlay
 #+BEGIN_SRC shell :results drawer
   nix flake update --override-input emacs-overlay github:nix-community/emacs-overlay/c04830e91ab27bb98f66d936f36137275804a6e3
 #+END_SRC
+** TODO TODOS
+*** rnix-lsp
+https://github.com/nix-community/rnix-lsp/network/members
 * TODO 2-SORT
 ** SOURCES
    https://github.com/nix-community/emacs-overlay
