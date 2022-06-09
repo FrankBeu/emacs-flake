@@ -1,3 +1,5 @@
+### in order to let the consumer controll systemPkgs (apply overlays ...)
+### config and pkgs have to be provided by the consumer;
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [

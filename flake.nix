@@ -5,22 +5,26 @@
 
   inputs = {
     nixpkgs.url   = "github:nixos/nixpkgs/nixos-unstable";
+
     emacs-overlay = {
       url    = "github:nix-community/emacs-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
       };
     };
+
   };
 
   outputs = { self, nixpkgs, emacs-overlay }: {
-    aliases            = ./aliases;
-    emacsDocumentation = ./emacs.org;
 
-    emacsConfig        = import ./emacsConfig   { inherit      nixpkgs emacs-overlay; };
-    emacsPackage       = import ./emacsPackage  { inherit self nixpkgs emacs-overlay; };
+    aliases            =        ./aliases;
+    emacsDocumentation =        ./emacs.org;
 
-    localPackages      = import ./localPackages { inherit      nixpkgs              ; };
-    systemPackages     = ./systemPackages;
+    emacsConfig        = import ./emacsConfig    { inherit      nixpkgs emacs-overlay; };
+    emacsPackage       = import ./emacsPackage   { inherit self nixpkgs emacs-overlay; };
+
+    localPackages      = import ./localPackages  { inherit      nixpkgs              ; };
+    systemPackages     =        ./systemPackages                                        ;
+
   };
 }
