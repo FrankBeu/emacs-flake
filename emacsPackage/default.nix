@@ -60,7 +60,6 @@ let emacsPackage =
       # ** MELPA
       #
       epkgs.melpaPackages.all-the-icons           ### https://github.com/domtronn/all-the-icons.el
-      epkgs.melpaPackages.all-the-icons-dired     ### https://github.com/jtbm37/all-the-icons-dired
       epkgs.melpaPackages.all-the-icons-ivy-rich  ### https://github.com/seagle0128/all-the-icons-ivy-rich
       epkgs.melpaPackages.arduino-mode            ### https://github.com/stardiviner/arduino-mode/
       epkgs.melpaPackages.assess                  ### https://github.com/phillord/assess                                                                    # TODO
@@ -93,7 +92,6 @@ let emacsPackage =
       epkgs.melpaPackages.dired-hide-dotfiles     ### https://github.com/mattiasb/dired-hide-dotfiles
       epkgs.melpaPackages.dired-k                 ### https://github.com/emacsorphanage/dired-k
       epkgs.melpaPackages.dired-rifle             ### https://github.com/Vifon/dired-rifle.el
-      epkgs.melpaPackages.dired-single            ### https://github.com/crocket/dired-single
       epkgs.melpaPackages.direnv                  ### https://github.com/wbolster/emacs-direnv
       epkgs.melpaPackages.docker                  ### https://github.com/Silex/docker.el                                                                    # TODO
       epkgs.melpaPackages.dockerfile-mode         ### https://github.com/spotify/dockerfile-mode
@@ -227,7 +225,7 @@ let emacsPackage =
       epkgs.melpaPackages.treemacs                ### https://github.com/Alexander-Miller/treemacs
       epkgs.melpaPackages.treemacs-all-the-icons  ### https://github.com/Alexander-Miller/treemacs
       epkgs.melpaPackages.treemacs-evil           ### https://github.com/Alexander-Miller/treemacs
-      epkgs.melpaPackages.treemacs-icons-dired    ### https://github.com/Alexander-Miller/treemacs
+      epkgs.melpaPackages.treemacs-icons-dired    ### https://github.com/Alexander-Miller/treemacs              ### use treemacs-icons in dired
       epkgs.melpaPackages.treemacs-magit          ### https://github.com/Alexander-Miller/treemacs
       epkgs.melpaPackages.treemacs-persp          ### https://github.com/Alexander-Miller/treemacs
       epkgs.melpaPackages.treemacs-projectile     ### https://github.com/Alexander-Miller/treemacs
@@ -273,7 +271,9 @@ let emacsPackage =
       ### flymd                   ### https://github.com/mola-T/flymd                       OUTDATED: not working with firefox >68.0
       ### neotree                 ### https://github.com/jaypei/emacs-neotree               OUTDATED: use treemacs
       ### ob-ipython              ### https://github.com/gregsexton/ob-ipython
-      ### ox-reveal               ### https://github.com/yjwen/org-reveal           DEPRECATED: use org-re-reveal instead
+      ### ox-reveal               ### https://github.com/yjwen/org-reveal                   DEPRECATED: use org-re-reveal instead
+      ### dired-single            ### https://github.com/crocket/dired-single               SOLVED: commands provide a much easier solution
+      ### all-the-icons-dired     ### https://github.com/jtbm37/all-the-icons-dired         DUPLICATES: treemacs-icons-dired
     ];
 
 

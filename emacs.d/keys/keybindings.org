@@ -267,22 +267,17 @@ on prompts use:
 *** sessions
 https://emacs-lsp.github.io/dap-mode/page/how-to/#stop-and-delete-sessions
 ** dired
-#+begin_src elisp
+#+BEGIN_SRC elisp
   (general-define-key
    :keymaps '(dired-mode-map)
    :states  '(normal visual)
-   ;; "j" 'nil
    ";"      'nil
-   )
+   "j"      '(lambda () (interactive) (find-alternate-file "..")) ;;;; reuse open buffer
+   ";"      'dired-find-alternate-file                            ;;;; reuse open buffer
 
-  (general-define-key
-   :keymaps '(dired-mode-map)
-   :states  '(normal visual)
-   ;; "j" 'nil
-   "H"      'dired-hide-dotfiles-mode
-   ";"      'dired-find-file
-   "j"      'dired-single-up-directory
+   "RET"    'dired-find-alternate-file                            ;;;; reuse open buffer
    "r"      'dired-rifle
+   "H"      'dired-hide-dotfiles-mode
    )
 
   (general-define-key
@@ -301,7 +296,7 @@ https://emacs-lsp.github.io/dap-mode/page/how-to/#stop-and-delete-sessions
    "s"      'epa-dired-do-sign
    "v"      'epa-dired-do-verify
    )
-#+end_src
+#+END_SRC
 ** emoji
 #+begin_src elisp
   (general-define-key

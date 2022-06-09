@@ -116,20 +116,22 @@ display calendars from different sources
 #+end_src
 ** dired
 #+begin_src elisp
-  (use-package dired
-    :commands (dired dired-jump)
-    :bind (("C-x C-j" . dired-jump))
-    :custom ((dired-listing-switches "-agho --group-directories-first"))
-    :config (setq dired-dwim-target t)
-    )
+    (use-package dired
+      :commands (dired dired-jump)
+      :custom ((dired-listing-switches "-agho --group-directories-first"))
+      :config
+        (setq dired-dwim-target t)
+        (put 'dired-find-alternate-file 'disabled nil)
+      )
 #+end_src
-*** all-the-icons-dired
+*** treemacs-icons-dired
 #+begin_src elisp
-  (use-package all-the-icons-dired
-    :hook (dired-mode . all-the-icons-dired-mode))
+  (use-package treemacs-icons-dired
+    :after treemacs dired
+    :config (treemacs-icons-dired-mode))
 #+end_src
 *** dired-git-info
-;; TODO use after dired-k
+**** TODO use after dired-k
 #+begin_src elisp
   ;; (use-package dired-git-info
   ;;   :after dired
@@ -144,9 +146,26 @@ display calendars from different sources
     :hook (dired-mode . dired-hide-dotfiles-mode)
     )
 #+end_src
+*** dired-rifle
+open file with rifle
+(dired-rifle)
+#+begin_src elisp
+  (use-package dired-rifle
+    :after dired
+    )
+#+end_src
+*** fira-code-mode
+#+begin_src elisp
+  (use-package fira-code-mode
+    ;; :config (global-fira-code-mode) ;; will not work with orgmode headline-stars
+    :hook prog-mode
+    :disabled
+    )
+#+end_src
 *** DEPRECATED dired-k
 https://github.com/emacsorphanage/dired-k
 shows git status in dired-buffer
+????
 #+begin_src elisp
   ;; (use-package dired-k
   ;;   :after dired
@@ -162,26 +181,23 @@ shows git status in dired-buffer
   ;;   )
 #+end_src
 **** TODO only usable after fix: colorscheme and icons
-*** dired-rifle
-open file with rifle
-(dired-rifle)
-#+begin_src elisp
-  (use-package dired-rifle
-    :after dired
-    )
-#+end_src
-*** dired-single
-#+begin_src elisp
-  (use-package dired-single)
-#+end_src
-*** fira-code-mode
-#+begin_src elisp
-  (use-package fira-code-mode
-    ;; :config (global-fira-code-mode) ;; will not work with orgmode headline-stars
-    :hook prog-mode
-    :disabled
-    )
-#+end_src
+*** DEPRECATED all-the-icons-dired
+:LOGBOOK:
+- State "DEPRECATED" from              [2022-06-09 Thu 11:42] \\
+  use treemacs-icons instead
+:END:
+#+BEGIN_SRC elisp :tangle no :exports none
+  ;; (use-package all-the-icons-dired
+  ;;   :hook (dired-mode . all-the-icons-dired-mode))
+#+END_SRC
+*** DEPRECATED dired-single
+:LOGBOOK:
+- State "DEPRECATED" from              [2022-06-09 Thu 11:38] \\
+  solved with commands instead
+:END:
+#+BEGIN_SRC elisp :tangle no :exports none
+  ;; (use-package dired-single)
+#+END_SRC
 *** TODO icons are displayed twice
 *** INFO
 **** copying
@@ -373,16 +389,13 @@ https://github.com/emacsorphanage/popwin
     )
 #+end_src
 *** treemacs-evil
-#+begin_src elisp
-(use-package treemacs-evil
-  :after treemacs evil)
-#+end_src
+#+BEGIN_SRC elisp :tangle no :exports none
+;; (use-package treemacs-evil
+;;   :after treemacs evil)
+#+END_SRC
 *** treemacs-icons-dired
-#+begin_src elisp
-  (use-package treemacs-icons-dired
-    :after treemacs dired
-    :config (treemacs-icons-dired-mode))
-#+end_src
+used for dired - look over there
+[[*treemacs-icons-dired][treemacs-icons-dired]]
 *** treemacs-magit
 #+begin_src elisp
   (use-package treemacs-magit
