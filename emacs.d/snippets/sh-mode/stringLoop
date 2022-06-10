@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name : stringLoop
+# key : sl
+# contributor : fb
+# expand-env: ((yas-indent-line 'fixed))
+# --
+
+for STRING in   \
+  "${2:STRING}" \
+  "${3:STRING}" ;
+do
+    ${1:COMMAND} \${STRING}
+done $0
