@@ -15,6 +15,17 @@ https://gitlab.com/python-mode-devs/python-mode/
           )
     )
 #+end_src
+*** TODO python-mode-map is not a keymap
+https://github.com/emacs-evil/evil-collection/blob/master/modes/python/evil-collection-python.el
+Error (use-package): python-mode/:catch: evil-collection: python-mode-map is not a keymap
+keymap could be loaded manually
+**** check emacs30 first
+**** solution??
+not WORKING
+#+begin_src elisp :tangle no :exports none
+  ;; (use-package python)
+#+end_src
+cf. [[file:~/DEVOSEMACS/emacs.d/evil/evil.org::*evil-collection][evil-collection]]
 ** lsp
 *** INFO
 used packages have to be made available in =/etc/nixos/config/services/emacs/overlayConfig.nix=

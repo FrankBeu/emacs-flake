@@ -38,8 +38,8 @@ https://github.com/noctuid/evil-guide
     )
 #+end_src
 ** evil-collection
-TEST: quit helpful buffer with q
-#+begin_src elisp
+TEST: quit helpful buffer with ~q~; ~[b~
+#+BEGIN_SRC elisp
   (use-package evil-collection
     :after evil
     :init
@@ -48,7 +48,21 @@ TEST: quit helpful buffer with q
     ;; (add-hook 'evil-collection-setup-hook #'fb/hjkl-rotation)
     (evil-collection-init)
     )
-#+end_src
+#+END_SRC
+*** kills evil-collection
+NOT-WORKING
+#+BEGIN_SRC elisp :tangle no :exports none
+  ;; (use-package evil-collection
+  ;;   :after evil python
+  ;;   :init
+  ;;   (setq evil-want-keybinding nil)
+  ;;   :config
+  ;;   ;; (add-hook 'evil-collection-setup-hook #'fb/hjkl-rotation)
+  ;;   (evil-collection-init)
+  ;;   )
+#+END_SRC
+added python to ~:after~ because of missing ~python-key-map~
+[[file:~/DEVOSEMACS/emacs.d/languages/python.org::*python-mode-map is not a keymap][python-mode-map is not a keymap]]
 ** evil-commentary
 deprecated cf. evil-nerd-commenter
 #+begin_src elisp
