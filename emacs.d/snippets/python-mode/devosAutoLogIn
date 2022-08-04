@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: devosAutoLogIn
+# key: devali
+# --
+      variables = {
+        displaymanager = {
+          autologin = {
+            enabled  = true;
+            inherit username;
+          };
+        };
+      };
+$0

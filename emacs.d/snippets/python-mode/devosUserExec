@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: devosUserExec
+# key: devue
+# contributor : fb
+# --
+    machine.succeed(f'su - {username} -c " '   \
+                    f' ${1:FIRST-COMMAND} && ' \
+                    f' ${2:SECOND-COMMAND} '   \
+                    f'"'                       )
+    $0

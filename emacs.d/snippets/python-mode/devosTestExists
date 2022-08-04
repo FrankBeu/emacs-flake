@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: devosTest
-# key: devteex ### DEVosTEstEXists
-# contributor : fb
-# expand-env: ((yas-indent-line 'fixed))
-# --
-    output = machine.succeed('ls /run/current-system/sw/bin/')
-    assert_contains(output, '${1:BINARY}')
-    $0
