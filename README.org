@@ -3,8 +3,27 @@ A flake for a configured emacs-daemon
 ** example of usage
 cf. ~devos~ 'next-door'
 - =flake.nix=
--  =home/profiles/editor/emacs=
+- =home/profiles/editor/emacs=
 - =nixos/profiles/editor/emacs=
+** devel-workflow
+*** use a local flake
+#+BEGIN_EXAMPLE nix
+    emacsFlake = {
+      url    = "/home/frank/DEVOSEMACS"; ### DEVEL
+      # url  = "github:FrankBeu/emacs-flake";
+    };
+#+END_EXAMPLE
+*** work as usual
+**** snippets
+in order to provide new or changed snippets,
+the host has to be switched
+**** elisp
+just use ~eval-last-sexp~ =C-X C-E=
+*** commit, push, ...
+*** use remote flake again
+switch the host
+restart emacs
+*** check
 ** TODO TODOS
 *** TODO create ~lib~
 - for all functions *not* included in the =init.el= via tangling
