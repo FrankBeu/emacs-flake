@@ -17,13 +17,13 @@
 (use-package company-solidity)
 #+end_src
 #+begin_src elisp
-    (defun fb*solidity-company-backends-h ()
-      "set solidity company-backends"
-      (set (make-local-variable 'company-backends)
-           '((company-solidity company-files company-capf company-yasnippet)
-             (company-dabbrev-code company-keywords)
-              company-dabbrev
-              )))
+(defun fb*solidity-company-backends-h ()
+  "set solidity company-backends"
+  (set (make-local-variable 'company-backends)
+       '((company-solidity company-files company-capf company-yasnippet)
+         (company-dabbrev-code company-keywords)
+          company-dabbrev
+          )))
 #+end_src
 ** flycheck
 #+begin_src elisp
