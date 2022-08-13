@@ -15,15 +15,28 @@ cf. ~devos~ 'next-door'
 #+END_EXAMPLE
 *** work as usual
 **** snippets
-in order to provide new or changed snippets,
-the host has to be switched
+***** in order to provide new or changed snippets,
+- the snippets have to be added to ~git~
+- the host-flake has to be updated
+- the host has to be switched
+- restart ~emacs~ or just  ~yas-reload-all~ =SPC y r=
+***** XOR remount snippetFolder
+#+BEGIN_EXAMPLE shell
+sudo mount -B <LOCAL-FLAKE-DIR>/emacs.d/snippets ~/.emacs.d/snippets
+#+END_EXAMPLE
+- ~yas-reload-all~ =SPC y r=
 **** elisp
 just use ~eval-last-sexp~ =C-X C-E=
 *** commit, push, ...
 *** use remote flake again
-switch the host
-restart emacs
+- update the host-flake
+- switch the host
+- restart emacs
 *** check
+** update host-flake
+#+BEGIN_SRC shell :results drawer
+nix flake lock --update-input emacsFlake
+#+END_SRC
 ** TODO TODOS
 *** TODO create ~lib~
 - for all functions *not* included in the =init.el= via tangling
