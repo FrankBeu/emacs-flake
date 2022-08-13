@@ -111,16 +111,41 @@ https://github.com/tigersoldier/company-lsp
 ** yasnippets
   https://joaotavora.github.io/yasnippet/snippet-expansion.html
 #+begin_src elisp
-  (use-package yasnippet
-    :init
-    (yas-global-mode 1)
-    :config
-    (setq yas-snippet-dirs
-          '(
-            "~/.emacs.d/snippets"
+    (use-package yasnippet
+      :init
+      (yas-global-mode 1)
+      :config
+      (setq yas-snippet-dirs
+            '(
+              "~/.emacs.d/snippets"
+              )
             )
-          ))
+      )
 #+end_src
+**** INFO
+***** Naming+Keys
+****** SnippetsFiles have to be named in snakeCase
+****** letters composing the key have to be uppercase
+keys can be learned by browsing the snippetNames with =SPC y y=
+***** Indentation
+****** ~$>~
+If ~yas-indent-line~ is not set to ~'auto~,
+it's still possible to indent specific lines by adding an indentation marker,
+~$>~, somewhere on the line.
+https://joaotavora.github.io/yasnippet/snippet-development.html#org92b7360
+****** fix to current column
+#+BEGIN_SRC elisp :tangle no :exports none
+# expand-env:  ((yas-indent-line 'fixed))
+#+END_SRC
+***** expandenv
+multiple:
+#+BEGIN_SRC elisp :tangle no :exports none
+# expand-env: ((yas-indent-line 'fixed) (yas-wrap-around-region nil))
+#+END_SRC
+***** choose
+#+BEGIN_SRC elisp :tangle no :exports none
+${1:$$(yas-choose-value '("" ""))}
+#+END_SRC
 *** yasnippets-snippets
 #+begin_src elisp
   (use-package yasnippet-snippets

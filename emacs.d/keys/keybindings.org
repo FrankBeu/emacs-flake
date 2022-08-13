@@ -209,19 +209,22 @@ on prompts use:
    :keymaps '(
               company-mode-map
               )
-   "C-j" 'nil
-   "C-j" 'company-indent-or-complete-common
-   "C-k" 'nil
-   "C-K" 'nil
-   "C-k" 'company-select-previous
-   "C-l" 'nil
-   "C-l" 'company-select-next
-   "C-;" 'nil
-   "C-;" 'fb/company-complete-selection
+   "C-j"   'nil
+   "C-j"   'company-indent-or-complete-common
+   "C-k"   'nil
+   "C-k"   'company-select-previous
+   "C-l"   'nil
+   "C-l"   'company-select-next
+   "C-;"   'nil
+   "C-;"   'fb/company-complete-selection
 
    "C-J"   'yas-prev-field
+   "C-K"   'nil
+   ;; "C-L"   'nil
+   ;; "C-L"   'yas-expand
    "C-:"   'yas-next-field-or-maybe-expand
-   "C-M-:" 'yas-expand-from-trigger-key
+   ;; "C-M-:" 'yas-expand-from-trigger-key
+   "C-M-;" 'yas-expand-from-trigger-key
    )
 #+end_src
 **** remap interfering insert-digraph
@@ -642,3 +645,11 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
 #+end_src
 xref--button-map
 xref--xref-buffer-mode-map
+** yasnippets
+#+BEGIN_EXAMPLE elisp
+  (general-define-key
+   :keymaps '(evil-insert-state-map)
+   ;; :states  '(normal visual)
+   "C-M-;"   'yas-expand
+   )
+#+END_EXAMPLE

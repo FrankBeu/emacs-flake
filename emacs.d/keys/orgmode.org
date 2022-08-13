@@ -217,6 +217,7 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
  #+begin_src elisp
   (general-define-key
    :keymaps 'org-mode-map
+   :states  '(normal motion visual)
    "C-M-j"  'org-shiftmetaleft
    "C-M-k"  'org-metaup
    "C-M-l"  'org-metadown
