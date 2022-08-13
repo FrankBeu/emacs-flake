@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Devos_Send_Chars
+# key:         dsc
+# contributor: fb
+# --
+    machine.send_chars("${1:COMMAND}\n")
+    $0

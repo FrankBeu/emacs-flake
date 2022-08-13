@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_example_DifF
+# key:         BDF
+# contributor: fb
+# --
+#+BEGIN_EXAMPLE diff
+$0
+#+END_EXAMPLE

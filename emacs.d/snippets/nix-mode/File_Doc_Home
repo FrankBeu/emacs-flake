@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        File_Doc_Home
+# key:         fdh
+# contributor: fb
+# --
+
+home.file.".docLocal/content/homemanager/${1:NAME}.org".source = ./$1.org;
+$0

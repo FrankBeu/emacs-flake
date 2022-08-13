@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name:        File_Home_Xdg_Variables
+# key:         fhxv
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
+# --
+{variables, ...}:
+let
+  content = (import ./$1 { inherit variables; }).content;
+in
+{
+  xdg.configFile."$1".text = content;
+  $0
+}

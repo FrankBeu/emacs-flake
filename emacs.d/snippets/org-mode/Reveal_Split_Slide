@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:        Reveal_Split_Slide
+# key:         rss
+# contributor: fb
+# --
+#+REVEAL: split$0

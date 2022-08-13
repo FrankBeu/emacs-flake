@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_example_SASs
+# key:         BSAS
+# contributor: fb
+# --
+#+BEGIN_EXAMPLE sass
+$0
+#+END_EXAMPLE

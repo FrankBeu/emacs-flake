@@ -1,0 +1,36 @@
+# -*- mode: snippet -*-
+# name:        ORKos
+# key:         ork
+# contributor: fb
+# --
+*** ORKOS
+**** KW `(format-time-string "%V")`
+***** TEL.
+0800 999 888 1
+***** KN
+`(shell-command-to-string "gopass show -o pins/orkos/kundennummer")`
+***** DATUM
+[`(format-time-string "%Y-%m-%d %a")`]
+***** TODO LIEFERUNG
+SCHEDULED: <`(format-time-string "%Y-%m-%d %a" (org-read-date nil t "Wed") )`>
+***** BESTELLUNG
+| PRODUKT              | INFO | MENGE | EINHEIT | PREIS PRO EINHEIT | PREIS PRO POSITION |
+|----------------------+------+-------+---------+-------------------+--------------------|
+|                      |      |       |         |                   |                    |
+| A$0vocado Hass klein   |      |     1 | kg      |              9.00 |                9.0 |
+| Banane,Fifi          |      |     1 | kg      |             13.15 |              13.15 |
+| Clementine           |      |     1 | kg      |              3.60 |                3.6 |
+| Grenadille           |      |     1 | kg      |             15.85 |              15.85 |
+| Kumquat              |      |     1 | kg      |              6.70 |                6.7 |
+| Limette süß          |      |     1 | kg      |              5.90 |                5.9 |
+| Mandarine            |      |     1 | kg      |              3.65 |               3.65 |
+| Mango Kent           |      |     1 | kg      |             15.70 |               15.7 |
+| Mango Nam Dok Mai    |      |     1 | kg      |             14.75 |              14.75 |
+| Sapote Lucuma        | min  |     1 | kg      |             20.25 |              20.25 |
+| Süßorange            |      |     2 | kg      |              3.65 |                7.3 |
+|                      |      |       |         |                   |                    |
+| Versandkosten        |      |       |         |                   |               7.45 |
+|                      |      |       |         |                   |                    |
+|----------------------+------+-------+---------+-------------------+--------------------|
+| SUM                  |      |       |         |                   |              174.7 |
+#+TBLFM: @3\$6..@>>>>>\$6='(* \$3 \$5);N::@>\$6=vsum(@3..@-2)

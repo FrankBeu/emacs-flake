@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_example_ELisp
+# key:         BEL
+# contributor: fb
+# --
+#+BEGIN_EXAMPLE elisp
+$0
+#+END_EXAMPLE

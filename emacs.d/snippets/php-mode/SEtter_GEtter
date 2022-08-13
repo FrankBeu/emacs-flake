@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name:        SEtter_GEtter
+# key:         sege
+# contributor: fb
+# --
+public function set${1:$(upcase-initials yas-text)}(\$$1)
+{
+\$this->$1 = \$$1;
+}
+
+public function get${1:$(upcase-initials yas-text)}()
+{
+return \$this->$1;
+}
+
+$0

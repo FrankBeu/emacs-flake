@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_HTTP
+# key:         bhttp
+# contributor: fb
+# --
+#+BEGIN_SRC http  ${1:$$(yas-choose-value '(":pretty" ""))}
+$0
+#+END_SRC

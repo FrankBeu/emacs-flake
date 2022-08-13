@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_PYthon
+# key:         bpy
+# contributor: fb
+# --
+#+BEGIN_SRC python :results ${1:$$(yas-choose-value '("output" "value" "none"))} drawer pp :file `(file-name-nondirectory (file-name-sans-extension buffer-file-name))`.py
+$0
+#+END_SRC

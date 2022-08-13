@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_misc_CEnter
+# key:         BCE
+# contributor: fb
+# --
+#+BEGIN_CENTER
+$0
+#+END_CENTER

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        TaBle_Purchases
+# key:         tbp
+# contributor: fb
+# --
+#+TBLNAME: ${1:TABLE-NAME}
+| ITEM | ANZAHL | PREIS IN € | P*A in € * | KAUF | URL |
+|------+--------+------------+------------+------+-----|
+|  $0    |      1 |       0.00 |       0.00 |    0 |     |
+|------+--------+------------+------------+------+-----|
+|      |      1 |            |       0.00 |      |     |
+#+TBLFM: @>\$4='(format "%0.2f" (apply '+ (org-lookup-all 1 '(@I\$5..@II\$5) '(@I\$4..@II\$4))));L::@>\$2=vsum(@I..@II)::\$4=(\$2*\$3);%.2f

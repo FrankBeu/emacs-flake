@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_TOML
+# key:         btml
+# contributor: fb
+# --
+#+BEGIN_SRC toml
+$0
+#+END_SRC

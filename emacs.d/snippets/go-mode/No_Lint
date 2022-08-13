@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:        No_Lint
+# key:         nl
+# contributor: fb
+# --
+// nolint $1$0

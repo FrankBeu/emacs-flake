@@ -123,10 +123,17 @@ https://github.com/tigersoldier/company-lsp
       )
 #+end_src
 **** INFO
-***** Naming+Keys
+***** Naming
 ****** SnippetsFiles have to be named in snakeCase
 ****** letters composing the key have to be uppercase
 keys can be learned by browsing the snippetNames with =SPC y y=
+****** keys
+default is lowerCase
+****** org
+blockSource: lowerCase
+blockExamples: upper
+****** variables
+******* upperKebab
 ***** Indentation
 ****** ~$>~
 If ~yas-indent-line~ is not set to ~'auto~,

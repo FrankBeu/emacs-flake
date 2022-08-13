@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        File_Home_Xdg
+# key:         fhx
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
+# --
+
+  xdg.configFile."$1".source = ./$2;
+  $0

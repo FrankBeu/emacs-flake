@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        MaiN
+# key:         mn
+# contributor: fb
+# --
+package main
+
+func main() {
+  $0
+}

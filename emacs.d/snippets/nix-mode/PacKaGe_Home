@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name:        PacKaGe_Home
+# key:         pkgh
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
+# --
+{ pkgs
+, ...
+}:
+{
+  home = {
+    packages = with pkgs; [
+      $1
+      $0
+    ];
+  };
+}

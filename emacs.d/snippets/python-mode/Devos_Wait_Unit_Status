@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Devos_Wait_Unit_Status
+# key:         dwus
+# contributor: fb
+# --
+    machine.wait_until_succeeds(f"systemctl ${1:$$(yas-choose-value '("" "--machine={username}@.host --user" ))} status ${2:SERVICE-NAME}.service | grep '${3:$$(yas-choose-value '("Loaded: loaded" "Active: active" ))}'")
+    $0

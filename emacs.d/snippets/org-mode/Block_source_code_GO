@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_GO
+# key:         bog
+# contributor: fb
+# --
+#+BEGIN_SRC go
+$0
+#+END_SRC

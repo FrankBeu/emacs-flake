@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Loop_Line
+# key:         ll
+# contributor: fb
+# --
+for LINE in "\${(@f)"\$(<${1:PATH/TO/FILE})"}"
+{
+  ${2:COMMAND} \${LINE} $0
+}

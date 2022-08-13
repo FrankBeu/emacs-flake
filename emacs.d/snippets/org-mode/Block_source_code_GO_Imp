@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_GO_Imp
+# key:         bogi
+# contributor: fb
+# --
+#+BEGIN_SRC go :results drawer :imports "${1:IMPORTS}" $2
+$0
+#+END_SRC

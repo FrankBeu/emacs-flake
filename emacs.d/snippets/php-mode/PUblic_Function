@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        PUblic_Function
+# key:         puf
+# contributor: fb
+# --
+public function $1($$2)
+{
+  $3;
+}
+$0

@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name:        Block-Source-emacs-Config-Off
-# key:         bsco
-# contributor: fb
-# --
-#+BEGIN_SRC elisp :tangle no :exports none
-$0
-#+END_SRC

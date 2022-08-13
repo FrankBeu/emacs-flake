@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Devos_Exists_File
+# key:         def
+# contributor: fb
+# --
+    machine.succeed('[[ ${1:$$(yas-choose-value '("-d" "-f" "-L" "-p" "-s"))} ${2:NAME} ]]')
+    $0

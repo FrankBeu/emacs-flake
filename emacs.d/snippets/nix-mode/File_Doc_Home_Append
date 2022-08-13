@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        File_Doc_Home_Append
+# key:         fdha
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
+# --
+
+home.file.".docLocal/content/homemanager/${1:SECTION}.org".text = pkgs.lib.mkDefault( pkgs.lib.mkAfter ''
+    \${(import ./${2:SOURCE}.nix )} $0
+    \${(builtins.readFile ./$2.org)}
+  '');
+$0

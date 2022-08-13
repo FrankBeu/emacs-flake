@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name:        devosTestBinExistsHome
-# key:         devexh ### DEVostestEXistsHome
-# contributor: fb
-# expand-env:  ((yas-indent-line 'fixed))
-# --
-    hm_bin_content = machine.succeed(f'ls {hm_profile_dir}/bin')
-    assert_contains_line(hm_bin_content, '${1:BINARY}')
-    $0

@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name:        devosWaitUnitUser
-# key:         devwuu
-# contributor: fb
-# --
-    machine.wait_for_unit("${1:SERVICE-NAME}.service", username)
-    $0

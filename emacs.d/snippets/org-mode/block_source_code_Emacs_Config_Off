@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        block_source_code_Emacs_Config_Off
+# key:         beco
+# contributor: fb
+# info:        used to disable elisp in emacsConfig
+# --
+#+BEGIN_SRC elisp :tangle no :exports none
+$0
+#+END_SRC

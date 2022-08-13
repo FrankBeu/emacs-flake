@@ -1,0 +1,160 @@
+# -*- mode: snippet -*-
+# name:        DAP_GO
+# key:         dapgo
+# contributor: fb
+# --
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "STD: Launch Workspace",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            // "program": "\${fileDirname}",
+            "program": "\${workspaceFolder}",
+            "env": {},
+            "args": [],
+        },
+        {
+            "name": "STD: Launch Containing Dir",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "\${fileDirname}",
+            "env": {},
+            "args": []
+        },
+        //// Debug the currently opened file
+        {
+            "name": "STD/TEST: Launch Current File",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "\${file}",
+        },
+        //// Debug a single test function from current workspace
+        {
+            "name": "TEST: Launch Test Function",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "\${workspaceFolder}",
+            "args": "",
+            "args": [
+                "-test.run",
+//VAR
+                "${1:TEST-FUNCTION-NAME}",
+            ]
+        },
+        //// Attach to a running local process via its process ID
+        {
+            "name": "PROCESS: Attach to Local Process",
+            "type": "go",
+            "request": "attach",
+            "mode": "local",
+//VAR
+            "processId": "${2:PROCESS-NAME}",
+        },
+        //// Debug an existing binary
+        {
+            "name": "BINARY: Launch Existing Binary",
+            "type": "go",
+            "request": "launch",
+            "mode": "exec",
+//VAR
+            "program": "${3:/ABSOLUTE/PATH/TO/EXECUTABLE}",
+        },
+        //// passing arguments to or calling subcommands and flags from a binary
+        {
+            "name": "BINARY: Launch Existing Binary with arguments",
+            "type": "go",
+            "request": "launch",
+            "mode": "exec",
+//VAR
+            "program": "${4:/ABSOLUTE/PATH/TO/EXECUTABLE}",
+//VAR
+            "args": [${5:"subcommand", "arg", "--flag"}],
+        },
+        //// Attach to a running server (`Go: Connect to Server`)
+        {
+            "name": "REMOTE: Connect To Running Server",
+            "type": "go",
+            "request": "attach",
+            "mode": "remote",
+//VAR
+            "host": "${6:127.0.0.1}",
+//VAR
+            "port": ${7:2345},
+            "remotePath": "\${workspaceFolder}",
+        },
+        //// Remote Debugging
+        {
+            "name": "REMOTE: Connect To Running Server With Mapping",
+            "type": "go",
+            "request": "attach",
+            "mode": "remote",
+//VAR
+            "host": "$6",
+//VAR
+            "port": $7,
+//VAR
+            "remotePath": "${8:/ABSOLUTE/PATH/DIR/ON/REMOTE/MACHINE}",
+            "cwd": "\${workspaceFolder}",
+        },
+        //// Remote Debugging with substitution-path
+        {
+            "name": "REMOTE: Connect To Running Server With SubstitutionMappings",
+            "type": "go",
+            "request": "attach",
+            "mode": "remote",
+            "substitutePath": [
+        		{
+//VAR
+        			"from": "${9:/ABSOLUTE/PATH/DIR/ON/REMOTE/MACHINE}",
+//VAR
+        			"to": "${10:/ABSOLUTE/PATH/DIR/ON/REMOTE/MACHINE}",
+        		},
+        	],
+//VAR
+            "host": "$6",
+//VAR
+            "port": $7,
+            "cwd": "\${workspaceFolder}",
+        },
+    ]
+}
+$0
+
+
+//// INFO
+// https://code.visualstudio.com/docs/editor/debugging#_launch-configurations
+// https://github.com/golang/vscode-go/blob/master/docs/debugging.md#snippets
+// https://code.visualstudio.com/docs/editor/variables-reference
+
+
+//// Properties
+//        {
+//            "name":       "",
+//            "type":       "",
+//            "request":    "",
+//            "mode":       "",
+//            "program":    "",
+//            "buildFlags": "",
+//            "env":        "",
+//            "envFile":    "",
+//            "args":       [],
+//// Debugging
+//	      "showLog":    true,
+//	      "trace":      "log",
+//        },
+
+//// FUNDUS
+//        //// Debug all tests in the given package (`Go: Launch test package`)
+//        {
+//            "name": "NW-TEST: Launch Test Package",
+//            "type": "go",
+//            "request": "launch",
+//            "mode": "test",
+//            "program": "\${workspaceFolder}",
+//        },

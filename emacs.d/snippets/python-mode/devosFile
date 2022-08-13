@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name:        devosFile
-# key:         devfl
-# contributor: fb
-# --
-machine.succeed('[[ ${1:$$(yas-choose-value '("-d" "-f" "-L" "-p" "-s"))} ${2:NAME} ]]')
-$>$0

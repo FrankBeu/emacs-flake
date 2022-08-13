@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_Dart
+# key:         bd
+# contributor: fb
+# --
+#+BEGIN_SRC dart
+$0
+#+END_SRC

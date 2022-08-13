@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Test_Run
+# key:         tr
+# contributor: fb
+# --
+t.Run("${1:DESCRIPTION}", func(t *testing.T) {
+	$0
+})
+

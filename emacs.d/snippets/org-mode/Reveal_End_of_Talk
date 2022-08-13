@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:        Reveal_End_of_Talk
+# key:         ret
+# contributor: fb
+# --
+{{{end-of-talk}}}$0

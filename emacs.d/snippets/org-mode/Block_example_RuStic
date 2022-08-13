@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_example_RuStic
+# key:         BRS
+# contributor: fb
+# --
+#+BEGIN_EXAMPLE rustic
+$0
+#+END_EXAMPLE

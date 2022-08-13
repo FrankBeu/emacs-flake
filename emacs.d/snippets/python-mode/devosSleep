@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name:        devosSleep
-# key:         devsl
-# contributor: fb
-# --
-machine.sleep(${1:DURATION})
-$0

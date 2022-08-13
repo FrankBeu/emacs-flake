@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        ANSible
+# key:         ans
+# contributor: fb
+# --
+
+
+
+# local variables:
+# eval: (ansible)
+# eval: (ansible-doc-mode)
+# end:

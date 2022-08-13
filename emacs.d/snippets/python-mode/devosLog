@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name:        devosLog
-# key:         devl
-# contributor: fb
-# --
-machine.log(${1:output})
-$0

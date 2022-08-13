@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Block_example_GO_Imp
+# key:         BOGI
+# contributor: fb
+# info:        only for the sake of completeness
+# --
+#+BEGIN_EXAMPLE go
+$0
+#+END_EXAMPLE

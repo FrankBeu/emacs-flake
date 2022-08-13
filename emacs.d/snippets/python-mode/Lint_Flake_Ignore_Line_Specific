@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:        Lint_Flake_Ignore_Line_Specific
+# key:         lfils
+# contributor: fb
+# --
+# noqa: E${1:NUMBER}

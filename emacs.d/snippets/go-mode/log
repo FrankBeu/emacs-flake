@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name:        stderr
-# key:         ster
-# contributor: fb
-# --
-fmt.Fprintf(os.Stderr, "${1:OUTPUT}")
-$0

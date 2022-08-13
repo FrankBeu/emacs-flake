@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name:        modeBlock
-# key:         mb
-# contributor: fb
-# --
-$1 Local Variables:
-$1 mode: $2$0
-$1 End:

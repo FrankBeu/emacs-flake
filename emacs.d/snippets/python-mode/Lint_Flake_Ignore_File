@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:        Lint_Flake_Ignore_File
+# key:         lfif
+# contributor: fb
+# --
+# flake8: noqa

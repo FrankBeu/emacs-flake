@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        INClude
+# key:         inc
+# contributor: fb
+# --
+#+INCLUDE: "$1"
+$0

@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name:        nolint
-# key:         nl
-# contributor: fb
-# --
-// nolint $1$0

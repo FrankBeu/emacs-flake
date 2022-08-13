@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_misc_Verse
+# key:         BV
+# contributor: fb
+# --
+#+BEGIN_VERSE
+$0
+#+END_VERSE

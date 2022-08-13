@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Deep_Equal
+# key:         de
+# contributor: fb
+# --
+if !reflect.DeepEqual(${1:GOT}, ${2:WANT}) {
+   t.Errorf("${3:GOT} %v, ${4:WANT} %v", $1, $2)
+}
+$0

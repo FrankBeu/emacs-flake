@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_example_GO
+# key:         BOG
+# contributor: fb
+# --
+#+BEGIN_EXAMPLE go
+$0
+#+END_EXAMPLE

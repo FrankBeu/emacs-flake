@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_SHell
+# key:         bsh
+# contributor: fb
+# --
+#+BEGIN_SRC shell :results drawer
+$0
+#+END_SRC

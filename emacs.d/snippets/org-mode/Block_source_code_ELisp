@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_ELisp
+# key:         bel
+# contributor: fb
+# --
+#+BEGIN_SRC elisp
+$0
+#+END_SRC

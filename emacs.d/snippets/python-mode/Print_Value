@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Print_Value
+# key:         pv
+# contributor: fb
+# --
+print(f"{${1:VARIABLE}=}")
+$0

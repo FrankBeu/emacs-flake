@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:        Lint_Flake_Ignore_Line_All
+# key:         lfila
+# contributor: fb
+# --
+# noqa

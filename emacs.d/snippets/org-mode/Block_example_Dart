@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_example_Dart
+# key:         BD
+# contributor: fb
+# --
+#+BEGIN_EXAMPLE dart
+$0
+#+END_EXAMPLE

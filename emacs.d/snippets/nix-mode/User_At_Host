@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        User_At_Host
+# key:         uah
+# contributor: fb
+# --
+{ config, nixosConfig, ... }:
+let
+  inherit (config.home)            username;
+  inherit (nixosConfig.networking) hostName;
+in

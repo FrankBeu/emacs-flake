@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Devos_SleeP
+# key:         dsp
+# contributor: fb
+# --
+    machine.sleep(${1:DURATION})
+    $0

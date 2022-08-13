@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Devos_SuCceed
+# key:         dsc
+# contributor: fb
+# --
+    machine.succeed('${1:COMMAND}')
+    # output = machine.succeed('$1')
+    # machine.log(output)
+    $0

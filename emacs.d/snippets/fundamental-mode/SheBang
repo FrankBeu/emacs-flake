@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        SheBang
+# key:         sb
+# contributor: fb
+# --
+#!/usr/bin/env ${1:INTERPRETER}
+$0

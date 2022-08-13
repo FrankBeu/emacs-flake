@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name:        log
-# key:         lg
-# contributor: fb
-# --
-log.Println("${1:OUTPUT}")
-$0

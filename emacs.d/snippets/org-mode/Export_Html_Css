@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:        Export_Html_Css
+# key:         ehc
+# contributor: fb
+# --
+#+HTML_HEAD: <style>*{font-family:sans-serif}body{margin:2rem}p:is(.author, .date, .validation){display:none}p{margin-left: 2rem}</style>

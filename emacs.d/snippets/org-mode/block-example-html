@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name:        block-example-html
-# key:         BHTML
-# contributor: fb
-# --
-#+BEGIN_EXAMPLE html
-$0
-#+END_EXAMPLE

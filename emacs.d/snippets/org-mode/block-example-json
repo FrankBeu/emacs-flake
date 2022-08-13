@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name:        block-example-json
-# key:         BJSON
-# contributor: fb
-# --
-#+BEGIN_EXAMPLE json
-$0
-#+END_EXAMPLE

@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name:        testRun
-# key:         tr
-# contributor: fb
-# --
-t.Run("${1:description}", func(t *testing.T) {
-	$0
-})
-

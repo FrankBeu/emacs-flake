@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        File_Home
+# key:         fh
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
+# --
+  home = {
+    file."$1".source = $2;
+  };
+  $0

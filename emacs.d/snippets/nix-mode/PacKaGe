@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name:        PacKaGe
+# key:         pkg
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
+# --
+{ pkgs
+, ...
+}:
+{
+  environment.systemPackages = with pkgs; [
+    $1
+    $0
+  ];
+}

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Devos_Debug_Log
+# key:         ddl
+# contributor: fb
+# --
+    machine.log(${1:output})
+    $0

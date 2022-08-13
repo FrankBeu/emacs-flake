@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+#  name:       Local_Variables
+#  key:        lv
+#  contributor:fb
+# --
+
+
+
+* COMMENT LOCAL VARIABLES
+# local variables:
+# $0
+# end:

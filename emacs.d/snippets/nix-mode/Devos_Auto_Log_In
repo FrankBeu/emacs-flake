@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name:        Devos_Auto_Log_In
+# key:         dali
+# contributor: fb
+# --
+      variables = {
+        displaymanager = {
+          autologin = {
+            enabled  = true;
+            inherit username;
+          };
+        };
+      };
+$0

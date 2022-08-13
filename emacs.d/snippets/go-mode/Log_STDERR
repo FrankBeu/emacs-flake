@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Log_STDERR
+# key:         lstderr
+# contributor: fb
+# --
+fmt.Fprintf(os.Stderr, "${1:OUTPUT}")
+$0

@@ -1,0 +1,56 @@
+# -*- mode: snippet -*-
+# name:        Build_PacKaGe_GO
+# key:         bpkggo
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
+# --
+{ lib
+, buildGoModule
+, fetchgit
+# , fetchFromGitHub
+# , installShellFiles
+
+, version ? "$2"
+, sha256  ? "sha256:$3"
+, vendorSha256 ? "sha256:$4"
+, rev     ? "$5"
+}:
+$0
+buildGoModule rec {
+  pname   = "$1";
+  inherit version;
+
+  src = fetchgit {
+    url    = "";
+    rev    = "\${version}";
+    sha256 = lib.fakeSha256;
+    # inherit sha256;
+  };
+
+
+  # src = fetchFromGitHub {
+  #   owner  = "";
+  #   repo   = "$1";
+  #   rev    = "";
+  #   sha256 = lib.fakeSha256;
+  #   inherit sha256;
+  # };
+
+
+  vendorSha256 = lib.fakeSha256;
+  # inherit vendorSha256;
+  doCheck = false;
+
+  # subPackages = [ "cmd/$1" ];
+
+  # nativeBuildInputs	= [  ];
+  # buildInputs		= [  ];
+
+
+  meta = with lib; {
+    homepage    = "";
+    description = "";
+    license     = licenses.mit;
+    maintainers = with maintainers; [ fb ];
+  };
+}

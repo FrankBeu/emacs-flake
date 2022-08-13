@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name:        homeAlias
-# key:         hoal
-# contributor: fb
-# --
-home.shellAliases = {
-  ${1:ALIAS} = ''${2:COMMAND} '';  ### ${1:HINT}
-  $0
-};

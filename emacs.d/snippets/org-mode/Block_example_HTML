@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_example_HTML
+# key:         BHTML
+# contributor: fb
+# --
+#+BEGIN_EXAMPLE html
+$0
+#+END_EXAMPLE

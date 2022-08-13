@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name:        Build_Shell_Completion
+# key:         bsc
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
+# --
+### PUT
+### into ARGUMENT
+# , installShellFiles
+
+### into nativeBuildInputs
+# nativeBuildInputs = [ installShellFiles ];
+
+### into postInstall
+# postInstall = ''
+#   installShellCompletion --zsh PATH-TO-COMPLETION-IN-PACKAGE
+# '';
