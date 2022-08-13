@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : block-example-emacs-elisp
-#key :  BEMLI
-#contributor : fb
+# name:        block-example-emacs-elisp
+# key:         BEMLI
+# contributor: fb
 # --
 #+BEGIN_EXAMPLE emacs-lisp
-$>$0
+$0
 #+END_EXAMPLE

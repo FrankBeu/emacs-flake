@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name : nixosAlias
-# key :  nial
-# contributor : fb
+# name:        nixosAlias
+# key:         nial
+# contributor: fb
 # --
 environment = {
   shellAliases = 

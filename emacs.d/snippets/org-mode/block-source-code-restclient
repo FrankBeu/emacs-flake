@@ -1,9 +1,9 @@
 # -*- mode: snippet -*-
-#name : block-source-code-restclient
-#key : brc
-#contributor : fb
+# name:        block-source-code-restclient
+# key:         brc
+# contributor: fb
 # --
 
 #+BEGIN_SRC restclient
-  $0
+$0
 #+END_SRC

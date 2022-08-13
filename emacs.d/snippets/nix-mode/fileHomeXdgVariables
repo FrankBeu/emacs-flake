@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : fileHomeXdgVariables
-#key :  fihoxdgvar
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        fileHomeXdgVariables
+# key:         fihoxdgvar
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 {variables, ...}:
 let

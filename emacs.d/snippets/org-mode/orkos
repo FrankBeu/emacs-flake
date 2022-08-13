@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : orkos
-#key : ork
-#contributor : fb
+# name:        orkos
+# key:         ork
+# contributor: fb
 # --
 *** ORKOS
 **** KW `(format-time-string "%V")`

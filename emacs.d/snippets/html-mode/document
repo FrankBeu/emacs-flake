@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : document
-#key : doc
-#contributor : fb
+# name:        document
+# key:         doc
+# contributor: fb
 # --
 
 <!DOCTYPE html>

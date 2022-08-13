@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
-# name: devosWaitGraphical
-# key: devwg
+# name:        devosWaitGraphical
+# key:         devwg
+# contributor: fb
 # --
 machine.wait_for_unit("graphical.target")

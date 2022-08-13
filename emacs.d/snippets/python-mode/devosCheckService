@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: devosCheckService
-# key: devcs
-# contributor : fb
+# name:        devosCheckService
+# key:         devcs
+# contributor: fb
 # --
     machine.wait_until_succeeds("systemctl ${1:$$(yas-choose-value '("" "--user" ))} status ${2:SERVICE-NAME}.service | grep 'Active: active'")
     $0

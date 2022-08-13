@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : devosTest
-#key :  devte
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        devosTest
+# key:         devte
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 { self, mkTest,${1:$$(yas-choose-value '(" testHelpers, " " "))}... }:
 let

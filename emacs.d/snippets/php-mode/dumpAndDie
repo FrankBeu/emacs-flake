@@ -1,10 +1,11 @@
 # -*- mode: snippet -*-
-# name: dd
-# key: dd
+# name:        dd
+# key:         dd
+# contributor: fb
 # --
+
 
 $0
 dd($$1);
-
 
 

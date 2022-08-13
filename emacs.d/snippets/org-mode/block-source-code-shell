@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : block-source-code-shell
-#key : bsh
-#contributor : fb
+# name:        block-source-code-shell
+# key:         bsh
+# contributor: fb
 # --
 #+BEGIN_SRC shell :results drawer
-  $0
+$0
 #+END_SRC

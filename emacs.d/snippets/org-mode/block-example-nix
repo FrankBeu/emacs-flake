@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : block-example-nix
-#key :  BNX
-#contributor : fb
+# name:        block-example-nix
+# key:         BNX
+# contributor: fb
 # --
 #+BEGIN_EXAMPLE nix
-$>$0
+$0
 #+END_EXAMPLE

@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: devosDebugScrot
-# key: devdes
+# name:        devosDebugScrot
+# key:         devdes
+# contributor: fb
 # --
 machine.sleep(${1:DURATION})
 machine.send_chars("${2:COMMAND}\n")

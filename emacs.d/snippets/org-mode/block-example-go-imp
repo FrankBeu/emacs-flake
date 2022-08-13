@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : block-example-go-imp
-#key :  BGO
-#contributor : fb
+# name:        block-example-go-imp
+# key:         BGO
+# contributor: fb
 # --
 #+BEGIN_EXAMPLE go
-  $0
+$0
 #+END_EXAMPLE

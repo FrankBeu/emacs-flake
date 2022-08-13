@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name: devosTestBinExistsNixos
-# key: devexn ### DEVostestEXistsNixos
-# contributor : fb
-# expand-env: ((yas-indent-line 'fixed))
+# name:        devosTestBinExistsNixos
+# key:         devexn ### DEVostestEXistsNixos
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 ### TODO combine
 # --
     sw_bin_content = machine.succeed('ls /run/current-system/sw/bin/')

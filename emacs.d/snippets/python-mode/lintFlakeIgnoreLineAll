@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
-# name: lintFlakeIgnoreLineAll
-# key: lfila
+# name:        lintFlakeIgnoreLineAll
+# key:         lfila
+# contributor: fb
 # --
 # noqa

@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: devosTestNix
-# key: devtn
-# contributor : fb
+# name:        devosTestNix
+# key:         devtn
+# contributor: fb
 # --
 { ${3:VARIABLE-NAME} }:
 ''

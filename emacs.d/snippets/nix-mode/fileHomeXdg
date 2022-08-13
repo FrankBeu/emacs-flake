@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : fileHomeXdg
-#key :  fihoxdg
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        fileHomeXdg
+# key:         fihoxdg
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 
   xdg.configFile."$1".source = ./$2;

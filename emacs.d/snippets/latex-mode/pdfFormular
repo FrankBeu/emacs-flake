@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: pdfFormular
-# key: pdf
+# name:        pdfFormular
+# key:         pdf
+# contributor: fb
 # --
 \documentclass{book}
 \usepackage{pdfpages}                    %%% include pdf

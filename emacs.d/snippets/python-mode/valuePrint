@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: valuePrint
-# key: pv
+# name:        valuePrint
+# key:         pv
+# contributor: fb
 # --
 $>print(f"{${1:VARIABLE}=}")
 $> $0

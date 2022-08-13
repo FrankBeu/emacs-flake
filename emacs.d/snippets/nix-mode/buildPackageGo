@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : buildPackageGo
-#key :  bpkgo
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        buildPackageGo
+# key:         bpkgo
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 { lib
 , buildGoModule

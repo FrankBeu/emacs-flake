@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
-# name: lintFlakeIgnoreLineSpecific
-# key: lfils
+# name:        lintFlakeIgnoreLineSpecific
+# key:         lfils
+# contributor: fb
 # --
 # noqa: E${1:NUMBER}

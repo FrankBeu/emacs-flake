@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: setterGetter
-# key: sege
+# name:        setterGetter
+# key:         sege
+# contributor: fb
 # --
 public function set${1:$(upcase-initials yas-text)}(\$$1)
 {
@@ -12,4 +13,4 @@ public function get${1:$(upcase-initials yas-text)}()
 return \$this->$1;
 }
 
-    $0
+$0

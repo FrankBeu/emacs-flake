@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : golden
-#key : au
-#contributor : fb
+# name:        golden
+# key:         au
+# contributor: fb
 # --
 package ${1:packageName}
 

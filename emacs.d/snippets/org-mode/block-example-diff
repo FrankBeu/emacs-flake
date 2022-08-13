@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : block-example-diff
-#key :  BDD
-#contributor : fb
+# name:        block-example-diff
+# key:         BDD
+# contributor: fb
 # --
 #+BEGIN_EXAMPLE diff
 $0

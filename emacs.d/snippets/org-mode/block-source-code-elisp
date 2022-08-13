@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : block-source-code-elisp
-#key : bel
-#contributor : fb
+# name:        block-source-code-elisp
+# key:         bel
+# contributor: fb
 # --
 #+BEGIN_SRC elisp
-$>$0
+$0
 #+END_SRC

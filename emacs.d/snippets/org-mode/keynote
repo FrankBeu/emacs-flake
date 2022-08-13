@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : keynote
-#key : kn
-#contributor : fb
+# name:        keynote
+# key:         kn
+# contributor: fb
 # --
 #+SETUPFILE: ~/.emacs.d/orgmode/revealjs/revealjs.setup.org
 #+date: {{{time(%Y-%m-%d)}}}

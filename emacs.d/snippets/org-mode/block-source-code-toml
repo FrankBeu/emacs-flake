@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
 # name:        block-source-code-yaml
-# key:         byml
+# key:         btml
 # contributor: fb
 # --
-#+BEGIN_SRC yaml
+#+BEGIN_SRC toml
 $0
 #+END_SRC

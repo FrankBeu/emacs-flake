@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: Classfile
-# key: cf
+# name:        Classfile
+# key:         cf
+# contributor: fb
 # --
 <?php
 

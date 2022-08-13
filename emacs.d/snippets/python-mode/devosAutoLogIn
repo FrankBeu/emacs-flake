@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: devosAutoLogIn
-# key: devali
+# name:        devosAutoLogIn
+# key:         devali
+# contributor: fb
 # --
       variables = {
         displaymanager = {

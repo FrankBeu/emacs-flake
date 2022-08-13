@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : block-source-code-nix
-#key : bnx
-#contributor : fb
+# name:        block-source-code-nix
+# key:         bnx
+# contributor: fb
 # --
 #+BEGIN_SRC nix
-$>$0
+$0
 #+END_SRC

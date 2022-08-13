@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name : stringLoop
-# key : sl
-# contributor : fb
-# expand-env: ((yas-indent-line 'fixed))
+# name:        stringLoop
+# key:         sl
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 
 for STRING in   \

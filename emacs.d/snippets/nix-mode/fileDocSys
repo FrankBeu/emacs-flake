@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : fileDocSys
-#key :  fidosy
-#contributor : fb
+# name:        fileDocSys
+# key:         fidosy
+# contributor: fb
 # --
 
   environment.etc."/docLocal/content/${1:$$(yas-choose-value '("global" "system"))}/${2:SECTION}.org".source = ./$2.org;

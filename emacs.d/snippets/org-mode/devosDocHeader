@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name : devosDocHeader
-# key :  devdh
-# contributor : fb
-# expand-env: ((yas-indent-line 'fixed))
+# name:        devosDocHeader
+# key:         devdh
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 ---
 title: ${1:NAME}

@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : block-example
-#key :  BE
-#contributor : fb
+# name:        block-example
+# key:         BE
+# contributor: fb
 # --
 #+BEGIN_EXAMPLE
 $0

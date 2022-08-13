@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : table-purchases
-#key : tp
-#contributor : fb
+# name:        table-purchases
+# key:         tp
+# contributor: fb
 # --
 #+TBLNAME: ${1:TABLE-NAME}
 | ITEM | ANZAHL | PREIS IN € | P*A in € * | KAUF | URL |

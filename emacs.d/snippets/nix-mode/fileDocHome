@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : fileDocHome
-#key :  fidoho
-#contributor : fb
+# name:        fileDocHome
+# key:         fidoho
+# contributor: fb
 # --
 
 home.file.".docLocal/content/homemanager/${1:NAME}.org".source = ./$1.org;

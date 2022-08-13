@@ -1,12 +1,12 @@
 # -*- mode: snippet -*-
-#name : block-source-code-python-plot
-#key : bpyp
-#contributor : fb
+# name:        block-source-code-python-plot
+# key:         bpyp
+# contributor: fb
 # --
 #+BEGIN_SRC python :results file
-  $>$0
+$0
 
-  fname="./OUTPUT/`(file-name-nondirectory (file-name-sans-extension buffer-file-name))`.png"
-  plt.savefig(fname)
-  fname
+fname="./OUTPUT/`(file-name-nondirectory (file-name-sans-extension buffer-file-name))`.png"
+plt.savefig(fname)
+fname
 #+END_SRC

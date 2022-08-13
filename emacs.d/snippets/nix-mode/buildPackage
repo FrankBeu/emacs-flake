@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : buildPackage
-#key :  bpk
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        buildPackage
+# key:         bpk
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 { fetchFromGitHub
 , lib

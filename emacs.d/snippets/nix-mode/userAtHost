@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name : userAtHost
-# key :  uah
-# contributor : fb
+# name:        userAtHost
+# key:         uah
+# contributor: fb
 # --
 { config, nixosConfig, ... }:
 let

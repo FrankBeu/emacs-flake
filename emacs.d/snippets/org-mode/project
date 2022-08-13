@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : project
-#key : pj
-#contributor : fb
+# name:        project
+# key:         pj
+# contributor: fb
 # --
 * AKTUELLES
 ** $0

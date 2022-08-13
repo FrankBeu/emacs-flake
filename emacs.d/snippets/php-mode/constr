@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: constr
-# key: constr
+# name:        constr
+# key:         constr
+# contributor: fb
 # --
 
 public function __construct($$1 = null, $$2 = null)

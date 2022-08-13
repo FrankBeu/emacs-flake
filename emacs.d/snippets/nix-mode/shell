@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : shell
-#key :  sh
-#contributor : fb
+# name:        shell
+# key:         sh
+# contributor: fb
 # --
 with (import <nixpkgs> {});
 mkShell {

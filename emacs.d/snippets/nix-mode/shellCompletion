@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : shellCompletion
-#key :  shCmpl
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        shellCompletion
+# key:         shCmpl
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 ### PUT
 ### into ARGUMENT

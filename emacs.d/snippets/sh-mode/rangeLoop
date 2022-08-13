@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : rangeLoop
-#key : rl
-#contributor :fb 
+# name:        rangeLoop
+# key:         rl
+# contributor: fb
 # --
 
 for I in $(seq ${1:FROM} ${2:TO});do

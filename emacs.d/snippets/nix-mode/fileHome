@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : fileHome
-#key :  fiho
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        fileHome
+# key:         fiho
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
   home = {
     file."$1".source = $2;

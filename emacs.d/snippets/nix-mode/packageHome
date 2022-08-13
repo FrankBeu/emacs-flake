@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : packageHome
-#key :  pkgho
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        packageHome
+# key:         pkgho
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 { pkgs
 , ...

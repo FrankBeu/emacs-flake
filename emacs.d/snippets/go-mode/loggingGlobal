@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : loggingGlobal
-#key : zap
-#contributor : fb
+# name:        loggingGlobal
+# key:         zap
+# contributor: fb
 # --
 package logger
 

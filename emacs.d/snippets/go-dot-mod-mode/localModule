@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-#name : localModule
-#key : lmod
-#contributor : fb
-#expand-env: ((yas-indent-line 'fixed))
+# name:        localModule
+# key:         lmod
+# contributor: fb
+# expand-env:  ((yas-indent-line 'fixed))
 # --
 
 module ${1:moduleName}

@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
-# name: public function 
-# key: puf
+# name:        public function
+# key:         puf
+# contributor: fb
 # --
 public function $1($$2)
 {

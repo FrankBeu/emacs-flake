@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : block-source-code-html
-#key : bhtml
-#contributor : fb
+# name:        block-source-code-html
+# key:         bhtml
+# contributor: fb
 # --
 #+BEGIN_SRC html
 $0

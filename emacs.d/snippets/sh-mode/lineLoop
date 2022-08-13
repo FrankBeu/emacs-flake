@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-#name : lineLoop
-#key : ll
-#contributor : fb
+# name:        lineLoop
+# key:         ll
+# contributor: fb
 # --
 for LINE in "\${(@f)"\$(<${1:PATH/TO/FILE})"}"
 {

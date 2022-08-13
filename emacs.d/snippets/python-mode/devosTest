@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
-# name: devosTest
-# key: devt
-# contributor : fb
+# name:        devosTest
+# key:         devt
+# contributor: fb
 # --
 machine.wait_for_unit("${1:$$(yas-choose-value '(
 			"multi-user.target"
