@@ -19,8 +19,10 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 *** note file
 #+begin_src elisp
 (defvar fb*noteFile     "~/NOTES/AKTUELLES.org" "Primary-Target-File for org-capture")
-(defvar fb*routinesFile "~/NOTES/ROUTINES.org"  "Routine-Target-File for org-capture")
+;; (defvar fb*routinesFile "~/NOTES/ROUTINES.org"  "Routine-Target-File for org-capture")
+(defvar fb*routinesFile "~/ROUTINES/ROUTINES.org"  "Routine-Target-File for org-capture")
 #+end_src
+
 *** templates
 **** variable
 #+begin_src elisp
@@ -47,6 +49,7 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
     ("REP" "PRANYAMA"      entry (file+olp fb*routinesFile "EXISTENCIAL" "PRANYAMA"      "FUNDUS") "* %i%? ")
     ("REM" "MEDITATION"    entry (file+olp fb*routinesFile "EXISTENCIAL" "MEDITATION"    "FUNDUS") "* %i%? ")
     ("REA" "ANTHROPOSOPHY" entry (file+olp fb*routinesFile "EXISTENCIAL" "ANTHROPOSOPHY" "FUNDUS") "* %i%? ")
+    ("REG" "GREENERY"      entry (file+olp fb*routinesFile "EXISTENCIAL" "GREENERY"      "FUNDUS") "* %i%? ")
 
     ("RM" "MENTAL")
     ("RMA" "ALGO"          entry (file+olp fb*routinesFile "MENTAL"      "ALGO"          "FUNDUS") "* %i%? ")
@@ -56,11 +59,12 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 
     ("RI" "MISC")
     ("RIN" "NEW"           entry (file+olp fb*routinesFile "MISC"        "NEW"           "FUNDUS") "* %i%? ")
-    ("RIO" "ORGAN"         entry (file+olp fb*routinesFile "MISC"        "ORGAN"         "FUNDUS") "* %i%? ")
-    ("RIM" "MOZART"        entry (file+olp fb*routinesFile "MISC"        "MOZART"        "FUNDUS") "* %i%? ")
+    ;; ("RIO" "ORGAN"         entry (file+olp fb*routinesFile "MISC"        "ORGAN"         "FUNDUS") "* %i%? ")
+    ;; ("RIM" "MOZART"        entry (file+olp fb*routinesFile "MISC"        "MOZART"        "FUNDUS") "* %i%? ")
     ("RIU" "CLEANUP"       entry (file+olp fb*routinesFile "MISC"        "CLEANUP"       "FUNDUS") "* %i%? ")
     ("RIC" "CREATION"      entry (file+olp fb*routinesFile "MISC"        "CREATION"      "FUNDUS") "* %i%? ")
     ("RIA" "APPLICATION"   entry (file+olp fb*routinesFile "MISC"        "APPLICATION"   "FUNDUS") "* %i%? ")
+    ("RIP" "РУССКИЙ"       entry (file+olp fb*routinesFile "MISC"        "РУССКИЙ"       "FUNDUS") "* %i%? ")
     ))
     (setq org-capture-templates (append org-capture-templates routines-templates))
 #+end_src

@@ -204,7 +204,7 @@
     "ok"  '(org-open-at-point-global                      :which-key "follow-link"                      )
 
     "oi"  '(                                                                      :which-key "go2file"               :ignore t)
-    "oiu" '((lambda()(interactive)(find-file "~/NOTES/AKTUELLES.org"           )) :which-key "AKTUELLES"             )
+    "oiu" '((lambda()(interactive)(find-file fb*noteFile                        )) :which-key "AKTUELLES"             )
     "oi1" '((lambda()(interactive)(find-file "~/NOTES/〇/1  UNSORTIERTES.org"   )) :which-key "UNSORTIERTES"          )
     "oi2" '((lambda()(interactive)(find-file "~/NOTES/〇/2  IDEEN.org"          )) :which-key "IDEEN"                 )
     "oi3" '((lambda()(interactive)(find-file "~/NOTES/〇/3  FRAGEN.org"         )) :which-key "FRAGEN"                )
@@ -217,7 +217,7 @@
     "oi9" '((lambda()(interactive)(find-file "~/NOTES/〇/9  ROUTINEN.org"       )) :which-key "ROUTINEN"              )
     "oi0" '((lambda()(interactive)(find-file "~/NOTES/〇/10 ERKENNTNISSE.org"   )) :which-key "ERKENNTNISSE"          )
     "oie" '((lambda()(interactive)(find-file "~/NOTES/〇/11 ERLEDIGTES.org"     )) :which-key "ERLEDIGTES"            )
-    "oij" '((lambda()(interactive)(find-file "~/NOTES/ROUTINES.org"             )) :which-key "ROUTINES"             )
+    "oij" '((lambda()(interactive)(find-file fb*routinesFile                    )) :which-key "ROUTINES"             )
 
     "p"   '(projectile-command-map                        :which-key "projectile"                       )
 
@@ -236,6 +236,7 @@
     "rfh" '(fb/break-here                                 :which-key "break-here"                       )
     "rfc" '(fb/break-sub-sentence                         :which-key "break-sub"                        )
     "rfs" '(fb/break-sentence                             :which-key "break-sentence"                   )
+    "rt"  '(untabify                                      :which-key "tab2spaces"                       )
 
     "rr"  '(redraw-display                                :which-key "redraw-display"                   )
     "rl"  '(fb/reload-config                              :which-key "reload init.el"                   )
