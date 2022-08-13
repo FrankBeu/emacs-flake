@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
-# name: StatefulWidget
-# key: sfw
-# contributor : fb
-# group: flutter
+# name:        Widget_StateFul
+# key:         wsf
+# contributor: fb
+# group:       flutter
 # --
 class ${1:`(let ((fn (capitalize (file-name-nondirectory
                                  (file-name-sans-extension

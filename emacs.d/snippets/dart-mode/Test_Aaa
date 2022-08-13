@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name:        Test_Aaa
+# key:         ta
+# contributor: fb
+# --
+test(
+  'should ${1:DESCRIPTION}',
+  () async {
+  //// ARRANGE
+  $0
+  //// ACT
+
+  //// ASSERT
+
+  }, tags: ['k-${2:kindTag}', 'f-${3:featureTag}', 's-${4:structureTag}'],
+  //// TODO: delete
+  //// must be registered in dart_test.yaml
+  //// kind: k-{golden,unit,widget,integration}
+  //// feature: core f-FEATURENAME
+  //// structure: s-{data,domain,presentation}
+);

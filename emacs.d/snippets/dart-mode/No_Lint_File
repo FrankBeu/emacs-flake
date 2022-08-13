@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        No_Lint_File
+# key:         nlf
+# contributor: fb
+# info:        use with SPC e y i (yanks error-id)
+# --
+// ignore_for_file: `(current-kill 0)`$0

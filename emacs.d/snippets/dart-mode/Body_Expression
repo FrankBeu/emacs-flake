@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Body_Expression
+# key:         be
+# contributor: fb
+# --
+
+${1:TYPE} ${2:NAME}(${3:PARAMS}) => ${4:EXPR};
+$0

@@ -1,17 +1,15 @@
 # -*- mode: snippet -*-
-# name: class
-# key: cls
-# contributor : fb
+# name:        Widget_StateLess
+# key:         wsl
+# group:       flutter
+# contributor: fb
 # --
-
 class ${1:`(let ((fn (capitalize (file-name-nondirectory
                                  (file-name-sans-extension
 				 (or (buffer-file-name)
 				     (buffer-name (current-buffer))))))))
-             (replace-regexp-in-string "_" "" fn t t))`} {
+             (replace-regexp-in-string "_" "" fn t t))`} extends StatelessWidget {
   ${2:FIELDS}
-
-  ${3:GETTERS/SETTERS}
 
   const $1({
     Key? key,
@@ -24,6 +22,10 @@ class ${1:`(let ((fn (capitalize (file-name-nondirectory
 	    (buffer-string))}
     }) : super(key: key);
 
-  ${4:FUNCTIONS}
-  $0
+  @override
+  Widget build(BuildContext context) {
+    return $3(
+      $>$0
+    );
+  }
 }

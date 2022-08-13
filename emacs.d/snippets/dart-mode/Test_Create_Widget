@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name:        Test_Create_Widget
+# key:         tcw
+# contributor: fb
+# --
+Widget createWidgetUnderTest() {
+  return MaterialApp(
+    ${1:SETUP}
+  );
+}
+$0

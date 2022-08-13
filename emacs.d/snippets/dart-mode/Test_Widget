@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name:        Test_Widget
+# key:         tw
+# contributor: fb
+# --
+testWidgets(
+    '${1:DESCRIPTION}',
+    (WidgetTester tester) async {
+        await tester.pumpWidget(${2:WIDGET});
+        ${3:TEST}
+    },
+);
+$0

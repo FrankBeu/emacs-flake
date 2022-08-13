@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name:        Test_System_Under_Test
+# key:         tsut
+# contributor: fb
+# --
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+void main() {
+  late ${1:CLASS-NAME} sut;
+  setUp(() {
+    sut = $1();
+  });
+  $0
+}

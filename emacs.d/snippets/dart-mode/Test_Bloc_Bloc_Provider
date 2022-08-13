@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Bloc_Provider
+# key:         tbbp
+# contributor: fb
+# --
+BlocProvider(
+  create: (context) => ${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}(),
+  child: ${3:CONTAINER}(),
+)

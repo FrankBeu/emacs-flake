@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-#name : nolint
-#key : nl
-#contributor : fb
-#hint: use with SPC e y i (yanks error-id)
-# --
-// ignore: `(current-kill 0)`$0

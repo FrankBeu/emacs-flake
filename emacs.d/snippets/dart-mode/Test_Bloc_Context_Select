@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Context_Select
+# key:         tbcs
+# contributor: fb
+# --
+context.select((${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))} ${3:ELEMENT}) => $3$4)
+$0

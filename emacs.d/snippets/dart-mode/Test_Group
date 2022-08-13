@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name:        Test_Group
+# key:         tg
+# contributor: fb
+# --
+
+group('${1:GROUP-DESCRIPTION}:', () {
+  $0
+},
+// skip: 'OFF',
+);

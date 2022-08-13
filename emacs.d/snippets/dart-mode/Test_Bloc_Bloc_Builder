@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Bloc_Builder
+# key:         tbbb
+# contributor: fb
+# --
+  BlocBuilder<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State>(
+    builder: (context, state) {
+      return ${3:CONTAINER}();
+    },
+  )
+  $0

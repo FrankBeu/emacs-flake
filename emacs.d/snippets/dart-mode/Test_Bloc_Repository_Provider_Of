@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Repository_Provider_Of
+# key:         tbrpo
+# contributor: fb
+# --
+RepositoryProvider.of<${1:SUBJECT}Repository>(context)
+$0

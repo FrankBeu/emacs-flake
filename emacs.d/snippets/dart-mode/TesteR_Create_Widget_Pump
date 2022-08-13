@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        TesteR_Create_Widget_Pump
+# key:         trcwp
+# contributor: fb
+# --
+await tester.pumpWidget(createWidgetUnderTest());
+$0

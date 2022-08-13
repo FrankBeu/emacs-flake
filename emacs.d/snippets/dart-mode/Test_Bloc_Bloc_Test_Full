@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Bloc_Test_Full
+# key:         tbbtf
+# contributor: fb
+# --
+blocTest<${1:BLOC}, ${2:STATE}>(
+  'should ${3:DESCRIPTION}',
+  setUp: () => ${7:mySetup()},
+  build: () => ${8:MyBloc()},
+  seed: () => ${9:seed},
+  act: (bloc) => bloc.add(${10:MyEvent()}),
+  wait: const Duration(milliseconds: ${11:300}),
+  skip: ${12:INT},
+  expect: () => [isA<${13:MyState}>()],
+  verify: (_) {
+    verify(() => ${14:instance.someMethod}(any())).called(1);
+  },
+  errors: () => [isA<${15:Exception}>()],
+  tearDown: () => ${16:myTearDown()},
+  tags: ['k-${4:kindTag}', 'f-${5:featureTag}', 's-${6:structureTag}'],
+  $0
+  //// TODO: delete
+  //// must be registered in dart_test.yaml
+  //// kind: k-{golden,unit,widget,integration}
+  //// feature: f-{core,FEATURENAME}
+  //// structure: s-{data,domain,presentation}
+);

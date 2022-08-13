@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        TesteR_Pump_and_Settle
+# key:         trps
+# contributor: fb
+# --
+await tester.pumpAndSettle();
+$0

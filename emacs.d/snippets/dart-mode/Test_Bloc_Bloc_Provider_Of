@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Bloc_Provider_Of_
+# key:         tbbpo
+# contributor: fb
+# --
+BlocProvider.of<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}>(context)
+$0

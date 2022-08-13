@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Test_Skip
+# key:         ts
+# contributor: fb
+# info:        used to skip tests or testGroups
+# --
+
+skip: "OFF",

@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        Body_Block
+# key:         bb
+# contributor: fb
+# --
+
+${1:TYPE} ${2:NAME}(${3:PARAMS}) {
+  ${4:EXPR};
+}
+$0

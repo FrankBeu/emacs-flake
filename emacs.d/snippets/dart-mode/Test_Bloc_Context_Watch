@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Context_Watch
+# key:         tbcw
+# contributor: fb
+# --
+context.watch<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}>()
+$0

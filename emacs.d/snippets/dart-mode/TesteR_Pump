@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        TesteR_Pump
+# key:         trp
+# contributor: fb
+# --
+await tester.pump();
+// await tester.pump(const Duration(milliseconds: 500));
+$0

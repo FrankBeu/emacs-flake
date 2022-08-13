@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Multi_Bloc_Provider
+# key:         tbmbp
+# contributor: fb
+# --
+MultiBlocProvider(
+  providers: [
+    BlocProvider(
+      create: (context) => ${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}(),
+    ),
+    BlocProvider(
+      create: (context) => ${3:SUBJECT}${4:$$(yas-choose-value '("Bloc" "Cubit"))}(),
+    ),
+  ],
+  child: ${5:CONTAINER}(),
+)
+$0

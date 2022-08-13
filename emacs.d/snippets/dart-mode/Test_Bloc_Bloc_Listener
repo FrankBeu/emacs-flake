@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Bloc_Listener
+# key:         tbbl
+# contributor: fb
+# --
+BlocListener<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State>(
+  listener: (context, state) {
+    ${3:// TODO: implement listener}
+  },
+  child: ${4:CONTAINER}(),
+)
+$0

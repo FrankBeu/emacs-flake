@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Bloc_Selector
+# key:         tbbs
+# contributor: fb
+# --
+BlocSelector<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State, ${3:SELECTED}>(
+  selector: (state) {
+    return ${4:STATE};
+  },
+  builder: (context, state) {
+    return ${5:CONTAINER}();
+  },
+)
+$0

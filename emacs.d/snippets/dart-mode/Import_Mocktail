@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Import_Mocktail
+# key:         im
+# contributor: fb
+# --
+import 'package:mocktail/mocktail.dart';
+$0

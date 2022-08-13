@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        IF
+# key:         if
+# contributor: fb
+# --
+
+if (${1:BOOL-EXPRESSION}) {
+  $2
+}
+$0

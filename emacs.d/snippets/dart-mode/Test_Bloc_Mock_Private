@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Mock_Private
+# key:         tbmp
+# contributor: fb
+# --
+class _Mock${1:SUBJECT} extends Mock implements ${1} {}
+$0

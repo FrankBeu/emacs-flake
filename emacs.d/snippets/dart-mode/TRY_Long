@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name:        TRY_Long
+# key:         tryl
+# contributor: fb
+# --
+
+try {
+  ${1:EXCEPTION-THROWING-CODE}
+} on ${2:EXCEPTION} {
+  $3
+} on ${4:EXCEPTION} {
+  $5
+} catch(e) {
+  $6
+}
+$0

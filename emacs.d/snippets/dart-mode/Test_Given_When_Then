@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name:        Test_Given_When_Then
+# key:         tgwt
+# contributor: fb
+# --
+testWidgets('${1:DESCRIPTION}', harness((given, when, then) async {
+  await given.${2:GIVEN};
+  await when.${3:WHEN}();
+  await then.${4:THEN}();
+}));
+$0

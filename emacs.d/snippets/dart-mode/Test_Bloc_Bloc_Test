@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Bloc_Test
+# key:         tbbt
+# contributor: fb
+# --
+blocTest<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State>(
+  'emits [${3:MY-STATE}] when ${4:MY-EVENT} is added.',
+  build: () => $1$2(),
+  act: (bloc) => bloc.add($4()),
+  expect: () => const <$1State>[$3()],
+);
+$0

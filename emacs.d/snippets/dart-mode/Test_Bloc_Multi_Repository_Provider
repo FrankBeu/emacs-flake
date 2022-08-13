@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Multi_Repository_Provider
+# key:         tbmrp
+# contributor: fb
+# --
+MultiRepositoryProvider(
+  providers: [
+    RepositoryProvider(
+      create: (context) => ${1:SUBJECT}Repository(),
+    ),
+    RepositoryProvider(
+      create: (context) => ${2:SUBJECT}Repository(),
+    ),
+  ],
+  child: ${3:CONTAINER}(),
+)
+$0

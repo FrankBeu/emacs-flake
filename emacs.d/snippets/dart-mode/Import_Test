@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Import_Test
+# key:         it
+# contributor: fb
+# --
+import 'package:flutter_test/flutter_test.dart';
+$0

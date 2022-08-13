@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Context_Read
+# key:         tbcr
+# contributor: fb
+# --
+context.read<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}>()
+$0

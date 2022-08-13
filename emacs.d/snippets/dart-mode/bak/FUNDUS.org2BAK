@@ -1,0 +1,382 @@
+Test_Imports
+# -*- mode: snippet -*-
+# name:         Test_Imports
+# key:          ti
+# contributor:  fb
+# --
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+$0
+Test_System_Under_Test
+# -*- mode: snippet -*-
+# name:         Test_System_Under_Test
+# key:          tsut
+# contributor:  fb
+# --
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+void main() {
+  late ${1:CLASS-NAME} sut;
+  setUp(() {
+    sut = $1();
+  });
+  $0
+}
+Test_Create_Widget
+# -*- mode: snippet -*-
+# name:         Test_Create_Widget
+# key:          tcw
+# contributor:  fb
+# --
+Widget createWidgetUnderTest() {
+  return MaterialApp(
+    ${1:SETUP}
+  );
+}
+$0
+TesteR_Create_Widget_Pump
+# -*- mode: snippet -*-
+# name:         TesteR_Create_Widget_Pump
+# key:          trcwp
+# contributor:  fb
+# --
+await tester.pumpWidget(createWidgetUnderTest());
+$0
+Test_Set_Up_All
+# -*- mode: snippet -*-
+# name:         Test_Set_Up_All
+# key:          tsua
+# contributor:  fb
+# --
+setUpAll(() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  $1
+});
+$0
+Test_Given_When_Then
+# -*- mode: snippet -*-
+# name:         Test_Given_When_Then
+# key:          tgwt
+# contributor:  fb
+# --
+testWidgets('${1:DESCRIPTION}', harness((given, when, then) async {
+  await given.${2:GIVEN};
+  await when.${3:WHEN}();
+  await then.${4:THEN}();
+}));
+$0
+TesteR_Pump_Widget
+# -*- mode: snippet -*-
+# name:         TesteR_Pump_Widget
+# key:          trpw
+# contributor:  fb
+# --
+// trpw TesteRPumpWidget
+await tester.pumpWidget(${1:WIDGET});
+$0
+TesteR_Pump
+# -*- mode: snippet -*-
+# name:         TesteR_Pump
+# key:          trp
+# contributor:  fb
+# --
+await tester.pump();
+// await tester.pump(const Duration(milliseconds: 500));
+$0
+TesteR_Pump_and_Settle
+# -*- mode: snippet -*-
+# name:         TesteR_Pump_and_Settle
+# key:          trps
+# contributor:  fb
+# --
+await tester.pumpAndSettle();
+$0
+Test_Expect_by_Key
+# -*- mode: snippet -*-
+# name:         Test_Expect_by_Key
+# key:          tek
+# contributor:  fb
+# --
+expect(find.byKey(Key('${1:KEY}')), findsOneWidget);
+$0
+Test_Widget
+# -*- mode: snippet -*-
+# name:         Test_Widget
+# key:          tw
+# contributor:  fb
+# --
+testWidgets(
+    '${1:DESCRIPTION}',
+    (WidgetTester tester) async {
+        await tester.pumpWidget(${2:WIDGET});
+        ${3:TEST}
+    },
+);
+$0
+Test_Bloc_Bloc_Test
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Bloc_Test
+# key:          tbbt
+# contributor:  fb
+# --
+blocTest<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State>(
+  'emits [${3:MY-STATE}] when ${4:MY-EVENT} is added.',
+  build: () => $1$2(),
+  act: (bloc) => bloc.add($4()),
+  expect: () => const <$1State>[$3()],
+);
+$0
+Test_Bloc_Import
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Import
+# key:          tbi
+# contributor:  fb
+# --
+import 'package:bloc_test/bloc_test.dart';
+$0
+Test_Bloc_Mock_Bloc
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Mock_Bloc
+# key:          tbmb
+# contributor:  fb
+# --
+class Mock${1:SUBJECT}Bloc extends MockBloc<${1}Event, ${1}State> implements ${1}Bloc {}
+$0
+Test_Bloc_Mock_Bloc_Private
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Mock_Bloc_Private
+# key:          tbmbp
+# contributor:  fb
+# --
+class _Mock${1:SUBJECT}Bloc extends MockBloc<${1}Event, ${1}State> implements ${1}Bloc {}
+$0
+Test_Bloc_Mock_Cubit
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Mock_Cubit
+# key:          tbmc
+# contributor:  fb
+# --
+class Mock${1:SUBJECT}Cubit extends MockCubit<${1}State> implements ${1}Cubit {}
+$0
+Test_Bloc_Mock_Cubit_Private
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Mock_Cubit_Private
+# key:          tbmcp
+# contributor:  fb
+# --
+class _Mock${1:SUBJECT}Cubit extends MockCubit<${1}State> implements ${1}Cubit {}
+$0
+Test_Bloc_Fake
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Fake
+# key:          tbf
+# contributor:  fb
+# --
+class Fake${1:SUBJECT} extends Fake implements ${1} {}
+$0
+Test_Bloc_Fake_Private
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Fake_Private
+# key:          tbfp
+# contributor:  fb
+# --
+class _Fake${1:SUBJECT} extends Fake implements ${1} {}
+$0
+Test_Bloc_Mock
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Mock
+# key:          tbm
+# contributor:  fb
+# --
+class Mock${1:SUBJECT} extends Mock implements ${1} {}
+$0
+Test_Bloc_Mock_Private
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Mock_Private
+# key:          tbmp
+# contributor:  fb
+# --
+class _Mock${1:SUBJECT} extends Mock implements ${1} {}
+$0
+Test_Bloc_Bloc_Provider
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Bloc_Provider
+# key:          tbbp
+# contributor:  fb
+# --
+BlocProvider(
+  create: (context) => ${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}(),
+  child: ${3:CONTAINER}(),
+)
+Test_Bloc_Multi_Bloc_Provider
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Multi_Bloc_Provider
+# key:          tbmbp
+# contributor:  fb
+# --
+MultiBlocProvider(
+  providers: [
+    BlocProvider(
+      create: (context) => ${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}(),
+    ),
+    BlocProvider(
+      create: (context) => ${3:SUBJECT}${4:$$(yas-choose-value '("Bloc" "Cubit"))}(),
+    ),
+  ],
+  child: ${5:CONTAINER}(),
+)
+$0
+Test_Bloc_Repository_Provider
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Repository_Provider
+# key:          tbrp
+# contributor:  fb
+# --
+RepositoryProvider(
+  create: (context) => ${1:SUBJECT}Repository(),
+  child: ${2:CONTAINER}(),
+)
+$0
+Test_Bloc_Multi_Repository_Provider
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Multi_Repository_Provider
+# key:          tbmrp
+# contributor:  fb
+# --
+MultiRepositoryProvider(
+  providers: [
+    RepositoryProvider(
+      create: (context) => ${1:SUBJECT}Repository(),
+    ),
+    RepositoryProvider(
+      create: (context) => ${2:SUBJECT}Repository(),
+    ),
+  ],
+  child: ${3:CONTAINER}(),
+)
+$0
+Test_Bloc_Bloc_Builder
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Bloc_Builder
+# key:          tbbb
+# contributor:  fb
+# --
+  BlocBuilder<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State>(
+    builder: (context, state) {
+      return ${3:CONTAINER}();
+    },
+  )
+  $0
+Test_Bloc_Bloc_Selector
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Bloc_Selector
+# key:          tbbs
+# contributor:  fb
+# --
+BlocSelector<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State, ${3:SELECTED}>(
+  selector: (state) {
+    return ${4:STATE};
+  },
+  builder: (context, state) {
+    return ${5:CONTAINER}();
+  },
+)
+$0
+Test_Bloc_Bloc_Listener
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Bloc_Listener
+# key:          tbbl
+# contributor:  fb
+# --
+BlocListener<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State>(
+  listener: (context, state) {
+    ${3:// TODO: implement listener}
+  },
+  child: ${4:CONTAINER}(),
+)
+$0
+Test_Bloc_Multi_Bloc_Listener
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Multi_Bloc_Listener
+# key:          tbmbl
+# contributor:  fb
+# --
+MultiBlocListener(
+  listeners: [
+    BlocListener<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State>(
+      listener: (context, state) {
+        ${3:// TODO: implement listener}
+      },
+    ),
+    BlocListener<${4:SUBJECT}${5:$$(yas-choose-value '("Bloc" "Cubit"))} $4State>(
+      listener: (context, state) {
+        ${6:// TODO: implement listener}
+      },
+    ),
+  ],
+  child: ${7:CONTAINER}(),
+)
+$0
+Test_Bloc_Bloc_Consumer
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Bloc_Consumer
+# key:          tbbc
+# contributor:  fb
+# --
+BlocConsumer<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))} $1State>(
+  listener: (context, state) {
+    ${3:// TODO: implement listener}
+  },
+  builder: (context, state) {
+    return ${4:CONTAINER}();
+  },
+)
+$0
+Test_Bloc_Bloc_Provider
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Bloc_Provider
+# key:          tbbp
+# contributor:  fb
+# --
+BlocProvider.of<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}>(context)
+$0
+Test_Bloc_Repository_Provider
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Repository_Provider
+# key:          tbrp
+# contributor:  fb
+# --
+RepositoryProvider.of<${1:SUBJECT}Repository>(context)
+$0
+Test_Bloc_Context_Read
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Context_Read
+# key:          tbcr
+# contributor:  fb
+# --
+context.read<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}>()
+$0
+Test_Bloc_Context_Select
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Context_Select
+# key:          tbcs
+# contributor:  fb
+# --
+context.select((${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))} ${3:ELEMENT}) => $3$4)
+$0
+Test_Bloc_Context_Watch
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Context_Watch
+# key:          tbcw
+# contributor:  fb
+# --
+context.watch<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}>()
+$0
+Test_Bloc_Import
+# -*- mode: snippet -*-
+# name:         Test_Bloc_Import
+# key:          tbi
+# contributor:  fb
+# --
+import 'package:flutter_bloc/flutter_bloc.dart';
+$0

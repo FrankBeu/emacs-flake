@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name:        Test_TaBle
+# key:         ttb
+# contributor: fb
+# --
+
+group("${1:GROUP-INFO}:", () {
+  void ${2:TABLE-FUNCTION-NAME}(${3:PARAMETERS}) {
+    test("$input -> $expected", () {
+      expect(${4:TEST-FUNCTION-NAME}(input), expected);
+    });
+  }
+  $2(${5:INPUT}, ${6:EXPECTED});
+  $2(${7:INPUT}, ${8:EXPECTED});
+  // ...
+});
+$0

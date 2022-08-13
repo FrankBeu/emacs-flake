@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        TesteR_Pump_Widget
+# key:         trpw
+# contributor: fb
+# --
+// trpw TesteRPumpWidget
+await tester.pumpWidget(${1:WIDGET});
+$0

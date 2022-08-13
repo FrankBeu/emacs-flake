@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Import_Bloc_Test
+# key:         ibt
+# contributor: fb
+# --
+import 'package:bloc_test/bloc_test.dart';
+$0

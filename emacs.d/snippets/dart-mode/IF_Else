@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        IF_Else
+# key:         ife
+# contributor: fb
+# --
+
+if (${1:BOOL-EXPRESSION}) {
+  $2
+} else {
+  $3
+}
+$0

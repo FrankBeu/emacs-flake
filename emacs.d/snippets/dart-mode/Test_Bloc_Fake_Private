@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Fake_Private
+# key:         tbfp
+# contributor: fb
+# --
+class _Fake${1:SUBJECT} extends Fake implements ${1} {}
+$0

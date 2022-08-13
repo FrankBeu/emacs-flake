@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Expect_by_Key
+# key:         tek
+# contributor: fb
+# --
+expect(find.byKey(Key('${1:KEY}')), findsOneWidget);
+$0

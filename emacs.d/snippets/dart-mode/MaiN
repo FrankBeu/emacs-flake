@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        MaiN
+# key:         mn
+# contributor: fb
+# --
+
+void main() {
+  $0
+}

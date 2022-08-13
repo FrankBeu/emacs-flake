@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Import
+# key:         tbi
+# contributor: fb
+# --
+import 'package:flutter_bloc/flutter_bloc.dart';
+$0

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Mock_Cubit_Private
+# key:         tbmcp
+# contributor: fb
+# --
+class _Mock${1:SUBJECT}Cubit extends MockCubit<${1}State> implements ${1}Cubit {}
+$0

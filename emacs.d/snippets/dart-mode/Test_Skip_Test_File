@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Test_Skip_Test_File
+# key:         tstf
+# contributor: fb
+# info:        used to skip a whole file of tests
+#              place at first line of file
+# --
+@Skip('${1:MESSAGE}')
+$0

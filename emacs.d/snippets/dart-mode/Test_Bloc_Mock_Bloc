@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Mock_Bloc
+# key:         tbmb
+# contributor: fb
+# --
+class Mock${1:SUBJECT}Bloc extends MockBloc<${1}Event, ${1}State> implements ${1}Bloc {}
+$0

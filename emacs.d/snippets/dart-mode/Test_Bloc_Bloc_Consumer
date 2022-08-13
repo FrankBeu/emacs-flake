@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Bloc_Consumer
+# key:         tbbc
+# contributor: fb
+# --
+BlocConsumer<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))} $1State>(
+  listener: (context, state) {
+    ${3:// TODO: implement listener}
+  },
+  builder: (context, state) {
+    return ${4:CONTAINER}();
+  },
+)
+$0

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        TRY
+# key:         try
+# contributor: fb
+# --
+
+try {
+  ${1:EXCEPTION-THROWING-CODE}
+} on ${2:EXCEPTION} {
+  $3
+}
+$0

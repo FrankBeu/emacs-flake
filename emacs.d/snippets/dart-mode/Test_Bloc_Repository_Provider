@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Repository_Provider
+# key:         tbrp
+# contributor: fb
+# --
+RepositoryProvider(
+  create: (context) => ${1:SUBJECT}Repository(),
+  child: ${2:CONTAINER}(),
+)
+$0

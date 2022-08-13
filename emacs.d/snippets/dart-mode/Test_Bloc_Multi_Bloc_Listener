@@ -1,0 +1,21 @@
+# -*- mode: snippet -*-
+# name:        Test_Bloc_Multi_Bloc_Listener
+# key:         tbmbl
+# contributor: fb
+# --
+MultiBlocListener(
+  listeners: [
+    BlocListener<${1:SUBJECT}${2:$$(yas-choose-value '("Bloc" "Cubit"))}, $1State>(
+      listener: (context, state) {
+        ${3:// TODO: implement listener}
+      },
+    ),
+    BlocListener<${4:SUBJECT}${5:$$(yas-choose-value '("Bloc" "Cubit"))} $4State>(
+      listener: (context, state) {
+        ${6:// TODO: implement listener}
+      },
+    ),
+  ],
+  child: ${7:CONTAINER}(),
+)
+$0
