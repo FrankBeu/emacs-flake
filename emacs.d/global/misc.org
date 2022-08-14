@@ -63,19 +63,35 @@
 (setq enable-local-variables :safe)
 #+END_SRC
 *** set safe-variables
+**** safe values
 #+BEGIN_SRC elisp
   (setf safe-local-variable-values (cl-list*
-                                    '(org-content . 2)
-                                    '(org-content . 3)
-                                    '(org-export-with-section-numbers . nil)
-                                    '(org-export-with-toc . nil)
-                                    '(org-fb-re-reveal-talk-url . "https://keynotes.thesym.site/dartflutter")
-                                    '(org-fb-re-reveal-talk-url-show-anchor-on-title-slide . nil)
-                                    '(org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide . t)
-                                    '(org-fb-re-reveal-talk-url-show-qrCode-on-title-slide . nil)
-                                    '(org-re-reveal-single-file . t)
-                                    '(org-re-reveal-title-slide . "~/.emacs.d/orgmode/revealjs/revealjs.titleSlide.html")
+                                    '(org-content                                                    . 2                                                      )
+                                    '(org-content                                                    . 3                                                      )
+                                    '(org-export-with-section-numbers                                . nil                                                    )
+                                    '(org-export-with-toc                                            . nil                                                    )
+                                    '(org-fb-re-reveal-talk-url-show-anchor-on-title-slide           . nil                                                    )
+                                    '(org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide . t                                                      )
+                                    '(org-fb-re-reveal-talk-url-show-qrCode-on-title-slide           . nil                                                    )
+                                    '(org-re-reveal-single-file                                      . t                                                      )
+                                    '(org-re-reveal-title-slide                                      . "~/.emacs.d/orgmode/revealjs/revealjs.titleSlide.html" )
                                     safe-local-variable-values))
+#+END_SRC
+**** safe as long as it is a string
+#+BEGIN_SRC elisp
+  (put 'org-fb-re-reveal-talk-url 'safe-local-variable #'stringp)
+  (put 'org-re-reveal-extra-css   'safe-local-variable #'stringp)
+#+END_SRC
+**** safe local eval
+#+BEGIN_SRC elisp
+  (add-to-list 'safe-local-eval-forms
+               '(setq-local org-re-reveal-extra-css (expand-file-name "~/.emacs.d/orgmode/revealjs/revealjs.css"))
+               )
+#+END_SRC
+extra-css does not work with ~ directly
+stringp does not work either
+#+BEGIN_SRC elisp :tangle no :exports none
+;; '(setq-local org-re-reveal-extra-css (expand-file-name #'stringp))
 #+END_SRC
 **** FUNDUS
 #+BEGIN_SRC elisp :tangle no :exports none

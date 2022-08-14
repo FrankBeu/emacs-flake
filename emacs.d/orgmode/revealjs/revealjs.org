@@ -29,6 +29,11 @@ package: ox-reveal
 (setq org-reveal-hlevel 2)
 (setq org-reveal-previewLinks t)
 #+end_src
+**** extra-css
+set extra-css locally instead
+#+BEGIN_SRC elisp :tangle no :exports none
+;; (setq org-re-reveal-extra-css (expand-file-name "~/.emacs.d/orgmode/revealjs/revealjs.css"))
+#+END_SRC
 *** theme
 #+begin_src elisp
 ;; (setq org-reveal-theme "white")

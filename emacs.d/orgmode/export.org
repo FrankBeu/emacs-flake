@@ -58,12 +58,21 @@ hide {{{}}}
                                         ((and (boundp 'org-fb-re-reveal-talk-url)                                                                         (bound-and-true-p org-fb-re-reveal-talk-url-show-qrCode-on-title-slide) ) (concat \"#+REVEAL_TALK_URL: \" org-fb-re-reveal-talk-url  \" \\n #+HTML_HEAD: <style>#talkURL__titleSlide{display:none}</style> \\n #+REVEAL_TALK_QR_CODE: ./qrCodeTalkURL.png                                                                   \")) ;;;;        QR
                                         (     (boundp 'org-fb-re-reveal-talk-url)                                                                                                                                                   (concat \"#+REVEAL_TALK_URL: \" org-fb-re-reveal-talk-url  \" \\n #+HTML_HEAD: <style>#talkURL__titleSlide{display:none}</style>                                                \\n #+HTML_HEAD: <style>#qrCode__titleSlide{display:none}</style> \")) ;;;; ______ __
                                         ))))")
-                                   ("end-of-talk" .
-                                    "(eval (format \"%s\"
-                                      (cond
-                                        ((not (bound-and-true-p org-fb-re-reveal-talk-url)) \"#+REVEAL: split \n#+REVEAL_HTML: <h2>END</h2> \n\")                                                                                                                                                                                                                                                                                                                                                   ;;;; END
-                                        ((and (boundp 'org-fb-re-reveal-talk-url) (bound-and-true-p org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide)) (concat \"#+REVEAL: split \n#+REVEAL_HTML: <h2>END</h2> \n#+REVEAL: split \n#+REVEAL_HTML: <div id='talkURL__titleSlide__svgContainer'> \n#+ATTR_HTML: :id qrCode__titleSlide__svg :alt qrCode :style width:25vh; height:25vh; \n[[file:qrCodeTalkURL.svg]] \n#+REVEAL_HTML: </div> \n#+REVEAL_HTML: <a id='talkURL__titleSlide__End' href='\" org-fb-re-reveal-talk-url \"'>\" org-fb-re-reveal-talk-url \"</a>\")) ;;;; END + QR and Anchor
-                                        (t \"#+REVEAL: split \n#+REVEAL_HTML: <h2>END</h2> \n\")                                                                                                                                                                                                                                                                                                                                                                                                    ;;;; END
-                                        )))")
-                                   ))
+  			       ("end-of-talk" .
+  				"(eval (format \"%s\"
+  				  (cond
+  				    ((not (bound-and-true-p org-fb-re-reveal-talk-url)) \"#+REVEAL: split \n#+REVEAL_HTML: <h2>END</h2> \n\")                                                                                                                                                                                                                                                                                                                                                   ;;;; END
+  				    ((and (boundp 'org-fb-re-reveal-talk-url) (bound-and-true-p org-fb-re-reveal-talk-url-show-qrCode-and-anchor-on-last-slide))
+                                      (concat \"#+REVEAL:       split \n \
+                                                #+REVEAL_HTML: <h2>END</h2> \n \
+                                                #+REVEAL:       split \n \
+                                                #+REVEAL_HTML: <div          id='talkURL__titleSlide__svgContainer' style='margin-bottom:35px;' > \n \
+                                                #+REVEAL_HTML: <div          id='qr__wrapper'                       style='width:20vh;height:20vh;margin:auto;position:relativ;background-color:white;'>     \n \
+                                                #+ATTR_HTML:   :alt qrCode  :id qrCode__titleSlide__svg            :style  width:20vh;height:20vh;margin:auto;position:relativ; \n[[file:qrCodeTalkURL.svg]] \n \
+                                                #+REVEAL_HTML: </div> \n \
+                                                #+REVEAL_HTML: </div> \n \
+                                                #+REVEAL_HTML: <a            id='talkURL__titleSlide__End'          href='\" org-fb-re-reveal-talk-url \"'>\" org-fb-re-reveal-talk-url \"</a>\")) ;;;; END + QR and Anchor
+  				    (t \"#+REVEAL: split \n#+REVEAL_HTML: <h2>END</h2> \n\")                                                                                                                                                                                                                                                                                                                                                                                                    ;;;; END
+  				    )))")
+  			       ))
 #+end_src
