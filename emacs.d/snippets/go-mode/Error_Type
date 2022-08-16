@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        Error_Type
+# key:         et
+# contributor: fb
+# --
+type ${1:TYPE} struct {
+    Name string
+    ${2:PROPERTY} ${3:PROPERTY-TYPE}
+}
+
+func (e *$1) Error() string { return e.Name + ": ${5:MESSAGE}" }
+$0

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name:        GolDen
-# key:         gd
+# name:        Test_GolDen
+# key:         tgd
 # contributor: fb
 # --
 package ${1:PACKAGE-NAME}
@@ -21,14 +21,14 @@ var update = flag.Bool("update", false, "update .golden files")
 
 func Test${2:TEST-NAME}(t *testing.T) {
 	testtable := []struct {
-		tname string
+		name string
 	}{
 		{
-			tname: "${3:TEST-CASE-NAME}",
+			name: "${3:TEST-CASE-NAME}",
 		},
 	}
-	for _, tc := range testtable {
-		t.Run(tc.tname, func(t *testing.T) {
+	for _, tt := range testtable {
+		t.Run(tt.name, func(t *testing.T) {
 			var b bytes.Buffer
 			w := bufio.NewWriter(&b)
 			err := $2(w)

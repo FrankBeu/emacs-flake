@@ -18,8 +18,13 @@
   \put(100,300){${1:CONTENT}}%
   \put(150,200){\faCheck}%
   \put(200,100){\includegraphics[height=2cm]{assets/Unterschrift.png}}
-}]{assets/AntragsbegruendungFormular.pdf}
+}]{assets/${2:FILENAME.PDF}}
 $0
+
+\includepdf[
+trim=0mm 0mm 5mm 0mm,
+pages=-,
+scale=1.0]{assets/${3:FILENAME.JPG}}
 
 \end{document}
 

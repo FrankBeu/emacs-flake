@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        Test_Header
+# key:         th
+# contributor: fb
+# --
+package ${1:PACKAGE-NAME}
+
+import (
+	"testing"
+)

@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name:        Test_Table
+# key:         tt
+# contributor: fb
+# --
+func Test${1:TEST-NAME}(t *testing.T) {
+	testtable := []struct {
+		name     string
+		expected string
+	}{
+		{
+			name:     "${2:TEST-CASE-NAME}",
+			expected: "${3:EXPECTED}",
+		},
+	}
+	for _, tt := range testtable {
+		t.Run(tt.name, func(t *testing.T) {
+		${4:TEST}
+		actual := $1()
+		if actual != tt.expected {
+			t.Errorf("expected '%d' but got '%d'", expected, actual)
+		}
+		})
+	}
+}

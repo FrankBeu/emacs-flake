@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Error_Wrap
+# key:         ew
+# contributor: fb
+# --
+return fmt.Errorf("${1:CURRENT-FUNCTION-NAME}: %w", err)
+$0
