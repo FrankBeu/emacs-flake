@@ -15,7 +15,9 @@
     ;; (setq projectile-switch-project-action #'projectile-dired)
     (setq projectile-switch-project-action 'neotree-projectile-action)
     :diminish projectile-mode
-    :config (projectile-mode)
+    :config
+    (projectile-mode)
+    (setq projectile-create-missing-test-files 1)
     :custom ((projectile-completion-system 'ivy))
     )
 #+end_src
