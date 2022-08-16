@@ -9,6 +9,7 @@
 ** global-leader =SPC=
 #+begin_src elisp
   (fb/leader-key
+    ;; "!"   nil
     "!"   '(shell-command                                 :which-key "shell-command"                    )
 
     "B"   '(                                              :which-key "bookmarks"                        :ignore t)
@@ -147,48 +148,33 @@
     "JR"  '(emoji-recent                                  :which-key "recent"                           )
     "JS"  '(emoji-search                                  :which-key "search"                           )
 
-    "L"   '(                                              :which-key "lsp"                              :ignore t)
-    "LD"  '(xref-find-definitions                         :which-key "find-def"                         )
-    "LR"  '(xref-find-references                          :which-key "find-ref"                         )
-    "LN"  '(lsp-ui-find-next-reference                    :which-key "next-ref"                         )
-    "LP"  '(lsp-ui-find-prev-reference                    :which-key "prev-ref"                         )
-    "LS"  '(counsel-imenu                                 :which-key "counsel0imenu"                    )
-    "LE"  '(lsp-ui-flycheck-list                          :which-key "list"                             )
-    "LS"  '(lsp-ui-sideline-mode                          :which-key "sideline"                         )
-    "LX"  '(lsp-execute-code-action                       :which-key "action"                           )
-    "LL"  '(lsp                                           :which-key "start-lsp"                        )
-
     "l"   '(:keymap lsp-command-map :package lsp-mode     :which-key "lsp"                              )
-    "l="  '(                                              :which-key "formatting"                       :ignore t)
-    "lF"  '(                                              :which-key "folders"                          :ignore t)
-    "lG"  '(                                              :which-key "peeks"                            :ignore t)
-    "lT"  '(                                              :which-key "toggles"                          :ignore t)
-    "la"  '(                                              :which-key "actions"                          :ignore t)
-    "lg"  '(                                              :which-key "goto"                             :ignore t)
-    "lgG" '(xref-find-definitions-other-window            :which-key "definition-other-window"          )
-    "lh"  '(                                              :which-key "help"                             :ignore t)
-    "lr"  '(                                              :which-key "refactoring"                      :ignore t)
-    "lw"  '(                                              :which-key "workspace"                        :ignore t)
-    ;; "li"  '(                                              :which-key "ivy/imenu"                        :ignore t)
-    ;; "lt"  '(                                              :which-key "treemacs"                         :ignore t)
-    ;; "ltc" '(lsp-treemacs-call-hierarchy                   :which-key "call-hierarchy"                   )
-    ;; "lte" '(lsp-treemacs-errors-list                      :which-key "errors"                           )
-    ;; "lti" '(lsp-treemacs-implementations                  :which-key "implementations"                  )
-    ;; "ltr" '(lsp-treemacs-references                       :which-key "references"                       )
-    ;; "ltt" '(lsp-treemacs-type-hierarchy                   :which-key "type-hierarchy"                   )
-    ;; "ltx" '(lsp-treemacs-quick-fix                        :which-key "quickfix"                         )
-    ;; ;; "lts" '(lsp-treemacs-symbols                          :which-key "symbols"                          ) ;; already implemented in lsp-mode-map
 
-    ;; "l="  '(                                              :which-key "formatting"                       :ignore t)
-    ;; "la"  '(                                              :which-key "code actions"                     :ignore t)
-    ;; "lF"  '(                                              :which-key "folders"                          :ignore t)
-    ;; "lG"  '(                                              :which-key "peek"                             :ignore t)
-    ;; "lg"  '(                                              :which-key "goto"                             :ignore t)
-    ;; "lh"  '(                                              :which-key "help"                             :ignore t)
-    ;; "lr"  '(                                              :which-key "refactor"                         :ignore t)
-    ;; "ls"  '(                                              :which-key "sessions"                         :ignore t)
-    ;; "lT"  '(                                              :which-key "toggle"                           :ignore t)
-    ;; "lx"  '(lsp-execute-code-action                       :which-key "action"                           )
+    "L"   '(                                              :which-key "lsp"                              :ignore t)
+    "LL"  '(lsp                                           :which-key "start-Lsp"                        )
+
+    "LA"  '(lsp-execute-code-action                       :which-key "Action"                           )
+    "LC"  '(counsel-imenu                                 :which-key "Counsel-imenu"                    )
+
+    "LI"  '(lsp-ui-imenu                                  :which-key "uiImenu"                          )
+    "LT"  '(lsp-treemacs-symbols                          :which-key "Treemacs"                         )
+
+    "LE"  '(lsp-ui-flycheck-list                          :which-key "flycheck-List"                    )
+
+    "LN"  '(lsp-ui-find-next-reference                    :which-key "Next-ref"                         )
+    "LP"  '(lsp-ui-find-prev-reference                    :which-key "Prev-ref"                         )
+    "LD"  '(lsp-ui-find-next-reference                    :which-key "Next-ref"                         )
+    "LS"  '(lsp-ui-find-prev-reference                    :which-key "Prev-ref"                         )
+
+    "LO"  '(                                              :which-key "tOggle"                           )
+    "LOS" '(lsp-ui-sideline-mode                          :which-key "Sideline"                         )
+
+    "LW"  '(lsp-ivy-workspace-symbol                      :which-key "Workspace-symbol"                 )
+
+    "LX"  '(                                              :which-key "xref"                             :ignore t)
+    "LXD" '(xref-find-definitions                         :which-key "find-Def"                         )
+    "LXR" '(xref-find-references                          :which-key "find-Ref"                         )
+
 
     "n"   '(                                              :which-key "numbers"                          :ignore t)
     "n+"  '(fb/inc-at-pt                                  :which-key "+"                                )

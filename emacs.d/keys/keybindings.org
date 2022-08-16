@@ -407,17 +407,19 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
    )
 #+end_src
 ** lsp
-*** lsp-command-map
-#+begin_src elisp
-  (general-define-key
-   :keymaps '(lsp-command-map)
-   ;; "i"  '(:ignore t :which-key "ivy/imenu") ;;; defined in fb/leader-key
-   "ii"  'lsp-ivy-workspace-symbol
-   "im"  'lsp-ui-imenu
-   ;; "t"  '(:ignore t  :which-key "treemacs") ;;; defined in fb/leader-key
-   "ts" 'lsp-treemacs-symbols
-   )
-#+end_src
+*** Space
+#+BEGIN_SRC elisp
+   (general-define-key
+    :states '(insert)
+    "SPC" '(lambda()(interactive)(insert " "))
+    )
+#+END_SRC
+#+BEGIN_SRC elisp
+   (general-define-key
+    :states '(replace)
+    "SPC" '(lambda()(interactive)(self-insert-command 1 ?\x20))
+    )
+#+END_SRC
 *** doc-frame-focus
 **** focus
 #+begin_src elisp
@@ -645,11 +647,4 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
 #+end_src
 xref--button-map
 xref--xref-buffer-mode-map
-** yasnippets
-#+BEGIN_EXAMPLE elisp
-  (general-define-key
-   :keymaps '(evil-insert-state-map)
-   ;; :states  '(normal visual)
-   "C-M-;"   'yas-expand
-   )
-#+END_EXAMPLE
+

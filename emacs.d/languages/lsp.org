@@ -24,23 +24,21 @@ https://langserver.org/#implementations-server
     (lsp-headerline-breadcrumb-mode))
 #+end_src
 *** lsp-mode
-#+begin_src elisp
-    (use-package lsp-mode
-      :commands (lsp lsp-deferred)
-      :hook (
-             (lsp-mode              . fb*lsp-mode-setup-h)
-             (lsp-mode              . lsp-enable-which-key-integration)
-             (lsp-before-initialize . (lambda () (setq lsp-enable-snippet t)))
-             )
-      ;; :init
-      ;; (setq lsp-keymap-prefix "C-c l")  ;; or 'c-l', 's-l'
-      ;; (setq lsp-keymap-prefix "SPC l")  ;; shows named-prefixes; prevent usage of "SPC"
-      :config
-      (setq lsp-prefer-flymake nil)
-      (setq lsp-completion-provider :none)
-      ;; (setq lsp-eldoc-enble-hover t)
-      )
-#+end_src
+#+BEGIN_SRC elisp
+  (use-package lsp-mode
+    :commands (lsp lsp-deferred)
+    :hook (
+           (lsp-mode              . fb*lsp-mode-setup-h)
+           (lsp-before-initialize . (lambda () (setq lsp-enable-snippet t)))
+           )
+    :init
+    (setq lsp-keymap-prefix "SPC l")
+    :config
+    (setq lsp-prefer-flymake nil)
+    (setq lsp-completion-provider :none)
+    (lsp-enable-which-key-integration t) ;;;; which-key will not be available for =C-SPC l= only for =SPC l=
+    )
+#+END_SRC
 **** IMPORTANT
 ***** completion backends
 #+begin_example elisp :tangle no :exports none
