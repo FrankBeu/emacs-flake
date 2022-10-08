@@ -7,20 +7,21 @@
 #+end_src
 ** dart
 #+begin_src elisp
-    (use-package dart-mode
-      :hook (
-             (dart-mode . flutter-test-mode             )
-             (dart-mode . company-mode                  )
-             (dart-mode . lsp-deferred                  )
-             (dart-mode . fb*default-company-backends-h )
-             (dart-mode . fb*set-flutter-sdk-dir        )
-             (dart-mode . fb|lsp-dart-install-save-hooks)
+  (use-package dart-mode
+    :hook (
+           (dart-mode . flutter-test-mode             )
+           (dart-mode . company-mode                  )
+           (dart-mode . lsp-deferred                  )
+           (dart-mode . fb*default-company-backends-h )
+           (dart-mode . fb*set-flutter-sdk-dir        )
+           (dart-mode . fb|lsp-dart-install-save-hooks)
+           (dart-mode . yas-reload-all                );;;; otherwise overrides will not be loaded
+           )
+    :config (setq
+             lsp-dart-dap-flutter-hot-reload-on-save  t
+             lsp-dart-dap-flutter-hot-restart-on-save t
              )
-      :config (setq
-               lsp-dart-dap-flutter-hot-reload-on-save  t
-               lsp-dart-dap-flutter-hot-restart-on-save t
-               )
-      )
+    )
 #+end_src
 *** set sdk for direnv
 https://github.com/emacs-lsp/lsp-dart/issues/90#issuecomment-759831455
@@ -206,11 +207,24 @@ Another is that there are alternatives to all the components in dart-server, lik
   ;;   )
   (use-package dart-mode
     :hook (
-           (dart-mode . flutter-test-mode            )
-           (dart-mode . company-mode                 )
-           (dart-mode . lsp-deferred                 )
-           (dart-mode . fb*default-company-backends-h)
-           (dart-mode . fb*set-flutter-sdk-dir       )
+           (dart-mode . flutter-test-mode         )
+           (dart-mode . company-mode              )
+           (dart-mode . lsp-deferred              )
+           (dart-mode . fb*dart-company-backends-h)
+           (dart-mode . fb*set-flutter-sdk-dir    )
            )
     )
+
+#+END_SRC
+*** company-backends
+#+BEGIN_SRC elisp
+    (defun fb*dart-company-backends-h ()
+      "set dart company-backends"
+      (set (make-local-variable 'company-backends)
+           '(
+             (company-files company-capf)
+             (company-dabbrev-code company-keywords)
+              company-dabbrev
+              )))
+           ;; '((company-files company-capf company-yasnippet)
 #+END_SRC
