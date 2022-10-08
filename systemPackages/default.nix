@@ -78,7 +78,7 @@
     plantuml
     # python39Packages.numpy                          ###
     # python39Packages.matplotlib                     ###
-    phantomjs
+    # phantomjs                                       ### TODO used for what - phantomjs is deprecated -write tests for all functionality
     graphviz
 
     ###
