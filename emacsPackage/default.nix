@@ -142,6 +142,7 @@ let emacsPackage =
 
       epkgs.melpaPackages.jsonnet-mode            ### https://github.com/tminor/jsonnet-mode
 
+      epkgs.melpaPackages.k8s-mode                ### https://github.com/TxGVNN/emacs-k8s-mode
       epkgs.melpaPackages.kotlin-mode             ### https://github.com/Emacs-Kotlin-Mode-Maintainers/kotlin-mode                                          # TODO
       epkgs.melpaPackages.kubernetes              ### https://github.com/chrisbarrett/kubernetes-el                                                         # TODO
       epkgs.melpaPackages.kubernetes-evil         ### https://github.com/chrisbarrett/kubernetes-el                                                         # TODO

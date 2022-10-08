@@ -38,3 +38,8 @@
     :hook (yaml-mode . lsp-deferred)
     )
 #+end_src
+** k8s-mode
+#+BEGIN_EXAMPLE elisp
+(use-package k8s-mode
+  :hook (k8s-mode . yas-minor-mode))
+#+END_EXAMPLE
