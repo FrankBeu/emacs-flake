@@ -49,7 +49,7 @@
     (defhydra fb/org-refile-hydra-grouped (:foreign-keys run :columns 2 :column "Horizontal")
       "Org-Refile"
       ("a" fb/org-refile-hydra-a/body "AI Anthroposophie Archlinux Art Astronomy"                          :exit t)
-      ("b" fb/org-refile-hydra-b/body "Berufliches BigData Browser"                                        :exit t)
+      ("b" fb/org-refile-hydra-b/body "Berufliches BigData Bike Browser"                                   :exit t)
       ("c" fb/org-refile-hydra-c/body "Computer Consoles Container+Cloud CSS"                              :exit t)
       ("d" fb/org-refile-hydra-d/body "Dart DB Debugging"                                                  :exit t)
       ("e" fb/org-refile-hydra-e/body "Editors emacs Embedded Energy Ernährung"                            :exit t)
@@ -97,6 +97,7 @@
                             (
                              ("r" . "PROJECTS/Berufliches.org")
                              ("d" . "PROJECTS/BigData.org"    )
+                             ("k" . "PROJECTS/Bike.org"       )
                              ("s" . "PROJECTS/Browser.org"    )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-c

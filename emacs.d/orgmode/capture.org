@@ -112,6 +112,7 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
       ("b" "Berufliches BigData Browser")
       ("br" "Berufliches"      entry (file+olp fb*noteFile "PROJECTS" "Berufliches"       ) "* %i%?\n")
       ("bd" "BigData"          entry (file+olp fb*noteFile "PROJECTS" "BigData"           ) "* %i%?\n")
+      ("bk" "Bike"             entry (file+olp fb*noteFile "PROJECTS" "Bike"              ) "* %i%?\n")
       ("bs" "Browser"          entry (file+olp fb*noteFile "PROJECTS" "Browser"           ) "* %i%?\n")
 
       ("c" "Computer Consoles Container+Cloud CSS")
