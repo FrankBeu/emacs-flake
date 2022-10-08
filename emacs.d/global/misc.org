@@ -58,9 +58,18 @@
   "my domain")
 #+end_src
 ** safe local-vars
-*** enable safe-usage
+*** warnings
 #+BEGIN_SRC elisp
+;; (setq enable-local-variables :safe)
+(setq enable-local-variables :maybe)
+#+END_SRC
+**** prevent warnings - apply safe variables
+#+BEGIN_SRC elisp :tangle no :exports none
 (setq enable-local-variables :safe)
+#+END_SRC
+**** debugging: enable warnings
+#+BEGIN_SRC elisp :tangle no :exports none
+(setq enable-local-variables :maybe)
 #+END_SRC
 *** set safe-variables
 **** safe values
@@ -81,18 +90,25 @@
 #+BEGIN_SRC elisp
   (put 'org-fb-re-reveal-talk-url 'safe-local-variable #'stringp)
   (put 'org-re-reveal-extra-css   'safe-local-variable #'stringp)
+  (put 'default-input-method      'safe-local-variable #'stringp)
 #+END_SRC
 **** safe local eval
 #+BEGIN_SRC elisp
   (add-to-list 'safe-local-eval-forms
                '(setq-local org-re-reveal-extra-css (expand-file-name "~/.emacs.d/orgmode/revealjs/revealjs.css"))
                )
+
 #+END_SRC
 extra-css does not work with ~ directly
 stringp does not work either
 #+BEGIN_SRC elisp :tangle no :exports none
 ;; '(setq-local org-re-reveal-extra-css (expand-file-name #'stringp))
 #+END_SRC
+not working either:
+#+BEGIN_EXAMPLE elisp
+'(evil-set-register 100 "dwidropfdbl") ;; macro d  for toggle(drop,keep) (traefik.toml)
+'(evil-set-register 107 "dwikeepfdbl") ;; macro k  for toggle(drop,keep) (traefik.toml)
+#+END_EXAMPLE
 **** FUNDUS
 #+BEGIN_SRC elisp :tangle no :exports none
   ;; (add-to-list 'safe-local-variable-values
