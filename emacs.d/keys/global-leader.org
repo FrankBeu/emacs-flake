@@ -175,6 +175,11 @@
     "LXD" '(xref-find-definitions                         :which-key "find-Def"                         )
     "LXR" '(xref-find-references                          :which-key "find-Ref"                         )
 
+    "m"   '(                                              :which-key "mode"                             :ignore t)
+    "mc"  '(conf-mode                                     :which-key "conf"                             )
+    "mn"  '(nix-mode                                      :which-key "nix"                              )
+    "mo"  '(org-mode                                      :which-key "org"                              )
+    "mp"  '(python-mode                                   :which-key "python"                           )
 
     "n"   '(                                              :which-key "numbers"                          :ignore t)
     "n+"  '(fb/inc-at-pt                                  :which-key "+"                                )

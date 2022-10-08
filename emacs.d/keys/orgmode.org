@@ -259,6 +259,8 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     :keymaps 'org-mode-map
     :states  '(normal visual insert)
 
+    ";"      '(org-comment-dwim                                   :which-key "comment"          )
+
     "a"      '(org-agenda                                         :which-key "agenda"           )
 
     "b"      '(                                                   :which-key "table"            :ignore t)
@@ -288,7 +290,10 @@ https://orgmode.org/manual/The-date_002ftime-prompt.html
     "BE"     '(org-babel-execute-buffer                           :which-key "exec-buffer"      )
     "BR"     '(org-babel-remove-result-one-or-many                :which-key "removeResults"    )
 
-    "c"      '(org-comment-dwim                                   :which-key "comment"          )
+    ;; "c"      nil
+    "c"      '(                                                   :which-key "columns"          )
+    "cc"     '(org-columns                                        :which-key "columns-on"       )
+    "co"     '(org-columns-quit                                   :which-key "columns-off"      )
 
     "C"      '(                                                   :which-key "clock"            :ignore t)
     "CC"     '(org-clock-cancel                                   :which-key "cancel"           )
