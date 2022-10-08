@@ -33,6 +33,8 @@
 
     nodePackages.vscode-json-languageserver-bin     ### https://github.com/vscode-langservers/vscode-json-languageserver-bin#readme ### TODO
 
+    nodePackages.yaml-language-server               ### https://github.com/redhat-developer/yaml-language-server
+
     # python39Packages.python-language-server       ### https://github.com/palantir/python-language-server
     # python-language-server                        ### https://github.com/microsoft/python-language-server
 
