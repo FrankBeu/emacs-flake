@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Debug_Debugging_File
+# key:         ddf
+# contributor: fb
+# --
+environment.etc."0-debugging".text = ''
+  \${(lib.our.debugging.printContainer ${1:DEBUG})}
+'';
+$0

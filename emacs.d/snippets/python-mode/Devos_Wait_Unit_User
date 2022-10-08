@@ -3,5 +3,5 @@
 # key:         dwuu
 # contributor: fb
 # --
-    machine.wait_for_unit("${1:SERVICE-NAME}.service", username)
-    $0
+machine.wait_for_unit("${1:SERVICE-NAME}.service", username)
+$0

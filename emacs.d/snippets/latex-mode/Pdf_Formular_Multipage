@@ -1,0 +1,58 @@
+# -*- mode: snippet -*-
+# name:        PDF_formular
+# key:         pdf
+# contributor: f
+# --
+% \documentclass{book}
+\documentclass{article}
+\usepackage{pdfpages}                    %%% include pdf
+\usepackage{fontawesome5}                %%% icons %%% http://mirrors.ibiblio.org/CTAN/fonts/fontawesome/doc/fontawesome.pdf
+\usepackage[scaled]{helvet}              %%% font
+\renewcommand*\familydefault{\sfdefault} %%% Only if the base font of the document is sans serif
+\usepackage[T1]{fontenc}
+\pagestyle{empty}                        %%% no page-numbers
+
+\usepackage{pdfoverlay}                  %%% http://mirrors.ibiblio.org/CTAN/macros/latex/contrib/pdfoverlay/pdfoverlay.pdf
+\pdfoverlaySetPDF{assets/${1:FILENAME.PDF}
+
+\begin{document}
+\pdfoverlayIncludeToPage{1}
+
+% \vspace*{12mm}\hspace*{-20mm}\faCheck%%%
+\vspace*{12mm}\hspace*{-19.25mm}\faTimes    \\
+% \vspace*{14.5mm}\hspace*{-19.25mm}        \\
+
+\vspace*{17.5mm}\hspace*{-19.25mm}\faTimes  \\
+% \vspace*{17.5mm}\hspace*{-19.25mm}        \\
+
+$0
+
+
+\newpage
+\pdfoverlayIncludeToPage{2}
+\vspace*{-6.5mm}\hspace*{-19.25mm}\faTimes    \\
+% \vspace*{-6.5mm}\hspace*{-19.25mm}          \\
+
+% \vspace*{27.25mm}\hspace*{-19.25mm}\faTimes  \\
+\vspace*{27.25mm}\hspace*{-19.25mm}            \\
+
+% \vspace*{12.5mm}\hspace*{-19.25mm}\faTimes   \\
+
+
+\newpage
+\pdfoverlayIncludeToPage{3}
+\vspace*{-9.5mm}\hspace*{-19.25mm} ${3:CONTENT}}
+
+\vspace*{31.5mm}\hspace*{-19.25mm} ${4:CONTENT}
+
+\vspace*{35.5mm}\hspace*{-19.25mm} ${5:CONTENT}
+ 
+
+
+\pdfoverlayIncludeToLastPage
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

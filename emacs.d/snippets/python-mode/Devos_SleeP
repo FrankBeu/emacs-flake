@@ -3,5 +3,5 @@
 # key:         dsp
 # contributor: fb
 # --
-    machine.sleep(${1:DURATION})
-    $0
+machine.sleep(${1:DURATION})
+$0

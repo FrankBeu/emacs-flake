@@ -3,5 +3,5 @@
 # key:         dsc
 # contributor: fb
 # --
-    machine.send_chars("${1:COMMAND}\n")
-    $0
+machine.send_chars("${1:COMMAND}\n")
+$0

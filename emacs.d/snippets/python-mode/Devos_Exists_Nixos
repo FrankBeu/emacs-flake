@@ -4,6 +4,6 @@
 # contributor: fb
 # expand-env:  ((yas-indent-line 'fixed))
 # --
-    sw_${1:$$(yas-choose-value '("bin" "share"))}_content = machine.succeed('ls /run/current-system/sw/$1/')
-    assert_contains_line(sw_$1_content, '${2:BINARY}')
-    $0
+sw_${1:$$(yas-choose-value '("bin" "share"))}_content = machine.succeed('ls /run/current-system/sw/$1/')
+assert_contains_line(sw_$1_content, '${2:BINARY}')
+$0

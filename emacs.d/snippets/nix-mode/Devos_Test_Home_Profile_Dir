@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Devos_Test_Home_Profile_Dir
+# key:         dthpd
+# contributor: fb
+# --
+  hmProfileDir       = host.config.home-manager.users.${username}.home.profileDirectory;
+  testScriptExternal = (import ./testScript.py.nix { inherit hmProfileDir; });
+  $0

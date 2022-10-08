@@ -1,0 +1,51 @@
+# -*- mode: snippet -*-
+# name:        Article_Basic
+# key:         ab
+# contributor: fb
+# --
+\documentclass[13pt]{article}
+
+\usepackage{sectsty}
+\usepackage{graphicx}
+
+%%% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\title{ ${1:TITLE} }
+\author{ ${2:AUTHOR} }
+\date{\today}
+
+\begin{document}
+\maketitle	
+\pagebreak
+
+%%% Optional TOC
+%%% \tableofcontents
+%%% \pagebreak
+
+%%%--Paper--
+
+\section{Section 1}
+
+${3:CONTENT}
+
+
+\pagebreak
+\section{Section 2}
+Lorem Ipsum \\
+
+%%%--/Paper--
+
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

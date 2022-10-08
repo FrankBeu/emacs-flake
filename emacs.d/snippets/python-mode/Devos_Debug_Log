@@ -3,5 +3,5 @@
 # key:         ddl
 # contributor: fb
 # --
-    machine.log(${1:output})
-    $0
+machine.log(${1:output})
+$0

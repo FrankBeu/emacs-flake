@@ -3,7 +3,7 @@
 # key:         dsc
 # contributor: fb
 # --
-    machine.succeed('${1:COMMAND}')
-    # output = machine.succeed('$1')
-    # machine.log(output)
-    $0
+machine.succeed('${1:COMMAND}')
+# output = machine.succeed('$1')
+# machine.log(output)
+$0
