@@ -105,6 +105,7 @@
                              ("p" . "PROJECTS/Computer.org"      )
                              ("l" . "PROJECTS/Consoles.org"      )
                              ("c" . "PROJECTS/ContainerCloud.org")
+                             ("r" . "PROJECTS/Crypto.org"        )
                              ("s" . "PROJECTS/CSS.org"           )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-d

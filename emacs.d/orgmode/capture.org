@@ -8,6 +8,12 @@
 ** capture
 *** INFO
 https://orgmode.org/manual/Template-expansion.html#Template-expansion
+**** update
+- generate template
+- add to [[*templates][templates]]
+- update category in [[*templates][templates]] (first key)
+- add to [[file:refile.org::*hydras][hydras]]
+- update =NOTES/TEMPLATES/AKTUELLES_TEMPLATE.org=
 *** package
 #+begin_src elisp
 (use-package org-protocol)
@@ -22,7 +28,6 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 ;; (defvar fb*routinesFile "~/NOTES/ROUTINES.org"  "Routine-Target-File for org-capture")
 (defvar fb*routinesFile "~/ROUTINES/ROUTINES.org"  "Routine-Target-File for org-capture")
 #+end_src
-
 *** templates
 **** variable
 #+begin_src elisp
@@ -30,15 +35,9 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 #+end_src
 **** NOW
 #+begin_src elisp
-  (setq now-templates '(
-    ("N"   "NOW"           entry (file+olp fb*noteFile "NOW") "* %i%? ")
-    ))
-    (setq org-capture-templates (append org-capture-templates now-templates))
-#+end_src
-#+begin_src elisp
-  (setq now-templates '(("N" "NOW" entry (file+olp fb*noteFile "NOW") "* %i%? "))
-        org-capture-templates (append org-capture-templates now-templates)
-        )
+    (setq now-templates '(("N" "NOW" entry (file+olp fb*noteFile "NOW") "* %i%? "))
+          org-capture-templates (append org-capture-templates now-templates)
+          )
 #+end_src
 **** ROUTINES
 #+begin_src elisp
@@ -115,10 +114,11 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
       ("bk" "Bike"             entry (file+olp fb*noteFile "PROJECTS" "Bike"              ) "* %i%?\n")
       ("bs" "Browser"          entry (file+olp fb*noteFile "PROJECTS" "Browser"           ) "* %i%?\n")
 
-      ("c" "Computer Consoles Container+Cloud CSS")
+      ("c" "Computer Consoles Container+Cloud Crypto CSS")
       ("cp" "Computer"         entry (file+olp fb*noteFile "PROJECTS" "Computer"          ) "* %i%?\n")
       ("cl" "Consoles"         entry (file+olp fb*noteFile "PROJECTS" "Consoles"          ) "* %i%?\n")
       ("cc" "Container+Cloud"  entry (file+olp fb*noteFile "PROJECTS" "Container+Cloud"   ) "* %i%?\n")
+      ("cr" "Crypto"           entry (file+olp fb*noteFile "PROJECTS" "Crypto"            ) "* %i%?\n")
       ("cs" "CSS"              entry (file+olp fb*noteFile "PROJECTS" "CSS"               ) "* %i%?\n")
 
       ("d" "Dart DB Debugging")
