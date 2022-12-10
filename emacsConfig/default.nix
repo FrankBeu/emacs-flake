@@ -2,7 +2,7 @@
 let emacsConfig = with import nixpkgs { system = "x86_64-linux"; overlays = [ emacs-overlay.overlay ]; }; stdenv.mkDerivation {
   name = "emacs-config";
   # buildInputs = [ emacsNativeComp ];   ### latestTag
-  buildInputs = [ emacsGitNativeComp ];  ### master
+  buildInputs = [ emacsGit ];  ### master
   src = ../emacs.d;
 
   unpackPhase = ''

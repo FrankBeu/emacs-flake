@@ -27,11 +27,6 @@
   (use-package kubernetes-helm
     :after kubernetes)
 #+end_src
-** k8s-tramp
-#+begin_src elisp
-  (use-package kubernetes-tramp
-    :after kubernetes)
-#+end_src
 ** yaml-mode
 #+begin_src elisp
   (use-package yaml-mode
@@ -43,3 +38,10 @@
 (use-package k8s-mode
   :hook (k8s-mode . yas-minor-mode))
 #+END_EXAMPLE
+** DEPRECATED Deprecated
+*** k8s-tramp
+ ■  Warning (emacs): Package ‘kubernetes-tramp’ has been obsoleted, please use integrated package ‘tramp-container’
+#+BEGIN_SRC elisp :tangle no :exports none
+  (use-package kubernetes-tramp
+    :after kubernetes)
+#+END_SRC

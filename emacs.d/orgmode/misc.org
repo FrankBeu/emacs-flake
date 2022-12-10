@@ -67,6 +67,12 @@
 #+end_src
 **** restart
 =M-x= ~org-superstar-restart~
+** contrib
+#+BEGIN_SRC elisp
+  (use-package org-contrib
+    :after org
+    )
+#+END_SRC
 ** global-properties
 efford
 #+begin_src elisp

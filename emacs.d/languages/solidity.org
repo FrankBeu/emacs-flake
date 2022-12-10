@@ -9,21 +9,25 @@
 #+begin_src elisp
   (use-package solidity-mode
     :hook
-           (solidity-mode         . fb*solidity-company-backends-h)
+           (solidity-mode . fb*solidity-company-backends-h)
     )
 #+end_src
 ** company
 #+begin_src elisp
-(use-package company-solidity)
+  (use-package company-solidity
+    :after solidity-mode
+    )
 #+end_src
 #+begin_src elisp
-(defun fb*solidity-company-backends-h ()
-  "set solidity company-backends"
-  (set (make-local-variable 'company-backends)
-       '((company-solidity company-files company-capf company-yasnippet)
-         (company-dabbrev-code company-keywords)
-          company-dabbrev
-          )))
+  (defun fb*solidity-company-backends-h ()
+    "set solidity company-backends"
+    (set (make-local-variable 'company-backends)
+         '((company-solidity company-files company-capf company-yasnippet)
+           (company-dabbrev-code company-keywords)
+           ;; company-dabbrev-code
+           company-dabbrev
+           ;; company-backends
+           )))
 #+end_src
 ** flycheck
 #+begin_src elisp

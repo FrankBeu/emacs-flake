@@ -11,9 +11,6 @@
 #+END_SRC
 ** package
 #+BEGIN_SRC elisp
-  (use-package org-contrib
-    :after org
-    )
   (use-package org-contacts
     :after org-contrib
     :custom (org-contacts-files '(fb*contactFile))

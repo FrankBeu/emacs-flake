@@ -18,7 +18,7 @@ let emacsPackage =
     ### Package is optional, defaults to pkgs.emacs
     # package = pkgs.emacsGit;
     # package = pkgs.emacsNativeComp;   ### latestTag
-    package = pkgs.emacsGitNativeComp;  ### master
+    package = pkgs.emacsGit;  ### master
 
     ### By default emacsWithPackagesFromUsePackage will only pull in
     ### packages with `:ensure`, `:ensure t` or `:ensure <package name>`.
@@ -79,7 +79,6 @@ let emacsPackage =
 
       epkgs.melpaPackages.calfw                   ### https://github.com/kiwanami/emacs-calfw
       epkgs.melpaPackages.calfw-org               ### https://github.com/kiwanami/emacs-calfw
-      epkgs.melpaPackages.cask                    ### https://github.com/cask/cask                                                                          # TOOD
       epkgs.melpaPackages.command-log-mode        ### https://github.com/lewang/command-log-mode           show {event,command}-history
       epkgs.melpaPackages.company                 ### https://github.com/company-mode/company-mode                                                          # TODO
       epkgs.melpaPackages.company-box             ### https://github.com/sebastiencs/company-box
@@ -88,7 +87,6 @@ let emacsPackage =
       epkgs.melpaPackages.company-solidity        ### https://github.com/ethereum/emacs-solidity
       epkgs.melpaPackages.counsel                 ### https://github.com/abo-abo/swiper
       epkgs.melpaPackages.counsel-projectile      ### https://github.com/ericdanan/counsel-projectile
-      epkgs.melpaPackages.csharp-mode             ### https://github.com/emacs-csharp/csharp-mode                                                           # TODO
       epkgs.melpaPackages.cucumber-goto-step      ### https://github.com/gstamp/cucumber-goto-step                                                          # TODO
       ###   cue-mode                              ### https://github.com/phaer/cue-mode.el                         TODO: NOT-AVAILABLE
 
@@ -153,7 +151,6 @@ let emacsPackage =
       epkgs.melpaPackages.kubernetes              ### https://github.com/chrisbarrett/kubernetes-el                                                         # TODO
       epkgs.melpaPackages.kubernetes-evil         ### https://github.com/chrisbarrett/kubernetes-el                                                         # TODO
       epkgs.melpaPackages.kubernetes-helm         ### https://github.com/abrochard/kubernetes-helm                                                          # TODO
-      epkgs.melpaPackages.kubernetes-tramp        ### https://github.com/gruggiero/kubernetes-tramp                                                         # TODO
 
       epkgs.melpaPackages.lsp-dart                ### https://github.com/emacs-lsp/lsp-dart                                                                 # TODO
       epkgs.melpaPackages.lsp-docker              ### https://github.com/emacs-lsp/lsp-docker                                                               # TODO
@@ -184,12 +181,14 @@ let emacsPackage =
       epkgs.melpaPackages.ob-mermaid              ### https://github.com/arnm/ob-mermaid                                                                    # TODO
       epkgs.melpaPackages.ob-mongo                ### https://github.com/krisajenkins/ob-mongo                                                              # TODO
       epkgs.melpaPackages.ob-restclient           ### https://github.com/alf/ob-restclient.el                                                               # TODO
+      epkgs.melpaPackages.ob-redis                ### https://melpa.org/#/ob-redis
       epkgs.melpaPackages.ob-rust                 ### https://github.com/micanzhang/ob-rust                                                                 # TODO
       epkgs.melpaPackages.ob-swift                ### https://github.com/zweifisch/ob-swift                                                                 # TODO
       epkgs.melpaPackages.ob-translate            ### https://github.com/krisajenkins/ob-translate
       epkgs.melpaPackages.ob-typescript           ### https://github.com/lurdan/ob-typescript
       epkgs.melpaPackages.origami                 ### https://github.com/gregsexton/origami.el
       # epkgs.orgPackages.org                       ### https://orgmode.org/
+      epkgs.melpaPackages.org-contacts            ### https://melpa.org/#/org-contacts  https://repo.or.cz/org-contacts.git
       epkgs.melpaPackages.org-download            ### https://github.com/abo-abo/org-download             import png2orgfile                                # TODO
       epkgs.melpaPackages.org-drill               ### https://gitlab.com/phillord/org-drill/
       epkgs.melpaPackages.org-evil                ### https://github.com/GuiltyDolphin/org-evil                                                             # TODO
@@ -270,19 +269,21 @@ let emacsPackage =
       # *** OUTDATED
       #
       ### company-lsp                        ### https://github.com/tigersoldier/company-lsp           OUTDATED:   company-capf will be picked by lsp-mode
-      ### dart-server                        ### https://github.com/bradyt/dart-server                 OUTDATED:   use lsp
-      ### evil-commentary                    ### https://github.com/linktohack/evil-commentary         OUTDATED:   use evil-nerd-commenter
-      ### evil-magit                         ### https://github.com/emacs-evil/evil-magit              DEPRECATED: integrated into evil-collection
-      ### flycheck-yamllint                  ### https://github.com/krzysztof-magosa/flycheck-yamllint DEPRECATED: already integrated into flycheck
-      ### flymake                            ### https://github.com/flymake/emacs-flymake              OUTDATED:   use flycheck
-      ### flymd                              ### https://github.com/mola-T/flymd                       OUTDATED:   not working with firefox >68.0
-      ### neotree                            ### https://github.com/jaypei/emacs-neotree               OUTDATED:   use treemacs
-      ### ob-ipython                         ### https://github.com/gregsexton/ob-ipython
-      ### ox-reveal                          ### https://github.com/yjwen/org-reveal                   DEPRECATED: use org-re-reveal instead
-      ### dired-single                       ### https://github.com/crocket/dired-single               SOLVED:     commands provide a much easier solution
-      ### all-the-icons-dired                ### https://github.com/jtbm37/all-the-icons-dired         DUPLICATES: treemacs-icons-dired
+      ### dart-server                          ### https://github.com/bradyt/dart-server                 OUTDATED:   use lsp
+      ### evil-commentary                      ### https://github.com/linktohack/evil-commentary         OUTDATED:   use evil-nerd-commenter
+      ### evil-magit                           ### https://github.com/emacs-evil/evil-magit              DEPRECATED: integrated into evil-collection
+      ### flycheck-yamllint                    ### https://github.com/krzysztof-magosa/flycheck-yamllint DEPRECATED: already integrated into flycheck
+      ### flymake                              ### https://github.com/flymake/emacs-flymake              OUTDATED:   use flycheck
+      ### flymd                                ### https://github.com/mola-T/flymd                       OUTDATED:   not working with firefox >68.0
+      ### neotree                              ### https://github.com/jaypei/emacs-neotree               OUTDATED:   use treemacs
+      ### ob-ipython                           ### https://github.com/gregsexton/ob-ipython
+      ### ox-reveal                            ### https://github.com/yjwen/org-reveal                   DEPRECATED: use org-re-reveal instead
+      ### dired-single                         ### https://github.com/crocket/dired-single               SOLVED:     commands provide a much easier solution
+      ### all-the-icons-dired                  ### https://github.com/jtbm37/all-the-icons-dired         DUPLICATES: treemacs-icons-dired
+      ### epkgs.melpaPackages.csharp-mode      ### https://github.com/emacs-csharp/csharp-mode           DEPRECATED: builtin
+      ### epkgs.melpaPackages.kubernetes-tramp ### https://github.com/gruggiero/kubernetes-tramp         DEPRECATED: use integrated package ‘tramp-container’
 
-      ### epkgs.orgPackages.org-plus-contrib ### https://orgmode.org/worg/org-contrib/                 DEPRECATED: use epkgs.org-contrib instead
+      ### epkgs.orgPackages.org-plus-contrib   ### https://orgmode.org/worg/org-contrib/                 DEPRECATED: use epkgs.org-contrib instead
     ];
 
 

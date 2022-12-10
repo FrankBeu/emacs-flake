@@ -84,7 +84,6 @@ https://github.com/microsoft/pyright/blob/main/docs/settings.md
   (use-package lsp-pyright
     :custom
     (lsp-pyright-auto-import-completions nil)
-    :config
     (lsp-pyright-auto-search-paths t)
     ;; (lsp-pyright-diagnostic-mode "openFilesOnly")
     (lsp-pyright-diagnostic-mode "workspace")
@@ -98,7 +97,6 @@ https://github.com/microsoft/pyright/blob/main/docs/settings.md
     ;; (lsp-pyright-typeshed-paths)
     (lsp-pyright-use-library-code-for-types nil)
     ;; (lsp-pyright-venv-path)
-
     :hook (
            (python-mode . company-mode)
            (python-mode . (lambda () (require 'lsp-pyright) (lsp-deferred)))

@@ -11,8 +11,6 @@
 #+INCLUDE: "./lsp.org"
 ** dap-mode
 #+INCLUDE: "./dap.org"
-** c#
-#+INCLUDE: "./cSharp.org"
 ** dart
 #+INCLUDE: "./dart.org"
 ** dockerfile

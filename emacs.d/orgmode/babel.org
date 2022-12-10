@@ -180,10 +180,7 @@ not implemented
 #+END_SRC
 *** makefile
 #+BEGIN_SRC elisp
-  (use-package
-    :config
     (add-to-list 'org-babel-load-languages  '(make . t))
-    )
 #+END_SRC
 *** mermaid
 https://github.com/arnm/ob-mermaid
@@ -363,7 +360,8 @@ will upload the block to arduino
 https://github.com/krisajenkins/ob-browser
 phantomjs crashes
 phantomjs is deprecated
-#+BEGIN_SRC browser :out (concat user-emacs-directory "OUTPUT/babel/browser.png") :tangle no :exports none
+has to be commented for a successfull build (writeonly)
+,#+BEGIN_SRC browser :out (concat user-emacs-directory "OUTPUT/babel/browser.png") :tangle no :exports none
   <!DOCTYPE html>
   <html>
       <head>
@@ -379,10 +377,9 @@ phantomjs is deprecated
           </div>
       </body>
   </html>
-#+END_SRC
+,#+END_SRC
 #+RESULTS:
 [[file:~/.emacs.d/OUTPUT/babel/browser.png]]
-
 *** c#
 #+BEGIN_SRC csharp :tangle no :exports none
  class HelloWorld {
@@ -498,7 +495,8 @@ Hello World!
 #+BEGIN_SRC elisp :tangle no :exports none
 #+END_SRC
 *** grapviz
-   #+BEGIN_SRC dot :file (concat user-emacs-directory "OUTPUT/babel/graphviz.png") :exports both  :tangle no :exports none
+has to be commented for a successfull build (writeonly)
+   ,#+BEGIN_SRC dot :file (concat user-emacs-directory "OUTPUT/babel/graphviz.png") :exports both  :tangle no :exports none
      digraph {
          label="How to make sure 'input' is valid"
 
@@ -520,7 +518,7 @@ Hello World!
 
          {rank=same; message input}
      }
-   #+END_SRC
+   ,#+END_SRC
 
    #+RESULTS:
    [[file:~/.emacs.d/OUTPUT/babel/graphviz.png]]
@@ -606,26 +604,27 @@ fib(19)
 *** makefile
 no results present only for tangling
 ,#+BEGIN_SRC makefile :tangle Makefile
-
 #+BEGIN_SRC makefile :tangle no :exports none
 hello:
   echo "hello world"
 #+END_SRC
 *** mermaid
-   #+BEGIN_SRC mermaid :file (concat user-emacs-directory "OUTPUT/babel/plantuml.png") :tangle no :exports none
+has to be commented for a successfull build (writeonly)
+   ,#+BEGIN_SRC mermaid :file (concat user-emacs-directory "OUTPUT/babel/plantuml.png") :tangle no :exports none
      sequenceDiagram
       A-->B: Works!
-   #+END_SRC
+   ,#+END_SRC
 
    #+RESULTS:
    [[file:~/.emacs.d/OUTPUT/babel/plantuml.png]]
-
+   
 *** mongo
 #+BEGIN_SRC mongo :tangle no :exports none
  db.inventory.find( {} )
 #+END_SRC
 *** plantuml
-#+BEGIN_SRC plantuml :file (concat user-emacs-directory "OUTPUT/babel/plantuml.png") :tangle no :exports none
+has to be commented for a successfull build (writeonly)
+,#+BEGIN_SRC plantuml :file (concat user-emacs-directory "OUTPUT/babel/plantuml.png") :tangle no :exports none
 @startuml
 Alice -> Bob: Authentication Request
 Bob --> Alice: Authentication Response
@@ -633,7 +632,7 @@ Bob --> Alice: Authentication Response
 Alice -> Bob: Another authentication Request
 Alice <-- Bob: Another authentication Response
 @enduml
-#+END_SRC
+,#+END_SRC
 
 #+RESULTS:
 [[file:~/.emacs.d/OUTPUT/babel/plantuml.png]]
@@ -877,7 +876,6 @@ console.log(message);
   (wrap-region-add-wrapper "#+BEGIN_SRC go :results drawer\n"    "#+END_SRC\n"     "G" 'org-mode)
   (wrap-region-add-wrapper "#+BEGIN_SRC shell :results drawer\n" "#+END_SRC\n"     "S" 'org-mode)
 #+END_SRC
-
 ** INFO
 https://orgmode.org/worg/org-contrib/babel/languages/index.html
 https://github.com/dfeich/org-babel-examples/tree/master
