@@ -21,6 +21,8 @@
     # ** lsp
     #    https://emacs-lsp.github.io/lsp-mode/page/languages/
     #
+    nodejs
+
     nodePackages.bash-language-server               ### https://github.com/bash-lsp/bash-language-server#readme                     ### TODO
 
     nodePackages.dockerfile-language-server-nodejs  ### https://github.com/rcjsuen/dockerfile-language-server-nodejs#readme         ### TODO
@@ -31,7 +33,7 @@
 
     nodePackages.vscode-html-languageserver-bin     ### https://github.com/vscode-langservers/vscode-html-languageserver-bin#readme ### TODO
 
-    nodePackages.vscode-json-languageserver-bin     ### https://github.com/vscode-langservers/vscode-json-languageserver-bin#readme ### TODO
+    nodePackages.vscode-json-languageserver
 
     nodePackages.yaml-language-server               ### https://github.com/redhat-developer/yaml-language-server
 
