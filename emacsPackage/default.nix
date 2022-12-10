@@ -44,6 +44,12 @@ let emacsPackage =
     extraEmacsPackages = epkgs: [
       ###
       ##
+      # ** PLAIN
+      #
+      epkgs.org-contrib                           ### https://elpa.nongnu.org/nongnu/org-contrib.html
+
+      ###
+      ##
       # ** ELPA
       #
       epkgs.elpaPackages.ace-window               ### https://github.com/abo-abo/ace-window
@@ -188,7 +194,6 @@ let emacsPackage =
       epkgs.melpaPackages.org-drill               ### https://gitlab.com/phillord/org-drill/
       epkgs.melpaPackages.org-evil                ### https://github.com/GuiltyDolphin/org-evil                                                             # TODO
       epkgs.melpaPackages.org-make-toc            ### https://github.com/alphapapa/org-make-toc
-      # epkgs.orgPackages.org-plus-contrib          ### https://orgmode.org/worg/org-contrib/
       epkgs.melpaPackages.org-pomodoro            ### https://github.com/marcinkoziej/org-pomodoro
       epkgs.melpaPackages.org-ql                  ### https://github.com/alphapapa/org-ql                                                                   # TODO
       epkgs.melpaPackages.org-superstar           ### https://github.com/integral-dw/org-superstar-mode
@@ -264,18 +269,20 @@ let emacsPackage =
       ##
       # *** OUTDATED
       #
-      ### company-lsp             ### https://github.com/tigersoldier/company-lsp           OUTDATED: company-capf will be picked by lsp-mode
-      ### dart-server             ### https://github.com/bradyt/dart-server                 OUTDATED: use lsp
-      ### evil-commentary         ### https://github.com/linktohack/evil-commentary         OUTDATED: use evil-nerd-commenter
-      ### evil-magit              ### https://github.com/emacs-evil/evil-magit              DEPRECATED: integrated into evil-collection
-      ### flycheck-yamllint       ### https://github.com/krzysztof-magosa/flycheck-yamllint DEPRECATED: already integrated into flycheck
-      ### flymake                 ### https://github.com/flymake/emacs-flymake              OUTDATED: use flycheck
-      ### flymd                   ### https://github.com/mola-T/flymd                       OUTDATED: not working with firefox >68.0
-      ### neotree                 ### https://github.com/jaypei/emacs-neotree               OUTDATED: use treemacs
-      ### ob-ipython              ### https://github.com/gregsexton/ob-ipython
-      ### ox-reveal               ### https://github.com/yjwen/org-reveal                   DEPRECATED: use org-re-reveal instead
-      ### dired-single            ### https://github.com/crocket/dired-single               SOLVED: commands provide a much easier solution
-      ### all-the-icons-dired     ### https://github.com/jtbm37/all-the-icons-dired         DUPLICATES: treemacs-icons-dired
+      ### company-lsp                        ### https://github.com/tigersoldier/company-lsp           OUTDATED:   company-capf will be picked by lsp-mode
+      ### dart-server                        ### https://github.com/bradyt/dart-server                 OUTDATED:   use lsp
+      ### evil-commentary                    ### https://github.com/linktohack/evil-commentary         OUTDATED:   use evil-nerd-commenter
+      ### evil-magit                         ### https://github.com/emacs-evil/evil-magit              DEPRECATED: integrated into evil-collection
+      ### flycheck-yamllint                  ### https://github.com/krzysztof-magosa/flycheck-yamllint DEPRECATED: already integrated into flycheck
+      ### flymake                            ### https://github.com/flymake/emacs-flymake              OUTDATED:   use flycheck
+      ### flymd                              ### https://github.com/mola-T/flymd                       OUTDATED:   not working with firefox >68.0
+      ### neotree                            ### https://github.com/jaypei/emacs-neotree               OUTDATED:   use treemacs
+      ### ob-ipython                         ### https://github.com/gregsexton/ob-ipython
+      ### ox-reveal                          ### https://github.com/yjwen/org-reveal                   DEPRECATED: use org-re-reveal instead
+      ### dired-single                       ### https://github.com/crocket/dired-single               SOLVED:     commands provide a much easier solution
+      ### all-the-icons-dired                ### https://github.com/jtbm37/all-the-icons-dired         DUPLICATES: treemacs-icons-dired
+
+      ### epkgs.orgPackages.org-plus-contrib ### https://orgmode.org/worg/org-contrib/                 DEPRECATED: use epkgs.org-contrib instead
     ];
 
 

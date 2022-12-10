@@ -12,6 +12,7 @@ directory-bound
   (setq org-agenda-files '(
                            "~/NOTES"
                            "~/NOTES/〇"
+                           "~/DOCUMENTS/personal/people.org" ;; birthdays
                            ;; "~/NOTES/PROJECTS"
                            ))
 #+end_src

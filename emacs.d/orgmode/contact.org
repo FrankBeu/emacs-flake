@@ -1,0 +1,27 @@
+* orgmode-contact
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; orgmode-contact
+  ;;;;
+  ;;
+#+end_src
+** contactFile
+#+BEGIN_SRC elisp
+  (defvar fb*contactFile "~/DOCUMENTS/personal/people.org" "Contact-Target-File for org-contact, org-capture")
+#+END_SRC
+** package
+#+BEGIN_SRC elisp
+  (use-package org-contrib
+    :after org
+    )
+  (use-package org-contacts
+    :after org-contrib
+    :custom (org-contacts-files '(fb*contactFile))
+    )
+#+END_SRC
+** birthdays
+in order to show birthdays in the agenda the contacts file has to be added to [[file:agenda.org::*files][org-agenda-files]]
+** capture
+[[file:capture.org::*contact][contact]]
+** INFO
+https://www.reddit.com/r/emacs/comments/8toivy/tip_how_to_manage_your_contacts_with_orgcontacts/

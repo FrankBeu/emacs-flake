@@ -208,7 +208,8 @@
     "oi9" '((lambda()(interactive)(find-file "~/NOTES/〇/9  ROUTINEN.org"       )) :which-key "ROUTINEN"              )
     "oi0" '((lambda()(interactive)(find-file "~/NOTES/〇/10 ERKENNTNISSE.org"   )) :which-key "ERKENNTNISSE"          )
     "oie" '((lambda()(interactive)(find-file "~/NOTES/〇/11 ERLEDIGTES.org"     )) :which-key "ERLEDIGTES"            )
-    "oij" '((lambda()(interactive)(find-file fb*routinesFile                    )) :which-key "ROUTINES"             )
+    "oij" '((lambda()(interactive)(find-file fb*routinesFile                    )) :which-key "ROUTINES"              )
+    "oip" '((lambda()(interactive)(find-file fb*contactFile                     )) :which-key "PEOPLE"                )
 
     "p"   '(projectile-command-map                        :which-key "projectile"                       )
 

@@ -33,6 +33,31 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 #+begin_src elisp
 (setq org-capture-templates '())
 #+end_src
+**** CONTACT
+***** card
+#+BEGIN_SRC elisp
+  (defvar fb/org-contacts-card "* %(org-contacts-template-name)
+  :PROPERTIES:
+  :STREET:   %^{STREET}
+  :ZIP:      %^{ZIP}
+  :CITY:     %^{CITY}
+  :COUNTRY:  %^{COUNTRY}
+  :EMAIL:    %(org-contacts-template-email)
+  :PHONE:    %^{PHONE}
+  :MOBILE:   %^{MOBILE}
+  :BIRTHDAY: %^{BIRTHDAY yyyy-mm-dd}
+  :NOTE:     %^{NOTE}
+  :IBAN:     %^{IBAN}
+  :BIC:      %^{BIC}
+  :END:" "Template for org-contacts."
+  )
+#+END_SRC
+***** template
+#+BEGIN_SRC elisp
+      (setq contact-templates `(("V" "VCard" entry (file+headline fb*contactFile "NEW") ,fb/org-contacts-card :empty-lines 1))
+            org-capture-templates (append org-capture-templates contact-templates)
+            )
+#+END_SRC
 **** NOW
 #+begin_src elisp
     (setq now-templates '(("N" "NOW" entry (file+olp fb*noteFile "NOW") "* %i%? "))
