@@ -29,6 +29,8 @@
 
     gopls                                           ### https://github.com/golang/tools/tree/master/gopls
 
+    jdt-language-server                             ### https://github.com/eclipse/eclipse.jdt.ls
+
     nodePackages.vscode-css-languageserver-bin      ### https://github.com/vscode-langservers/vscode-css-languageserver-bin#readme  ### TODO
 
     nodePackages.vscode-html-languageserver-bin     ### https://github.com/vscode-langservers/vscode-html-languageserver-bin#readme ### TODO

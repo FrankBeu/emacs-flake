@@ -152,6 +152,7 @@ let emacsPackage =
       epkgs.melpaPackages.lsp-dart                ### https://github.com/emacs-lsp/lsp-dart                                                                 # TODO
       epkgs.melpaPackages.lsp-docker              ### https://github.com/emacs-lsp/lsp-docker                                                               # TODO
       epkgs.melpaPackages.lsp-ivy                 ### https://github.com/emacs-lsp/lsp-ivy                                                                  # TODO
+      epkgs.melpaPackages.lsp-java                ### https://github.com/emacs-lsp/lsp-java
       epkgs.melpaPackages.lsp-latex               ### https://github.com/ROCKTAKEY/lsp-latex                                                                # TODO
       epkgs.melpaPackages.lsp-mode                ### https://emacs-lsp.github.io/lsp-mode/                                                                 # TODO
       epkgs.melpaPackages.lsp-origami             ### https://github.com/emacs-lsp/lsp-origami                                                              # TODO

@@ -1,0 +1,24 @@
+* languages-java
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-java
+  ;;;;
+  ;;
+#+end_src
+** java
+*** package
+#+BEGIN_SRC elisp
+  (use-package lsp-java
+    :hook (
+           (java-mode         . company-mode)
+           (java-mode         . lsp-deferred)
+           (java-mode         . fb*default-company-backends-h)
+           )
+    )
+#+END_SRC
+*** dap
+#+BEGIN_SRC elisp
+(use-package dap-java)
+#+END_SRC
+** INFO
+https://github.com/tminor/jsonnet-mode

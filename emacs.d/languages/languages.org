@@ -23,6 +23,8 @@
 #+INCLUDE: "./golang/golang.org"
 ** graphviz
 #+INCLUDE: "./graphviz.org"
+** java
+#+INCLUDE: "./java.org"
 ** json
 #+INCLUDE: "./json.org"
 ** jsonnet
