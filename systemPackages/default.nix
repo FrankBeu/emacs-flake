@@ -64,7 +64,8 @@
     rnix-lsp                                        ### https://github.com/nix-community/rnix-lsp
     nixpkgs-fmt                                     ### https://nix-community.github.io/nixpkgs-fmt/
 
-    rls                                             ### https://github.com/rust-lang/rls/                                           ### TODO
+    # rls                                           ### https://github.com/rust-lang/rls/                                           ### DEPRECATED
+    rust-analyzer                                   ### https://rust-analyzer.github.io/
 
     # sqls                                          ### https://emacs-lsp.github.io/lsp-mode/page/lsp-sqls/                         ### TODO not in nix
 
