@@ -286,7 +286,8 @@
     "tt"  '(counsel-load-theme                            :which-key "choose theme"                     )
     "tw"  '(whitespace-mode                               :which-key "whitespace"                       )
     "T"   '(                                              :which-key "toggles"                          :ignore t)
-    "TW"  '(fb/toggle-which-key-sort-order                :which-key "whickKey-sort-order"              )
+    "TD"  '(fb/toggle-debug-mode                          :which-key "debug-on-error"                   )
+    "TW"  '(fb/toggle-which-key-sort-order                :which-key "whichKey-sort-order"              )
 
     "u"   '(undo-tree-visualize                           :which-key "undotree"                         )
 

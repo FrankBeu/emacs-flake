@@ -12,8 +12,8 @@
 ** package
 #+BEGIN_SRC elisp
   (use-package org-contacts
-    :after org-contrib
-    :custom (org-contacts-files '(fb*contactFile))
+    ;; :after org-contrib
+    :custom (org-contacts-files (list fb*contactFile))
     )
 #+END_SRC
 ** birthdays

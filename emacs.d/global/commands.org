@@ -183,4 +183,12 @@ used for DEVOS tests
   (describe-function last-command))
 #+end_src
 **** there is also =M-x command-history=
+*** toggle debug-on-error
+#+BEGIN_SRC elisp
+  (defun fb/toggle-debug-mode ()
+    "Toggle debug-on-error"
+    (interactive)
+    (fb*toggle-debug-mode)
+    )
+#+END_SRC
 
