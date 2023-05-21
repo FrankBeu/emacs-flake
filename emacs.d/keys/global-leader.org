@@ -91,7 +91,9 @@
     "dws" '(dap-ui-sessions                               :which-key "ui-sessions"                      )
     "dwb" '(dap-ui-breakpoints                            :which-key "ui-breakpoints"                   )
 
-    ;; "D"   '(                                              :which-key "delete"                           :ignore t)
+    "D"   '(                                              :which-key "diff"                             :ignore t)
+    "DD"  '(ediff-files                                   :which-key "2files"                           )
+    "DB"  '(ediff-buffers                                 :which-key "2buffers"                         )
 
     "e"   '(                                              :which-key "error"                            :ignore t)
     "e?"  '(flycheck-describe-checker                     :which-key "describe-checker"                 )
@@ -119,6 +121,9 @@
     "ff"  '(counsel-find-file                             :which-key "find"                             )
     "fs"  '(save-buffer                                   :which-key "save-buffer"                      )
     "fS"  '(save-some-buffers                             :which-key "save-some-buffer"                 )
+
+    "F"   '(                                              :which-key "font"                             :ignore t)
+    "FF"  '(text-scale-adjust                             :which-key "fontSizeAdjust"                   )
 
     "g"   '(                                              :which-key "git"                              :ignore t)
     "gb"  '(spacemacs/git-blame-transient-state/body      :which-key "blameTransient"                   )
@@ -372,6 +377,7 @@
     "xls" '(spacemacs/sort-lines                          :which-key "sort-lines"                       )
     "xlS" '(spacemacs/sort-lines-reverse                  :which-key "sort-lines-reverse"               )
     "xlu" '(spacemacs/uniquify-lines                      :which-key "uniquify-lines"                   )
+    "xr"  '(reverse-region                                :which-key "reverse-region"                   )
     "xt"  '(                                              :which-key "transpose"                        )
     "xtc" '(transpose-chars                               :which-key "transpose-chars"                  )
     "xte" '(transpose-sexps                               :which-key "transpose-sexps"                  )
