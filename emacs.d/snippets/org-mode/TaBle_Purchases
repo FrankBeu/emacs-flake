@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name:        TaBle_Purchases
-# key:         tbp
+# key:         TBP
 # contributor: fb
 # --
 #+TBLNAME: ${1:TABLE-NAME}

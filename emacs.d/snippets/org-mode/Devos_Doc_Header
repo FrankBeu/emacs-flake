@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name:        Devos_Doc_Header
-# key:         ddh
+# key:         DDH
 # contributor: fb
 # expand-env:  ((yas-indent-line 'fixed))
 # --

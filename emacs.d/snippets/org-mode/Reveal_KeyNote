@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name:        Reveal_KeyNote
-# key:         rkn
+# key:         RKN
 # contributor: fb
 # --
 #+SETUPFILE: ~/.emacs.d/orgmode/revealjs/revealjs.setup.org
