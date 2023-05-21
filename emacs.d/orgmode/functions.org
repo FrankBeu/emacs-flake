@@ -58,6 +58,34 @@ xclip -selection clipboard -t image/png -o > PATH.png
 *** TODO ask for location/name w/o extension
 **** TODO ask for location
 **** TODO ask for name
+** date
+*** convert timestamp (email) to inactive orgmode-date
+#+begin_src elisp
+  (defun fb/convert-date (start end)
+    "Convert the visually selected timestamp to orgmode-date"
+    (interactive "r")
+    (evil-substitute start end)
+    (insert (format "[%s]" (org-read-date t nil (buffer-substring start end))))
+    (evil-normal-state)
+    (evil-backward-word-begin 4) ;; add dayname
+    (org-shiftup)
+    (org-shiftdown)
+    (evil-forward-word-begin 5)
+  )
+#+end_src
+*** calculate time from now
+#+BEGIN_EXAMPLE elisp
+(defun fb/time-diff-now ()
+    "calculate the diff between timestamp under the cursor and now"
+  (interactive)
+  (when (org-at-timestamp-p 'lax)
+    (let ((timestamp (match-string 0)))
+      (with-temp-buffer
+	(insert timestamp
+		"--"
+		(org-time-stamp '(16)))
+	(org-evaluate-time-range)))))
+#+END_EXAMPLE
 ** links
 *** link-types
 #+begin_src elisp
