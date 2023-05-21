@@ -43,6 +43,8 @@
 #+INCLUDE: "./orgmode.org"
 ** outline
 #+INCLUDE: "./outline.org"
+** puppet
+#+INCLUDE: "./puppet.org"
 ** python
 #+INCLUDE: "./python.org"
 ** web

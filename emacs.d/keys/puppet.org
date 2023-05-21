@@ -1,0 +1,32 @@
+* puppet-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; puppet-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'puppet-mode-map
+    :states  '(normal visual insert)
+
+    "a"      '(puppet-align-block                                 :which-key "align-block"          )
+    "c"      '(puppet-clear-string                                :which-key "clear-string"         )
+    "d"      '(puppet-validate                                    :which-key "validate"             )
+    "i"      '(puppet-interpolate                                 :which-key "interpolate"          )
+    "l"      '(puppet-lint                                        :which-key "lint"                 )
+    "n"      '(puppet-indent-line                                 :which-key "indent-line"          )
+    "p"      '(puppet-apply                                       :which-key "apply"                )
+    "q"      '(puppet-toggle-string-quotes                        :which-key "toggle-string-quotes" )
+    "m"      '(puppet-menu                                        :which-key "menu"                 )
+    "v"      '(puppet-version                                     :which-key "version"              )
+
+    "r"      '(                                                   :which-key "repl"                 :ignore t)
+    "rr"     '(puppet-repl                                        :which-key "repl"                 )
+    "rl"     '(puppet-repl-send-line                              :which-key "repl-send-line"       )
+    "rb"     '(puppet-repl-send-buffer                            :which-key "repl-send-buffer"     )
+    "rg"     '(puppet-repl-send-region                            :which-key "repl-send-region"     )
+    )
+#+end_src

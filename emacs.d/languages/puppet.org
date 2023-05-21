@@ -1,0 +1,13 @@
+* languages-puppet
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-puppet
+  ;;;;
+  ;;
+#+end_src
+** puppet-mode
+#+begin_src elisp
+(use-package puppet-mode)
+#+end_src
+** INFO
+[[https://github.com/voxpupuli/puppet-mode][voxpupuli/puppet-mode: Edit Puppet manifests with GNU Emacs 24]]

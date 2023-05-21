@@ -37,6 +37,8 @@
 #+INCLUDE: "./nix.org"
 ** protobuf
 #+INCLUDE: "./protobuf.org"
+** puppet
+#+INCLUDE: "./puppet.org"
 ** python
 #+INCLUDE: "./python.org"
 ** rust

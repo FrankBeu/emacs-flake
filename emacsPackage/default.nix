@@ -211,6 +211,7 @@ let emacsPackage =
       epkgs.melpaPackages.prescient               ### https://github.com/raxod502/prescient.el                                                              # TODO
       epkgs.melpaPackages.projectile              ### https://github.com/bbatsov/projectile
       epkgs.melpaPackages.protobuf-mode           ### https://github.com/protocolbuffers/protobuf                                                           # TODO
+      epkgs.melpaPackages.puppet-mode             ### https://github.com/voxpupuli/puppet-mode
       epkgs.melpaPackages.py-isort                ### https://gitlab.com/python-mode-devs/python-mode/
       epkgs.melpaPackages.python-mode             ### https://gitlab.com/python-mode-devs/python-mode/
       epkgs.melpaPackages.python-pytest           ### https://github.com/wbolster/emacs-python-pytest

@@ -179,6 +179,7 @@
     "mc"  '(conf-mode                                     :which-key "conf"                             )
     "mn"  '(nix-mode                                      :which-key "nix"                              )
     "mo"  '(org-mode                                      :which-key "org"                              )
+    "mu"  '(puppet-mode                                   :which-key "puppet"                           )
     "mp"  '(python-mode                                   :which-key "python"                           )
 
     "n"   '(                                              :which-key "numbers"                          :ignore t)
