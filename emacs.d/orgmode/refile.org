@@ -51,7 +51,7 @@
       ("a" fb/org-refile-hydra-a/body "AI Anthroposophie Archlinux Art Astronomy"                          :exit t)
       ("b" fb/org-refile-hydra-b/body "Berufliches BigData Bike Browser"                                   :exit t)
       ("c" fb/org-refile-hydra-c/body "Computer Consoles Container+Cloud CSS"                              :exit t)
-      ("d" fb/org-refile-hydra-d/body "Dart DB Debugging"                                                  :exit t)
+      ("d" fb/org-refile-hydra-d/body "Dart DB Debugging DEVOS"                                            :exit t)
       ("e" fb/org-refile-hydra-e/body "Editors emacs Embedded Energy Ernährung"                            :exit t)
       ;; ("f" fb/org-refile-hydra-f/body "" :exit t)
       ("g" fb/org-refile-hydra-g/body "Geographie Git Golang"                                              :exit t)
@@ -65,11 +65,11 @@
       ("o" fb/org-refile-hydra-o/body "OperatingSystems OrgMode"                                           :exit t)
       ("p" fb/org-refile-hydra-p/body "Personal Pflanzen Planning Programming Projects Psychologie Python" :exit t)
       ;; ("q" fb/org-refile-hydra-q/body "" :exit t)
-      ("r" fb/org-refile-hydra-r/body "ReadTheDocs Religion Rust"                                          :exit t)
-      ("s" fb/org-refile-hydra-s/body "Schrift Search Security Sprachen"                                   :exit t)
+      ("r" fb/org-refile-hydra-r/body "ReadTheDocs RedHat Religion Rust"                                   :exit t)
+      ("s" fb/org-refile-hydra-s/body "Schrift Search Security Sprachen SUSE"                              :exit t)
       ("t" fb/org-refile-hydra-t/body "Technology Testing Tools"                                           :exit t)
       ;; ("u" fb/org-refile-hydra-u/body "" :exit t)
-      ("v" fb/org-refile-hydra-v/body "Virtualisation VirtualReality"                                     :exit t)
+      ("v" fb/org-refile-hydra-v/body "Virtualisation VirtualReality"                                      :exit t)
       ("w" fb/org-refile-hydra-w/body "Web Welt"                                                           :exit t)
       ;; ("x" fb/org-refile-hydra-x/body "" :exit t)
       ("y" fb/org-refile-hydra-y/body "Yoga"                                                               :exit t)
@@ -113,6 +113,7 @@
                              ("a" . "PROJECTS/Dart.org"     )
                              ("b" . "PROJECTS/DataBases.org")
                              ("g" . "PROJECTS/Debugging.org")
+                             ("o" . "PROJECTS/DEVOS.org"    )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-e
                             (
@@ -181,6 +182,7 @@
   (fb/make-org-refile-hydra fb/org-refile-hydra-r
                             (
                              ("d" . "PROJECTS/ReadTheDocs.org")
+                             ("h" . "PROJECTS/RedHat.org"     )
                              ("l" . "PROJECTS/Religion.org"   )
                              ("u" . "PROJECTS/Rust.org"       )
                              ))
@@ -190,6 +192,7 @@
                              ("e" . "PROJECTS/Search.org"  )
                              ("c" . "PROJECTS/Security.org")
                              ("p" . "PROJECTS/Sprachen.org")
+                             ("u" . "PROJECTS/SUSE.org"    )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-t
                             (
@@ -224,7 +227,7 @@
                              ("5" . "〇/5  BIBLIO~.org"       )
                              ("6" . "〇/6  I.org"             )
                              ("7" . "〇/7  ToDO.org"          )
-                             ("a" . "〇/7a ANSCHAFFUNGEN.org" )
+                             ("f" . "〇/7a ANSCHAFFUNGEN.org" );;; 7a FUNDUS
                              ("8" . "〇/8  INSTALLATIONEN.org")
                              ("9" . "〇/9  ROUTINEN.org"      )
                              ("0" . "〇/10 ERKENNTNISSE.org"  )

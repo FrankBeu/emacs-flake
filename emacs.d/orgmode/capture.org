@@ -58,11 +58,33 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
             org-capture-templates (append org-capture-templates contact-templates)
             )
 #+END_SRC
-**** NOW
+**** CURRENT-ITEM-CLOCKED-IN
 #+begin_src elisp
-    (setq now-templates '(("N" "NOW" entry (file+olp fb*noteFile "NOW") "* %i%? "))
-          org-capture-templates (append org-capture-templates now-templates)
-          )
+  (setq clock-template '(("ck" "clock" entry (clock) "* %i%?\n")))
+  (setq org-capture-templates (append org-capture-templates clock-template))
+#+end_src
+**** PROTOCOL
+***** with selection
+#+begin_src elisp
+  (setq webSelection-templates '(
+    ("P" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+      "* %?\n[[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE")
+    ))
+  (setq org-capture-templates (append org-capture-templates webSelection-templates))
+#+end_src
+***** without selection
+#+begin_src elisp
+  (setq webWithoutSelection-templates '(
+    ("L" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+      "* %? [[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n")
+    ))
+  (setq org-capture-templates (append org-capture-templates webWithoutSelection-templates))
+#+end_src
+***** FUNDUS
+****** ask for *Title*
+#+begin_src elisp :tangle no :exports none
+  ;; ("P" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
+  ;; "* %^{Title}\n[[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n%?")
 #+end_src
 **** ROUTINES
 #+begin_src elisp
@@ -92,34 +114,23 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
     ))
     (setq org-capture-templates (append org-capture-templates routines-templates))
 #+end_src
-**** PROTOCOL
-***** with selection
+**** TASKSTACK
 #+begin_src elisp
-  (setq webSelection-templates '(
-    ("P" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
-      "* %?\n[[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE")
-    ))
-  (setq org-capture-templates (append org-capture-templates webSelection-templates))
+    (setq taskstack-template '(("S" "TASKSTACK" entry (file+olp fb*noteFile "TASKSTACK") "* %i%? "))
+          org-capture-templates (append org-capture-templates taskstack-template)
+          )
 #+end_src
-***** without selection
+**** NOW
 #+begin_src elisp
-  (setq webWithoutSelection-templates '(
-    ("L" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
-      "* %? [[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n")
-    ))
-  (setq org-capture-templates (append org-capture-templates webWithoutSelection-templates))
-#+end_src
-***** FUNDUS
-****** ask for *Title*
-#+begin_src elisp :tangle no :exports none
-  ;; ("P" "Protocol Link" entry (file+olp fb*noteFile "〇" "1  UNSORTIERTES")
-  ;; "* %^{Title}\n[[%:link][%(fb\\*transform-square-brackets-to-round-ones \"%:description\")]]\n#+BEGIN_QUOTE\n%i\n#+END_QUOTE\n%?")
+  (setq now-template '(("N" "NOW" entry (file+olp fb*noteFile "NOW") "* %i%? "))
+        org-capture-templates (append org-capture-templates now-template)
+        )
 #+end_src
 **** AKTUELLES
 #+begin_src elisp
   (setq aktuelles-templates '(
-    ("ak" "AKTUELLES"      entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")
-    ("ad" "AKTUELLES TODO" entry (file+headline fb*noteFile "AKTUELLES") "* TODO %i%?\n")
+    ("AK" "AKTUELLES"      entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")
+    ("AT" "AKTUELLES TODO" entry (file+headline fb*noteFile "AKTUELLES") "* TODO %i%?\n")
   ))
   (setq org-capture-templates (append org-capture-templates aktuelles-templates))
 #+end_src
@@ -146,7 +157,7 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
       ("cr" "Crypto"           entry (file+olp fb*noteFile "PROJECTS" "Crypto"            ) "* %i%?\n")
       ("cs" "CSS"              entry (file+olp fb*noteFile "PROJECTS" "CSS"               ) "* %i%?\n")
 
-      ("d" "Dart DB Debugging")
+      ("d" "Dart DB Debugging DEVOS")
       ("da" "Dart"             entry (file+olp fb*noteFile "PROJECTS" "Dart"              ) "* %i%?\n")
       ("db" "DataBases"        entry (file+olp fb*noteFile "PROJECTS" "DataBases"         ) "* %i%?\n")
       ("dg" "Debugging"        entry (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS") "%i**** %^{EVENT}
@@ -159,6 +170,8 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
   \***** SOLUTION
     %?
     ")
+      ("do" "DEVOS"            entry (file+olp fb*noteFile "PROJECTS" "DEVOS"             ) "* %i%?\n")
+
       ("e" "Editors emacs Embedded Energy Ernährung")
       ("em" "emacs"            entry (file+olp fb*noteFile "PROJECTS" "emacs"             ) "* %i%?\n")
       ("ed" "Editors"          entry (file+olp fb*noteFile "PROJECTS" "Editors"           ) "* %i%?\n")
@@ -214,14 +227,16 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 
       ("r" "ReadTheDocs Religion Rust")
       ("rd" "ReadTheDocs"      entry (file+olp fb*noteFile "PROJECTS" "ReadTheDocs"       ) "* %i%?\n")
+      ("rh" "RedHat"           entry (file+olp fb*noteFile "PROJECTS" "RedHat"            ) "* %i%?\n")
       ("rl" "Religion"         entry (file+olp fb*noteFile "PROJECTS" "Religion"          ) "* %i%?\n")
       ("ru" "Rust"             entry (file+olp fb*noteFile "PROJECTS" "Rust"              ) "* %i%?\n")
 
-      ("s" "Schrift Search Security Sprachen")
+      ("s" "Schrift Search Security Sprachen SUSE")
       ("st" "Schrift"          entry (file+olp fb*noteFile "PROJECTS" "Schrift"           ) "* %i%?\n")
       ("se" "Search"           entry (file+olp fb*noteFile "PROJECTS" "Search"            ) "* %i%?\n")
       ("sc" "Security"         entry (file+olp fb*noteFile "PROJECTS" "Security"          ) "* %i%?\n")
       ("sp" "Sprachen"         entry (file+olp fb*noteFile "PROJECTS" "Sprachen"          ) "* %i%?\n")
+      ("su" "SUSE"             entry (file+olp fb*noteFile "PROJECTS" "SUSE"              ) "* %i%?\n")
 
       ("t" "Technology Testing Tools")
       ("tc" "Technology"       entry (file+olp fb*noteFile "PROJECTS" "Technology"        ) "* %i%?\n")
@@ -244,11 +259,6 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
       ))
       (setq org-capture-templates (append org-capture-templates project-templates))
 #+end_src
-**** CURRENT-ITEM-CLOCKED-IN
-#+begin_src elisp
-  (setq clock-template '(("ck" "clock" entry (clock) "* %i%?\n")))
-  (setq org-capture-templates (append org-capture-templates clock-template))
-#+end_src
 **** 〇
 #+begin_src elisp
   (setq 〇-templates '(
@@ -259,9 +269,9 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
     ("5" "BIBLIO~"        entry (file+olp fb*noteFile "〇" "5  BIBLIO~"                       ) "* %i%?\n")
     ("6" "I"              entry (file+olp fb*noteFile "〇" "6  I"                             ) "* %i%?\n")
     ("7" "ToDO"           entry (file+olp fb*noteFile "〇" "7  ToDO"                          ) "* TODO %i%?\n")
-    ("A" "ANSCHAFFUNGEN"  entry (file+olp fb*noteFile "〇" "7a ANSCHAFFUNGEN" "FUNDUS"        ) "* %i%?\n")
+    ("F" "ANSCHAFFUNGEN"  entry (file+olp fb*noteFile "〇" "7a ANSCHAFFUNGEN" "FUNDUS"        ) "* %i%?\n")
     ("8" "INSTALLATIONEN" entry (file+olp fb*noteFile "〇" "8  INSTALLATIONEN"                ) "* %i%?\n")
-    ("9" "ROUTINEN"       entry (file+olp fb*noteFile "〇" "9  ROUTINEN + EVENTS + TRIGGERED" ) "* %i%?\n")
+    ("9" "ROUTINEN"       entry (file+olp fb*noteFile "〇" "9  ROUTINEN"                      ) "* %i%?\n")
     ("0" "ERKENNTNISSE"   entry (file+olp fb*noteFile "〇" "10 ERKENNTNISSE"                  ) "* %i%?\n")
     ("E" "ERLEDIGTES"     entry (file+olp fb*noteFile "〇" "11 ERLEDIGTES"                    ) "* %i%?\n")
     ))
@@ -275,8 +285,9 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
   ;; "\n\n** %?\n<%<%Y-%m-%d %a %T>>"
   ;; :empty-lines 1)
 #+end_src
-*** TODO org-protocol-capture-html
+*** TODO TODOS
+**** TODO org-protocol-capture-html
 check if this is a replacement or an addition
 https://github.com/alphapapa/org-protocol-capture-html
-*** TODO yas-org-capture
+**** TODO yas-org-capture
 https://github.com/ag91/ya-org-capture
