@@ -177,6 +177,7 @@
 
     "m"   '(                                              :which-key "mode"                             :ignore t)
     "mc"  '(conf-mode                                     :which-key "conf"                             )
+    "mg"  '(go-mode                                       :which-key "go"                               )
     "mn"  '(nix-mode                                      :which-key "nix"                              )
     "mo"  '(org-mode                                      :which-key "org"                              )
     "mu"  '(puppet-mode                                   :which-key "puppet"                           )

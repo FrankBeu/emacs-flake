@@ -63,9 +63,13 @@ https://golangci-lint.run/usage/false-positives/#nolint
 *** unused
 #+begin_src elisp
   (defun fb/golangDashUnused ()
-    "copy word under cursor and prepend '_ = ' - yanking has to be done MANUALLY afterwards"
+    "copy word under cursor and prepend '_ = ' and insert it below"
       (interactive)
       (message (kill-new (concat "_ = " (thing-at-point 'word 'no-properties))))
+      (evil-open-below 1)
+      (evil-force-normal-state)
+      (evil-paste-after 1)
+      (save-buffer)
       )
 #+end_src
 ** testing
@@ -163,13 +167,14 @@ https://github.com/emacs-lsp/lsp-mode/blob/master/clients/lsp-go.el
 =SPC l s r=
 *** visit site
 [[http://localhost:6060]]
-** dap
+** TODO dap
 https://emacs-lsp.github.io/dap-mode/page/configuration/#go
 #+begin_src elisp
-  (use-package dap-go
+  (use-package dap-dlv-go
+  ;; (use-package dap-go
     ;; :after dap
-    :config
-    (dap-go-setup)
+    ;; :config
+    ;; (dap-go-setup)
     )
 #+end_src
 *** INFO
