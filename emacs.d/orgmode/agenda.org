@@ -87,9 +87,9 @@ directory-bound
 #+begin_src elisp
 (setq org-todo-keywords
   '(
-    (sequence "TODO(t)"    "PENDING(p)"    "NEXT(n)"    "WIP(w)"                   "|" "DONE(d@)" "CANCELLED(c@)" "DEPRECATED(e@)" "ARCHIVED(a)")
+    (sequence "TODO(t)"    "PENDING(p)"    "NEXT(n)"    "WIP(w)"                   "|" "DONE(d)" "CANCELLED(c@)" "DEPRECATED(e@)" "ARCHIVED(a)")
     (sequence "CRASH(C)"   "BUG(B)"        "REQUEST(R)" "TEST(E)"                  "|" "FIXED(F)"                                                  )
-    (sequence "BACKLOG(O)" "KONZEPTION(K)" "BEREIT(T)"  "UMSETZUNG(U)" "ABNAHME(A)" "LIVE(L)" "|" "ERLEDIGT(D)"                                    )
+    (sequence "BACKLOG(O)" "KONZEPTION(K)" "BEREIT(T)"  "UMSETZUNG(U)" "ABNAHME(A)" "LIVE(L)" "|" "ERLEDIGT(E)"                                    )
     (sequence " (N)") ;;;; placeholder -> last line is not shown in buffer properly
     )
   )
