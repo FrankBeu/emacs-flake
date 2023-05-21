@@ -1,4 +1,4 @@
-* global-misc 
+* global-misc
 ** marker
 #+begin_src elisp
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; global-misc
@@ -59,10 +59,15 @@
   "my domain")
 #+end_src
 ** safe local-vars
-*** warnings
+*** TODO warnings
 #+BEGIN_SRC elisp
-;; (setq enable-local-variables :safe)
-(setq enable-local-variables :maybe)
+  (setq enable-local-variables t) ;;;; TODO workaround
+#+END_SRC
+**** FUNDUS
+#+BEGIN_SRC elisp :tangle no :exports none
+  (setq enable-local-variables :safe)  ;;;;
+  (setq enable-local-variables :maybe) ;;;;
+  (setq enable-local-variables t)      ;;;;
 #+END_SRC
 **** prevent warnings - apply safe variables
 #+BEGIN_SRC elisp :tangle no :exports none
@@ -76,8 +81,8 @@
 **** safe values
 #+BEGIN_SRC elisp
   (setf safe-local-variable-values (cl-list*
-                                    '(org-content                                                    . 2                                                      )
-                                    '(org-content                                                    . 3                                                      )
+                                    ;; '(org-content                                                    . 2                                                      )
+                                    ;; '(org-content                                                    . 3                                                      )
                                     '(org-export-with-section-numbers                                . nil                                                    )
                                     '(org-export-with-toc                                            . nil                                                    )
                                     '(org-fb-re-reveal-talk-url-show-anchor-on-title-slide           . nil                                                    )
@@ -87,19 +92,45 @@
                                     '(org-re-reveal-title-slide                                      . "~/.emacs.d/orgmode/revealjs/revealjs.titleSlide.html" )
                                     safe-local-variable-values))
 #+END_SRC
-**** safe as long as it is a string
+***** reset
+#+BEGIN_SRC elisp :tangle no :exports none
+  (setf safe-local-variable-values (list))
+#+END_SRC
+**** safe as long as it is a:
+***** string
 #+BEGIN_SRC elisp
   (put 'org-fb-re-reveal-talk-url 'safe-local-variable #'stringp)
   (put 'org-re-reveal-extra-css   'safe-local-variable #'stringp)
   (put 'default-input-method      'safe-local-variable #'stringp)
+  (put 'default-input-method      'safe-local-variable #'stringp)
+#+END_SRC
+***** symbol
+#+BEGIN_SRC elisp
+(put 'projectile-project-type 'safe-local-variable #'symbolp)
 #+END_SRC
 **** safe local eval
 #+BEGIN_SRC elisp
-  (add-to-list 'safe-local-eval-forms
-               '(setq-local org-re-reveal-extra-css (expand-file-name "~/.emacs.d/orgmode/revealjs/revealjs.css"))
-               )
-
+    (setq enable-local-eval t)
+    (add-to-list 'safe-local-eval-forms '(setq-local org-re-reveal-extra-css (expand-file-name "~/.emacs.d/orgmode/revealjs/revealjs.css")))
+    (add-to-list 'safe-local-eval-forms '(org-content 2))
 #+END_SRC
+***** reset
+#+BEGIN_SRC elisp :tangle no :exports none
+ (setq safe-local-eval-forms (list))
+#+END_SRC
+***** FUNDUS
+#+BEGIN_SRC elisp :tangle no :exports none
+    (setq enable-local-eval t)
+    (setq enable-local-eval 'maybe)
+    (setq enable-local-eval nil);;;; Do not eval
+    (setq safe-local-eval-forms (list))
+    (add-to-list 'safe-local-eval-forms '(setq-local org-re-reveal-extra-css (expand-file-name "~/.emacs.d/orgmode/revealjs/revealjs.css")))
+    (add-to-list 'safe-local-eval-forms '(org-content 2))
+    (add-to-list 'safe-local-eval-forms '(org-content))
+    ;; (add-to-list 'safe-local-eval-forms '(eval . (org-content 2)))
+  (org-content 1)
+#+END_SRC
+**** FUNDUS
 extra-css does not work with ~ directly
 stringp does not work either
 #+BEGIN_SRC elisp :tangle no :exports none
@@ -110,7 +141,6 @@ not working either:
 '(evil-set-register 100 "dwidropfdbl") ;; macro d  for toggle(drop,keep) (traefik.toml)
 '(evil-set-register 107 "dwikeepfdbl") ;; macro k  for toggle(drop,keep) (traefik.toml)
 #+END_EXAMPLE
-**** FUNDUS
 #+BEGIN_SRC elisp :tangle no :exports none
   ;; (add-to-list 'safe-local-variable-values
   ;;            '(eval org-content 2)
