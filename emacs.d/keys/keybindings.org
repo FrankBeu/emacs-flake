@@ -320,8 +320,80 @@ use more specific modes instead
    "M-RET"      'imenu-list-display-entry
    )
 #+end_src
-** ivy
-#+begin_src elisp
+** TODO ivy
+*** now
+#+BEGIN_SRC elisp :tangle no :exports none
+  ;; (general-define-key
+  ;;  :keymaps '(counsel-ag-map
+  ;;             counsel-git-grep-map
+  ;;             counsel-grep-map
+  ;;             counsel-imenu-map
+  ;;             )
+  ;;  )
+  (general-define-key
+   :keymaps '(
+           writeroom-mode-map
+)
+   )
+  (general-define-key
+   :keymaps '(
+              ivy-reverse-i-search-map
+              ivy-occur-grep-mode-map
+              ivy-occur-mode-map
+              ivy-switch-buffer-map
+              ivy-mode-map
+              ivy-minibuffer-map
+
+              ;; counsel-ag-map
+              ;; counsel-git-grep-map
+              ;; counsel-grep-map
+              ;; counsel-imenu-map
+              )
+   ;; "C-j" 'nil
+   ;; "C-k" 'nil
+   ;; "C-l" 'nil
+   ;; "C-;" 'nil
+   ;; "C-j" 'ivy-call-and-recenter
+   "C-k" 'ivy-previous-line-and-call
+   "C-l" 'ivy-next-line-and-call
+   ;; "C-;" 'ivy-alt-done
+
+   "C-K" 'ivy-previous-line
+   "C-L" 'ivy-next-line
+
+
+   "TAB" 'ivy-alt-done
+   )
+
+  (general-define-key
+   :keymaps '(ivy-minibuffer-map)
+   "C-j" 'ivy-call-and-recenter
+   "C-k" 'ivy-previous-line-and-call
+   "C-l" 'ivy-next-line-and-call
+   "C-;" 'ivy-alt-done
+
+   "C-K" 'ivy-previous-line
+   "C-L" 'ivy-next-line
+
+
+   "TAB" 'ivy-alt-done
+   )
+
+  (general-define-key
+   :keymaps '(ivy-switch-buffer-map)
+   "C-k" 'ivy-previous-line
+   "C-;" 'ivy-done
+   "C-d" 'ivy-switch-buffer-kill
+   )
+
+  (general-define-key
+   :keymaps '(ivy-reverse-i-search-map)
+   "C-k" 'ivy-previous-line
+   "C-d" 'ivy-reverse-i-search-kill
+   )
+#+END_SRC
+*** orig
+#+BEGIN_SRC elisp
   (general-define-key
    :keymaps '(counsel-ag-map
               counsel-git-grep-map
@@ -353,7 +425,7 @@ use more specific modes instead
    "C-k" 'ivy-previous-line
    "C-d" 'ivy-reverse-i-search-kill
    )
-#+end_src
+#+END_SRC
 *** ivy-occur
 map for buffer opened to show all ivy candidates (=C-c C-o=)
 #+begin_src elisp
@@ -643,6 +715,7 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
                )
   ;; :states  'normal-state
     "C-;" 'xref-goto-xref
+    "M-RET" 'xref-show-location-at-point
     )
 #+end_src
 xref--button-map
