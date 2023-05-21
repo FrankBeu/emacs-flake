@@ -349,7 +349,8 @@ https://github.com/emacsorphanage/popwin
             treemacs-user-mode-line-format         nil
             treemacs-user-header-line-format       nil
             treemacs-width                         45
-            treemacs-workspace-switch-cleanup      nil)
+            treemacs-workspace-switch-cleanup      nil
+            treemacs-wrap-around                   nil)
 
       ;; The default width and height of the icons is 22 pixels. If you are
       ;; using a Hi-DPI display, uncomment this to double the icon size.
@@ -389,9 +390,10 @@ https://github.com/emacsorphanage/popwin
     )
 #+end_src
 *** treemacs-evil
-#+BEGIN_SRC elisp :tangle no :exports none
-;; (use-package treemacs-evil
-;;   :after treemacs evil)
+,#+BEGIN_SRC elisp :tangle no :exports none
+#+BEGIN_SRC elisp
+(use-package treemacs-evil
+  :after treemacs evil)
 #+END_SRC
 *** treemacs-icons-dired
 used for dired - look over there

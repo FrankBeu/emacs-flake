@@ -280,6 +280,7 @@
     "tdp" '(hl-todo-previous                              :which-key "prev"                             )
     "ti"  '(imenu-list-smart-toggle                       :which-key "imenu"                            )
     "tl"  '(toggle-truncate-lines                         :which-key "truncate-lines"                   )
+    "te"  '(treemacs-edit-workspaces                      :which-key "treemacs-edit"                    )
     "tm"  '(treemacs                                      :which-key "treemacs"                         )
     "tn"  '(                                              :which-key "line-numbers"                     :ignore t)
     "tna" '(spacemacs/toggle-absolute-line-numbers        :which-key "line-absolute"                    )
