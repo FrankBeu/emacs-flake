@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+#  name:       Local_Variables_Local_Agenda
+#  key:        LVLA
+#  contributor:fb
+# --
+
+
+* COMMENT LOCAL VARIABLES
+# local variables:
+# eval: (setq org-agenda-files `(,(buffer-file-name)))
+# $0
+# end:

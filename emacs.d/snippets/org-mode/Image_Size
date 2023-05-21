@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name:        Image_Size
+# key:         IS
+# contributor: fb
+# --
+#+ATTR_ORG: :width ${1:SIZE}$0

@@ -5,10 +5,11 @@
 # --
 \documentclass{book}
 \usepackage{pdfpages}                    %%% include pdf
-\usepackage{fontawesome5}                %%% icons %%% http://mirrors.ibiblio.org/CTAN/fonts/fontawesome/doc/fontawesome.pdf
+\usepackage{fontawesome5}                %%% icons %%% http://mirrors.ibiblio.org/CTAN/fonts/fontawesome/doc/fontawesome.pdf ALIAS dont seem to work
 \usepackage[scaled]{helvet}              %%% font
 \renewcommand*\familydefault{\sfdefault} %%% Only if the base font of the document is sans serif
 \usepackage[T1]{fontenc}
+\pagestyle{empty}                        %%% noPageNumbers
 
 
 \begin{document}
@@ -18,6 +19,13 @@
  picturecommand*={%
   \put(100,300){${1:CONTENT}}%
   \put(150,200){\faCheck}%
+  \put(170,200){\faTimes}%
+  \put(1,765)  {leftTop}%
+  \put(565,765){rightTop}%
+  \put(1,383)  {leftMiddle}%
+  \put(565,383){rightMiddle}%
+  \put(1,1)    {leftBottom}%
+  \put(565,1)  {rightBottom}%
   \put(200,100){\includegraphics[height=2cm]{assets/Unterschrift.png}}
 }]{assets/${2:FILENAME.PDF}}
 $0

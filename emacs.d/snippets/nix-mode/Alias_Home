@@ -4,6 +4,6 @@
 # contributor: fb
 # --
 home.shellAliases = {
-  ${1:ALIAS} = ''${2:COMMAND} '';  ### ${1:HINT}
+  ${1:ALIAS} = ''${2:COMMAND} '';  ### ${3:HINT}
   $0
 };

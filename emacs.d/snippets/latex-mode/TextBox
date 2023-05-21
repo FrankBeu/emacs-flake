@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name:        TextBox
+# key:         tb
+# contributor: fb
+# --
+
+%%% todo add automatically
+%%% to preamble
+\usepackage[absolute,overlay]{textpos}   %%% textboxes
+
+
+%%% into document
+\begin{textblock*}{5cm}(10cm,6cm)        %%% {block width} (coords)
+$0
+\end{textblock*}

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Alias_Function
+# key:         af
+# contributor: fb
+# --
+${1:ALIAS} = ''(){ ${2:COMMAND} "''\${@}" | ${3:PIPE-COMMAND} }'';### ${4:HINT}
+$0

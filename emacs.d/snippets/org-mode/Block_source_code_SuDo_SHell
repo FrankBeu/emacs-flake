@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_SuDo_SHell
+# key:         bsdsh
+# contributor: fb
+# --
+#+BEGIN_SRC shell :dir "/sudo::" :results drawer
+$0
+#+END_SRC

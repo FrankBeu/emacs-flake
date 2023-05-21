@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        Time_Stamp_Flow
+# key:         TSF
+# contributor: fb
+# --
+
+| STATUS | TASK    |           ORT | TIMESTAMP              |
+|--------+---------+---------------+------------------------|
+|        | $0      |               |                        |
+|        |         |               |                        |

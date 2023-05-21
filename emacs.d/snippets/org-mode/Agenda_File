@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name:        Agenda_File
+# key:         AF
+# contributor: fb
+# --
+
+
+* LocalVariables
+# Local Variables:
+# eval: (setq org-agenda-files `(,(buffer-file-name)))
+# $0
+# End:

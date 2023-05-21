@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        Test_Skip
+# key:         ts
+# contributor: fb
+# --
+//go:build skip
+//TODO reenable
+$0

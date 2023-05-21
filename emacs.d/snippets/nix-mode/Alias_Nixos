@@ -8,7 +8,7 @@ environment = {
     let ifSudo = lib.mkIf config.security.sudo.enable;
     in
     {
-      ${1:ALIAS} = ''${2:COMMAND} '';  ### ${1:HINT}
+      ${1:ALIAS} = ''${2:COMMAND} '';  ### ${3:HINT}
       $0
     };
 };
