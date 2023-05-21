@@ -41,15 +41,16 @@
 #+end_src
 ** misc
 #+begin_src elisp
-;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
-(setq inhibit-startup-message t )      ;;; inhibit startup message
-(setq initial-scratch-message "")      ;;; print a default message in the empty scratch buffer opened at startup
-;; (setq ring-bell-function 'ignore )     ;;; silent bell when you make a mistake
-;; (setq visible-bell t)                  ;;; visible bell when you make a mistake - doom-modeline takes care
-(setq coding-system-for-read 'utf-8 )  ;;; use utf-8 by default
-(setq coding-system-for-write 'utf-8 )
-(setq sentence-end-double-space nil)   ;;; sentence SHOULD end with only a point.
-(setq fill-column 80)                  ;;; toggle wrapping text at the 80th character
+  ;; (setq inhibit-startup-screen t )    ;;; inhibit startup screen
+  (setq inhibit-startup-message t )      ;;; inhibit startup message
+  (setq initial-scratch-message "")      ;;; print a default message in the empty scratch buffer opened at startup
+  ;; (setq ring-bell-function 'ignore )     ;;; silent bell when you make a mistake
+  ;; (setq visible-bell t)                  ;;; visible bell when you make a mistake - doom-modeline takes care
+  (setq coding-system-for-read 'utf-8 )  ;;; use utf-8 by default
+  (setq coding-system-for-write 'utf-8 )
+  (setq sentence-end-double-space nil)   ;;; sentence SHOULD end with only a point.
+  (setq fill-column 80)                  ;;; toggle wrapping text at the 80th character
+  (setq truncate-lines t)                ;;; start buffer with lines displayed truncated
 #+end_src
 ** personal
 #+begin_src elisp
@@ -119,7 +120,11 @@ not working either:
   ;;              '(org-content 3)
   ;;              )
 #+END_SRC
-*** custom
+*** develWorkflow
+- load config with ~C-X C-E~
+- open another buffer e.g. =./functions.org=
+  - reload with ~SPC b r~
+** custom
 #+BEGIN_SRC elisp
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
