@@ -871,8 +871,10 @@ console.log(message);
 ** wrapping
 [[file:~/.emacs.d/global/misc.org::*wrap-region][wrap-region]]
 #+BEGIN_SRC elisp
-  (wrap-region-add-wrapper "#+BEGIN_SRC dart :results output\n"  "#+END_SRC\n"     "D" 'org-mode)
   (wrap-region-add-wrapper "#+BEGIN_EXAMPLE\n"                   "#+END_EXAMPLE\n" "E" 'org-mode)
+  (wrap-region-add-wrapper "#+BEGIN_EXAMPLE shell \n"            "#+END_EXAMPLE\n" "A" 'org-mode)
+
+  (wrap-region-add-wrapper "#+BEGIN_SRC dart :results output\n"  "#+END_SRC\n"     "D" 'org-mode)
   (wrap-region-add-wrapper "#+BEGIN_SRC go :results drawer\n"    "#+END_SRC\n"     "G" 'org-mode)
   (wrap-region-add-wrapper "#+BEGIN_SRC shell :results drawer\n" "#+END_SRC\n"     "S" 'org-mode)
 #+END_SRC
