@@ -18,8 +18,7 @@ toc: true
 because org mode is first exported and then tangled \\
 'commenting out' a block has to be done with:
 #+BEGIN_SRC org
-,#+BEGIN_SRC elisp :tangle no :exports none
-,#+END_SRC
+  ,#+BEGIN_SRC elisp :tangle no :exports none
 #+END_SRC
 ** update emacs
 depends on implementation
