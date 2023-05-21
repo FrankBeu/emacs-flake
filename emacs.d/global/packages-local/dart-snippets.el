@@ -1,1 +1,0 @@
-/nix/store/6b1rvbv7z28pwsqf93af6nqpd1jgwbzf-home-manager-files/.emacs.d/global/packages-local/dart-snippets.el
