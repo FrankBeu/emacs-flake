@@ -1,0 +1,20 @@
+* yaml-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; yaml-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'yaml-mode-map
+    :states  '(normal visual insert)
+
+    ;; "g"      '(                                                   :which-key "goto"             :ignore t)
+    "a"      '(                                                   :which-key "ansible"           :ignore t)
+    "ad"     '(ansible-doc                                        :which-key "doc"              )
+    )
+#+end_src
+

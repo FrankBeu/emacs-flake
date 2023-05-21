@@ -49,3 +49,6 @@
 #+INCLUDE: "./python.org"
 ** web
 #+INCLUDE: "./web.org"
+
+** yaml
+#+INCLUDE: "./yaml.org"

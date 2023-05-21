@@ -22,6 +22,8 @@
     # ** lsp
     #    https://emacs-lsp.github.io/lsp-mode/page/languages/
     #
+    ansible-language-server
+
     nodejs
 
     nodePackages.bash-language-server               ### https://github.com/bash-lsp/bash-language-server#readme                     ### TODO

@@ -285,6 +285,17 @@ let emacsPackage =
       ### epkgs.melpaPackages.kubernetes-tramp ### https://github.com/gruggiero/kubernetes-tramp         DEPRECATED: use integrated package ‘tramp-container’
 
       ### epkgs.orgPackages.org-plus-contrib   ### https://orgmode.org/worg/org-contrib/                 DEPRECATED: use epkgs.org-contrib instead
+
+
+      ### TODO ansible-start
+      epkgs.melpaPackages.ansible                 ###
+      epkgs.melpaPackages.poly-ansible            ###
+      epkgs.melpaPackages.company-ansible         ###
+      epkgs.melpaPackages.ansible-vault           ###
+      epkgs.melpaPackages.ansible-doc             ###
+      ### TODO ansible-end
+
+
     ];
 
 
