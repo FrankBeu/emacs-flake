@@ -129,6 +129,7 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 **** AKTUELLES
 #+begin_src elisp
   (setq aktuelles-templates '(
+    ("A" "AKTUELL")
     ("AK" "AKTUELLES"      entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")
     ("AT" "AKTUELLES TODO" entry (file+headline fb*noteFile "AKTUELLES") "* TODO %i%?\n")
   ))
@@ -137,7 +138,7 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 **** PROJECTS
 #+begin_src elisp
     (setq project-templates '(
-      ("a" "AKTUELLES AI Anthroposophie Archlinux Art Astronomy")
+      ("a" "AI Anthroposophie Archlinux Art Astronomy")
       ("ai" "AI"               entry (file+olp fb*noteFile "PROJECTS" "AI"                ) "* %i%?\n")
       ("as" "Anthroposophie"   entry (file+olp fb*noteFile "PROJECTS" "Anthroposophie"    ) "* %i%?\n")
       ("al" "Archlinux"        entry (file+olp fb*noteFile "PROJECTS" "Archlinux"         ) "* %i%?\n")
