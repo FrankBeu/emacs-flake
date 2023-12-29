@@ -138,6 +138,7 @@ let emacsPackage =
       epkgs.melpaPackages.hydra                   ### https://github.com/abo-abo/hydra
 
       epkgs.melpaPackages.imenu-list              ### https://github.com/bmag/imenu-list
+      epkgs.melpaPackages.impatient-mode          ### https://github.com/skeeto/impatient-mode
       epkgs.melpaPackages.ivy                     ### https://github.com/abo-abo/swiper
       epkgs.melpaPackages.ivy-avy                 ### https://github.com/abo-abo/swiper
       epkgs.melpaPackages.ivy-hydra               ### https://github.com/abo-abo/swiper

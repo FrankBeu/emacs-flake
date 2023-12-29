@@ -230,6 +230,10 @@ open another dired
     ;; :disabled
     )
 #+end_src
+** impatient-mode
+#+BEGIN_SRC elisp
+  (use-package impatient-mode)
+#+END_SRC
 ** inflection
 https://github.com/akicho8/string-inflection
 #+begin_src elisp
