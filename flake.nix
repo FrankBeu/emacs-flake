@@ -12,19 +12,18 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-
   };
 
   outputs = { self, nixpkgs, emacs-overlay }: {
 
-    aliases            =        ./aliases;
+    aliases            =        ./aliases  ;
     emacsDocumentation =        ./emacs.org;
 
     emacsConfig        = import ./emacsConfig    { inherit      nixpkgs emacs-overlay; };
     emacsPackage       = import ./emacsPackage   { inherit self nixpkgs emacs-overlay; };
 
     localPackages      = import ./localPackages  { inherit      nixpkgs              ; };
-    systemPackages     =        ./systemPackages                                        ;
+    systemPackages     =        ./systemPackages;
 
   };
 }

@@ -299,14 +299,29 @@ let emacsPackage =
       ### TODO ansible-end
 
 
+      ### externalPackages via override
+      # epkgs.NAME
     ];
 
 
     ### Optionally override derivations.
     override = epkgs: epkgs // {
+      ### https://nixos.wiki/wiki/Emacs#Adding_packages_from_outside_ELPA_.2F_MELPA
+
+      # NAME = callPackage ./externalPackages/NAME {
+      #   inherit (pkgs)
+      #   fetchFromGitHub
+      #   ;
+
+      #   inherit (epkgs)
+      #   trivialBuild
+      #   all-the-icons
+      #   ;
+      # };
+
       # weechat = epkgs.melpaPackages.weechat.overrideAttrs(old: {
-        #   patches = [ ./weechat-el.patch ];
-        # });
+      #   patches = [ ./weechat-el.patch ];
+      # });
     };
   });
 in
