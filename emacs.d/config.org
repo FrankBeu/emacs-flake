@@ -15,6 +15,7 @@ needs password; does not work with key
 **** elisp
 **** naming
 ***** doom
+[[https://github.com/doomemacs/doomemacs/blob/master/docs/contributing.org#naming-conventions][doomemacs/docs/contributing.org at master · doomemacs/doomemacs]]
 - ~doom/abc~ A public, interactive command, designed to be used via =M-x= or a keybinding.
 - ~doom:abc~ A public evil operator, motion or command.
 - ~doom|abc~ A public, non-interactive function meant to be used as a hook.
@@ -27,6 +28,9 @@ needs password; does not work with key
   Autodefs usually serve to configure Doom or a module. [and are usually syntactic sugar]
 - Functions prefixed with ~+abc...~ belong to a module, e.g. ~+emacs-lisp|init-hook~ is a hook function in the ~lang/emacs-lisp~ module.
 - ~=abc~ An interactive command that invokes an app module.
+****** lisp
+- (~namespace-abc~  regular symbols)
+- (~namespace--abc~ private symbols)
 ***** spacemacs
  https://develop.spacemacs.org/doc/CONVENTIONS.html
 ***** TODO variables
