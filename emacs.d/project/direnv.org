@@ -10,7 +10,8 @@
 https://github.com/wbolster/emacs-direnv
   couldn't get it to work with python:
   lsp didn't find poetry-installed modules
-#+begin_src elisp :tangle no :exports none
+,#+begin_src elisp :tangle no :exports none
+#+begin_src elisp
   (use-package direnv
     :config
     (direnv-mode)
@@ -31,7 +32,8 @@ https://github.com/wbolster/emacs-direnv
 #+end_example
 *** envrc
 https://github.com/purcell/envrc
-#+begin_src elisp
+,#+begin_src elisp
+#+begin_src elisp :tangle no :exports none
   (use-package envrc
     :config
     (envrc-global-mode)
