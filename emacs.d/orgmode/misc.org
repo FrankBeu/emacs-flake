@@ -139,6 +139,21 @@ https://github.com/kiwanami/emacs-calfw#for-org-users
 #+end_src
 *** TODO disable line-numbers
 *** TODO colors
+** links
+*** use linking with an unique id
+#+BEGIN_SRC elisp
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+#+END_SRC
+**** INFO
+[[https://emacs.stackexchange.com/questions/51755/org-mode-link-files-with-ids-and-not-filenames][Org-Mode: Link files with IDs and not Filenames - Emacs Stack Exchange]]
+***** storage-file
+=.org-id-locations= in your =user-emacs-directory=
+***** invalidate cache
+~org-id-update-id-locations~
+****** EXAMPLE
+#+BEGIN_SRC elisp :tangle no :exports none
+;; (org-id-update-id-locations (directory-files-recursively org-roam-directory ".org$\\|.org.gpg$"))
+#+END_SRC
 ** TODO structure-templates
   https://orgmode.org/manual/Structure-Templates.html
   https://blog.aaronbieber.com/2016/11/23/creating-org-mode-structure-templates.html

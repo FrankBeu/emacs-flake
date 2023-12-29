@@ -50,10 +50,10 @@
       "Org-Refile"
       ("a" fb/org-refile-hydra-a/body "AI Anthroposophie Archlinux Art Astronomy"                          :exit t)
       ("b" fb/org-refile-hydra-b/body "Berufliches BigData Bike Browser"                                   :exit t)
-      ("c" fb/org-refile-hydra-c/body "Computer Consoles Container+Cloud CSS"                              :exit t)
-      ("d" fb/org-refile-hydra-d/body "Dart DB Debugging DEVOS"                                            :exit t)
+      ("c" fb/org-refile-hydra-c/body "Computer CM Consoles Container+Cloud CSS"                           :exit t)
+      ("d" fb/org-refile-hydra-d/body "Dart DB Debugging DEVOS DU"                                         :exit t)
       ("e" fb/org-refile-hydra-e/body "Editors emacs Embedded Energy Ernährung"                            :exit t)
-      ;; ("f" fb/org-refile-hydra-f/body "" :exit t)
+      ("f" fb/org-refile-hydra-f/body "Freizeit"                                                           :exit t)
       ("g" fb/org-refile-hydra-g/body "Geographie Git Golang"                                              :exit t)
       ("h" fb/org-refile-hydra-h/body "Hardware Haushalt"                                                  :exit t)
       ("i" fb/org-refile-hydra-i/body "Infrastructure Installationen IoT"                                  :exit t)
@@ -65,7 +65,7 @@
       ("o" fb/org-refile-hydra-o/body "OperatingSystems OrgMode"                                           :exit t)
       ("p" fb/org-refile-hydra-p/body "Personal Pflanzen Planning Programming Projects Psychologie Python" :exit t)
       ;; ("q" fb/org-refile-hydra-q/body "" :exit t)
-      ("r" fb/org-refile-hydra-r/body "ReadTheDocs RedHat Religion Rust"                                   :exit t)
+      ("r" fb/org-refile-hydra-r/body "ReadTheDocs Reisen RedHat Religion Rust"                            :exit t)
       ("s" fb/org-refile-hydra-s/body "Schrift Search Security Sprachen SUSE"                              :exit t)
       ("t" fb/org-refile-hydra-t/body "Technology Testing Tools"                                           :exit t)
       ;; ("u" fb/org-refile-hydra-u/body "" :exit t)
@@ -102,11 +102,12 @@
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-c
                             (
-                             ("p" . "PROJECTS/Computer.org"      )
-                             ("l" . "PROJECTS/Consoles.org"      )
-                             ("c" . "PROJECTS/ContainerCloud.org")
-                             ("r" . "PROJECTS/Crypto.org"        )
-                             ("s" . "PROJECTS/CSS.org"           )
+                             ("p" . "PROJECTS/Computer.org"               )
+                             ("l" . "PROJECTS/Consoles.org"               )
+                             ("m" . "PROJECTS/ConfigurationManagement.org")
+                             ("c" . "PROJECTS/ContainerCloud.org"         )
+                             ("r" . "PROJECTS/Crypto.org"                 )
+                             ("s" . "PROJECTS/CSS.org"                    )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-d
                             (
@@ -114,6 +115,7 @@
                              ("b" . "PROJECTS/DataBases.org")
                              ("g" . "PROJECTS/Debugging.org")
                              ("o" . "PROJECTS/DEVOS.org"    )
+                             ("u" . "PROJECTS/DU.org"       )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-e
                             (
@@ -123,11 +125,16 @@
                              ("g" . "PROJECTS/Energy.org"   )
                              ("n" . "PROJECTS/Ernährung.org")
                              ))
+  (fb/make-org-refile-hydra fb/org-refile-hydra-f
+                            (
+                             ("z" . "PROJECTS/Freizeit.org"  )
+                             ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-g
                             (
                              ("g" . "PROJECTS/Geographie.org")
                              ("t" . "PROJECTS/Git.org"       )
                              ("o" . "PROJECTS/Golang.org"    )
+                             ("f" . "PROJECTS/Freizeit.org"  )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-h
                             (
@@ -184,6 +191,7 @@
                              ("d" . "PROJECTS/ReadTheDocs.org")
                              ("h" . "PROJECTS/RedHat.org"     )
                              ("l" . "PROJECTS/Religion.org"   )
+                             ("s" . "PROJECTS/Reisen.org"     )
                              ("u" . "PROJECTS/Rust.org"       )
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-s
@@ -207,8 +215,8 @@
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-w
                             (
-                             ("e" . "PROJECTS/Web.org" )
-                             ("l" . "PROJECTS/Welt.org")
+                             ("b" . "PROJECTS/Web.org" )
+                             ("t" . "PROJECTS/Welt.org")
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-y
                             (
@@ -220,17 +228,18 @@
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-0
                             (
-                             ("1" . "〇/1  UNSORTIERTES.org"  )
-                             ("2" . "〇/2  IDEEN.org"         )
-                             ("3" . "〇/3  FRAGEN.org"        )
-                             ("4" . "〇/4  RECHERCHE.org"     )
-                             ("5" . "〇/5  BIBLIO~.org"       )
-                             ("6" . "〇/6  I.org"             )
-                             ("7" . "〇/7  ToDO.org"          )
-                             ("f" . "〇/7a ANSCHAFFUNGEN.org" );;; 7a FUNDUS
-                             ("8" . "〇/8  INSTALLATIONEN.org")
-                             ("9" . "〇/9  ROUTINEN.org"      )
-                             ("0" . "〇/10 ERKENNTNISSE.org"  )
-                             ("e" . "〇/11 ERLEDIGTES.org"    )
+                             ("1" . "〇/1__UNSORTIERTES.org"  )
+                             ("2" . "〇/2__IDEEN.org"         )
+                             ("3" . "〇/3__FRAGEN.org"        )
+                             ("4" . "〇/4__RECHERCHE.org"     )
+                             ("5" . "〇/5__BIBLIO~.org"       )
+                             ("6" . "〇/6__I.org"             )
+                             ("7" . "〇/7__ToDO.org"          )
+                             ("f" . "〇/7a_ANSCHAFFUNGEN.org" );;; 7a FUNDUS
+                             ("8" . "〇/8__INSTALLATIONEN.org")
+                             ("9" . "〇/9__ROUTINEN.org"      )
+                             ("0" . "〇/10_ERKENNTNISSE.org"  )
+                             ("e" . "〇/11_ERLEDIGTES.org"    )
+                             ("h" . "〇/12_HISTORY.org"       )
                              ))
 #+end_src

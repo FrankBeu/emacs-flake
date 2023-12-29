@@ -139,39 +139,43 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 #+begin_src elisp
     (setq project-templates '(
       ("a" "AI Anthroposophie Archlinux Art Astronomy")
-      ("ai" "AI"               entry (file+olp fb*noteFile "PROJECTS" "AI"                ) "* %i%?\n")
-      ("as" "Anthroposophie"   entry (file+olp fb*noteFile "PROJECTS" "Anthroposophie"    ) "* %i%?\n")
-      ("al" "Archlinux"        entry (file+olp fb*noteFile "PROJECTS" "Archlinux"         ) "* %i%?\n")
-      ("ar" "Art"              entry (file+olp fb*noteFile "PROJECTS" "Art"               ) "* %i%?\n")
-      ("at" "Astronomy"        entry (file+olp fb*noteFile "PROJECTS" "Astronomy"         ) "* %i%?\n")
+      ("ai" "AI"                     entry (file+olp fb*noteFile "PROJECTS" "AI"                     ) "* %i%?\n")
+      ("as" "Anthroposophie"         entry (file+olp fb*noteFile "PROJECTS" "Anthroposophie"         ) "* %i%?\n")
+      ("al" "Archlinux"              entry (file+olp fb*noteFile "PROJECTS" "Archlinux"              ) "* %i%?\n")
+      ("ar" "Art"                    entry (file+olp fb*noteFile "PROJECTS" "Art"                    ) "* %i%?\n")
+      ("at" "Astronomy"              entry (file+olp fb*noteFile "PROJECTS" "Astronomy"              ) "* %i%?\n")
 
       ("b" "Berufliches BigData Browser")
-      ("br" "Berufliches"      entry (file+olp fb*noteFile "PROJECTS" "Berufliches"       ) "* %i%?\n")
-      ("bd" "BigData"          entry (file+olp fb*noteFile "PROJECTS" "BigData"           ) "* %i%?\n")
-      ("bk" "Bike"             entry (file+olp fb*noteFile "PROJECTS" "Bike"              ) "* %i%?\n")
-      ("bs" "Browser"          entry (file+olp fb*noteFile "PROJECTS" "Browser"           ) "* %i%?\n")
+      ("br" "Berufliches"            entry (file+olp fb*noteFile "PROJECTS" "Berufliches"            ) "* %i%?\n")
+      ("bd" "BigData"                entry (file+olp fb*noteFile "PROJECTS" "BigData"                ) "* %i%?\n")
+      ("bk" "Bike"                   entry (file+olp fb*noteFile "PROJECTS" "Bike"                   ) "* %i%?\n")
+      ("bs" "Browser"                entry (file+olp fb*noteFile "PROJECTS" "Browser"                ) "* %i%?\n")
 
-      ("c" "Computer Consoles Container+Cloud Crypto CSS")
-      ("cp" "Computer"         entry (file+olp fb*noteFile "PROJECTS" "Computer"          ) "* %i%?\n")
-      ("cl" "Consoles"         entry (file+olp fb*noteFile "PROJECTS" "Consoles"          ) "* %i%?\n")
-      ("cc" "Container+Cloud"  entry (file+olp fb*noteFile "PROJECTS" "Container+Cloud"   ) "* %i%?\n")
-      ("cr" "Crypto"           entry (file+olp fb*noteFile "PROJECTS" "Crypto"            ) "* %i%?\n")
-      ("cs" "CSS"              entry (file+olp fb*noteFile "PROJECTS" "CSS"               ) "* %i%?\n")
+      ("c" "Computer CM Consoles Container+Cloud Crypto CSS")
+      ("cp" "Computer"               entry (file+olp fb*noteFile "PROJECTS" "Computer"               ) "* %i%?\n")
+      ("cm" "ConfigurationManagement"entry (file+olp fb*noteFile "PROJECTS" "ConfigurationManagement") "* %i%?\n")
+      ("cl" "Consoles"               entry (file+olp fb*noteFile "PROJECTS" "Consoles"               ) "* %i%?\n")
+      ("cc" "Container+Cloud"        entry (file+olp fb*noteFile "PROJECTS" "Container+Cloud"        ) "* %i%?\n")
+      ("cr" "Crypto"                 entry (file+olp fb*noteFile "PROJECTS" "Crypto"                 ) "* %i%?\n")
+      ("cs" "CSS"                    entry (file+olp fb*noteFile "PROJECTS" "CSS"                    ) "* %i%?\n")
 
       ("d" "Dart DB Debugging DEVOS")
-      ("da" "Dart"             entry (file+olp fb*noteFile "PROJECTS" "Dart"              ) "* %i%?\n")
-      ("db" "DataBases"        entry (file+olp fb*noteFile "PROJECTS" "DataBases"         ) "* %i%?\n")
-      ("dg" "Debugging"        entry (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS") "%i**** %^{EVENT}
+      ("da" "Dart"                   entry (file+olp fb*noteFile "PROJECTS" "Dart"                   ) "* %i%?\n")
+      ("db" "DataBases"              entry (file+olp fb*noteFile "PROJECTS" "DataBases"              ) "* %i%?\n")
+      ("dg" "Debugging"              entry (file+olp fb*noteFile "PROJECTS" "Debugging" "EVENTS"     ) "%i**** %^{EVENT}
   \***** SITUATION/SETUP
     %^{SITUATION}
   \***** MESSAGE
+    #+BEGIN_QUOTE
     %x
+    #+END_QUOTE
   \***** PROBLEM / CAUSE
     %^{PROBLEM}
   \***** SOLUTION
     %?
     ")
       ("do" "DEVOS"            entry (file+olp fb*noteFile "PROJECTS" "DEVOS"             ) "* %i%?\n")
+      ("du" "DU"               entry (file+olp fb*noteFile "PROJECTS" "DU"                ) "* %i%?\n")
 
       ("e" "Editors emacs Embedded Energy Ernährung")
       ("em" "emacs"            entry (file+olp fb*noteFile "PROJECTS" "emacs"             ) "* %i%?\n")
@@ -179,6 +183,9 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
       ("eb" "embedded"         entry (file+olp fb*noteFile "PROJECTS" "embedded"          ) "* %i%?\n")
       ("eg" "Energy"           entry (file+olp fb*noteFile "PROJECTS" "Energy"            ) "* %i%?\n")
       ("en" "Ernährung"        entry (file+olp fb*noteFile "PROJECTS" "Ernährung"         ) "* %i%?\n")
+
+      ("f" "Freizeit")
+      ("fz" "Freizeit"         entry (file+olp fb*noteFile "PROJECTS" "Freizeit"          ) "* %i%?\n")
 
       ("g" "Geographie Git Golang")
       ("gg" "Geographie"       entry (file+olp fb*noteFile "PROJECTS" "Geographie"        ) "* %i%?\n")
@@ -226,9 +233,10 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
       ("pi" "Psychologie"      entry (file+olp fb*noteFile "PROJECTS" "Psychologie"       ) "* %i%?\n")
       ("py" "Python"           entry (file+olp fb*noteFile "PROJECTS" "Python"            ) "* %i%?\n")
 
-      ("r" "ReadTheDocs Religion Rust")
+      ("r" "ReadTheDocs Reisen Religion Rust")
       ("rd" "ReadTheDocs"      entry (file+olp fb*noteFile "PROJECTS" "ReadTheDocs"       ) "* %i%?\n")
       ("rh" "RedHat"           entry (file+olp fb*noteFile "PROJECTS" "RedHat"            ) "* %i%?\n")
+      ("rs" "Reisen"           entry (file+olp fb*noteFile "PROJECTS" "Reisen"            ) "* %i%?\n")
       ("rl" "Religion"         entry (file+olp fb*noteFile "PROJECTS" "Religion"          ) "* %i%?\n")
       ("ru" "Rust"             entry (file+olp fb*noteFile "PROJECTS" "Rust"              ) "* %i%?\n")
 
@@ -249,8 +257,8 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
       ("vr" "VirtualReality"   entry (file+olp fb*noteFile "PROJECTS" "VirtualReality"    ) "* %i%?\n")
 
       ("w" "Web Welt")
-      ("we" "Web"              entry (file+olp fb*noteFile "PROJECTS" "Web"               ) "* %i%?\n")
-      ("wl" "Welt"             entry (file+olp fb*noteFile "PROJECTS" "Welt"              ) "* %i%?\n")
+      ("wb" "Web"              entry (file+olp fb*noteFile "PROJECTS" "Web"               ) "* %i%?\n")
+      ("wt" "Welt"             entry (file+olp fb*noteFile "PROJECTS" "Welt"              ) "* %i%?\n")
 
       ("y" "Yoga")
       ("yg" "Yoga"             entry (file+olp fb*noteFile "PROJECTS" "Yoga"              ) "* %i%?\n")
