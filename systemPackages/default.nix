@@ -24,6 +24,7 @@
     #
     ansible-language-server
 
+    cuelsp                                          ### https://github.com/dagger/cuelsp
     nodejs
 
     nodePackages.bash-language-server               ### https://github.com/bash-lsp/bash-language-server#readme                     ### TODO
@@ -65,10 +66,14 @@
 
 
     rnix-lsp                                        ### https://github.com/nix-community/rnix-lsp
+    nil                                             ### https://github.com/oxalica/nil/tree/main
     nixpkgs-fmt                                     ### https://nix-community.github.io/nixpkgs-fmt/
 
     # rls                                           ### https://github.com/rust-lang/rls/                                           ### DEPRECATED
     rust-analyzer                                   ### https://rust-analyzer.github.io/
+    ### from projectFlake
+    # rustfmt
+    # cargo
 
     # sqls                                          ### https://emacs-lsp.github.io/lsp-mode/page/lsp-sqls/                         ### TODO not in nix
 
