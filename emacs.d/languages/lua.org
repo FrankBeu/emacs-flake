@@ -1,0 +1,14 @@
+* languages-lua
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; languages-lua
+  ;;;;
+  ;;
+#+end_src
+** INFO
+[[https://github.com/immerrr/lua-mode][immerrr/lua-mode: Emacs major mode for editing Lua]]
+** lua-mode
+*** lsp-mode
+#+BEGIN_SRC elisp
+  (use-package lua-mode)
+#+END_SRC

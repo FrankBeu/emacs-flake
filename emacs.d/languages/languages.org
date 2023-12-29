@@ -31,6 +31,8 @@
 #+INCLUDE: "./k8s.org"
 ** kotlin
 #+INCLUDE: "./kotlin.org"
+** lua
+#+INCLUDE: "./lua.org"
 ** mermaid
 #+INCLUDE: "./mermaid.org"
 ** nix

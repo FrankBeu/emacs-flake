@@ -163,6 +163,7 @@ let emacsPackage =
       epkgs.melpaPackages.lsp-pyright             ### https://github.com/emacs-lsp/lsp-pyright
       epkgs.melpaPackages.lsp-treemacs            ### https://github.com/emacs-lsp/lsp-treemacs                                                             # TODO
       epkgs.melpaPackages.lsp-ui                  ### https://github.com/emacs-lsp/lsp-ui                                                                   # TODO
+      epkgs.melpaPackages.lua-mode                ### https://github.com/immerrr/lua-mode
 
       epkgs.melpaPackages.magit                   ### https://github.com/magit/magit
       epkgs.melpaPackages.magit-delta             ### https://github.com/dandavison/magit-delta
