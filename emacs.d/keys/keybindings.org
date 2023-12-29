@@ -149,12 +149,24 @@ on prompts use:
    )
 #+end_src
 ** avy
-#+begin_src elisp
-  (general-define-key
-   "C-'"  'avy-goto-word-0
-   "C-\"" 'avy-goto-line
-   )
-#+end_src
+*** use avy for find
+  #+BEGIN_SRC elisp
+    (evil-global-set-key 'motion "f" #'avy-goto-char-in-line)
+  #+END_SRC
+*** delete with avy
+  #+BEGIN_SRC elisp
+    (general-define-key
+     :states  '(normal visual)
+     "M-t" 'fb/zapTillChar
+     "M-f" 'fb/zapFindChar
+     )
+    (general-define-key
+     :states  '(normal visual)
+     :keymaps 'org-mode-map
+     "M-t" 'fb/zapTillCharOrgMode
+     "M-f" 'fb/zapFindCharOrgMode
+     )
+#+END_SRC
 ** bookmark-menu
 #+begin_src elisp
   (general-define-key
@@ -582,6 +594,18 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
    )
 #+end_src
 *** TODO spacemacs-keybindings
+** MISC
+*** toggle-truncate-lines
+vsCode cannot remap to nvim binding
+#+BEGIN_SRC elisp
+  (general-define-key
+   ;; :keymaps '(evil-normal-state-map)
+   :keymaps 'override
+   :states  '(normal visual)
+   "M-z"   nil
+   "M-z"   'toggle-truncate-lines
+   )
+#+END_SRC
 ** orgmode-global
 #+begin_src elisp
   (general-define-key
@@ -613,8 +637,36 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
     )
 #+end_src
 #+end_src
+** save
+#+BEGIN_SRC elisp
+  (general-define-key
+   "C-S-s" 'save-some-buffers
+   "C-s"   'save-buffer
+   )
+#+END_SRC
+*** ATTENTION: only works on GUI
+on terminal emacs ~C-S-s~ does not work
+[[https://stackoverflow.com/questions/2104488/how-to-make-emacs-without-gui-differentiate-between-ctrlshifts-and-ctrls][keyboard shortcuts - How to make Emacs (without GUI) differentiate between Ctrl+Shift+S and Ctrl+S? - Stack Overflow]]
 ** swiper
 #+begin_src elisp
+  (general-define-key
+   "M-s" 'swiper
+   )
+#+end_src
+#+begin_src elisp
+  (general-define-key
+   :keymaps '(swiper-map)
+   "M-l" 'nil
+   )
+  (general-define-key
+   :keymaps '(swiper-map)
+   "M-k" 'ivy-previous-line
+   "M-l" 'ivy-next-line
+   "M-L" 'swiper-recenter-top-bottom
+   )
+#+end_src
+*** ORIG
+#+begin_src elisp :tangle no :exports none
   (general-define-key
    "C-s" 'swiper
    )
@@ -630,7 +682,7 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
    "C-S-L" 'swiper-recenter-top-bottom
    )
 #+end_src
-*** TeX
+** TeX
 #+BEGIN_SRC elisp
   (fb/local-leader-key
     :keymaps 'TeX-mode-map
@@ -720,4 +772,3 @@ map for buffer opened to show all ivy candidates (=C-c C-o=)
 #+end_src
 xref--button-map
 xref--xref-buffer-mode-map
-
