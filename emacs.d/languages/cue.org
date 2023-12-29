@@ -1,0 +1,39 @@
+* language-cue
+** marker
+#+BEGIN_SRC elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; graphviz-mermaid
+  ;;;;
+  ;;
+#+END_SRC
+** cue-mode
+file-extension: .cue (!!)
+[[https://github.com/russell/cue-mode][russell/cue-mode: CUE language mode for GNU Emacs]]
+#+BEGIN_SRC elisp
+  (use-package cue-mode
+    :hook (
+           (cue-mode . company-mode)
+           (cue-mode . lsp-deferred)
+           (cue-mode . fb*default-company-backends-h)
+           )
+    )
+#+END_SRC
+** lsp
+#+BEGIN_SRC elisp
+  (add-to-list 'lsp-language-id-configuration '(cue-mode . "cue"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("cuelsp"))
+                    :major-modes '(cue-mode)
+                    :server-id 'cue)
+   )
+#+END_SRC
+** timonier
+[[https://github.com/nlamirault/timonier][nlamirault/timonier: Manage Kubernetes cluster from Emacs]]
+#+BEGIN_SRC elisp
+  (use-package timonier
+    )
+#+END_SRC
+** ATTENTION
+file-extension: .cue (!!)
+do not mix up with cue-sheet-mode
+!= [[https://en.wikipedia.org/wiki/Cue_sheet_(computing)][Cue sheet (computing) - Wikipedia]]
+[[https://github.com/peterhoeg/cue-sheet-mode][peterhoeg/cue-sheet-mode: .cue file support for emacs]]

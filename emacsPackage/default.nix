@@ -88,7 +88,7 @@ let emacsPackage =
       epkgs.melpaPackages.counsel                 ### https://github.com/abo-abo/swiper
       epkgs.melpaPackages.counsel-projectile      ### https://github.com/ericdanan/counsel-projectile
       epkgs.melpaPackages.cucumber-goto-step      ### https://github.com/gstamp/cucumber-goto-step                                                          # TODO
-      ###   cue-mode                              ### https://github.com/phaer/cue-mode.el                         TODO: NOT-AVAILABLE
+      epkgs.melpaPackages.cue-mode                ### https://github.com/russell/cue-mode
 
       ###   dap-dart                              ### https://github.com/Dart-Code/Dart-Code                       TODO: NOT-AVAILABLE                                        # TODO NOT AVAILABLE
       epkgs.melpaPackages.dap-mode                ### https://github.com/emacs-lsp/dap-mode                                                                 # TODO
@@ -231,6 +231,7 @@ let emacsPackage =
       epkgs.melpaPackages.swift-mode              ### https://github.com/swift-emacs/swift-mode                                                             # TODO
       epkgs.melpaPackages.swiper                  ### https://github.com/abo-abo/swiper
 
+      epkgs.melpaPackages.timonier                ### https://github.com/nlamirault/timonier
       epkgs.melpaPackages.treemacs                ### https://github.com/Alexander-Miller/treemacs
       epkgs.melpaPackages.treemacs-all-the-icons  ### https://github.com/Alexander-Miller/treemacs
       epkgs.melpaPackages.treemacs-evil           ### https://github.com/Alexander-Miller/treemacs
