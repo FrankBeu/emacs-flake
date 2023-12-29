@@ -8,17 +8,41 @@
 ** rustic
 https://github.com/brotzeit/rustic
 https://github.com/brotzeit/rustic#org-babel
+[[https://emacs-lsp.github.io/lsp-mode/page/lsp-rust-analyzer/][Rust (rust-analyzer) - LSP Mode - LSP support for Emacs]]
+
 #+begin_src elisp
-  (use-package rustic)
+  ;; (use-package rustic)
+  (use-package rustic
+    :hook (
+           (rustic-mode         . company-mode)
+           (rustic-mode         . lsp-deferred)
+           (rustic-mode         . fb*default-company-backends-h)
+           )
+    :config (setq
+             rustic-format-on-save t
+             lsp-rust-analyzer-server-display-inlay-hints t
+             ;; lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial"
+             lsp-rust-analyzer-display-lifetime-elision-hints-enable "never"
+             lsp-rust-analyzer-display-chaining-hints t
+             lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names t
+             lsp-rust-analyzer-display-closure-return-type-hints t
+             lsp-rust-analyzer-display-parameter-hints t
+             lsp-rust-analyzer-display-reborrow-hints t
+             lsp-ui-peek-always-show t
+             lsp-ui-sideline-show-hover t
+             lsp-ui-doc-enable nil
+             )
+    )
 #+end_src
+
+
 ** DEPRECATED rust-mode
 use rustic instead
 https://github.com/rust-lang/rust-mode
 #+begin_src elisp :tangle no :exports none
   (use-package rust-mode)
 #+end_src
-** dap
-https://emacs-lsp.github.io/dap-mode/page/configuration/#dart
+** TODO dap
 ** INFO
 https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/rust.section.md
 *** TODO lorri with racer
@@ -27,4 +51,8 @@ https://github.com/nix-community/lorri/blob/canon/contrib/emacs.md#set-up-direnv
 (setq racer-rust-src-path nil) ;; read from shell-nix
 (setq racer-cmd "racer")
 #+end_example
-
+*** TODO config
+[[https://robert.kra.hn/posts/rust-emacs-setup/#rust-analyzer][Configuring Emacs for Rust development | Robert Krahn]]
+[[https://github.com/rksm/emacs-rust-config/blob/master/init.el][emacs-rust-config/init.el at master · rksm/emacs-rust-config · GitHub]]
+[[https://github.com/purcell/exec-path-from-shell][purcell/exec-path-from-shell: Make Emacs use the $PATH set up by the user's shell]]
+[[https://rust-analyzer.github.io/][rust-analyzer]]

@@ -1,0 +1,58 @@
+* rust-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; rust-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** rust
+*** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'rustic-mode-map
+    :states  '(normal visual insert)
+
+    "d"      '(rustic-racer-describe                              :which-key "racer-desc"       )
+    "g"      '(lsp-ui-doc-glance                                  :which-key "glance"           )
+    "h"      '(rustic-docstring-dwim                              :which-key "docstring"        )
+    "o"      '(rustic-format-buffer                               :which-key "format-buffer"    )
+    "p"      '(rustic-popup                                       :which-key "popup"            )
+    "q"      '(prog-indent-sexp                                   :which-key "indent"           )
+    "t"      '(rustic-recompile                                   :which-key "recompile"        )
+    "u"      '(rustic-compile                                     :which-key "compile"          )
+    "w"      '(rust-dbg-wrap-or-unwrap                            :which-key "{,un}wrap"        )
+
+    "a"      '(                                                   :which-key "analyzer"         :ignore t)
+    "ac"     '(lsp-rust-analyzer-open-cargo-toml                  :which-key "Cargo.toml"       )
+    "ae"     '(lsp-rust-analyzer-expand-macro                     :which-key "Expand"           )
+    "aj"     '(lsp-rust-analyzer-join-lines                       :which-key "join"             )
+    "ar"     '(lsp-rust-analyzer-syntax-tree                      :which-key "tRee"             )
+    "as"     '(lsp-rust-analyzer-status                           :which-key "status"           )
+    "at"     '(lsp-rust-analyzer-related-tests                    :which-key "Tests"            )
+    "ax"     '(lsp-rust-analyzer-open-external-docs               :which-key "eXternal"         )
+
+    "c"      '(                                                   :which-key "cargo"            :ignore t)
+    "ca"     '(rustic-cargo-add                                   :which-key "Add"              )
+    "cb"     '(rustic-cargo-bench                                 :which-key "Bench"            )
+    "cd"     '(rustic-cargo-build                                 :which-key "builD"            )
+    "cf"     '(rustic-cargo-fmt                                   :which-key "Fmt"              )
+    "ci"     '(rustic-cargo-init                                  :which-key "init"             )
+    "ck"     '(rustic-cargo-check                                 :which-key "checK"            )
+    "cl"     '(rustic-cargo-clean                                 :which-key "cLean"            )
+    "cm"     '(rustic-cargo-rm                                    :which-key "rM"               )
+    "cn"     '(rustic-cargo-run                                   :which-key "ruN"              )
+    "co"     '(rustic-cargo-doc                                   :which-key "dOc"              )
+    "cu"     '(rustic-cargo-outdated                              :which-key "oUtdated"         )
+    "cw"     '(rustic-cargo-new                                   :which-key "neW"              )
+
+    "cc"     '(                                                   :which-key "cargo-clippy"     :ignore t)
+    "ccy"    '(rustic-cargo-clippy                                :which-key "clippy"           )
+    "ccf"    '(rustic-cargo-clippy-fix                            :which-key "clippy-fix"       )
+
+    "ct"     '(                                                   :which-key "cargo-test"       :ignore t)
+    "ctt"    '(rustic-cargo-test                                  :which-key "test"             )
+    "ctc"    '(rustic-cargo-current-test                          :which-key "current"          )
+    "ch"     '(rustic-cargo-upgrade                               :which-key "upgrade"          )
+    )
+#+end_src

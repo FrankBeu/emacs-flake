@@ -47,6 +47,8 @@
 #+INCLUDE: "./puppet.org"
 ** python
 #+INCLUDE: "./python.org"
+** rust
+#+INCLUDE: "./rust.org"
 ** web
 #+INCLUDE: "./web.org"
 
