@@ -125,7 +125,13 @@
     "F"   '(                                              :which-key "font"                             :ignore t)
     "FF"  '(text-scale-adjust                             :which-key "fontSizeAdjust"                   )
 
-    "g"   '(                                              :which-key "git"                              :ignore t)
+    "g"   '(                                              :which-key "Goto Git"                         :ignore t)
+    "gq"  '(avy-goto-char-timer                           :which-key "Goto timer"                       )
+    "gw"  '(avy-goto-word-0                               :which-key "Goto Word"                        )
+    "ge"  '(avy-goto-line                                 :which-key "Goto linE"                        )
+    "gr"  '(avy-goto-char                                 :which-key "Goto chaR"                        )
+    "gt"  '(avy-goto-char-in-line                         :which-key "GoTo char in line"                )
+
     "gb"  '(spacemacs/git-blame-transient-state/body      :which-key "blameTransient"                   )
     "gc"  '(magit-clone                                   :which-key "clone"                            )
     "gfl" '(magit-log-buffer-file                         :which-key "logs"                             )

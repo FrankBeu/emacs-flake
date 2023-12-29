@@ -5,6 +5,28 @@
   ;;;;
   ;;
 #+end_src
+** avy
+#+BEGIN_SRC elisp
+  (defun fb/zapTillCharOrgMode ()
+    "Delete region from point until a character."
+    (interactive)
+    (fb-zap_avy 'till 'orgmode))
+
+  (defun fb/zapFindCharOrgMode ()
+    "Delete region from point to a character."
+    (interactive)
+    (fb-zap_avy nil 'orgmode))
+
+  (defun fb/zapTillChar ()
+    "Delete region from point until a character."
+    (interactive)
+    (fb-zap_avy 'till))
+
+  (defun fb/zapFindChar ()
+    "Delete region from point to a character."
+    (interactive)
+    (fb-zap_avy))
+#+END_SRC
 ** copy buffer-names
 *** path
 =/foo/bar/bas.el= -> =/foo/bar/bas.el=

@@ -5,6 +5,34 @@
   ;;;;
   ;;
 #+end_src
+** avy
+#+BEGIN_SRC elisp
+  (defun fb-zap_avy (&optional till orgmode)
+    "Delete region from point to a character.
+     if till is set delete till character otherwise find it
+     if orgmode is set use evil-org-delete otherwise evil-delete
+    "
+    (save-excursion
+      (set-mark (point))
+      (evil-avy-goto-char-in-line)
+      (let (delete-function)
+        (if orgmode
+            (setq delete-function 'evil-org-delete)
+          (setq delete-function 'evil-delete))
+        (let ((target-point        (lambda () (funcall delete-function (mark)    (point)    'block)))
+              (target-point-before (lambda () (funcall delete-function (mark) (+ (point) 1) 'block))))
+          (if till
+            ;;;; till
+              (if (> (mark) (point))
+                  (funcall target-point-before)
+                (funcall target-point))
+            ;;;; find
+            (if (> (mark) (point))
+                (funcall target-point)
+              (funcall target-point-before))
+            )
+          (deactivate-mark)))))
+#+END_SRC
 ** reloadConfig
 #+begin_src elisp
   (defun fb*reload-config ()
