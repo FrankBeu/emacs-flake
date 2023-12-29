@@ -9,12 +9,21 @@
 *** docs
 https://www.gnu.org/software/emacs/manual/html_node/emacs/Fonts.html#Fonts
 *** list all system-available fonts
-#+begin_src shell :results drawer :tangle no :exports none
-fc-cache -fv
-#+end_src
+#+BEGIN_EXAMPLE shell
+  fc-cache -fv
+#+END_EXAMPLE
+#+BEGIN_EXAMPLE shell
+  fc-list | cut -c 45- | sort | bat --wrap=never \n
+#+END_EXAMPLE
 *** list all emacs-available fonts
 in *scratch-buffer* enter :
-~(font-family-list)~ =C-j=
+#+BEGIN_EXAMPLE elisp
+(font-family-list)
+#+END_EXAMPLE
+#+BEGIN_EXAMPLE elisp
+(dolist (font (x-list-fonts "*"))
+  (insert (format "%s\n" font)))
+#+END_EXAMPLE
 *** list font-face under cursor
 =C-u C-x ==
 *** list available font-faces
@@ -40,10 +49,14 @@ in *scratch-buffer* enter :
 #+end_src
 *** font-name
 #+begin_src elisp
-  (defvar fb-default-font-name-mono  "Roboto Mono")
+  (defvar fb-default-font-name-mono  "Hack Nerd Font")
   (defvar fb-default-font-name-sans  "Roboto"     )
   (defvar fb-default-font-name-serif "Noto Serif" )
 #+end_src
+#+BEGIN_EXAMPLE elisp
+  (defvar fb-default-font-name-mono  "RobotoMono Nerd Font")
+  (defvar fb-default-font-name-mono  "Roboto Mono")
+#+END_EXAMPLE
 **** FUNDUS
 ***** mono
 #+begin_example elisp
