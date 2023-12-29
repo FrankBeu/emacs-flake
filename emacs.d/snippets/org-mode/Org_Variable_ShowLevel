@@ -1,0 +1,6 @@
+# -*- mode: snippet; eval: (set (make-local-variable 'require-final-newline) nil)-*-
+#  name:       Org_Variable_ShowLevel
+#  key:        OVSL
+#  contributor:fb
+# --
+#+STARTUP: show${1:NUMBER}levels$0

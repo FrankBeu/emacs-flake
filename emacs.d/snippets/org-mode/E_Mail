@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+#  name:       E_Mail
+#  key:        EM
+#  contributor:fb
+# --
+
+**** EMAIL
+***** TO:
+${1:TO-EMAIL}
+***** SUBJECT:
+${2:SUBJECT}
+***** BODY:
+${3:BODY}
+$0

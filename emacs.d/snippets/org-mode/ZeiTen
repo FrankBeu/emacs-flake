@@ -7,22 +7,27 @@
 
 ** week`(+ (string-to-number (format-time-string "%V")) -4)` - CW`(format-time-string "%V")` *DESCRIPTION - TODO*
 *** Zeiten                                                           :ZEITEN:
-| Start            | End              | Days | HH:MM:SS |   |   |   |   |   |
-$0|------------------+------------------+------+----------+---+---+---+---+---|
-|                  |                  |      |          |   |   |   |   |   |
-|                  |                  |      |          |   |   |   |   |   |
-#+TBLFM: \$3=date(<\$2>)-date(<\$1>)::\$4=60*60*24*\$3;T::@>\$4=vsum(@2..@-1);T
+| START            | END              | KEY | DAYS | HH:MM:SS |   |   |   |   |   |
+$0|------------------+------------------+-----+------+----------+---+---+---+---+---|
+|                  |                  |     |      |          |   |   |   |   |   |
+|                  |                  |     |      |          |   |   |   |   |   |
+#+TBLFM: \$4=date(<\$2>)-date(<\$1>)::\$5=60*60*24*\$4;T::@>\$5=vsum(@2..@-1);T
 
 # @z anywhere:                      jump to ⁝ZEITEN⁝
 # @s on head-line:                  insert template for current day
 # @m on current-morning-entry-line: fix entries at mid-work
 *** MO
 **** DAILY
+***** FUNDUS
 *** DI
 **** DAILY
+***** FUNDUS
 *** MI
 **** DAILY
+***** FUNDUS
 *** DO
 **** DAILY
+***** FUNDUS
 *** FR
 **** DAILY
+***** FUNDUS

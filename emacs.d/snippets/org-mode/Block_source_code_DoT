@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        Block_source_code_DoT
+# key:         bdt
+# contributor: fb
+# --
+#+BEGIN_SRC dot :file ${1:FILE} :cmdline -T${2:$$(yas-choose-value '("png" "svg" "pdf"))} :exports none :results silent
+$0
+#+END_SRC
+
+[[file:$1]]
