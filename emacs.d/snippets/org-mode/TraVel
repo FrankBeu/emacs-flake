@@ -1,0 +1,72 @@
+# -*- mode: snippet -*-
+# name:        TraVel
+# key:         TV
+# contributor: fb
+# --
+*** Dauer
+**** Gesamt: ${1:DAUER}
+**** Arbeit: ${2:DAUER}
+*** Packliste
+**** Kleidung [0/8]
+- [ ] Gürtel
+- [ ] $1 Socken
+- [ ] $1 T-Shirt
+- [ ] $1 Unterhose
+- [ ] ${1:$(truncate (fceiling (/ (string-to-number yas-text) 2.0)))} Pulli
+- [ ] ${1:$(truncate (fceiling (/ (string-to-number yas-text) 2.0)))} Hose
+- [ ] $2 Hemd
+- [ ] Adiletten
+- [ ] Schuhe
+**** Jacke [0/9]
+- [ ] Reisepass
+- [ ] Geldbeutel
+- [ ] Geld (min 2x Rückfahrtkosten)
+- [ ] Ohrstöpsel
+- [ ] Stift
+- [ ] Papier
+- [ ] Mobile
+- [ ] Kopfhörer
+- [ ] Schlüssel
+- [ ] Bonbons
+**** Kulturbeutel [0/11]
+- [ ] Parfum
+- [ ] Zahnbürste
+- [ ] Zahnpasta
+- [ ] Zahnhaken
+- [ ] Haarbürste
+- [ ] Nagelfeile
+- [ ] Nagelschere
+- [ ] Nagelklipser
+- [ ] Pinzette
+- [ ] Shampoo
+- [ ] Deo
+**** Sauna [0/4]
+- [ ] Adiletten
+  - [ ] waschen am letzten Tag 
+- [ ] Handtuch
+- [ ] Bademantel
+- [ ] Wasser
+**** Ernährung [0/6]
+- [ ] Besteck
+- [ ] Gewürze
+- [ ] Salz
+- [ ] Wasserkocher
+- [ ] Cup Noodels
+- [ ] Essen
+**** tech [0/8]
+- [ ] USB-Stick
+- [ ] HDMI-Kabel
+- [ ] Laptop
+- [ ] Ladegerät
+- [ ] Ladekabel Mobile
+- [ ] Laptoptasche
+- [ ] Papier
+- [ ] Verlängerungskabel
+**** MISC [0/7]
+- [ ] Yogamatte
+- [ ] Tüten
+- [ ] Wäschetasche
+- [ ] Wasser
+- [ ] Wärmeflasche
+- [ ] Rucksack
+- [ ] Koffer
