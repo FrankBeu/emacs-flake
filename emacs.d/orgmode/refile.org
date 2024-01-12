@@ -50,7 +50,7 @@
       "Org-Refile"
       ("a" fb/org-refile-hydra-a/body "AI Anthroposophie Archlinux Art Astronomy"                          :exit t)
       ("b" fb/org-refile-hydra-b/body "Berufliches BigData Bike Browser"                                   :exit t)
-      ("c" fb/org-refile-hydra-c/body "Computer CM Consoles Container+Cloud CSS"                           :exit t)
+      ("c" fb/org-refile-hydra-c/body "CICD Computer CM Consoles Container+Cloud CSS"                      :exit t)
       ("d" fb/org-refile-hydra-d/body "Dart DB Debugging DEVOS DU"                                         :exit t)
       ("e" fb/org-refile-hydra-e/body "Editors emacs Embedded Energy Ernährung"                            :exit t)
       ("f" fb/org-refile-hydra-f/body "Freizeit"                                                           :exit t)
@@ -102,6 +102,7 @@
                              ))
   (fb/make-org-refile-hydra fb/org-refile-hydra-c
                             (
+                             ("i" . "PROJECTS/CICD.org"                   )
                              ("p" . "PROJECTS/Computer.org"               )
                              ("l" . "PROJECTS/Consoles.org"               )
                              ("m" . "PROJECTS/ConfigurationManagement.org")
