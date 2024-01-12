@@ -72,6 +72,7 @@
    "gr"    'org-agenda-redo-all
    "gs"    'org-agenda-sunrise-sunset
    "gt"    'org-agenda-show-tags
+   "gx"    'org-open-at-point
 
    "gC"    'org-agenda-convert-date
    "gD"    'org-agenda-view-mode-dispatch
@@ -135,6 +136,16 @@
    "<S-return>" 'org-agenda-show
    )
 #+end_src
+**** local-leader
+#+BEGIN_SRC elisp
+  (fb/local-leader-key
+   :keymaps 'org-agenda-mode-map
+   :states  '(normal visual motion)
+
+    "gw" '(evil-avy-goto-word-0 :which-key "Goto-Word")
+    "o"  '(org-open-at-point    :which-key "Open"     )
+    )
+#+END_SRC
 ** avy in orgmode
 ~:prefix~ not working
 #+begin_src elisp
