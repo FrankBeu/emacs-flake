@@ -46,6 +46,8 @@
     # python39Packages.python-language-server       ### https://github.com/palantir/python-language-server
     # python-language-server                        ### https://github.com/microsoft/python-language-server
 
+    texlab                                          ### https://github.com/latex-lsp/texlab
+
     ###
     ##
     # ***  pyright

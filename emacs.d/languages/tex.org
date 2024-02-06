@@ -1,0 +1,65 @@
+* tex
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; tex
+  ;;;;
+  ;;
+#+end_src
+** auctex
+*** init-config
+#+begin_src elisp
+  (setq TeX-auto-save t)
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil)
+#+end_src
+
+#+begin_src elisp
+  (use-package auctex
+    :init (setq TeX-view-program-selection '((output-pdf "Zathura")))
+    :hook (LaTex-mode . lsp-deferred)
+    )
+#+end_src
+** auctex-latexmk
+#+begin_src elisp
+  (use-package auctex-latexmk
+    :config (auctex-latexmk-setup)
+    )
+#+end_src
+** TODO config
+#+begin_src elisp
+  ;; (TeX-source-correlate-mode)        ; activate forward/reverse search
+  ;; (TeX-PDF-mode)
+  ;; (add-to-list 'TeX-view-program-list '("zathura" zathura-forward-search))
+  ;; (setq TeX-view-program-selection (quote ((output-pdf "zathura") (output-dvi "xdvi"))))
+#+end_src
+** lsp
+#+BEGIN_SRC elisp
+  (use-package lsp-latex
+    ;;;; To properly load `lsp-latex', the `require' instruction is important.
+    :hook (
+           (LaTeX-mode . (lambda () (require 'lsp-latex) (lsp-deferred)))
+           (LaTeX-mode . company-mode)
+           (LaTeX-mode . fb*default-company-backends-h)
+           )
+    :config (setq
+             max-lisp-eval-depth 2000
+             lsp-latex-forward-search-executable "zathura"
+             lsp-latex-forward-search-args '("--synctex-forward" "%l:1:%f" "%p")
+             )
+    ;;;; :custom (lsp-latex-build-on-save t)
+    )
+#+END_SRC
+*** INFO
+[[https://github.com/ROCKTAKEY/lsp-latex?tab=readme-ov-file][ROCKTAKEY/lsp-latex: Emacs lsp-mode client for LaTeX, on texlab.]]
+
+[[https://github.com/latex-lsp/texlab][latex-lsp/texlab: An implementation of the Language Server Protocol for LaTeX]]
+
+[[https://github.com/latex-lsp/texlab/wiki/Workspace-commands][Workspace commands · latex-lsp/texlab Wiki]]
+**** SEARCH
+***** zathura
+[[https://github.com/latex-lsp/texlab/wiki/Previewing#user-content-zathura][Previewing · latex-lsp/texlab Wiki ── zathura]]
+[[https://github.com/ROCKTAKEY/lsp-latex?tab=readme-ov-file#user-content-zathura][ROCKTAKEY/lsp-latex: Emacs lsp-mode client for LaTeX, on texlab. ── zathura]]
+****** forward
+=M-x= ~lsp-latex-forward-seard~
+****** backward
+=ALT-CLICK=

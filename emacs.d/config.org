@@ -180,9 +180,6 @@ numbers in parens are rebuildOrder in case of MCA
 #+INCLUDE: "./orgmode/orgmode.org"
 *** project (5)
 #+INCLUDE: "./project/project.org"
-*** tex (8)
-**** TODO move to langs
-#+INCLUDE: "./tex/tex.org"
 *** view (3)
 #+INCLUDE: "./view/view.org"
 *** keys (1)
