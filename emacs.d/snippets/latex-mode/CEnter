@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        CEnter
+# key:         CE
+# contributor: fb
+# --
+
+\begin{center}
+  $0
+\end{center}

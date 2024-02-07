@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Page_New
+# key:         PN
+# contributor: fb
+# --
+
+\newpage
+
+$0

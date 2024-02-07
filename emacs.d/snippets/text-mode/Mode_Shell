@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        Mode_shell
+# key:         MS
+# contributor: fb
+# --
+
+# Local Variables:
+# mode: sh
+# sh-shell: $0
+# End:

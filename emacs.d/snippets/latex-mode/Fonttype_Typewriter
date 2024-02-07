@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Fonttype_Typewriter
+# key:         FT
+# contributor: fb
+# --
+
+\texttt{${1:TEXT}}$0

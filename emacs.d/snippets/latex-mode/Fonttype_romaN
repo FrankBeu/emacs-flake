@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Fonttype_romaN
+# key:         FN
+# contributor: fb
+# --
+
+\textrm{${1:TEXT}}$0

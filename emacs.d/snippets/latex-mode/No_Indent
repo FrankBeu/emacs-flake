@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        No_Indent
+# key:         NI
+# contributor: fb
+# --
+
+\noindent $0

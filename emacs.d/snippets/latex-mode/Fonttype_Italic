@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Fonttype_Italic
+# key:         FI
+# contributor: fb
+# --
+
+\textit{${1:TEXT}}$0

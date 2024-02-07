@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Fonttype_Bold
+# key:         FB
+# contributor: fb
+# --
+
+\textbf{$1}$0

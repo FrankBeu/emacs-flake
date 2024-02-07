@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Fonttype_Caps
+# key:         FC
+# contributor: fb
+# --
+
+\textsc{${1:TEXT}}$0

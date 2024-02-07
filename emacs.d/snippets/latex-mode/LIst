@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        LIst
+# key:         LI
+# contributor: fb
+# --
+
+\begin{itemize}
+   \item{${1:ITEM}}
+   $0
+\end{itemize}

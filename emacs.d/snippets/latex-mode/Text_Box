@@ -1,10 +1,10 @@
 # -*- mode: snippet -*-
-# name:        TextBox
-# key:         tb
+# name:        Text_Box
+# key:         TB
 # contributor: fb
 # --
 
-%%% todo add automatically
+%%% TODO add automatically
 %%% to preamble
 \usepackage[absolute,overlay]{textpos}   %%% textboxes
 

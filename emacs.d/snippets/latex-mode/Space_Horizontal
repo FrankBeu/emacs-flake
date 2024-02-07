@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Space_Horizontal
+# key:         SH
+# contributor: fb
+# --
+
+\hspace{${1:AMOUNT}mm}
+
+$0

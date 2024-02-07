@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name:        ITem
+# key:         IT
+# contributor: fb
+# --
+
+\item{${1:ITEM}}
+$0

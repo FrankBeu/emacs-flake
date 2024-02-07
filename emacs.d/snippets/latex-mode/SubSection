@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name:        SubSection
+# key:         SS
+# contributor: fb
+# --
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{${1:SECTION-TITLE}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+$0

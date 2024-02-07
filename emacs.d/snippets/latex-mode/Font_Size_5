@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Font_Size_5
+# key:         FS5
+# contributor: fb
+# --
+
+\Huge{$1}$0

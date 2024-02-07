@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name:        FRame
+# key:         FR
+# contributor: fb
+# --
+
+\begin{frame}[fragile]
+\frametitle<presentation>{${1:TITLE}}
+
+\mode<article>{
+\includethumb
+}
+
+\mode
+<presentation>
+$0
+
+\mode
+<article>
+
+\mode
+<all>
+
+\end{frame}
+\newpage

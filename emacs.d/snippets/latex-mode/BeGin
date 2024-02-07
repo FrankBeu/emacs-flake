@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        BeGin
+# key:         BG
+# contributor: fb
+# --
+
+\begin{$1}
+  $0
+\end{$1}

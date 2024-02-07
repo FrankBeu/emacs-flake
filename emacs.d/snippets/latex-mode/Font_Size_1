@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Font_Size_1
+# key:         FS1
+# contributor: fb
+# --
+
+\large{$1}$0

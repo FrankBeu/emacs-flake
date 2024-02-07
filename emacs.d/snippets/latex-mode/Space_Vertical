@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name:        Space_Vertical
+# key:         SV
+# contributor: fb
+# --
+
+\vspace{${1:AMOUNT}mm}
+
+$0

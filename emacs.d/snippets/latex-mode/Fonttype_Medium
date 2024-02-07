@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Fonttype_Medium
+# key:         FM
+# contributor: fb
+# --
+
+\textmd{${1:TEXT}}$0

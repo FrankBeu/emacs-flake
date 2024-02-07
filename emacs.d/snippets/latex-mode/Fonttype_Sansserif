@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Fonttype_Sansserif
+# key:         FS
+# contributor: fb
+# --
+
+\textsf{${1:TEXT}}$0

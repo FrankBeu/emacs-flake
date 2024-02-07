@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Font_3_Size
+# key:         F3S
+# contributor: fb
+# --
+
+\scriptsize{$1}$0

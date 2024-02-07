@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Font_2_Size
+# key:         F2S
+# contributor: fb
+# --
+
+\footnotesize{$1}$0

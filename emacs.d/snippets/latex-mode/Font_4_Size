@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        Font_4_Size
+# key:         F4S
+# contributor: fb
+# --
+
+\tiny{$1}$0
