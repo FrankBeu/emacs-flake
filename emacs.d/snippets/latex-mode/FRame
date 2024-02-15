@@ -2,11 +2,11 @@
 # name:        FRame
 # key:         FR
 # contributor: fb
+# expand-env: ((yas-indent-line 'fixed))
 # --
 
 \begin{frame}[fragile]
 \frametitle<presentation>{${1:TITLE}}
-
 \mode<article>{
 \includethumb
 }

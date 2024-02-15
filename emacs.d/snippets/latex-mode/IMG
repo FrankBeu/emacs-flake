@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name:        IMG
+# key:         IMG
+# contributor: fb
+# --
+
+\begin{figure}[htb!]
+ \begin{center}
+   \includegraphics[height=0.7\textheight]{images/${1:PATH-TO-IMAGE}}
+ \end{center}
+%  \caption{}
+%  \label{fig:tux}
+\end{figure}
+\tiny{Quelle: \url{${2:URL}}, CC-by-SA}
+$0

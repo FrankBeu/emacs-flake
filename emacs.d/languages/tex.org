@@ -42,7 +42,7 @@
            (LaTeX-mode . fb*default-company-backends-h)
            )
     :config (setq
-             max-lisp-eval-depth 2000
+             max-lisp-eval-depth 5000
              lsp-latex-forward-search-executable "zathura"
              lsp-latex-forward-search-args '("--synctex-forward" "%l:1:%f" "%p")
              )

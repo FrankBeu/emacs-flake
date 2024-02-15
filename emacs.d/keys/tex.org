@@ -1,0 +1,19 @@
+* tex-keybindings
+** marker
+#+begin_src elisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; rust-keybindings
+  ;;;;
+  ;;
+#+end_src
+** INFO
+** tex
+*** local-leader
+#+begin_src elisp
+  (fb/local-leader-key
+    :keymaps 'LaTeX-mode-map
+    :states  '(normal visual insert)
+
+    "e"      '(                                                   :which-key "environment"      :ignore t)
+    "ec"     '(LaTeX-close-environment                            :which-key "Environment Close"         )
+    )
+#+end_src

@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name:        URL
+# key:         URL
+# contributor: fb
+# expand-env: ((yas-indent-line 'fixed))
+# --
+\url{${1:URL}}$0

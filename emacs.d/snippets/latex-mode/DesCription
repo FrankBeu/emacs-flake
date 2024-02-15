@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name:        DesCription
+# key:         DC
+# contributor: fb
+# expand-env: ((yas-indent-line 'fixed))
+# --
+\begin{description}
+\item [${1:TITLE}:]~\newline
+\begin{itemize}
+\item{${2:ITEM}}
+$0
+\end{itemize}
+\end{description}
