@@ -2,7 +2,8 @@
 ### config and pkgs have to be provided by the consumer;
 { config, pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [
+  # environment.systemPackages = with pkgs; [
+  home.packages = with pkgs; [
     ###
     ##
     # ** misc
@@ -35,15 +36,16 @@
 
     jdt-language-server                             ### https://github.com/eclipse/eclipse.jdt.ls
 
-    nodePackages.vscode-css-languageserver-bin      ### https://github.com/vscode-langservers/vscode-css-languageserver-bin#readme  ### TODO
+    vscode-langservers-extracted                    ### https://github.com/hrsh7th/vscode-langservers-extracted
+    #TODO nodePackages.vscode-css-languageserver-bin      ### https://github.com/vscode-langservers/vscode-css-languageserver-bin#readme  ### TODO
 
-    nodePackages.vscode-html-languageserver-bin     ### https://github.com/vscode-langservers/vscode-html-languageserver-bin#readme ### TODO
+    #TODO nodePackages.vscode-html-languageserver-bin     ### https://github.com/vscode-langservers/vscode-html-languageserver-bin#readme ### TODO
 
-    nodePackages.vscode-json-languageserver
+    #TODO nodePackages.vscode-json-languageserver
 
     nodePackages.yaml-language-server               ### https://github.com/redhat-developer/yaml-language-server
 
-    # python39Packages.python-language-server       ### https://github.com/palantir/python-language-server
+    # python3Packages.python-language-server        ### https://github.com/palantir/python-language-server
     # python-language-server                        ### https://github.com/microsoft/python-language-server
 
     texlab                                          ### https://github.com/latex-lsp/texlab
@@ -53,21 +55,22 @@
     # ***  pyright
     #      goes only to stub instead of implementation
     #
-    nodePackages.pyright                          ### https://github.com/microsoft/pyright installes currently pyright 1.1.235
+    # TODO nodePackages.pyright                          ### https://github.com/microsoft/pyright installes currently pyright 1.1.235
+    pyright                                        ### https://github.com/microsoft/pyright installes currently pyright 1.1.235
 
     ###
     ##
     # ***  python-lsp-server
     #
-    python39Packages.python-lsp-server              ### https://github.com/python-lsp/python-lsp-server
-    python39Packages.python-lsp-black               ### https://github.com/python-lsp/python-lsp-black                              ### fork from rupert
-    # # python39Packages.pyls-black                 ### https://github.com/rupert/pyls-black                                        ### ALTERNATIVE
-    python39Packages.pyls-isort                     ### https://github.com/paradoxxxzero/pyls-isort
-    python39Packages.pyls-flake8                    ### https://github.com/emanspeaks/pyls-flake8
-    # python39Packages.pyls-mypy                    ### https://github.com/Richardk2n/pylsp-mypy                 NOTWORKING         ### static type checking
+    python3Packages.python-lsp-server              ### https://github.com/python-lsp/python-lsp-server
+    python3Packages.python-lsp-black               ### https://github.com/python-lsp/python-lsp-black                              ### fork from rupert
+    # # python3Packages.pyls-black                 ### https://github.com/rupert/pyls-black                                        ### ALTERNATIVE
+    python3Packages.pyls-isort                     ### https://github.com/paradoxxxzero/pyls-isort
+    python3Packages.pyls-flake8                    ### https://github.com/emanspeaks/pyls-flake8
+    # python3Packages.pyls-mypy                    ### https://github.com/Richardk2n/pylsp-mypy                 NOTWORKING         ### static type checking
 
 
-    rnix-lsp                                        ### https://github.com/nix-community/rnix-lsp
+    # rnix-lsp                                        ### https://github.com/nix-community/rnix-lsp
     nil                                             ### https://github.com/oxalica/nil/tree/main
     nixpkgs-fmt                                     ### https://nix-community.github.io/nixpkgs-fmt/
 
@@ -93,8 +96,8 @@
 
     rust-script
     plantuml
-    # python39Packages.numpy                          ###
-    # python39Packages.matplotlib                     ###
+    # python3Packages.numpy                           ###
+    # python3Packages.matplotlib                      ###
     # phantomjs                                       ### TODO used for what - phantomjs is deprecated -write tests for all functionality
     graphviz
 
@@ -123,12 +126,9 @@
     # # nodePackages.revealjs                           ### TODO:new not available any more
     # nodePackages."reveal.js"                           ### TODO:new not available any more
     # reveal.js                           ### TODO:new not available any more
-    python39Packages.qrcode                         ### https://pypi.org/project/qrcode/
+    python3Packages.qrcode                         ### https://pypi.org/project/qrcode/
 
-  ];
-
-
-  fonts.fonts = with pkgs; [
+    ### FONTS
     emacs-all-the-icons-fonts
     fira-code
     fira-code-symbols
@@ -137,4 +137,13 @@
     roboto-mono
   ];
 
+
+  # fonts.packages = with pkgs; [
+  #   emacs-all-the-icons-fonts
+  #   fira-code
+  #   fira-code-symbols
+  #   hack-font
+  #   iosevka-bin
+  #   roboto-mono
+  # ];
 }

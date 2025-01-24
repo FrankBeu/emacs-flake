@@ -23,7 +23,7 @@
     emacsPackage       = import ./emacsPackage   { inherit self nixpkgs emacs-overlay; };
 
     localPackages      = import ./localPackages  { inherit      nixpkgs              ; };
-    systemPackages     =        ./systemPackages;
+    homePackages       =        ./homePackages;
 
   };
 }

@@ -52,9 +52,9 @@ let emacsPackage =
       ##
       # ** ELPA
       #
-      epkgs.elpaPackages.ace-window               ### https://github.com/abo-abo/ace-window
+      # epkgs.elpaPackages.ace-window               ### https://github.com/abo-abo/ace-window
       epkgs.elpaPackages.auctex                   ### ; LaTeX mode                                                                                          # TODO
-      epkgs.elpaPackages.beacon                   ### https://github.com/Malabarba/beacon                  highlight my cursor when scrolling               # TODO
+      # epkgs.elpaPackages.beacon                   ### https://github.com/Malabarba/beacon                  highlight my cursor when scrolling               # TODO
       epkgs.elpaPackages.bug-hunter               ### https://elpa.gnu.org/packages/bug-hunter.html
       epkgs.elpaPackages.dired-git-info           ### https://github.com/clemera/dired-git-info
       epkgs.elpaPackages.rainbow-mode             ### https://elpa.gnu.org/packages/rainbow-mode.html
