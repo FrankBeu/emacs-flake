@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name:        HoTel
+# key:         HT
+# contributor: fb
+# --
+#+BEGIN_EXAMPLE
+*Beschreibung:*
+$1
+
+*URL:*
+$2
+
+*Preis:*
+$3
+
+*Zeitraum:*
+${4:<VON> - <BIS>}
+(Schulung: ${5:<VON> - <BIS>})
+
+*Nächte:*
+$6
+
+*Begründung:*
+$7
+
+#+END_EXAMPLE

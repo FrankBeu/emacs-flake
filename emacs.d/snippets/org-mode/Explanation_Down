@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name:        Explanation_Down
+# key:         ED
+# contributor: fb
+# --
+
+### │ │ │ │ └─ $0
+### │ │ │ └─── 
+### │ │ └───── 
+### │ └─────── 
+### └───────── 

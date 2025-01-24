@@ -10,6 +10,6 @@
 Frank Beutelschiess:
 Aktuelle Woche: ${1:<was tut ihr diese Woche>}
 Upcoming: ${2:<KundenProjekt o. Internes Projekt, Ab wann: <Date>, erwartete Auslastung / Dauer: <in % / Tagen oder Monaten>}
-Auslastung: Kunde ${3:0}/4 ; Interne Aufgaben ${4:0}/4 ; (Vorbereitung) Training / lernen ${5:0}/4
+Auslastung: Kunde ${3:0}/4 ; Interne Aufgaben ${4:0}/4 ; ohne Aufgabe ${5:0}/4
 #+END_EXAMPLE
 $0

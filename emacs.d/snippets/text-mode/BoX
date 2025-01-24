@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name:        BoX
+# key:         BX
+# contributor: fb
+# --
+
+#+BEGIN_EXAMPLE
+┌─────────────┐
+│             │
+│             │
+│             │
+│             │
+│             │
+└─────────────┘
+#+END_EXAMPLE

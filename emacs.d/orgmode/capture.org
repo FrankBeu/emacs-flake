@@ -122,12 +122,31 @@ https://orgmode.org/manual/Template-expansion.html#Template-expansion
 #+end_src
 **** NOW
 #+begin_src elisp
-  (setq now-template '(("N" "NOW" entry (file+olp fb*noteFile "NOW") "* %i%? "))
+  (setq now-template '(
+                       ("N" "NOW")
+                       ("NN" "NOW"      entry (file+headline fb*noteFile "NOW") "* %i%?\n")
+                       ("NT" "NOW TODO" entry (file+headline fb*noteFile "NOW") "* TODO %i%?\n")
+                       )
         org-capture-templates (append org-capture-templates now-template)
         )
 #+end_src
 **** AKTUELLES
 #+begin_src elisp
+  (setq aktuelles-templates '(
+    ("A" "AKTUELL")
+    ;; ("AK" "AKTUELLES"      entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")
+    ;; ("AT" "AKTUELLES TODO" entry (file+headline fb*noteFile "AKTUELLES") "* TODO %i%?\n")
+  ))
+  (setq org-capture-templates (append org-capture-templates aktuelles-templates))
+#+end_src
+**** NOWORIG
+#+begin_src elisp :tangle no :exports none
+  (setq now-template '(("N" "NOW" entry (file+olp fb*noteFile "NOW") "* %i%? "))
+        org-capture-templates (append org-capture-templates now-template)
+        )
+#+end_src
+**** AKTUELLESORIG
+#+begin_src elisp :tangle no :exports none
   (setq aktuelles-templates '(
     ("A" "AKTUELL")
     ("AK" "AKTUELLES"      entry (file+headline fb*noteFile "AKTUELLES") "* %i%?\n")
